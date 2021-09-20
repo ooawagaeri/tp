@@ -30,6 +30,9 @@ public class PersonBuilder {
     private Remark remark;
     private Set<Tag> tags;
 
+    /**
+     * Constructs Default Person
+     */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
@@ -98,8 +101,6 @@ public class PersonBuilder {
         this.remark = new Remark(remark);
         return this;
     }
-
-
 
     public Person build() {
         return new Person(name, phone, email, address, remark, tags);
