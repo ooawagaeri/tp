@@ -36,10 +36,10 @@ applications.
 1. Ensure you have Java `11` or above installed in your Computer.
 
 2. Download the latest `MyCRM.jar` from [here](https://github.com/AY2122S1-CS2103-T14-3/tp/releases).
-   
+
 3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the 
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the
    app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -48,7 +48,7 @@ applications.
 
    * **`listContacts `** : Lists all contacts.
 
-   * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact 
+   * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
      named `John Doe` to the MyCRM Book.
 
    * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
@@ -79,11 +79,11 @@ applications.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence 
-  of the parameter will be taken.<br> 
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence
+  of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit` 
+* Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit`
   ) will be ignored.<br>
   e.g. if the command specifies `listJobs 123`, it will be interpreted as `listJobs`.
 
@@ -231,7 +231,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that 
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that
 contains the data of your previous MyCRM home folder.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -240,12 +240,12 @@ contains the data of your previous MyCRM home folder.
 
 Action              | Format, Examples
 --------------------|------------------
-**Add Job**         | 
-**List Job**        | 
+**Add Job**         |
+**List Job**        |
 **Delete Job**      |
-**Add Contact**     | 
-**List Contact**    | 
-**Delete Contact**  | 
+**Add Contact**     |
+**List Contact**    |
+**Delete Contact**  |
 **Add Product**     |
 **List Product**    |
 **Delete Product**  |
