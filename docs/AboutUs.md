@@ -18,9 +18,9 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Scheduling and Tracking
 * Responsibilities:
-    * Focus on issues.
-    * Defining, assigning, and tracking project tasks.
-    * Ensuring everyone has manageable task.
+  * Focus on issues.
+  * Defining, assigning, and tracking project tasks.
+  * Ensuring everyone has manageable task.
 
 ### Hang Zelin
 
@@ -31,6 +31,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Code Quality / Integration handler
 * Responsibilities:
-    * Pull request reviewer.
-    * Merging of pull requests.
-    * Ensure adherence to coding standards.
+  * Pull request reviewer.
+  * Merging of pull requests.
+  * Ensure adherence to coding standards.
