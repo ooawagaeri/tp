@@ -129,7 +129,7 @@ Examples:
 * `listJobs` and `listTemplates` followed by` mail j/2 t/2` constructs an email to the 2nd job’s customer with the 2nd
   email template
 
-<img src="images/ui-send-mail.jpg" width="400px">
+    <img src="images/ui-send-mail.jpg" width="600px">
 
 ### Adding mail template: `addTemplate`
 
@@ -143,7 +143,7 @@ Examples:
 * `addTemplate s/Repair Completed b/Your product has been completely repaired.`
 * `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.`
 
-<img src="images/ui-add-email-template" width="400px">
+    <img src="images/ui-add-email-template.jpg" width="600px">
 
 ### Listing all templates: `listTemplate`
 
