@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Timothy Chua
 
-<img src="images/githbub_ooawagaeri.png" width="200px">
+<img src="images/ooawagaeri.jpg" width="200px">
 
 [[github](https://github.com/ooawagaeri)]
 [[portfolio](team/ooawagaeri.md)]
