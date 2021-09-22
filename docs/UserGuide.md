@@ -27,6 +27,10 @@ applications.
   * Deleting mail template: `deleteTemplate`
   * Retrieve previous command
   * Exiting the program : `exit`
+  * Pinning Jobs `[coming in v1.3]`
+  * Customising User Interfaces `[coming in v1.3]`
+  * Hiding Contacts `[coming in v1.3]`
+  * Hiding Jobs `[coming in v1.3]`
 * Command summary
 
 --------------------------------------------------------------------------------------------------------------------
@@ -109,15 +113,80 @@ applications.
 
 ### Send mail: `mail`
 
+Constructs an email to send to a customer of a specified job.
+
+Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
+
+* Constructs a new email with template content and contact details of the job at the specified `JOB_INDEX` and
+  `TEMPLATE_INDEX`.
+* `JOB_INDEX` refers to the index of the job shown in the repair job listing.
+* `JOB_INDEX` must be a positive integer (1,2,3…).
+* `TEMPLATE_INDEX` refers to the index of the template as shown in the template listing.
+* `TEMPLATE_INDEX` must be a positive integer (1,2,3…).
+
+Examples:
+
+* `listJobs` and `listTemplates` followed by` mail j/2 t/2` constructs an email to the 2nd job’s customer with the 2nd
+  email template
+
+<img src="images/ui-send-mail.jpg" width="400px">
+
 ### Adding mail template: `addTemplate`
+
+
+Adds a new email template to the CRM.
+
+Format: `addTemplate s/SUBJECT b/BODY`
+
+Examples:
+
+* `addTemplate s/Repair Completed b/Your product has been completely repaired.`
+* `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.`
+
+<img src="images/ui-add-email-template" width="400px">
 
 ### Listing all templates: `listTemplate`
 
+Shows a list of all templates in the CRM.
+
+Format: `listTemplates`
+
 ### Deleting mail template: `deleteTemplate`
+
+Deletes the specified template from the CRM.
+
+Format: `deleteTemplate INDEX`
+
+Deletes the template at the specified `INDEX`
+* `INDEX` refers to the index of the template as shown in the template listing.
+* `INDEX` must be a positive integer(1,2,3…).
+
+Examples:
+* listTemplate followed by deleteTemplate 2 deletes the 2nd email template in the CRM.
 
 ### Retrieve previous command
 
 ### Exiting the program : `exit`
+
+End MyCRM and exit the programme.
+
+Format: `exit`
+
+### Pinning Jobs `[coming in v1.3]`
+
+_Details coming soon ..._
+
+### Customising User Interfaces `[coming in v1.3]`
+
+_Details coming soon ..._
+
+### Hiding Contacts `[coming in v1.3]`
+
+_Details coming soon ..._
+
+### Hiding Jobs `[coming in v1.3]`
+
+_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -249,8 +318,8 @@ Action              | Format, Examples
 **Add Product**     |
 **List Product**    |
 **Delete Product**  |
-**Mail**            |
-**Add Template**    |
-**List Templates**  |
-**Delete Template** |
-**Exit**            |
+**Mail**            | `mail JOB_INDEX TEMPLATE_INDEX`<br>e.g., `mail 3 1`
+**Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress d/Your product is current;y being repaired`
+**List Templates**  | `listTemplates`
+**Delete Template** | `deleteTemplate INDEX`<br>e.g., `delete 4`
+**Exit**            | `exit`
