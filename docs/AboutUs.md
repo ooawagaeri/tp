@@ -48,3 +48,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
   * Update milestones according to CS2103 website.
   * Ensure project deliverables are done on time and in the right format.
   * Chase people if need be.
+
+### Fan Tianhao
+
+<img src="images\ttraveller7.png" width="200px">
+
+[[github](https://github.com/TTraveller7)]
+[[portfolio](team/ttraveller7.md)]
+
+* Role: Documents
+* Responsibilities:
+  * Ensure quality of various project documents
+  * UI mockup and design
