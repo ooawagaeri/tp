@@ -24,7 +24,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Hang Zelin
 
-<img src="images\hangzelin.png" width="200px" height="250px">
+<img src="images\hangzelin.png" width="200px">
 
 [[github](https://github.com/hangzelin)]
 [[portfolio](team/hangzelin.md)]
