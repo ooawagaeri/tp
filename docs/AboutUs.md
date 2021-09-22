@@ -34,3 +34,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
   * Pull request reviewer.
   * Merging of pull requests.
   * Ensure adherence to coding standards.
+
+### Zhang Yubin
+
+<img src="images\Kimowarui.png" width="200px">
+
+[[github](https://github.com/Kimowarui)]
+[[portfolio](team/zhangyubin.md)]
+
+* Role: Deliverables and Deadlines
+* Responsibilities:
+  * Focus on milestones page.
+  * Update milestones according to CS2103 website.
+  * Ensure project deliverables are done on time and in the right format.
+  * Chase people if need be.
