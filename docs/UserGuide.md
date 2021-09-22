@@ -3,10 +3,31 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+# User Guide
 
-* Table of Contents
-{:toc}
+MyCRM is a **desktop application for managing client contacts, repair job statuses, and product information that has
+been optimised for use via a Command Line Interface (CLI)** while maintaining the benefits of a Graphical User Interface
+(GUI). If you type quickly, MyCRM can complete customer relationship management tasks faster than traditional GUI
+applications.
+
+* Quick start
+* Features
+  * Adding a job: `addJob`
+  * Listing all jobs: `listJob`
+  * Deleting a job: `deleteJob`
+  * Adding a contact: `addContact`
+  * Listing all contacts: `listContact`
+  * Deleting a contact: `deleteContact`
+  * Adding a product: `addProduct`
+  * Listing all products: `listProduct`
+  * Deleting a product: `deleteProduct`
+  * Send mail: `mail`
+  * Adding mail template: `addTemplate`
+  * Listing all templates: `listTemplate`
+  * Deleting mail template: `deleteTemplate`
+  * Retrieve previous command
+  * Exiting the program : `exit`
+* Command summary
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,27 +35,29 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `MyCRM.jar` from [here](https://github.com/AY2122S1-CS2103-T14-3/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the
+   app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`listContacts `** : Lists all contacts.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
+     named `John Doe` to the MyCRM Book.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
 
    * **`clear`** : Deletes all contacts.
 
    * **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -56,22 +79,55 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence
+  of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit`
+  ) will be ignored.<br>
+  e.g. if the command specifies `listJobs 123`, it will be interpreted as `listJobs`.
 
 </div>
 
+### Adding a job: `addJob`
+
+### Listing all jobs: `listJob`
+
+### Deleting a job: `deleteJob`
+
+### Adding a contact: `addContact`
+
+### Listing all contacts: `listContact`
+
+### Deleting a contact: `deleteContact`
+
+### Adding a product: `addProduct`
+
+### Listing all products: `listProduct`
+
+### Deleting a product: `deleteProduct`
+
+### Send mail: `mail`
+
+### Adding mail template: `addTemplate`
+
+### Listing all templates: `listTemplate`
+
+### Deleting mail template: `deleteTemplate`
+
+### Retrieve previous command
+
+### Exiting the program : `exit`
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
 Format: `help`
-
 
 ### Adding a person: `add`
 
@@ -175,18 +231,26 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that
+contains the data of your previous MyCRM home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+Action              | Format, Examples
+--------------------|------------------
+**Add Job**         |
+**List Job**        |
+**Delete Job**      |
+**Add Contact**     |
+**List Contact**    |
+**Delete Contact**  |
+**Add Product**     |
+**List Product**    |
+**Delete Product**  |
+**Mail**            |
+**Add Template**    |
+**List Templates**  |
+**Delete Template** |
+**Exit**            |
