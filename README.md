@@ -10,7 +10,7 @@ statuses, and product information. <br>
   * Centralize on-going jobs and client information in a single application.
   * Integrate a job status tracking system.
   * Integrate a client notification system.
-  * Generate monthly reports and statistics automatically.
+  * Generate monthly reports and statistics automatically.<br>
 * It has been optimised for use via a Command Line Interface (CLI) while maintaining the benefits of a Graphical User 
   Interface (GUI).
 
@@ -18,7 +18,6 @@ statuses, and product information. <br>
 * It is an ongoing software project with regular updates and constantly improving features.
 * It is written in OOP fashion and provides a reasonably well-written code base with around 6k LoC. 
 * It comes with a reasonable level of user and developer documentation.
-
 * For the detailed documentation of this project, see the **[MyCRM Product Website](https://ay2122s1-cs2103-t14-3.github.io/tp/)**.
 
 ### Acknowledgment
