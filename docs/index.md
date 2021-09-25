@@ -1,19 +1,21 @@
 ---
 layout: page
-title: AddressBook Level-3
+title: MyCRM
 ---
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+[![CI Status](https://github.com/AY2122S1-CS2103-T14-3/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103-T14-3/tp/actions)
 [![codecov](https://codecov.io/gh/AY2122S1-CS2103-T14-3/tp/branch/master/graph/badge.svg?token=WAM073Y0Q0)](https://codecov.io/gh/AY2122S1-CS2103-T14-3/tp)
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**MyCRM is a desktop application for managing client contacts, repair job statuses, and product information.** It has been optimised for use via a Command Line Interface (CLI) while maintaining the benefits of a Graphical User Interface (GUI). 
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+**If you type quickly**, MyCRM can complete customer relationship management tasks faster than traditional GUI applications.
+
+* If you are interested in using MyCRM, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
+* If you are interested about developing MyCRM, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**
 
-* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5), [Mailto](https://mailtolink.me/)
