@@ -11,4 +11,4 @@
   * It comes with a **reasonable level of user and developer documentation**.
 * It is named `My Customer Relationship Manager` (`MyCRM` for short). 
 * For the detailed documentation of this project, see the **[MyCRM Product Website](https://se-education.org/addressbook-level3)**.
-* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
