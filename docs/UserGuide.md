@@ -9,7 +9,7 @@ been optimised for use via a Command Line Interface (CLI)** while maintaining th
 applications.
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -144,11 +144,25 @@ Examples:
 
 ### Retrieve previous command
 
+### Viewing user guide: `help`
+
+Shows a message explaining how to access the help page.
+
+Format: `help`
+
 ### Exiting the program : `exit`
 
 End MyCRM and exit the programme.
 
 Format: `exit`
+
+### Loading JSON data: `[coming in v1.3]`
+
+_Details coming soon ..._
+
+### Purging JSON data: `[coming in v1.3]`
+
+_Details coming soon ..._
 
 ### Pinning Jobs `[coming in v1.3]`
 
