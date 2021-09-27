@@ -2,7 +2,8 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
+
+* Table of Contents 
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -257,42 +258,63 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* is a tech-savvy computer repair shop technician.
+* owns a business repairing computers and laptops, actively servicing multiple clients and answering their queries.
+* has a need to manage a wide range of models and deals with both hardware and software issues.
+* has multiple repair-phases which have to be updated to clients.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
 
+* manages clients and jobs faster than a typical mouse/GUI driven app
+* centralizes jobs and client information
+* integrates both status tracking and client notification/mailing
+* automates monthly reports and statistics generation
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​             | I want to …​                                           | So that I can…​                                                    |
+| -------- | ---------------------- | --------------------------------------------------------- | --------------------------------------------------------------------- |
+| `*`      | potential user         | see the app populated with sample data                    | easily see how the app will look like when it is in use               |
+| `*`      | user ready to start    | purge all current data                                    | Get rid of sample data and begin tinkering / exploring the app        |
+| `* *`    | new user               | view a guide                                              | familiarize with the text-input commands                              |
+| `* * *`  | user                   | send out emails                                           | easily notify clients that their repair job has been completed        |
+| `* * *`  | user                   | create new jobs                                           | begin tracking a new repair job                                       |
+| `* * *`  | user                   | edit existing jobs                                        | amend details pertaining to a job                                     |
+| `* * *`  | user                   | create new contacts                                       | notify a client of his/her job status (like completion, etc.)         |
+| `* * *`  | user                   | edit existing contacts                                    | change information about a client                                     |
+| `* * *`  | user                   | link an existing contact to a job                         | reuse the contact information of a returning client for a new job     |
+| `* * *`  | user                   | create new products                                       | refer to the relevant details of how to repair a specific device      |
+| `* * *`  | user                   | edit existing products                                    | change repair details or method about a product                       |
+| `* * *`  | user                   | link an existing product to a job                         | reuse the product information of  a previous for a new job            |
+| `* * *`  | user                   | search for jobs using job status, service tag, client name or product name | find the jobs that match the specification           |
+| `* *`    | regular user           | print out monthly job records and statistics              | learn about the month’s performance and analyze how to improve        |
+| `* *`    | regular user           | print out next month’s scheduled / on-going job           | plan ahead resources for the coming month                             |
+| `*`      | regular user           | hide unused job fields                                    | not be distracted by empty / irrelevant fields.                       |
+| `*`      | regular user           | hide unused contacts                                      | not be distracted by irrelevant clients.                              |
+| `*`      | regular user           | customize the app’s user interface (like font and colour) | make the interface look more stylish and pleasant for the eyes        |
+| `*`      | regular user           | pin jobs I am working on / are urgent                     | easily check and view the job’s details                               |
+| `* *`    | regular user           | export my monthly records and statistics                  | store my record externally for future reference                       |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `MyCRM` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC10 - Sending an email**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to send an email.
+2. MyCRM shows a list of jobs.
+3. User requests to email a specific job in the list.
+4. MyCRM shows a list of email templates.
+5. User requests to copy a specific email template.
+6. MyCRM generates mailto link of the job and template
 
     Use case ends.
 
@@ -304,24 +326,151 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+  
+* 4a. The list is empty.
+
+  Use case ends.
+
+* 5a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 4.
+    
+**Use case: UC11 - Adding an email template**
+
+**MSS**
+
+1. User requests to add an email template with specific subject and body.
+2. MyCRM creates email template.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The given subject is empty.
+
+    * 1a1. MyCRM shows an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The given body is empty.
+
+    * 1b1. MyCRM shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC12 - Listing all email template**
+
+**MSS**
+
+1. User requests to view all email template.
+2. MyCRM shows a list of email template.
+
+   Use case ends.
+
+**Use case: UC13 - Deleting an email template**
+
+**MSS**
+
+1. User requests to delete an email template.
+2. MyCRM shows a list of email template.
+3. User requests to delete a specific template in the list.
+4. MyCRM shows deletes the template.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC14 - Viewing user guide**
+
+**MSS**
+
+1. User requests to view the user guide.
+2. MyCRM shows a popup with the GitHub user guide URL.
+
+   Use case ends.
+
+**Use case: UC15 - Exiting the program**
+
+**MSS**
+
+1. User requests to exit MyCRM.
+2. MyCRM shows a goodbye message.
+
+   Use case ends.
+
+**Use case: UC16 - Loading from JSON file**
+
+**MSS**
+
+1. User request to load data from a specific JSON file.
+2. MyCRM loads data from JSON file data into job, contact, product list.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The JSON file does not exist.
+
+    * 1a1. MyCRM shows an error message.
+
+      Use case ends.
+
+* 1b. The JSON file's content fails to parse.
+
+    * 1b1. MyCRM shows an error message.
+
+      Use case ends.
+
+**Use case: UC17 - Purging MyCRM data**
+
+**Precondition:** Data in MyCRM (job, contact and product list) is not empty. 
+
+**MSS**
+
+1. User request to purge data.
+2. MyCRM removes data from job, contact, product list.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+   should be able to accomplish most of the tasks faster using commands than using the mouse. 
+4. Should be designed for a single-user.
+5. Should work without an internet connection.
+6. The app should be accessible via the downloaded JAR file without any other installations needed.
+7. Should be quick and responsive.
+8. Should be able to maintain over 100 entries.
+9. Should not take up much computer storage. 
+10. Should work on both 32-bit and 64-bit environments.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, OS-X.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **Repair Job**: A customer request to restore machinery, equipment, or other products to working order.
+* **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
+* **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
+  users to send an email.
 
 --------------------------------------------------------------------------------------------------------------------
 
