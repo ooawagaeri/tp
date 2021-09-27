@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.mail.Template;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Template> filteredTemplates;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTemplates = new FilteredList<>(this.addressBook.getTemplatesList());
     }
 
     public ModelManager() {
@@ -95,14 +98,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasTemplate(Template template) {
+        requireNonNull(template);
+        return addressBook.hasTemplate(template);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+    }
+
+    @Override
+    public void deleteTemplate(Template target) {
+        addressBook.removeTemplate(target);
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addTemplate(Template template) {
+        addressBook.addTemplate(template);
+        updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
     }
 
     @Override
@@ -127,6 +147,12 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredTemplateList(Predicate<Template> predicate) {
+        requireNonNull(predicate);
+        filteredTemplates.setPredicate(predicate);
     }
 
     @Override

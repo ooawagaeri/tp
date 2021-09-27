@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.mail.Template;
+import seedu.address.model.mail.UniqueTemplateList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -25,6 +27,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+    }
+
+    private final UniqueTemplateList templates;
+    {
+        templates = new UniqueTemplateList();
     }
 
     public AddressBook() {}
@@ -67,11 +74,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a template with the same identity as {@code template} exists in the address book.
+     */
+    public boolean hasTemplate(Template template) {
+        requireNonNull(template);
+        return templates.contains(template);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a template to the address book.
+     * The template must not already exist in the address book.
+     */
+    public void addTemplate(Template t) {
+        templates.add(t);
     }
 
     /**
@@ -93,6 +116,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTemplate(Template key) {
+        templates.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -104,6 +135,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    // @Override
+    public ObservableList<Template> getTemplatesList() {
+        return templates.asUnmodifiableObservableList();
     }
 
     @Override

@@ -121,4 +121,11 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code string} and returns it. Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseString(String line) throws ParseException {
+        return line.trim();
+    }
 }

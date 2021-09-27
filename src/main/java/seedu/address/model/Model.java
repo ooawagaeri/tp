@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.mail.Template;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,6 +14,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -58,16 +60,34 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a template with the same identity as {@code template} exists in the address book.
+     */
+    boolean hasTemplate(Template toAdd);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
 
     /**
+     * Deletes the given template.
+     * The template must exist in the address book.
+     */
+    void deleteTemplate(Template target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given template.
+     * {@code template} must not already exist in the address book.
+     */
+    void addTemplate(Template template);
+
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -84,4 +104,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTemplateList(Predicate<Template> predicate);
 }
