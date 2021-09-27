@@ -3,8 +3,8 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
+* Table of Contents 
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -309,12 +309,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to send an email
-2. MyCRM shows a list of jobs
-3. User requests to email a specific job in the list
-4. MyCRM shows a list of email templates
-5. User requests to copy a specific email template
-6. MyCRM generates the email of the job and template 
+1. User requests to send an email.
+2. MyCRM shows a list of jobs.
+3. User requests to email a specific job in the list.
+4. MyCRM shows a list of email templates.
+5. User requests to copy a specific email template.
+6. MyCRM generates mailto link of the job and template
 
     Use case ends.
 
@@ -344,20 +344,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add an email template with specific subject and body
-2. MyCRM creates email template
+1. User requests to add an email template with specific subject and body.
+2. MyCRM creates email template.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. The given subject is empty
+* 1a. The given subject is empty.
 
     * 1a1. MyCRM shows an error message.
 
       Use case resumes at step 1.
 
-* 1b. The given body is empty
+* 1b. The given body is empty.
 
     * 1b1. MyCRM shows an error message.
 
@@ -367,8 +367,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to view all email template
-2. MyCRM shows a list of email template
+1. User requests to view all email template.
+2. MyCRM shows a list of email template.
 
    Use case ends.
 
@@ -376,10 +376,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to delete an email template
-2. MyCRM shows a list of email template
-3. User requests to delete a specific template in the list
-4. MyCRM shows deletes the template
+1. User requests to delete an email template.
+2. MyCRM shows a list of email template.
+3. User requests to delete a specific template in the list.
+4. MyCRM shows deletes the template.
 
    Use case ends.
 
@@ -394,6 +394,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: UC14 - Viewing user guide**
+
+**MSS**
+
+1. User requests to view the user guide.
+2. MyCRM shows a popup with the GitHub user guide URL.
+
+   Use case ends.
+
+**Use case: UC15 - Exiting the program**
+
+**MSS**
+
+1. User requests to exit MyCRM.
+2. MyCRM shows a goodbye message.
+
+   Use case ends.
+
+**Use case: UC16 - Loading from JSON file**
+
+**MSS**
+
+1. User request to load data from a specific JSON file.
+2. MyCRM loads data from JSON file data into job, contact, product list.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The JSON file does not exist.
+
+    * 1a1. MyCRM shows an error message.
+
+      Use case ends.
+
+* 1b. The JSON file's content fails to parse.
+
+    * 1b1. MyCRM shows an error message.
+
+      Use case ends.
+
+**Use case: UC17 - Purging MyCRM data**
+
+**Precondition:** Data in MyCRM (job, contact and product list) is not empty. 
+
+**MSS**
+
+1. User request to purge data.
+2. MyCRM removes data from job, contact, product list.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
@@ -413,9 +465,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, OS-X.
+* **Private contact detail**: A contact detail that is not meant to be shared with others.
 * **Repair Job**: A customer request to restore machinery, equipment, or other products to working order.
+* **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
+* **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
+  users to send an email.
 
 --------------------------------------------------------------------------------------------------------------------
 
