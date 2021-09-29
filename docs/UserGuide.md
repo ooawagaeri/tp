@@ -79,9 +79,36 @@ applications.
 
 ### Adding a contact: `addContact`
 
+Add a new contact info of a client into the CRM.
+
+Format: `addContact n/CLIENT_NAME n/CONTACT_NUMBER a/ADDRESS e/EMAIL`
+
+* Creates a new contact info of a client
+* In the case there happen to be multiple clients with the same name, a list of client names will be shown for the user to select from.
+* Contact number, Address, Email are optional, but must have one of them to make it realistic to get access to the client.
+
+Examples:
+
+* `addContact n/Frisk n/93487234 a/Laptop Factory Outlet Bugis Junction e/Frisk@gmail.com`
+* `addContact n/Sans n/83921823 a/Maxwell Chambers 32 Maxwell Rd e/Sans@gmail.com`
+
+ <img src="images/ui-add-contact.jpg" width="600px">
+
 ### Listing all contacts: `listContact`
 
+Show a list of all contact info in the CRM.
+
+Format:  `listContact` 
+
 ### Deleting a contact: `deleteContact`
+
+Deletes the specified contact from the CRM
+
+Format: deleteContact 4
+
+* Deletes the contact at the specified `INDEX`
+* `INDEX` refers to the index of the contact as shown in the contact listing
+* `INDEX` must be a positive integer(1,2,3…)
 
 ### Adding a product: `addProduct`
 
