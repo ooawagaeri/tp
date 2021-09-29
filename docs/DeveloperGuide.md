@@ -305,6 +305,145 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `MyCRM` and the **Actor** is the `user`, unless specified otherwise)
 
+**Use case: UC05 - Adding a contact**
+
+**MSS**
+
+1. User requests to add a contact with specific info of name, contact number, address, and email.
+2. MyCRM stores the new contact in the contact list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given contact name is empty.
+  
+  * 1a1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+
+* 1b. Either the given contact number, address or email is empty.
+  
+  * 1b1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+  
+* 1c. The given contact name already exists.
+  
+  * 1c1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+  
+**Use case: UC06 - Editing a contact**
+
+**MSS**
+
+1. User requests to edit a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to edit a specific contact's info with specific index and type of the field in contact.
+4. MyCRM updates this specifc contact's info.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+* 3b. The given edit field type is invaild.
+
+    * 3b1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+**Use case: UC07 - Deleting a contact**
+
+**MSS**
+
+1. User requests to delete a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to delete a specific contact
+4. MyCRM deletes the contact.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC08 - Linking a contact to a job**
+
+**MSS**
+
+1. User requests to link a contact to a job.
+2. MyCRM shows a list of contacts.
+3. User requests to use a specifc contact to link a job.
+4. MyCRM shows a list of jobs.
+5. User requests to link to a specific job in the list.
+6. MyCRM links the contact to this job.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+* 4a. The list is empty.
+
+  Use case ends.
+
+* 5a. The given index is invalid.
+
+    * 5a1. MyCRM shows an error message.
+
+      Use case resumes at step 4
+
+**Use case: UC09 - Hiding a contact**
+
+**MSS**
+
+1. User requests to hide a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to hide a specific contact in the list.
+4. MyCRM tags the contact as hidden.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
 **Use case: UC10 - Sending an email**
 
 **MSS**
@@ -468,6 +607,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
 * **Private contact detail**: A contact detail that is not meant to be shared with others.
 * **Repair Job**: A customer request to restore machinery, equipment, or other products to working order.
+* **Job Status**: A progress bar showing the customer's job's degree of completion.
 * **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
 * **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
   users to send an email.
