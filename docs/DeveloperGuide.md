@@ -586,21 +586,104 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Use case: UC18 - Add Product**
+
+**MSS**
+
+1. User requests to add a new product.
+2. MyCRM creates a new product and shows a message with info of the product.
+
+    Use case ends.
+   
+**Extensions** 
+
+* 2a. The product name already exists.
+    * MyCRM shows an error message.
+    
+    Use case ends.
+  
+
+* 2b. The product name is empty.
+    * MyCRM shows an error message.
+    
+    Use case ends.
+
+**Use case: UC19 - List Products**
+
+**MSS**
+
+1. User requests to list products.
+2. MyCRM shows a list of products.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The list of products is empty.
+
+  Use case ends.
+
+**Use case: UC20: Delete a product**
+
+**MSS**
+
+1. User <u>requests to list products (UC19)</u>.
+2. User requests to delete a specific product in the list.
+3. MyCRM deletes the product.
+    
+    Use case ends.
+
+**Extensions**
+
+
+* 2a. The given index is invalid.
+    * 2a1. MyCRM shows an error message.
+    
+    Use case resumes at <u>step 2 in UC19</u>.
+
+**Use case: UC 21: Edit a product.**
+
+**MSS**
+
+1. User <u>requests to list products (UC19)</u>.
+2. User requests to edit a specific product in the list.
+3. MyCRM edits the product and shows a message with edited information of the product.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. MyCRM shows an error message.
+
+  Use case resumes at <u>step 2 in UC19</u>.
+
+
+* 2b. User requests to edit the name of the product.
+    * 2b1. The product name already exists
+    * 2b2. MyCRM shows an error message.
+
+  Use case resumes at <u>step 2 in UC19</u>.
+
+
+* 2c. User requests to edit the name of the product.
+    * 2c1. The product name is unique.
+    
+    Use case resumes at step 3.
+    
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
-   should be able to accomplish most of the tasks faster using commands than using the mouse. 
-4. Should be designed for a single-user.
-5. Should work without an internet connection.
-6. The app should be accessible via the downloaded JAR file without any other installations needed.
-7. Should be quick and responsive.
-8. Should be able to maintain over 100 entries.
-9. Should not take up much computer storage. 
-10. Should work on both 32-bit and 64-bit environments.
+2. Should be able to hold up to 100 _entries_ without a noticeable sluggishness in performance for typical usage.
+3. Should be designed for a single-user.
+4. Should work without an internet connection.
+5. Should be accessible via the downloaded JAR file without any other installations needed.
+6. Should take up less than 50MB computer storage.
+    <!--- This is an arbitrary number. Can be updated later. --> 
+7. Should work on both 32-bit and 64-bit environments.
+8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-*{More to be added}*
+<!--- More to be added -->
 
 ### Glossary
 
@@ -611,6 +694,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
 * **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
   users to send an email.
+* **Entry**: Contact/job/product.
 
 --------------------------------------------------------------------------------------------------------------------
 
