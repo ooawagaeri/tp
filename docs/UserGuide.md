@@ -142,7 +142,29 @@ Deletes the template at the specified `INDEX`
 Examples:
 * listTemplate followed by deleteTemplate 2 deletes the 2nd email template in the CRM.
 
-### Retrieve previous command
+### Retrieve previous command: `history`
+
+Retrieve the previously entered command
+
+Format: `Press Up arrow key`/ `history`
+
+* `Press Up arrow key` on the keyboard to gain the most recent command in the CRM.
+* `history` will list all history commands in the CRM
+
+Examples:
+* `Press up arrow`:
+
+```
+addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
+```
+
+* `history`: 
+
+```
+addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
+addTemplate s/Repair Issue b/Your product has faced an issue listTemplates
+```
+
 
 ### Viewing user guide: `help`
 
@@ -207,4 +229,5 @@ Action              | Format, Examples
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress d/Your product is current;y being repaired`
 **List Templates**  | `listTemplates`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `delete 4`
+**Retrieve Previoud Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
