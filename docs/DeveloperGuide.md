@@ -668,7 +668,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2c1. The product name is unique.
     
     Use case resumes at step 3.
-    
+
+**Use case: UC22 - Retrieve Previous Command**
+
+**MSS**
+
+1. User requests to retrieve previously entered command.
+2. MyCRM shows the previous command.
+
+   Use case ends.
+   
+**Extensions**
+* 2a. MyCRM show the most recent command.
+
+   Use case ends.
+   
+* 2b. MyCRM list all history commands.
+
+   Use case ends.
+   
 
 ### Non-Functional Requirements
 
