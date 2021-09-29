@@ -78,9 +78,9 @@ Adds a new repair job to the CRM.
 Format: `addJob d/DESCRIPTION n/CLIENT_NAME p/PRODUCT_NAME [by/DELIVERY_DATE]`
 
 Format for possible follow up commands:\
-`select [n/CONTACT_INDEX] [p/PRODUCT_INDEX]` (if multiple matching names for existing contacts and products)\
+  `select [n/CONTACT_INDEX] [p/PRODUCT_INDEX]` (if multiple matching names for existing contacts and products)\
 OR\
-`select [n/NEW] [p/NEW]` (if user  proceeds with creation of new contact and product)
+  `select [n/NEW] [p/NEW]` (if user  proceeds with creation of new contact and product)
 
 * Creates a new repair job.
 * If the client name and product name provided correspond to existing contacts or products they will
@@ -101,15 +101,15 @@ Examples:
 
 * `addJob d/Graphics card replacement needed n/John Doe p/Asus GPU by/15/09/2021`
 * In the case there happen to be multiple existing clients or products with the
-  same name, their listings are shown:
+  same name, their listings are shown
 
-    <img src="images/ui-addJob-select-product-contact.jpg" width="600px">
+    <img src="images/ui-addJob-select-product-contact.jpg" width="400px">
 
 * Suppose the user wants to choose Product 1 and Contact 1.Then the following command can be issued:
-* `select n/1 p/1`
+  `select n/1 p/1`
 * Then the addJob command is complete and the user sees the following screen:
 
-    <img src="images/ui-addJob-success.jpg" width="600px">
+    <img src="images/ui-addJob-success.jpg" width="400px">
 
 ### Listing all jobs: `listJob`
 
