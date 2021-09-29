@@ -484,7 +484,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* **Use case: UC08 - Adding a contact**
+**Use case: UC08 - Adding a contact**
 
 **MSS**
 
@@ -817,13 +817,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The given index is invalid.
     * 2a1. MyCRM shows an error message.
     
-    Use case resumes at <u>step 2 in UC19</u>.
+    Use case resumes at <u>step 2 in UC22</u>.
 
 **Use case: UC 24: Edit a product.**
 
 **MSS**
 
-1. User <u>requests to list products (UC19)</u>.
+1. User <u>requests to list products (UC22)</u>.
 2. User requests to edit a specific product in the list.
 3. MyCRM edits the product and shows a message with edited information of the product.
 
@@ -833,14 +833,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The given index is invalid.
     * 2a1. MyCRM shows an error message.
 
-  Use case resumes at <u>step 2 in UC19</u>.
+  Use case resumes at <u>step 2 in UC22</u>.
 
 
 * 2b. User requests to edit the name of the product.
     * 2b1. The product name already exists
     * 2b2. MyCRM shows an error message.
 
-  Use case resumes at <u>step 2 in UC19</u>.
+  Use case resumes at <u>step 2 in UC22</u>.
 
 
 * 2c. User requests to edit the name of the product.
