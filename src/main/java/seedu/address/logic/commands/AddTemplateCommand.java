@@ -19,7 +19,9 @@ public class AddTemplateCommand extends Command {
             + "Parameters: "
             + PREFIX_SUBJECT + "SUBJECT "
             + PREFIX_BODY + "BODY\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_SUBJECT + "Completed Job "
+            + PREFIX_BODY + "Hello, your product is ready! ";
 
     public static final String MESSAGE_SUCCESS = "New template added: %1$s";
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "This template already exists in the address book";
