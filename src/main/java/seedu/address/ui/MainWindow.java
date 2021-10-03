@@ -31,7 +31,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ContactListPanel personListPanel;
+    private PersonListPanel personListPanel;
+    private TemplateListPanel templateListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane templateListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -110,8 +114,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+<<<<<<< HEAD
         personListPanel = new ContactListPanel(logic.getFilteredContactList());
+=======
+        personListPanel = new PersonListPanel(logic.getFilteredContactList());
+        personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
+>>>>>>> Upstream/master
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
+        templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
+        templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+
+        // Hides initial template
+        templateListPanelPlaceholder.setVisible(false);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -163,8 +179,25 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+<<<<<<< HEAD
     public ContactListPanel getPersonListPanel() {
+=======
+    /**
+     * Hides contacts and shows list templates.
+     */
+    @FXML
+    private void handleTemplate(boolean show) {
+        templateListPanelPlaceholder.setVisible(show);
+        personListPanelPlaceholder.setVisible(!show);
+    }
+
+    public PersonListPanel getPersonListPanel() {
+>>>>>>> Upstream/master
         return personListPanel;
+    }
+
+    public TemplateListPanel getTemplateListPanel() {
+        return templateListPanel;
     }
 
     /**
@@ -177,6 +210,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            handleTemplate(commandResult.isTemplate());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
