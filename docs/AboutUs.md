@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Timothy Chua
 
-<img src="images/ooawagaeri.jpg" width="200px">
+<img src="images/ooawagaeri.png" width="200px">
 
 [[github](https://github.com/ooawagaeri)]
 [[portfolio](team/ooawagaeri.md)]
@@ -60,3 +60,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Responsibilities:
   * Ensure quality of various project documents
   * UI mockup and design
+
+### Dhruv Shah
+
+<img src="images/dhshah1.png" width="200px">
+
+[[github](https://github.com/dhshah1)]
+[[portfolio](team/dhshah1.md)]
+
+* Role: Tester
+* Responsibilities:
+  * Ensure proper tests are written for all modules
+  * Ensure new features/modules don't introduce bugs
+  * Ensure application works as expected

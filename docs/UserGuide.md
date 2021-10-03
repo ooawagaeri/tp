@@ -73,15 +73,92 @@ applications.
 
 ### Adding a job: `addJob`
 
+Adds a new repair job to the CRM.
+
+Format: `addJob d/DESCRIPTION n/CLIENT_NAME p/PRODUCT_NAME [by/DELIVERY_DATE]`
+
+Format for possible follow up commands:\
+  `select [n/CONTACT_INDEX] [p/PRODUCT_INDEX]` (if multiple matching names for existing contacts and products)\
+OR\
+  `select [n/NEW] [p/NEW]` (if user  proceeds with creation of new contact and product)
+
+* Creates a new repair job.
+* If the client name and product name provided correspond to existing contacts or products they will
+  automatically be linked to the repair job.
+* If not the contact and product entities will be created with just their name.
+  More contact/product specific details can be added subsequently using their respective commands.
+* In the case there happen to be multiple clients or products with the same name,
+  a list of client names and product names will be shown for the user to select from.
+  The command `select n/CONTACT_INDEX p/PRODUCT_INDEX`  will be used to select the specific contact and product,
+  where `CONTACT_INDEX` and `PRODUCT_INDEX` refer to the index in the contact and product listing.
+* However, if user wishes to actually create new contacts or products instead of choosing existing matching ones
+  they can issue the command `select n/NEW p/NEW`
+* Note: Any combination of the select commands is valid.  
+  Commands like `select n/CONTACT_INDEX` (if there is no matching existing products) or
+  `select n/NEW p/PRODUCT_INDEX` (if user wants to create a new contact but reuse an existing product) are valid.
+
+Examples:
+
+* `addJob d/Graphics card replacement needed n/John Doe p/Asus GPU by/15/09/2021`
+* In the case there happen to be multiple existing clients or products with the
+  same name, their listings are shown
+
+    <img src="images/ui-addJob-select-product-contact.jpg" width="400px">
+
+* Suppose the user wants to choose Product 1 and Contact 1.Then the following command can be issued:
+  `select n/1 p/1`
+* Then the addJob command is complete and the user sees the following screen:
+
+    <img src="images/ui-addJob-success.jpg" width="400px">
+
 ### Listing all jobs: `listJob`
+
+Shows a list of all repair jobs in the CRM.
+
+Format: `listJob`
 
 ### Deleting a job: `deleteJob`
 
+Delete the specified repair job from the CRM
+
+Format: `deleteJob INDEX`
+
+* Deletes the repair job at the specified `INDEX`
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
+
 ### Adding a contact: `addContact`
+
+Add a new contact info of a client into the CRM.
+
+Format: `addContact n/CLIENT_NAME n/CONTACT_NUMBER a/ADDRESS e/EMAIL`
+
+* Creates a new contact info of a client
+* In the case there happen to be multiple clients with the same name, a list of client names will be shown for the user to select from.
+* Contact number, Address, Email are optional, but must have one of them to make it realistic to get access to the client.
+
+Examples:
+
+* `addContact n/Frisk n/93487234 a/Laptop Factory Outlet Bugis Junction e/Frisk@gmail.com`
+* `addContact n/Sans n/83921823 a/Maxwell Chambers 32 Maxwell Rd e/Sans@gmail.com`
+
+ <img src="images/ui-add-contact.jpg" width="600px">
 
 ### Listing all contacts: `listContact`
 
+Show a list of all contact info in the CRM.
+
+Format:  `listContact` 
+
 ### Deleting a contact: `deleteContact`
+
+Deletes the specified contact from the CRM
+
+Format: deleteContact 4
+
+* Deletes the contact at the specified `INDEX`
+* `INDEX` refers to the index of the contact as shown in the contact listing
+* `INDEX` must be a positive integer(1,2,3…)
 
 ### Adding a product: `addProduct`
 
@@ -142,7 +219,29 @@ Deletes the template at the specified `INDEX`
 Examples:
 * listTemplate followed by deleteTemplate 2 deletes the 2nd email template in the CRM.
 
-### Retrieve previous command
+### Retrieve previous command: `history`
+
+Retrieve the previously entered command
+
+Format: `Press Up arrow key`/ `history`
+
+* `Press Up arrow key` on the keyboard to gain the most recent command in the CRM.
+* `history` will list all history commands in the CRM
+
+Examples:
+* `Press up arrow`:
+
+```
+addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
+```
+
+* `history`: 
+
+```
+addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
+addTemplate s/Repair Issue b/Your product has faced an issue listTemplates
+```
+
 
 ### Viewing user guide: `help`
 
@@ -207,4 +306,5 @@ Action              | Format, Examples
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress d/Your product is current;y being repaired`
 **List Templates**  | `listTemplates`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `delete 4`
+**Retrieve Previoud Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`

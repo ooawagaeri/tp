@@ -7,18 +7,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddTemplateCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteTemplateCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListTemplateCommand;
+import seedu.address.logic.commands.contacts.AddContactCommand;
+import seedu.address.logic.commands.contacts.EditContactCommand;
+import seedu.address.logic.commands.contacts.LinkContactCommand;
+import seedu.address.logic.commands.mails.AddTemplateCommand;
+import seedu.address.logic.commands.mails.DeleteTemplateCommand;
+import seedu.address.logic.commands.mails.ListTemplateCommand;
+import seedu.address.logic.parser.contacts.AddContactCommandParser;
+import seedu.address.logic.parser.contacts.EditContactCommandParser;
+import seedu.address.logic.parser.contacts.LinkContactCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.mails.AddTemplateCommandParser;
+import seedu.address.logic.parser.mails.DeleteTemplateCommandParser;
 
 /**
  * Parses user input.
@@ -50,8 +58,14 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddContactCommand.COMMAND_WORD:
+            return new AddContactCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case EditContactCommand.COMMAND_WORD:
+            return new EditContactCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -64,6 +78,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case LinkContactCommand.COMMAND_WORD:
+            return new LinkContactCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

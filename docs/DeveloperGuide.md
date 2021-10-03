@@ -305,7 +305,325 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `MyCRM` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC10 - Sending an email**
+**Use case: UC01 - Adding a repair job**
+
+**MSS**
+
+1. User requests to add a repair job and specifies a job description, contact and product name.
+2. MyCRM attempts to create a new contact with the contact name.
+3. MyCRM attempts to create a new product with the product name.
+4. MyCRM creates a new repair job with the job description and associates a repair job with
+   a product and contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User does not specify a job description, contact or product name.
+
+    * 1a1. MyCRM shows an error message and requests for the missing details.
+    * 1a2. User enters the missing details.
+
+      Steps 1a1-1a2 are repeated until the user enters the details. Use case resumes at step 2.
+
+* 2a. The given contact name matches existing contacts in MyCRM.
+
+    * 2a1. MyCRM displays the list of existing contacts with the same contact name.
+    * 2a2. User selects one of the existing contacts or indicates they want to create a new contact.
+    * 2a3. MyCRM uses the contact indicated by the User (existing or new) for the next steps in the use case.
+
+      Use case resumes at step 3.
+
+* 3a. The given contact name matches existing products in MyCRM.
+
+    * 3a1. MyCRM displays the list of existing products with the same product name.
+    * 3a2. User selects one of the existing products or indicates they want to create a new product.
+    * 3a3. MyCRM uses the product indicated by the User (existing or new) for the next steps in the use case.
+
+      Use case resumes at step 4.
+
+
+**Use case: UC02 - Editing a repair job**
+
+**MSS**
+
+1. User requests to edit a repair job.
+2. MyCRM shows the list of repair jobs.
+3. User selects a repair job from the list.
+4. User provides details about fields they want to update.
+5. MyCRM updates the fields of the repair job with the information provided.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list of repair jobs is empty.
+
+  Use case ends.
+
+* 3a. User selects invalid repair job not in the list.
+
+    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
+    * 3a2. User re-selects a repair job.
+
+      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+* 4a. The given fields provided by the User are invalid.
+
+    * 4a1. MyCRM shows an error message and asks user for the details they want to update again.
+    * 4a2. User provides the details they want to update.
+
+      Steps 4a1-4a2 are repeated until the user provided valid details. Use case resumes at step 5.
+
+**Use case: UC03 - Deleting a repair job**
+
+**MSS**
+
+1. User requests to delete a repair job.
+2. MyCRM shows a list of repair jobs.
+3. User selects a repair job from the list which they want to delete.
+4. MyCRM deletes the repair job.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. User selects invalid repair job not in the list.
+
+    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
+    * 3a2. User re-selects a repair job they want to delete.
+
+      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+**Use case: UC04 - Pin a repair job**
+
+**MSS**
+
+1. User requests to pin a repair job so that its always visible at the top.
+2. MyCRM shows a list of repair jobs.
+3. User selects a repair job from the list which they want to pin.
+4. MyCRM pins the repair job.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. User selects invalid repair job not in the list.
+
+    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
+    * 3a2. User re-selects a repair job they want to pin.
+
+      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+* 3b. User selects a repair job that is already pinned.
+
+    * 3a1. MyCRM shows an error message and tells user repair job is already pinned.
+
+      Use case ends.
+
+**Use case: UC05 - Hide a repair job**
+
+**MSS**
+
+1. User requests to hide a repair job so that its no longer visible.
+2. MyCRM shows a list of repair jobs.
+3. User selects a repair job from the list which they want to hide.
+4. MyCRM hides the repair job.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. User selects invalid repair job not in the list.
+
+    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
+    * 3a2. User re-selects a repair job they want to hide.
+
+      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+**Use case: UC06 - List repair jobs**
+
+**MSS**
+
+1. User requests to list all repair jobs.
+2. MyCRM shows a list of repair jobs.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+**Use case: UC07 - Find a repair job**
+
+**MSS**
+
+1. User wants to find a repair job and provides keywords they want to search by.
+2. MyCRM shows a list of filtered repair jobs for which the keywords
+   appear in the job's description, contact or product.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. No repair job matches any of the keywords provided by the user.
+
+  Use case ends.
+
+**Use case: UC08 - Adding a contact**
+
+**MSS**
+
+1. User requests to add a contact with specific info of name, contact number, address, and email.
+2. MyCRM stores the new contact in the contact list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given contact name is empty.
+  
+  * 1a1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+
+* 1b. Either the given contact number, address or email is empty.
+  
+  * 1b1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+  
+* 1c. The given contact name already exists.
+  
+  * 1c1. MyCRM shows an error message.  
+
+    Use case resumes at step 1.
+  
+**Use case: UC09 - Editing a contact**
+
+**MSS**
+
+1. User requests to edit a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to edit a specific contact's info with specific index and type of the field in contact.
+4. MyCRM updates this specifc contact's info.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+* 3b. The given edit field type is invaild.
+
+    * 3b1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+**Use case: UC10 - Deleting a contact**
+
+**MSS**
+
+1. User requests to delete a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to delete a specific contact
+4. MyCRM deletes the contact.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC11 - Linking a contact to a job**
+
+**MSS**
+
+1. User requests to link a contact to a job.
+2. MyCRM shows a list of contacts.
+3. User requests to use a specific contact to link a job.
+4. MyCRM shows a list of jobs.
+5. User requests to link to a specific job in the list.
+6. MyCRM links the contact to this job.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+      
+* 4a. The list is empty.
+
+  Use case ends.
+
+* 5a. The given index is invalid.
+
+    * 5a1. MyCRM shows an error message.
+
+      Use case resumes at step 4
+
+**Use case: UC12 - Hiding a contact**
+
+**MSS**
+
+1. User requests to hide a contact.
+2. MyCRM shows a list of contacts.
+3. User requests to hide a specific contact in the list.
+4. MyCRM tags the contact as hidden.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC13 - Sending an email**
 
 **MSS**
 
@@ -340,7 +658,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
     
-**Use case: UC11 - Adding an email template**
+**Use case: UC14 - Adding an email template**
 
 **MSS**
 
@@ -363,7 +681,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: UC12 - Listing all email template**
+**Use case: UC15 - Listing all email template**
 
 **MSS**
 
@@ -372,7 +690,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC13 - Deleting an email template**
+**Use case: UC16 - Deleting an email template**
 
 **MSS**
 
@@ -395,7 +713,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC14 - Viewing user guide**
+**Use case: UC17 - Viewing user guide**
 
 **MSS**
 
@@ -404,7 +722,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC15 - Exiting the program**
+**Use case: UC18 - Exiting the program**
 
 **MSS**
 
@@ -413,7 +731,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Loading from JSON file**
+**Use case: UC19 - Loading from JSON file**
 
 **MSS**
 
@@ -436,7 +754,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC17 - Purging MyCRM data**
+**Use case: UC20 - Purging MyCRM data**
 
 **Precondition:** Data in MyCRM (job, contact and product list) is not empty. 
 
@@ -447,30 +765,133 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Use case: UC21 - Add Product**
+
+**MSS**
+
+1. User requests to add a new product.
+2. MyCRM creates a new product and shows a message with info of the product.
+
+    Use case ends.
+   
+**Extensions** 
+
+* 2a. The product name already exists.
+    * MyCRM shows an error message.
+    
+    Use case ends.
+  
+
+* 2b. The product name is empty.
+    * MyCRM shows an error message.
+    
+    Use case ends.
+
+**Use case: UC22 - List Products**
+
+**MSS**
+
+1. User requests to list products.
+2. MyCRM shows a list of products.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The list of products is empty.
+
+  Use case ends.
+
+**Use case: UC23: Delete a product**
+
+**MSS**
+
+1. User <u>requests to list products (UC22)</u>.
+2. User requests to delete a specific product in the list.
+3. MyCRM deletes the product.
+    
+    Use case ends.
+
+**Extensions**
+
+
+* 2a. The given index is invalid.
+    * 2a1. MyCRM shows an error message.
+    
+    Use case resumes at <u>step 2 in UC22</u>.
+
+**Use case: UC 24: Edit a product.**
+
+**MSS**
+
+1. User <u>requests to list products (UC22)</u>.
+2. User requests to edit a specific product in the list.
+3. MyCRM edits the product and shows a message with edited information of the product.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given index is invalid.
+    * 2a1. MyCRM shows an error message.
+
+  Use case resumes at <u>step 2 in UC22</u>.
+
+
+* 2b. User requests to edit the name of the product.
+    * 2b1. The product name already exists
+    * 2b2. MyCRM shows an error message.
+
+  Use case resumes at <u>step 2 in UC22</u>.
+
+
+* 2c. User requests to edit the name of the product.
+    * 2c1. The product name is unique.
+    
+    Use case resumes at step 3.
+
+**Use case: UC25 - Retrieve Previous Command**
+
+**MSS**
+
+1. User requests to retrieve previously entered command.
+2. MyCRM shows the previous command.
+
+   Use case ends.
+   
+**Extensions**
+* 2a. MyCRM show the most recent command.
+
+   Use case ends.
+   
+* 2b. MyCRM list all history commands.
+
+   Use case ends.
+   
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
-   should be able to accomplish most of the tasks faster using commands than using the mouse. 
-4. Should be designed for a single-user.
-5. Should work without an internet connection.
-6. The app should be accessible via the downloaded JAR file without any other installations needed.
-7. Should be quick and responsive.
-8. Should be able to maintain over 100 entries.
-9. Should not take up much computer storage. 
-10. Should work on both 32-bit and 64-bit environments.
+2. Should be able to hold up to 100 _entries_ without a noticeable sluggishness in performance for typical usage.
+3. Should be designed for a single-user.
+4. Should work without an internet connection.
+5. Should be accessible via the downloaded JAR file without any other installations needed.
+6. Should take up less than 50MB computer storage.
+    <!--- This is an arbitrary number. Can be updated later. --> 
+7. Should work on both 32-bit and 64-bit environments.
+8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+   should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-*{More to be added}*
+<!--- More to be added -->
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
 * **Private contact detail**: A contact detail that is not meant to be shared with others.
 * **Repair Job**: A customer request to restore machinery, equipment, or other products to working order.
+* **Job Status**: A progress bar showing the customer's job's degree of completion.
 * **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
 * **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
   users to send an email.
+* **Entry**: Contact/job/product.
 
 --------------------------------------------------------------------------------------------------------------------
 
