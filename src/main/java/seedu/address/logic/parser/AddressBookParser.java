@@ -15,13 +15,18 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.contactcommands.AddContactCommand;
-import seedu.address.logic.commands.contactcommands.EditContactCommand;
-import seedu.address.logic.commands.contactcommands.LinkContactCommand;
-import seedu.address.logic.parser.contactparser.AddContactCommandParser;
-import seedu.address.logic.parser.contactparser.EditContactCommandParser;
-import seedu.address.logic.parser.contactparser.LinkContactCommandParser;
+import seedu.address.logic.commands.contacts.AddContactCommand;
+import seedu.address.logic.commands.contacts.EditContactCommand;
+import seedu.address.logic.commands.contacts.LinkContactCommand;
+import seedu.address.logic.commands.mails.AddTemplateCommand;
+import seedu.address.logic.commands.mails.DeleteTemplateCommand;
+import seedu.address.logic.commands.mails.ListTemplateCommand;
+import seedu.address.logic.parser.contacts.AddContactCommandParser;
+import seedu.address.logic.parser.contacts.EditContactCommandParser;
+import seedu.address.logic.parser.contacts.LinkContactCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.mails.AddTemplateCommandParser;
+import seedu.address.logic.parser.mails.DeleteTemplateCommandParser;
 
 /**
  * Parses user input.
@@ -82,6 +87,15 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddTemplateCommand.COMMAND_WORD:
+            return new AddTemplateCommandParser().parse(arguments);
+
+        case ListTemplateCommand.COMMAND_WORD:
+            return new ListTemplateCommand();
+
+        case DeleteTemplateCommand.COMMAND_WORD:
+            return new DeleteTemplateCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

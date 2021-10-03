@@ -13,6 +13,8 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.mail.Body;
+import seedu.address.model.mail.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +122,42 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String subject} into an {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code subject} is invalid.
+     */
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
+        }
+        return new Subject(trimmedSubject);
+    }
+
+    /**
+     * Parses a {@code String body} into an {@code Body}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code body} is invalid.
+     */
+    public static Body parseBody(String body) throws ParseException {
+        requireNonNull(body);
+        String trimmedBody = body.trim();
+        if (!Body.isValidBody(trimmedBody)) {
+            throw new ParseException(Body.MESSAGE_CONSTRAINTS);
+        }
+        return new Body(trimmedBody);
+    }
+
+    /**
+     * Parses {@code string} and returns it. Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseString(String line) throws ParseException {
+        return line.trim();
     }
 }

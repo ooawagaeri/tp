@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private TemplateListPanel templateListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane templateListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,7 +115,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredContactList());
+        personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
+        templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
+        templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+
+        // Hides initial template
+        templateListPanelPlaceholder.setVisible(false);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -163,8 +175,21 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Hides contacts and shows list templates.
+     */
+    @FXML
+    private void handleTemplate(boolean show) {
+        templateListPanelPlaceholder.setVisible(show);
+        personListPanelPlaceholder.setVisible(!show);
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public TemplateListPanel getTemplateListPanel() {
+        return templateListPanel;
     }
 
     /**
@@ -177,6 +202,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            handleTemplate(commandResult.isTemplate());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

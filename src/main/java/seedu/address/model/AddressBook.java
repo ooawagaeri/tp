@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.mail.Template;
+import seedu.address.model.mail.UniqueTemplateList;
 
 /**
  * Wraps all data at the address-book level
@@ -25,6 +27,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniqueContactList();
+    }
+
+    private final UniqueTemplateList templates;
+    {
+        templates = new UniqueTemplateList();
     }
 
     public AddressBook() {}
@@ -48,12 +55,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setTemplates(List<Template> templates) {
+        this.templates.setTemplates(templates);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTemplates(newData.getTemplateList());
     }
 
     //// person-level operations
@@ -67,11 +83,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a template with the same identity as {@code template} exists in the address book.
+     */
+    public boolean hasTemplate(Template template) {
+        requireNonNull(template);
+        return templates.contains(template);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Contact p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a template to the address book.
+     * The template must not already exist in the address book.
+     */
+    public void addTemplate(Template t) {
+        templates.add(t);
     }
 
     /**
@@ -86,11 +118,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given template {@code target} in the list with {@code editedTemplate}.
+     * {@code target} must exist in the address book.
+     * The template identity of {@code editedTemplate} must not be the same as another existing template in the
+     * address book.
+     */
+    public void setTemplate(Template target, Template editedTemplate) {
+        requireNonNull(editedTemplate);
+
+        templates.setTemplate(target, editedTemplate);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Contact key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTemplate(Template key) {
+        templates.remove(key);
     }
 
     //// util methods
@@ -104,6 +156,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Contact> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Template> getTemplateList() {
+        return templates.asUnmodifiableObservableList();
     }
 
     @Override
