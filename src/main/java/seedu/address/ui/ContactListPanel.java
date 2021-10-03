@@ -13,20 +13,20 @@ import seedu.address.model.contact.Contact;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ContactListPanel extends UiPart<Region> {
+    private static final String FXML = "ContactListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ContactListPanel.class);
 
     @FXML
-    private ListView<Contact> personListView;
+    private ListView<Contact> contactListView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Contact> personList) {
+    public ContactListPanel(ObservableList<Contact> contactList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        contactListView.setItems(contactList);
+        contactListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
@@ -41,7 +41,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new ContactCard(person, getIndex() + 1).getRoot());
             }
         }
     }
