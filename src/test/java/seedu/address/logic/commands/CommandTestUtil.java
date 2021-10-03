@@ -57,6 +57,11 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_SUBJECT_DONE = "Order is done";
+    public static final String VALID_SUBJECT_COMPLETE = "Your order has been completed";
+
+    public static final String VALID_BODY_DONE = "Your order is done and ready for collection";
+
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
