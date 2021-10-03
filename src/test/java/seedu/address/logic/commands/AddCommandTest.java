@@ -20,8 +20,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.contact.Contact;
+import seedu.address.testutil.ContactBuilder;
 
 public class AddCommandTest {
 
@@ -33,7 +33,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        Contact validPerson = new ContactBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
@@ -43,7 +43,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
+        Contact validPerson = new ContactBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
@@ -52,8 +52,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Contact alice = new ContactBuilder().withName("Alice").build();
+        Contact bob = new ContactBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addContact(Contact person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasContact(Contact person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setContact(Contact target, Contact editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -153,17 +153,17 @@ public class AddCommandTest {
      * A Model stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final Contact person;
 
-        ModelStubWithPerson(Person person) {
+        ModelStubWithPerson(Contact person) {
             requireNonNull(person);
             this.person = person;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasContact(Contact person) {
             requireNonNull(person);
-            return this.person.isSamePerson(person);
+            return this.person.isSameContact(person);
         }
     }
 
@@ -171,16 +171,16 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Contact> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasContact(Contact person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+            return personsAdded.stream().anyMatch(person::isSameContact);
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addContact(Contact person) {
             requireNonNull(person);
             personsAdded.add(person);
         }

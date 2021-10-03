@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Contact in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Contact {
 
     // Identity fields
     private final Name name;
@@ -27,7 +27,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -61,21 +61,21 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both contacts have the same name.
+     * This defines a weaker notion of equality between two contacts.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameContact(Contact otherContact) {
+        if (otherContact == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherContact != null
+                && otherContact.getName().equals(getName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both contacts have the same identity and data fields.
+     * This defines a stronger notion of equality between two contacts.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,16 +83,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Contact)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Contact otherContact = (Contact) other;
+        return otherContact.getName().equals(getName())
+                && otherContact.getPhone().equals(getPhone())
+                && otherContact.getEmail().equals(getEmail())
+                && otherContact.getAddress().equals(getAddress())
+                && otherContact.getTags().equals(getTags());
     }
 
     @Override
