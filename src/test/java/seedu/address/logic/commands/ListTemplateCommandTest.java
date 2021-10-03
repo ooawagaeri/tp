@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTemplateAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalTemplates.THANK_YOU;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TEMPLATE;
 import static seedu.address.testutil.TypicalTemplates.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,10 +23,6 @@ public class ListTemplateCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-        // Adds 1 temporary template
-        model.addTemplate(THANK_YOU);
-
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
@@ -38,7 +33,7 @@ public class ListTemplateCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showTemplateAtIndex(model, INDEX_FIRST_PERSON);
+        showTemplateAtIndex(model, INDEX_FIRST_TEMPLATE);
         assertCommandSuccess(new ListTemplateCommand(), model, ListTemplateCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

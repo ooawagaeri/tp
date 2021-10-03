@@ -12,6 +12,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -63,6 +65,7 @@ public class CommandTestUtil {
     public static final String VALID_SUBJECT_COMPLETE = "Your order has been completed";
 
     public static final String VALID_BODY_DONE = "Your order is done and ready for collection";
+    public static final int HEAD_SUBJECT_SIZE = 2;
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
@@ -141,7 +144,9 @@ public class CommandTestUtil {
 
         Template template = model.getFilteredTemplateList().get(targetIndex.getZeroBased());
         final String[] splitSubject = template.getSubject().subject.split("\\s+");
-        model.updateFilteredTemplateList(new SubjectContainsKeywordsPredicate(List.of(splitSubject)));
+        model.updateFilteredTemplateList(new SubjectContainsKeywordsPredicate(Stream.of(splitSubject)
+                .limit(HEAD_SUBJECT_SIZE)
+                .collect(Collectors.toList())));
 
         assertEquals(1, model.getFilteredTemplateList().size());
     }

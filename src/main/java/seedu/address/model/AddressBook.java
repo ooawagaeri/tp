@@ -55,12 +55,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setTemplates(List<Template> templates) {
+        this.templates.setTemplates(templates);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTemplates(newData.getTemplateList());
     }
 
     //// person-level operations
@@ -109,6 +118,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given template {@code target} in the list with {@code editedTemplate}.
+     * {@code target} must exist in the address book.
+     * The template identity of {@code editedTemplate} must not be the same as another existing template in the
+     * address book.
+     */
+    public void setTemplate(Template target, Template editedTemplate) {
+        requireNonNull(editedTemplate);
+
+        templates.setTemplate(target, editedTemplate);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -137,8 +158,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    // @Override
-    public ObservableList<Template> getTemplatesList() {
+    @Override
+    public ObservableList<Template> getTemplateList() {
         return templates.asUnmodifiableObservableList();
     }
 
