@@ -5,7 +5,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.*;
@@ -39,18 +38,18 @@ public class EditContactCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditCommand.EditContactDescriptor editPersonDescriptor;
+    private final EditContactDescriptor editPersonDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditContactCommand(Index index, EditCommand.EditContactDescriptor editPersonDescriptor) {
+    public EditContactCommand(Index index, EditContactDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditCommand.EditContactDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = new EditContactDescriptor(editPersonDescriptor);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class EditContactCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Contact createEditedPerson(Contact personToEdit, EditCommand.EditContactDescriptor editPersonDescriptor) {
+    private static Contact createEditedPerson(Contact personToEdit, EditContactDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
@@ -98,7 +97,7 @@ public class EditContactCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditContactCommand)) {
             return false;
         }
 
@@ -125,7 +124,7 @@ public class EditContactCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditContactDescriptor(EditContactCommand.EditContactDescriptor toCopy) {
+        public EditContactDescriptor(EditContactDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -197,12 +196,12 @@ public class EditContactCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditContactDescriptor)) {
+            if (!(other instanceof EditContactDescriptor)) {
                 return false;
             }
 
             // state check
-            EditCommand.EditContactDescriptor e = (EditCommand.EditContactDescriptor) other;
+            EditContactDescriptor e = (EditContactDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

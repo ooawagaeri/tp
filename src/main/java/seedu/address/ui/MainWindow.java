@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -114,13 +114,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-<<<<<<< HEAD
-        personListPanel = new ContactListPanel(logic.getFilteredContactList());
-=======
-        personListPanel = new PersonListPanel(logic.getFilteredContactList());
+        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
->>>>>>> Upstream/master
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
@@ -179,9 +175,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-<<<<<<< HEAD
-    public ContactListPanel getPersonListPanel() {
-=======
     /**
      * Hides contacts and shows list templates.
      */
@@ -191,9 +184,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.setVisible(!show);
     }
 
-    public PersonListPanel getPersonListPanel() {
->>>>>>> Upstream/master
-        return personListPanel;
+    public ContactListPanel getContactListPanel() {
+        return contactListPanel;
     }
 
     public TemplateListPanel getTemplateListPanel() {

@@ -1,6 +1,9 @@
 package seedu.address.logic.parser.contacts;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.contacts.EditContactCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,8 +21,8 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class EditContactCommandParser implements Parser<EditContactCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditContactCommand
+     * and returns an EditContactCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditContactCommand parse(String args) throws ParseException {
@@ -32,10 +35,10 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditContactCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditContactDescriptor editContactDescriptor = new EditCommand.EditContactDescriptor();
+        EditContactCommand.EditContactDescriptor editContactDescriptor = new EditContactCommand.EditContactDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editContactDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -51,7 +54,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editContactDescriptor::setTags);
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditContactCommand(index, editContactDescriptor);
