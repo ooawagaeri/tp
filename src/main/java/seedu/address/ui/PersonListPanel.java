@@ -11,37 +11,37 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
 
 /**
- * Panel containing the list of contacts.
+ * Panel containing the list of persons.
  */
-public class ContactListPanel extends UiPart<Region> {
-    private static final String FXML = "ContactListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ContactListPanel.class);
+public class PersonListPanel extends UiPart<Region> {
+    private static final String FXML = "PersonListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Contact> contactListView;
+    private ListView<Contact> personListView;
 
     /**
-     * Creates a {@code ContactListPanel} with the given {@code ObservableList}.
+     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public ContactListPanel(ObservableList<Contact> contactList) {
+    public PersonListPanel(ObservableList<Contact> personList) {
         super(FXML);
-        contactListView.setItems(contactList);
-        contactListView.setCellFactory(listView -> new ContactListViewCell());
+        personListView.setItems(personList);
+        personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class ContactListViewCell extends ListCell<Contact> {
+    class PersonListViewCell extends ListCell<Contact> {
         @Override
-        protected void updateItem(Contact contact, boolean empty) {
-            super.updateItem(contact, empty);
+        protected void updateItem(Contact person, boolean empty) {
+            super.updateItem(person, empty);
 
-            if (empty || contact == null) {
+            if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ContactCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
             }
         }
     }
