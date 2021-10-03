@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTemplateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.mail.Body;
+import seedu.address.model.mail.Subject;
 import seedu.address.model.mail.Template;
 
 /**
@@ -29,8 +31,8 @@ public class AddTemplateCommandParser implements Parser<AddTemplateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTemplateCommand.MESSAGE_USAGE));
         }
 
-        String subject = ParserUtil.parseString(argMultimap.getValue(PREFIX_SUBJECT).get());
-        String body = ParserUtil.parseString(argMultimap.getValue(PREFIX_BODY).get());
+        Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+        Body body = ParserUtil.parseBody(argMultimap.getValue(PREFIX_BODY).get());
 
         Template template = new Template(subject, body);
 

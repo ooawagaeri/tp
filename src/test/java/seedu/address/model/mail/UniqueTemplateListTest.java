@@ -8,17 +8,17 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTemplates.COMPLETED;
 import static seedu.address.testutil.TypicalTemplates.THANK_YOU;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.mail.exceptions.DuplicateTemplateException;
-import seedu.address.model.mail.exceptions.TemplateNotFoundException;
-import seedu.address.testutil.TemplateBuilder;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.mail.exceptions.DuplicateTemplateException;
+import seedu.address.model.mail.exceptions.TemplateNotFoundException;
+import seedu.address.testutil.TemplateBuilder;
+
 public class UniqueTemplateListTest {
-    
     private final UniqueTemplateList uniqueTemplateList = new UniqueTemplateList();
 
     @Test
@@ -155,12 +155,13 @@ public class UniqueTemplateListTest {
     @Test
     public void setTemplates_listWithDuplicateTemplates_throwsDuplicateTemplateException() {
         List<Template> listWithDuplicateTemplates = Arrays.asList(THANK_YOU, THANK_YOU);
-        assertThrows(DuplicateTemplateException.class, () -> uniqueTemplateList.setTemplates(listWithDuplicateTemplates));
+        assertThrows(DuplicateTemplateException.class, ()
+            -> uniqueTemplateList.setTemplates(listWithDuplicateTemplates));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueTemplateList.asUnmodifiableObservableList().remove(0));
+            -> uniqueTemplateList.asUnmodifiableObservableList().remove(0));
     }
 }

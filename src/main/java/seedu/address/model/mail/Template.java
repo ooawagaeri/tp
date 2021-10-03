@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Template {
 
-    private final String subject;
-    private final String body;
+    private final Subject subject;
+    private final Body body;
 
     /**
      * Every field must be present.
      */
-    public Template(String subject, String body) {
+    public Template(Subject subject, Body body) {
         this.subject = subject;
         this.body = body;
     }
 
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public String getBody() {
+    public Body getBody() {
         return body;
     }
 
@@ -33,7 +33,7 @@ public class Template {
         }
 
         return otherTemplate != null
-                && otherTemplate.getSubject().equals(subject);
+                && otherTemplate.getSubject().equals(getSubject());
     }
 
     /**
@@ -51,8 +51,8 @@ public class Template {
         }
 
         Template otherTemplate = (Template) other;
-        return otherTemplate.getSubject().equals(subject)
-                && otherTemplate.getBody().equals(body);
+        return otherTemplate.getSubject().equals(getSubject())
+                && otherTemplate.getBody().equals(getBody());
     }
 
     @Override

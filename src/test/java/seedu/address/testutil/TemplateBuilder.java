@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import seedu.address.model.mail.Body;
+import seedu.address.model.mail.Subject;
 import seedu.address.model.mail.Template;
 
 /**
@@ -10,14 +12,14 @@ public class TemplateBuilder {
     private static final String DEFAULT_SUBJECT = "Some subject";
     private static final String DEFAULT_BODY = "Some body";
 
-    private String subject;
-    private String body;
+    private Subject subject;
+    private Body body;
     /**
      * Creates a {@code TemplateBuilder} with the default details.
      */
     public TemplateBuilder() {
-        subject = DEFAULT_SUBJECT;
-        body = DEFAULT_BODY;
+        subject = new Subject(DEFAULT_SUBJECT);
+        body = new Body(DEFAULT_BODY);
     }
 
     /**
@@ -32,7 +34,7 @@ public class TemplateBuilder {
      * Sets the {@code Subject} of the {@code Template} that we are building.
      */
     public TemplateBuilder withSubject(String subject) {
-        this.subject = subject;
+        this.subject = new Subject(subject);
         return this;
     }
 
@@ -40,7 +42,7 @@ public class TemplateBuilder {
      * Sets the {@code Body} of the {@code Template} that we are building.
      */
     public TemplateBuilder withBody(String body) {
-        this.body = body;
+        this.body = new Body(body);
         return this;
     }
 

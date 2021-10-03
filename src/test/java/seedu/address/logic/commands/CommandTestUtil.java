@@ -17,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.mail.SubjectContainsKeywordsPredicate;
+import seedu.address.model.mail.Template;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -130,4 +132,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the template at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTemplateAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTemplateList().size());
+
+        Template template = model.getFilteredTemplateList().get(targetIndex.getZeroBased());
+        final String[] splitSubject = template.getSubject().subject.split("\\s+");
+        model.updateFilteredTemplateList(new SubjectContainsKeywordsPredicate(List.of(splitSubject)));
+
+        assertEquals(1, model.getFilteredTemplateList().size());
+    }
 }

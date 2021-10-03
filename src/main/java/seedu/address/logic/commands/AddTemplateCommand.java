@@ -45,7 +45,7 @@ public class AddTemplateCommand extends Command {
         }
 
         model.addTemplate(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true);
     }
 
     @Override
