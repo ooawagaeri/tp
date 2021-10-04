@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -25,6 +26,7 @@ import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.mail.SubjectContainsKeywordsPredicate;
 import seedu.address.model.mail.Template;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.ProductBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -70,6 +72,12 @@ public class CommandTestUtil {
 
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
+
+    public static final String VALID_PRODUCT_NAME = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
+
+    public static final String PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME;
+
+    public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME + ""; // product name is empty
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)

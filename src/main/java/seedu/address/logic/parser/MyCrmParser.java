@@ -27,6 +27,7 @@ import seedu.address.logic.parser.contacts.LinkContactCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.mails.AddTemplateCommandParser;
 import seedu.address.logic.parser.mails.DeleteTemplateCommandParser;
+import seedu.address.logic.parser.products.AddProductCommandParser;
 
 /**
  * Parses user input.
@@ -68,7 +69,7 @@ public class MyCrmParser {
             return new ListContactCommand();
 
         case AddProductCommand.COMMAND_WORD:
-            return new AddProductCommand();
+            return new AddProductCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

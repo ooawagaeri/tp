@@ -26,9 +26,12 @@ import seedu.address.logic.commands.products.AddProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.products.Product;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.ProductUtil;
 
 
 public class MyCrmParserTest {
@@ -66,7 +69,9 @@ public class MyCrmParserTest {
 
     @Test
     public void parseCommand_addProduct() throws Exception {
-        assertTrue(parser.parseCommand(AddProductCommand.COMMAND_WORD) instanceof AddProductCommand);
+        Product p = new ProductBuilder().build();
+        AddProductCommand command = (AddProductCommand) parser.parseCommand(ProductUtil.getAddProductCommand(p));
+        assertEquals(new AddProductCommand(p), command);
     }
 
     @Test
