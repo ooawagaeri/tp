@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MyCrm;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -62,8 +62,8 @@ public class TypicalContacts {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MyCrm getTypicalAddressBook() {
+        MyCrm ab = new MyCrm();
         for (Contact person : getTypicalPersons()) {
             ab.addPerson(person);
         }

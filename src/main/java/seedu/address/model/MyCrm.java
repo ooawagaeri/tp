@@ -14,7 +14,7 @@ import seedu.address.model.mail.UniqueTemplateList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class MyCrm implements ReadOnlyAddressBook {
 
     private final UniqueContactList persons;
 
@@ -34,12 +34,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         templates = new UniqueTemplateList();
     }
 
-    public AddressBook() {}
+    public MyCrm() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public MyCrm(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -166,8 +166,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof MyCrm // instanceof handles nulls
+                && persons.equals(((MyCrm) other).persons));
     }
 
     @Override

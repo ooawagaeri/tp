@@ -23,9 +23,9 @@ import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.mail.Template;
 import seedu.address.testutil.ContactBuilder;
 
-public class AddressBookTest {
+public class MyCrmTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final MyCrm addressBook = new MyCrm();
 
     @Test
     public void constructor() {
@@ -39,7 +39,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        MyCrm newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }

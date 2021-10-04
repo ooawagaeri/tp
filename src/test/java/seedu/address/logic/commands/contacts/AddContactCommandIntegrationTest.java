@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.contacts;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -13,11 +13,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;
 
-/**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
- */
-public class AddCommandIntegrationTest {
-
+public class AddContactCommandIntegrationTest {
     private Model model;
 
     @BeforeEach
@@ -27,19 +23,18 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Contact validPerson = new ContactBuilder().build();
+        Contact validContact = new ContactBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addContact(validPerson);
+        expectedModel.addContact(validContact);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddContactCommand(validContact), model,
+                String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Contact personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddContactCommand(personInList), model, AddContactCommand.MESSAGE_DUPLICATE_CONTACT);
     }
-
 }

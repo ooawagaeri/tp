@@ -57,4 +57,11 @@ public class AddContactCommand extends Command {
         model.addContact(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddContactCommand // instanceof handles nulls
+                && toAdd.equals(((AddContactCommand) other).toAdd));
+    }
 }

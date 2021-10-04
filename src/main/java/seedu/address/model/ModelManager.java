@@ -20,7 +20,7 @@ import seedu.address.model.mail.Template;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final MyCrm addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredPersons;
     private final FilteredList<Template> filteredTemplates;
@@ -34,14 +34,14 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new MyCrm(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTemplates = new FilteredList<>(this.addressBook.getTemplateList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new MyCrm(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
