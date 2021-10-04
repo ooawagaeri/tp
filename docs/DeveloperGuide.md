@@ -638,7 +638,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list of jobs is empty.
 
   Use case ends.
 
@@ -648,7 +648,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
   
-* 4a. The list is empty.
+* 4a. The list of templates is empty.
 
   Use case ends.
 
@@ -724,6 +724,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC18 - Exiting the program**
 
+**Postcondition:** MyCRM application closes.
+
 **MSS**
 
 1. User requests to exit MyCRM.
@@ -756,7 +758,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC20 - Purging MyCRM data**
 
-**Precondition:** Data in MyCRM (job, contact and product list) is not empty. 
+**Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
 **MSS**
 
@@ -874,8 +876,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Should be designed for a single-user.
 4. Should work without an internet connection.
 5. Should be accessible via the downloaded JAR file without any other installations needed.
-6. Should take up less than 50MB computer storage.
-    <!--- This is an arbitrary number. Can be updated later. --> 
+6. Should take up less than 50 MB computer storage.
 7. Should work on both 32-bit and 64-bit environments.
 8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
