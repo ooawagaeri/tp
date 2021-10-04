@@ -141,8 +141,8 @@ Examples:
 
 * `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 * `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
-
- <img src="images/ui-add-contact.jpg" width="600px">
+  
+<img src="images/ui-add-contact.png" width="600px">
 
 ### Listing all contacts: `listContact`
 
@@ -170,7 +170,8 @@ Examples:
 
 * `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 * `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
-
+  
+    <img src="images/ui-add-product.PNG" width="600px">
 
 ### Listing all products: `listProduct`
 
