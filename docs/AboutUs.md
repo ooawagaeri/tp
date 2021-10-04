@@ -37,7 +37,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Zhang Yubin
 
-<img src="images\Kimowarui.png" width="200px">
+<img src="images\kimowarui.png" width="200px">
 
 [[github](https://github.com/Kimowarui)]
 [[portfolio](team/zhangyubin.md)]
