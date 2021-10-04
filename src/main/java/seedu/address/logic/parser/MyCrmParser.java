@@ -19,6 +19,7 @@ import seedu.address.logic.commands.contacts.ListContactCommand;
 import seedu.address.logic.commands.mails.AddTemplateCommand;
 import seedu.address.logic.commands.mails.DeleteTemplateCommand;
 import seedu.address.logic.commands.mails.ListTemplateCommand;
+import seedu.address.logic.commands.products.AddProductCommand;
 import seedu.address.logic.parser.contacts.AddContactCommandParser;
 import seedu.address.logic.parser.contacts.DeleteContactCommandParser;
 import seedu.address.logic.parser.contacts.EditContactCommandParser;
@@ -65,6 +66,9 @@ public class MyCrmParser {
 
         case ListContactCommand.COMMAND_WORD:
             return new ListContactCommand();
+
+        case AddProductCommand.COMMAND_WORD:
+            return new AddProductCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

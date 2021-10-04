@@ -22,6 +22,7 @@ import seedu.address.logic.commands.contacts.DeleteContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.contacts.ListContactCommand;
+import seedu.address.logic.commands.products.AddProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
@@ -61,6 +62,11 @@ public class MyCrmParserTest {
         EditContactCommand command = (EditContactCommand) parser.parseCommand(EditContactCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CONTACT.getOneBased() + " " + ContactUtil.getEditContactDescriptorDetails(descriptor));
         assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_addProduct() throws Exception {
+        assertTrue(parser.parseCommand(AddProductCommand.COMMAND_WORD) instanceof AddProductCommand);
     }
 
     @Test
