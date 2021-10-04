@@ -162,9 +162,31 @@ Format: `deleteContact 4`
 
 ### Adding a product: `addProduct`
 
+Add a new product to the CRM.
+
+Format: `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
+
+Examples:
+
+* `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
+* `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
+
+
 ### Listing all products: `listProduct`
 
+Shows a list of all products in the CRM.
+
+Format: `listProduct`
+
 ### Deleting a product: `deleteProduct`
+
+Deletes the specified product from the CRM
+
+Format: `deleteProduct INDEX`
+
+* Deletes the product at the specified INDEX.
+* INDEX refers to the index of the product as shown in the product listing.
+* INDEX must be a positive integer(1,2,3…).
 
 ### Send mail: `mail`
 
@@ -299,12 +321,12 @@ Action              | Format, Examples
 **Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **List Contact**    | `listContact`
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `delete 4`
-**Add Product**     |
-**List Product**    |
-**Delete Product**  |
+**Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
+**List Product**    | `listProduct`
+**Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
 **Mail**            | `mail JOB_INDEX TEMPLATE_INDEX`<br>e.g., `mail 3 1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress d/Your product is current;y being repaired`
 **List Templates**  | `listTemplates`
-**Delete Template** | `deleteTemplate INDEX`<br>e.g., `delete 4`
-**Retrieve Previoud Command** | `history`, `Press Up arrow key`
+**Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
+**Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
