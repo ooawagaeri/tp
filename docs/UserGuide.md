@@ -131,7 +131,7 @@ Format: `deleteJob INDEX`
 
 Add a new contact info of a client into the CRM.
 
-Format: `addContact n/CLIENT_NAME n/CONTACT_NUMBER a/ADDRESS e/EMAIL`
+Format: `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS`
 
 * Creates a new contact info of a client
 * In the case there happen to be multiple clients with the same name, a list of client names will be shown for the user to select from.
@@ -139,8 +139,8 @@ Format: `addContact n/CLIENT_NAME n/CONTACT_NUMBER a/ADDRESS e/EMAIL`
 
 Examples:
 
-* `addContact n/Frisk n/93487234 a/Laptop Factory Outlet Bugis Junction e/Frisk@gmail.com`
-* `addContact n/Sans n/83921823 a/Maxwell Chambers 32 Maxwell Rd e/Sans@gmail.com`
+* `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+* `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
 
  <img src="images/ui-add-contact.jpg" width="600px">
 
@@ -154,7 +154,7 @@ Format:  `listContact`
 
 Deletes the specified contact from the CRM
 
-Format: deleteContact 4
+Format: `deleteContact 4`
 
 * Deletes the contact at the specified `INDEX`
 * `INDEX` refers to the index of the contact as shown in the contact listing
@@ -296,9 +296,9 @@ Action              | Format, Examples
 **Add Job**         |
 **List Job**        |
 **Delete Job**      |
-**Add Contact**     |
-**List Contact**    |
-**Delete Contact**  |
+**Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+**List Contact**    | `listContact`
+**Delete Contact**  | `deleteContact INDEX` <br>e.g., `delete 4`
 **Add Product**     |
 **List Product**    |
 **Delete Product**  |
