@@ -321,7 +321,7 @@ Action              | Format, Examples
 **Delete Job**      |
 **Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **List Contact**    | `listContact`
-**Delete Contact**  | `deleteContact INDEX` <br>e.g., `delete 4`
+**Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
