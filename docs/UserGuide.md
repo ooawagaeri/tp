@@ -103,13 +103,13 @@ Examples:
 * In the case there happen to be multiple existing clients or products with the
   same name, their listings are shown
 
-    <img src="images/ui-addJob-select-product-contact.jpg" width="400px">
+    <img src="images/ui-addJob-select-product-contact.jpg" width="600px">
 
 * Suppose the user wants to choose Product 1 and Contact 1.Then the following command can be issued:
   `select n/1 p/1`
 * Then the addJob command is complete and the user sees the following screen:
 
-    <img src="images/ui-addJob-success.jpg" width="400px">
+    <img src="images/ui-addJob-success.jpg" width="600px">
 
 ### Listing all jobs: `listJob`
 
@@ -142,7 +142,7 @@ Examples:
 * `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 * `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
   
-<img src="images/ui-add-contact.png" width="600px">
+    <img src="images/ui-add-contact.png" width="600px">
 
 ### Listing all contacts: `listContact`
 
