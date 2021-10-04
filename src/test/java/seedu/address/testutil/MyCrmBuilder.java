@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MyCrm;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -8,27 +8,27 @@ import seedu.address.model.contact.Contact;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class MyCrmBuilder {
 
-    private AddressBook addressBook;
+    private MyCrm addressBook;
 
-    public AddressBookBuilder() {
-        addressBook = new AddressBook();
+    public MyCrmBuilder() {
+        addressBook = new MyCrm();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
+    public MyCrmBuilder(MyCrm addressBook) {
         this.addressBook = addressBook;
     }
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(Contact person) {
+    public MyCrmBuilder withPerson(Contact person) {
         addressBook.addPerson(person);
         return this;
     }
 
-    public AddressBook build() {
+    public MyCrm build() {
         return addressBook;
     }
 }

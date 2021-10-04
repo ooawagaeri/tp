@@ -5,12 +5,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link MyCrm}.
  */
-public interface AddressBookStorage {
+public interface MyCrmStorage {
 
     /**
      * Returns the file path of the data file.

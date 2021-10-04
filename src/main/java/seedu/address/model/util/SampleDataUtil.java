@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
@@ -41,7 +41,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        MyCrm sampleAb = new MyCrm();
         for (Contact samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

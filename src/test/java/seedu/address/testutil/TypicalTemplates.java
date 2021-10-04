@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MyCrm;
 import seedu.address.model.mail.Template;
 
 public class TypicalTemplates {
@@ -29,8 +29,8 @@ public class TypicalTemplates {
     /**
      * Returns an {@code AddressBook} with all the typical templates.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MyCrm getTypicalAddressBook() {
+        MyCrm ab = new MyCrm();
         for (Template template : getTypicalTemplates()) {
             ab.addTemplate(template);
         }
