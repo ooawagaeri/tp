@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BENSON;
+import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,8 +90,29 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasProduct_nullProduct_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasProduct(null));
+    }
+
+    @Test
+    public void hasProduct_productNotInMyCrm_returnsFalse() {
+        assertFalse(modelManager.hasProduct(INTEL_CPU));
+    }
+
+    @Test
+    public void hasProduct_productInMyCrm_returnsTrue() {
+        modelManager.addProduct(INTEL_CPU);
+        assertTrue(modelManager.hasProduct(INTEL_CPU));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredContactList().remove(0));
+    }
+
+    @Test
+    public void getFilteredProductList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredProductList().remove(0));
     }
 
     @Test

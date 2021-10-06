@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +22,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.mail.Template;
+import seedu.address.model.products.Product;
 import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.ProductBuilder;
 
 public class MyCrmTest {
 
@@ -79,9 +82,40 @@ public class MyCrmTest {
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
+    //// Product tests
+
+    @Test
+    public void hasProduct_nullProduct_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasProduct(null));
+    }
+
+    @Test
+    public void hasProduct_productNotInMyCrm_returnsFalse() {
+        assertFalse(addressBook.hasProduct(INTEL_CPU));
+    }
+
+    @Test
+    public void hasProduct_productInMyCrm_returnsTrue() {
+        addressBook.addProduct(INTEL_CPU);
+        assertTrue(addressBook.hasProduct(INTEL_CPU));
+    }
+
+    @Test
+    public void hasProduct_productWithSameIdentityFieldsInMyCrm_returnsTrue() {
+        addressBook.addProduct(INTEL_CPU);
+        Product editedProduct = new ProductBuilder(INTEL_CPU).withManufacturer("Asus").build();
+        assertTrue(addressBook.hasProduct(editedProduct));
+    }
+
+
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    }
+
+    @Test
+    public void getProductList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getProductList().remove(0));
     }
 
     /**
@@ -90,6 +124,7 @@ public class MyCrmTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Contact> persons = FXCollections.observableArrayList();
         private final ObservableList<Template> templates = FXCollections.observableArrayList();
+        private final ObservableList<Product> products = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Contact> persons) {
             this.persons.setAll(persons);
@@ -103,6 +138,11 @@ public class MyCrmTest {
         @Override
         public ObservableList<Template> getTemplateList() {
             return templates;
+        }
+
+        @Override
+        public ObservableList<Product> getProductList() {
+            return products;
         }
     }
 

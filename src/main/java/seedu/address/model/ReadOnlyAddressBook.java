@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.mail.Template;
+import seedu.address.model.products.Product;
 
 /**
  * Unmodifiable view of an address book
@@ -20,4 +21,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any template persons.
      */
     ObservableList<Template> getTemplateList();
+
+    /**
+     * Returns an unmodifiable view of the products list.
+     * This list will not contain any duplicate products.
+     */
+    ObservableList<Product> getProductList();
 }

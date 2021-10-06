@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.mail.Template;
+import seedu.address.model.products.Product;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -97,11 +99,31 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
+    /**
+     * Returns true if a product with the same identity as {@code product} exists in the address book.
+     */
+    boolean hasProduct(Product product);
+
+    /**
+     * Adds the given product.
+     * {@code product} must not already exist in the address book
+     */
+    void addProduct(Product product);
+
+    /**
+     * Deletes the given product.
+     * The product must exist in the address book.
+     */
+    void deleteProduct(Product product);
+
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
     /** Returns an unmodifiable view of the filtered template list */
     ObservableList<Template> getFilteredTemplateList();
+
+    /** Returns an unmodifiable view of the filtered product list */
+    ObservableList<Product> getFilteredProductList();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
@@ -115,4 +137,9 @@ public interface Model {
      */
     void updateFilteredTemplateList(Predicate<Template> predicate);
 
+    /**
+     * Updates the filter of the filtered product list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProductList(Predicate<Product> predicate);
 }

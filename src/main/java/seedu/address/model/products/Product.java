@@ -52,6 +52,19 @@ public class Product {
         return this.description;
     }
 
+    /**
+     * Returns true if both products have the same name.
+     * This defines a weaker notion of equality between two contacts.
+     */
+    public boolean isSameProduct(Product otherProduct) {
+        if (otherProduct == this) {
+            return true;
+        }
+
+        return otherProduct != null
+                && otherProduct.productName.equals(this.productName);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

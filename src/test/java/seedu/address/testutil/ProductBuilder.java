@@ -18,7 +18,10 @@ public class ProductBuilder {
     public static final Description DEFAULT_PRODUCT_TWO_DESCRIPTION = Description.getDescription("Video output "
             + "interface: DisplayPort, HDMI");
 
-    private Product toBuild;
+    private String name;
+    private Type type;
+    private Manufacturer manufacturer;
+    private Description description;
 
     /**
      * Create a product builder with index of default product.
@@ -26,24 +29,94 @@ public class ProductBuilder {
     public ProductBuilder(DefaultProductIndex index) {
         switch (index) {
         case ONE:
-            this.toBuild = new Product(DEFAULT_PRODUCT_ONE_NAME, DEFAULT_PRODUCT_ONE_TYPE,
-                    DEFAULT_PRODUCT_ONE_MANUFACTURER, DEFAULT_PRODUCT_ONE_DESCRIPTION);
+            this.name = DEFAULT_PRODUCT_ONE_NAME;
+            this.type = DEFAULT_PRODUCT_ONE_TYPE;
+            this.manufacturer = DEFAULT_PRODUCT_ONE_MANUFACTURER;
+            this.description = DEFAULT_PRODUCT_ONE_DESCRIPTION;
             break;
         case TWO:
-            this.toBuild = new Product(DEFAULT_PRODUCT_TWO_NAME, DEFAULT_PRODUCT_TWO_TYPE,
-                    DEFAULT_PRODUCT_TWO_MANUFACTURER, DEFAULT_PRODUCT_TWO_DESCRIPTION);
+            this.name = DEFAULT_PRODUCT_TWO_NAME;
+            this.type = DEFAULT_PRODUCT_TWO_TYPE;
+            this.manufacturer = DEFAULT_PRODUCT_TWO_MANUFACTURER;
+            this.description = DEFAULT_PRODUCT_TWO_DESCRIPTION;
             break;
         default:
             assert false : "Enum not implemented";
         }
     }
 
+    /**
+     * Creates a product builder with provided product.
+     */
+    public ProductBuilder(Product product) {
+        this.name = product.getName();
+        this.type = product.getType();
+        this.manufacturer = product.getManufacturer();
+        this.description = product.getDescription();
+    }
+
     public ProductBuilder() {
         this(DefaultProductIndex.ONE);
     }
 
+    /**
+     * Sets name field to given name.
+     */
+    public ProductBuilder withName(String productName) {
+        this.name = productName;
+        return this;
+    }
+
+    /**
+     * Initializes type field with given string.
+     */
+    public ProductBuilder withType(String type) {
+        this.type = Type.getType(type);
+        return this;
+    }
+
+    /**
+     * Sets type field to given type.
+     */
+    public ProductBuilder withType(Type type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Initializes manufacturer field with given manufacturer.
+     */
+    public ProductBuilder withManufacturer(String manufacturer) {
+        this.manufacturer = Manufacturer.getManufacturer(manufacturer);
+        return this;
+    }
+
+    /**
+     * Sets manufacturer field to given manufacturer.
+     */
+    public ProductBuilder withManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+        return this;
+    }
+
+    /**
+     * Initializes description field with given description.
+     */
+    public ProductBuilder withDescription(String description) {
+        this.description = Description.getDescription(description);
+        return this;
+    }
+
+    /**
+     * Sets description field to given description.
+     */
+    public ProductBuilder withDescription(Description description) {
+        this.description = description;
+        return this;
+    }
+
     public Product build() {
-        return toBuild;
+        return new Product(name, type, manufacturer, description);
     }
 
     public enum DefaultProductIndex { ONE, TWO };
