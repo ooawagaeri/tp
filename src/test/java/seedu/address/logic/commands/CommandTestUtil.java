@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_MANUFACTURER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -26,6 +27,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.mail.SubjectContainsKeywordsPredicate;
 import seedu.address.model.mail.Template;
+import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Type;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ProductBuilder;
@@ -77,10 +79,14 @@ public class CommandTestUtil {
 
     public static final String VALID_PRODUCT_NAME = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
     public static final Type VALID_PRODUCT_TYPE = ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE;
+    public static final Manufacturer VALID_PRODUCT_MANUFACTURER = ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
 
     public static final String PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME;
     public static final String PRODUCT_TYPE_DESC = " " + PREFIX_PRODUCT_TYPE + VALID_PRODUCT_TYPE;
+    public static final String PRODUCT_MANUFACTURER_DESC = " " + PREFIX_PRODUCT_MANUFACTURER
+            + VALID_PRODUCT_MANUFACTURER;
     public static final String PRODUCT_EMPTY_TYPE_DESC = " " + PREFIX_PRODUCT_TYPE;
+    public static final String PRODUCT_EMPTY_MANUFACTURER_DESC = " " + PREFIX_PRODUCT_MANUFACTURER;
 
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
             + PRODUCT_TYPE_DESC; // product name is empty

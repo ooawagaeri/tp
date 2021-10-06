@@ -2,6 +2,7 @@ package seedu.address.logic.parser.products;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_MANUFACTURER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 
@@ -12,6 +13,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Product;
 import seedu.address.model.products.Type;
 
@@ -20,7 +22,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
     @Override
     public AddProductCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMap = ArgumentTokenizer.tokenize(args, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_TYPE);
+        ArgumentMultimap argMap = ArgumentTokenizer.tokenize(args, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_TYPE,
+                PREFIX_PRODUCT_MANUFACTURER);
 
         Optional<String> name = argMap.getValue(PREFIX_PRODUCT_NAME);
         if (name.isEmpty()) {
@@ -36,6 +39,11 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 ? Type.getEmptyType()
                 : Type.getType(typeWrapper.get());
 
-        return new AddProductCommand(new Product(name.get(), type));
+        Optional<String> manufacturerWrapper = argMap.getValue(PREFIX_PRODUCT_MANUFACTURER);
+        Manufacturer manufacturer = manufacturerWrapper.orElse("").equals("")
+                ? Manufacturer.getEmptyManufacturer()
+                : Manufacturer.getManufacturer(manufacturerWrapper.get());
+
+        return new AddProductCommand(new Product(name.get(), type, manufacturer));
     }
 }

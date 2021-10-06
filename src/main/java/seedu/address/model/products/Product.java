@@ -8,16 +8,18 @@ import static java.util.Objects.requireNonNull;
 public class Product {
     private final String productName;
     private final Type type;
+    private final Manufacturer manufacturer;
 
     /**
      * Create a product.
      * @param productName Name of the product.
      */
-    public Product(String productName, Type type) {
+    public Product(String productName, Type type, Manufacturer manufacturer) {
         requireNonNull(productName);
 
         this.productName = productName;
         this.type = type;
+        this.manufacturer = manufacturer;
     }
 
     public String getName() {
@@ -32,6 +34,14 @@ public class Product {
         return this.type;
     }
 
+    public boolean hasManufacturer() {
+        return !this.manufacturer.isEmpty();
+    }
+
+    public Manufacturer getManufacturer() {
+        return this.manufacturer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -43,7 +53,9 @@ public class Product {
 
         if (o instanceof Product) {
             Product p = (Product) o;
-            return p.productName.equals(this.productName) && p.type.equals(this.type);
+            return p.productName.equals(this.productName)
+                    && p.type.equals(this.type)
+                    && p.manufacturer.equals(this.manufacturer);
         }
         return false;
     }
@@ -51,6 +63,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product: " + this.productName
-                + (this.type.isEmpty() ? "" : " Type: " + this.type);
+                + (this.type.isEmpty() ? "" : " Type: " + this.type)
+                + (this.manufacturer.isEmpty() ? "" : " Manufacturer: " + this.manufacturer);
     }
 }
