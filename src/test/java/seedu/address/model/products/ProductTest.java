@@ -25,23 +25,37 @@ public class ProductTest {
         assertFalse(product.equals(differentProduct));
 
         Product diffNameProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_TWO_NAME,
-                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER);
+                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER,
+                ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION);
         assertFalse(product.equals(diffNameProduct));
 
         Product diffTypeProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME,
-                ProductBuilder.DEFAULT_PRODUCT_TWO_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER);
+                ProductBuilder.DEFAULT_PRODUCT_TWO_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER,
+                ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION);
         assertFalse(product.equals(diffTypeProduct));
 
         Product emptyTypeProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME, Type.getEmptyType(),
-                ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER);
+                ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER, ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION);
         assertFalse(product.equals(emptyTypeProduct));
 
         Product diffManufacturerProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME,
-                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_TWO_MANUFACTURER);
+                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_TWO_MANUFACTURER,
+                ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION);
         assertFalse(product.equals(diffManufacturerProduct));
 
         Product emptyManufacturerProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME,
-                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, Manufacturer.getEmptyManufacturer());
+                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, Manufacturer.getEmptyManufacturer(),
+                ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION);
         assertFalse(product.equals(emptyManufacturerProduct));
+
+        Product diffDescriptionProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME,
+                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER,
+                ProductBuilder.DEFAULT_PRODUCT_TWO_DESCRIPTION);
+        assertFalse(product.equals(diffDescriptionProduct));
+
+        Product emptyDescriptionProduct = new Product(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME,
+                ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE, ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER,
+                Description.getEmptyDescription());
+        assertFalse(product.equals(emptyDescriptionProduct));
     }
 }

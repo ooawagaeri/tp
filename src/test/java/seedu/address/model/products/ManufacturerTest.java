@@ -5,14 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.ProductBuilder;
+
 public class ManufacturerTest {
     @Test
     public void equals() {
-        Manufacturer manufacturer = Manufacturer.getManufacturer("GPU");
+        Manufacturer manufacturer = ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
 
         assertTrue(manufacturer.equals(manufacturer));
 
-        Manufacturer manufacturerCopy = Manufacturer.getManufacturer("GPU");
+        Manufacturer manufacturerCopy = ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
         assertTrue(manufacturer.equals(manufacturerCopy));
 
         assertFalse(manufacturer.equals(Manufacturer.getEmptyManufacturer()));
@@ -21,7 +23,7 @@ public class ManufacturerTest {
 
         assertFalse(manufacturer.equals(null));
 
-        Manufacturer diffManufacturer = Manufacturer.getManufacturer("CPU");
+        Manufacturer diffManufacturer = ProductBuilder.DEFAULT_PRODUCT_TWO_MANUFACTURER;
         assertFalse(manufacturer.equals(diffManufacturer));
     }
 }
