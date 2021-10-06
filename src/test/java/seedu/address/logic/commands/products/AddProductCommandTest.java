@@ -29,11 +29,11 @@ public class AddProductCommandTest {
     @Test
     public void equals() {
         final AddProductCommand standardCommand = new AddProductCommand(
-                new ProductBuilder(ProductBuilder.DefaultProduct.ONE).build());
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build());
 
         // same values -> returns true
         AddProductCommand cmdWithSameValues = new AddProductCommand(
-                new ProductBuilder(ProductBuilder.DefaultProduct.ONE).build());
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build());
         assertTrue(standardCommand.equals(cmdWithSameValues));
 
         // same object -> returns true
@@ -47,7 +47,7 @@ public class AddProductCommandTest {
 
         // different product -> returns false
         AddProductCommand cmdWithDiffValues = new AddProductCommand(
-                new ProductBuilder(ProductBuilder.DefaultProduct.TWO).build());
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.TWO).build());
         assertFalse(standardCommand.equals(cmdWithDiffValues));
     }
 }

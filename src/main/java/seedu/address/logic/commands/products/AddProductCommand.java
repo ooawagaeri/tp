@@ -32,7 +32,20 @@ public class AddProductCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return "AddProductCommand: " + toAdd;
+    }
+
+    @Override
     public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null) {
+            return false;
+        }
+
         if (o instanceof AddProductCommand) {
             AddProductCommand cmd = (AddProductCommand) o;
             return cmd.toAdd.equals(this.toAdd);
