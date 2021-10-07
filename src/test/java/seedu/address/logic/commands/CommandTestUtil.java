@@ -22,7 +22,6 @@ import seedu.address.model.Model;
 import seedu.address.model.MyCrm;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
-import seedu.address.model.job.Job;
 import seedu.address.model.mail.SubjectContainsKeywordsPredicate;
 import seedu.address.model.mail.Template;
 import seedu.address.testutil.EditContactDescriptorBuilder;

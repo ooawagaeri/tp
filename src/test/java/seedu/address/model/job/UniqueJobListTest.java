@@ -65,7 +65,7 @@ public class UniqueJobListTest {
     }
 
     @Test
-    public void remove_JobDoesNotExist_throwsJobNotFoundException() {
+    public void remove_jobDoesNotExist_throwsJobNotFoundException() {
         assertThrows(JobNotFoundException.class, () -> uniqueJobList.remove(COMPLETED));
     }
 
