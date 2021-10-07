@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,12 +23,17 @@ import seedu.address.logic.commands.contacts.EditContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.contacts.FindContactCommand;
 import seedu.address.logic.commands.contacts.ListContactCommand;
+import seedu.address.logic.commands.products.AddProductCommand;
+import seedu.address.logic.commands.products.DeleteProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.products.Product;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.ProductUtil;
 
 
 public class MyCrmParserTest {
@@ -61,6 +67,20 @@ public class MyCrmParserTest {
         EditContactCommand command = (EditContactCommand) parser.parseCommand(EditContactCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CONTACT.getOneBased() + " " + ContactUtil.getEditContactDescriptorDetails(descriptor));
         assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_addProduct() throws Exception {
+        Product p = new ProductBuilder().build();
+        AddProductCommand command = (AddProductCommand) parser.parseCommand(ProductUtil.getAddProductCommand(p));
+        assertEquals(new AddProductCommand(p), command);
+    }
+
+    @Test
+    public void parseCommand_deleteProduct() throws Exception {
+        DeleteProductCommand command = (DeleteProductCommand) parser.parseCommand(
+                DeleteProductCommand.COMMAND_WORD + " " + INDEX_FIRST_PRODUCT.getOneBased());
+        assertEquals(new DeleteProductCommand(INDEX_FIRST_PRODUCT), command);
     }
 
     @Test

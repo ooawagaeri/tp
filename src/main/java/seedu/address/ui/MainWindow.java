@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
+    private ProductListPanel productListPanel;
     private JobListPanel jobListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane templateListPanelPlaceholder;
+
+    @FXML
+    private StackPane productListPanelPlaceholder;
 
     @FXML
     private StackPane jobListPanelPlaceholder;
@@ -125,6 +129,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
         personListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
+        personListPanelPlaceholder.setVisible(false);
+
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
@@ -133,9 +139,14 @@ public class MainWindow extends UiPart<Stage> {
         jobListPanelPlaceholder.managedProperty().bind(jobListPanelPlaceholder.visibleProperty());
         jobListPanelPlaceholder.getChildren().add(jobListPanel.getRoot());
 
+        productListPanel = new ProductListPanel(logic.getFilteredProductList());
+        productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
+        productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
+
         // Hides initial template
         templateListPanelPlaceholder.setVisible(false);
-
+        // Hides initial product list
+        productListPanelPlaceholder.setVisible(false);
         // Hides initial job list
         jobListPanelPlaceholder.setVisible(false);
 

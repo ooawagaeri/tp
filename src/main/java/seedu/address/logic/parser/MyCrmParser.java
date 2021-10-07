@@ -22,6 +22,9 @@ import seedu.address.logic.commands.jobs.ListJobCommand;
 import seedu.address.logic.commands.mails.AddTemplateCommand;
 import seedu.address.logic.commands.mails.DeleteTemplateCommand;
 import seedu.address.logic.commands.mails.ListTemplateCommand;
+import seedu.address.logic.commands.products.AddProductCommand;
+import seedu.address.logic.commands.products.DeleteProductCommand;
+import seedu.address.logic.commands.products.ListProductCommand;
 import seedu.address.logic.parser.contacts.AddContactCommandParser;
 import seedu.address.logic.parser.contacts.DeleteContactCommandParser;
 import seedu.address.logic.parser.contacts.EditContactCommandParser;
@@ -32,6 +35,8 @@ import seedu.address.logic.parser.jobs.AddJobCommandParser;
 import seedu.address.logic.parser.jobs.DeleteJobCommandParser;
 import seedu.address.logic.parser.mails.AddTemplateCommandParser;
 import seedu.address.logic.parser.mails.DeleteTemplateCommandParser;
+import seedu.address.logic.parser.products.AddProductCommandParser;
+import seedu.address.logic.parser.products.DeleteProductCommandParser;
 
 /**
  * Parses user input.
@@ -86,6 +91,15 @@ public class MyCrmParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddProductCommand.COMMAND_WORD:
+            return new AddProductCommandParser().parse(arguments);
+
+        case ListProductCommand.COMMAND_WORD:
+            return new ListProductCommand();
+
+        case DeleteProductCommand.COMMAND_WORD:
+            return new DeleteProductCommandParser().parse(arguments);
 
         case AddTemplateCommand.COMMAND_WORD:
             return new AddTemplateCommandParser().parse(arguments);

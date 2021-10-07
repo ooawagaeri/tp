@@ -20,4 +20,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_JOB_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CONTACT_INDEX = new Prefix("c/");
     public static final Prefix PREFIX_DELIVERY_DATE = new Prefix("by/");
+
+    /* Prefix definitions for products*/
+    public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_PRODUCT_TYPE = new Prefix("t/");
+    public static final Prefix PREFIX_PRODUCT_MANUFACTURER = new Prefix("m/");
+    public static final Prefix PREFIX_PRODUCT_DESCRIPTION = new Prefix("d/");
 }

@@ -13,5 +13,8 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_TEMPLATE = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_TEMPLATE = Index.fromOneBased(2);
 
+    public static final Index INDEX_FIRST_PRODUCT = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_PRODUCT = Index.fromOneBased(2);
+
     public static final Index INDEX_FIRST_JOB = Index.fromOneBased(1);
 }

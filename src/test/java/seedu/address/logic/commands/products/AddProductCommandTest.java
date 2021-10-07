@@ -1,19 +1,22 @@
-package seedu.address.logic.commands.mails;
+package seedu.address.logic.commands.products;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,59 +27,57 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
-import seedu.address.testutil.TemplateBuilder;
+import seedu.address.testutil.ProductBuilder;
 
-class AddTemplateCommandTest {
+public class AddProductCommandTest {
+
     @Test
-    public void constructor_nullTemplate_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddTemplateCommand(null));
+    public void constructor_nullProduct_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddProductCommand(null));
     }
 
     @Test
-    public void execute_templateAcceptedByModel_addSuccessful() throws Exception {
-        AddTemplateCommandTest.ModelStubAcceptingTemplateAdded modelStub =
-                new ModelStubAcceptingTemplateAdded();
-        Template validTemplate = new TemplateBuilder().build();
+    public void execute_productAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingProductAdded modelStub = new ModelStubAcceptingProductAdded();
 
-        CommandResult commandResult = new AddTemplateCommand(validTemplate).execute(modelStub);
+        CommandResult commandResult = new AddProductCommand(INTEL_CPU).execute(modelStub);
 
-        assertEquals(String.format(AddTemplateCommand.MESSAGE_SUCCESS, validTemplate),
-                commandResult.getFeedbackToUser());
-        assertEquals(List.of(validTemplate), modelStub.templatesAdded);
+        assertEquals(String.format(AddProductCommand.MESSAGE_SUCCESS, INTEL_CPU), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(INTEL_CPU), modelStub.productsAdded);
     }
 
     @Test
-    public void execute_duplicateTemplate_throwsCommandException() {
-        Template validTemplate = new TemplateBuilder().build();
-        AddTemplateCommand addCommand = new AddTemplateCommand(validTemplate);
-        AddTemplateCommandTest.ModelStub modelStub = new ModelStubWithTemplate(validTemplate);
+    public void execute_duplicateProduct_throwsCommandException() {
+        AddProductCommand addCommand = new AddProductCommand(INTEL_CPU);
+        ModelStub modelStub = new ModelStubWithProduct(INTEL_CPU);
 
-        assertThrows(CommandException.class, AddTemplateCommand.MESSAGE_DUPLICATE_TEMPLATE, (
-            ) -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddProductCommand.MESSAGE_DUPLICATE_PRODUCT, () ->
+                addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Template alice = new TemplateBuilder().withSubject("To Alice").build();
-        Template bob = new TemplateBuilder().withSubject("To Bob").build();
-        AddTemplateCommand addAliceCommand = new AddTemplateCommand(alice);
-        AddTemplateCommand addBobCommand = new AddTemplateCommand(bob);
-
-        // same object -> returns true
-        assertEquals(addAliceCommand, addAliceCommand);
+        final AddProductCommand standardCommand = new AddProductCommand(
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build());
 
         // same values -> returns true
-        AddTemplateCommand addAliceCommandCopy = new AddTemplateCommand(alice);
-        assertEquals(addAliceCommand, addAliceCommandCopy);
+        AddProductCommand cmdWithSameValues = new AddProductCommand(
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build());
+        assertTrue(standardCommand.equals(cmdWithSameValues));
 
-        // different types -> returns false
-        assertNotEquals(1, addAliceCommand);
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertNotEquals(null, addAliceCommand);
+        assertFalse(standardCommand.equals(null));
 
-        // different template -> returns false
-        assertNotEquals(addAliceCommand, addBobCommand);
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different product -> returns false
+        AddProductCommand cmdWithDiffValues = new AddProductCommand(
+                new ProductBuilder(ProductBuilder.DefaultProductIndex.TWO).build());
+        assertFalse(standardCommand.equals(cmdWithDiffValues));
     }
 
     /**
@@ -230,39 +231,39 @@ class AddTemplateCommandTest {
     }
 
     /**
-     * A Model stub that contains a single contact.
+     * A Model stub that contains a single product.
      */
-    private static class ModelStubWithTemplate extends AddTemplateCommandTest.ModelStub {
-        private final Template template;
+    private class ModelStubWithProduct extends ModelStub {
+        private final Product product;
 
-        ModelStubWithTemplate(Template template) {
-            requireNonNull(template);
-            this.template = template;
+        ModelStubWithProduct(Product product) {
+            requireNonNull(product);
+            this.product = product;
         }
 
         @Override
-        public boolean hasTemplate(Template template) {
-            requireNonNull(template);
-            return this.template.isSameTemplate(template);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return this.product.isSameProduct(product);
         }
     }
 
     /**
-     * A Model stub that always accept the template being added.
+     * A Model stub that always accept the product being added.
      */
-    private static class ModelStubAcceptingTemplateAdded extends AddTemplateCommandTest.ModelStub {
-        final ArrayList<Template> templatesAdded = new ArrayList<>();
+    private class ModelStubAcceptingProductAdded extends ModelStub {
+        final ArrayList<Product> productsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTemplate(Template template) {
-            requireNonNull(template);
-            return templatesAdded.stream().anyMatch(template::isSameTemplate);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return productsAdded.stream().anyMatch(product::isSameProduct);
         }
 
         @Override
-        public void addTemplate(Template template) {
-            requireNonNull(template);
-            templatesAdded.add(template);
+        public void addProduct(Product product) {
+            requireNonNull(product);
+            productsAdded.add(product);
         }
 
         @Override

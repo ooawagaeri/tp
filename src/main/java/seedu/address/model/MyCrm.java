@@ -11,6 +11,8 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.mail.Template;
 import seedu.address.model.mail.UniqueTemplateList;
+import seedu.address.model.products.Product;
+import seedu.address.model.products.UniqueProductList;
 
 /**
  * Wraps all data at the address-book level
@@ -36,12 +38,15 @@ public class MyCrm implements ReadOnlyAddressBook {
         templates = new UniqueTemplateList();
     }
 
+    private final UniqueProductList products;
+    {
+        products = new UniqueProductList();
+    }
+
     private final UniqueJobList jobs;
     {
         jobs = new UniqueJobList();
     }
-
-
 
     public MyCrm() {}
 
@@ -72,6 +77,14 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the product list with {@code products}.
+     * {@code products} must not contain duplicate products.
+     */
+    public void setProducts(List<Product> products) {
+        this.products.setProducts(products);
+    }
+
+    /**
      * Replaces the contents of the jobs list with {@code jobs}.
      * {@code jobs} must not contain duplicate jobs.
      */
@@ -87,6 +100,7 @@ public class MyCrm implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setTemplates(newData.getTemplateList());
+        setProducts(newData.getProductList());
     }
 
     //// person-level operations
@@ -189,6 +203,32 @@ public class MyCrm implements ReadOnlyAddressBook {
         templates.remove(key);
     }
 
+    //// Product Methods
+
+    /**
+     * Adds a product to the address book.
+     * The product must not already exist in MyCRM.
+     */
+    public void addProduct(Product p) {
+        products.add(p);
+    }
+
+    /**
+     * Returns true if a product with the same identity as {@code product} exists in MyCRM.
+     */
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return products.contains(product);
+    }
+
+    /**
+     * Removes {@code key} from this {@code MyCRM}.
+     * {@code key} must exist in MyCRM.
+     */
+    public void removeProduct(Product key) {
+        products.remove(key);
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -213,6 +253,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Template> getTemplateList() {
         return templates.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Product> getProductList() {
+        return products.asUnmodifiableObservableList();
     }
 
     @Override

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
+import seedu.address.model.products.Product;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final FilteredList<Contact> filteredPersons;
     private final FilteredList<Template> filteredTemplates;
     private final FilteredList<Job> filteredJobs;
+    private final FilteredList<Product> filteredProducts;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +43,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTemplates = new FilteredList<>(this.addressBook.getTemplateList());
         filteredJobs = new FilteredList<>(this.addressBook.getJobList());
+        filteredProducts = new FilteredList<>(this.addressBook.getProductList());
     }
 
     public ModelManager() {
@@ -152,6 +155,27 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Products ================================================================================
+
+    @Override
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return addressBook.hasProduct(product);
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        requireNonNull(product);
+        addressBook.addProduct(product);
+        updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+    }
+
+    @Override
+    public void deleteProduct(Product product) {
+        requireNonNull(product);
+        addressBook.removeProduct(product);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -172,6 +196,15 @@ public class ModelManager implements Model {
         return filteredTemplates;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Product} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Product> getFilteredProductList() {
+        return filteredProducts;
+    }
+
     @Override
     public ObservableList<Job> getFilteredJobList() {
         return filteredJobs;
@@ -187,6 +220,12 @@ public class ModelManager implements Model {
     public void updateFilteredTemplateList(Predicate<Template> predicate) {
         requireNonNull(predicate);
         filteredTemplates.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredProductList(Predicate<Product> predicate) {
+        requireNonNull(predicate);
+        filteredProducts.setPredicate(predicate);
     }
 
     @Override
