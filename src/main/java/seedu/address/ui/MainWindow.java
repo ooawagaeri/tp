@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
+    private JobListPanel jobListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -50,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane templateListPanelPlaceholder;
+
+    @FXML
+    private StackPane jobListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -125,8 +129,15 @@ public class MainWindow extends UiPart<Stage> {
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
 
+        jobListPanel = new JobListPanel(logic.getFilteredJobList());
+        jobListPanelPlaceholder.managedProperty().bind(jobListPanelPlaceholder.visibleProperty());
+        jobListPanelPlaceholder.getChildren().add(jobListPanel.getRoot());
+
         // Hides initial template
         templateListPanelPlaceholder.setVisible(false);
+
+        // Hides initial job list
+        jobListPanelPlaceholder.setVisible(false);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -179,12 +190,33 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides contacts and shows list templates.
+     * Hides contacts, jobs and shows list templates.
      */
     @FXML
     private void handleTemplate(boolean show) {
         templateListPanelPlaceholder.setVisible(show);
         personListPanelPlaceholder.setVisible(!show);
+        jobListPanelPlaceholder.setVisible(!show);
+    }
+
+    /**
+     * Hides contacts, templates and shows jobs.
+     */
+    @FXML
+    private void handleJob(boolean show) {
+        templateListPanelPlaceholder.setVisible(!show);
+        personListPanelPlaceholder.setVisible(!show);
+        jobListPanelPlaceholder.setVisible(show);
+    }
+
+    /**
+     * Hides templates, jobs and shows contacts.
+     */
+    @FXML
+    private void handleContact(boolean show) {
+        templateListPanelPlaceholder.setVisible(!show);
+        personListPanelPlaceholder.setVisible(show);
+        jobListPanelPlaceholder.setVisible(!show);
     }
 
     public ContactListPanel getContactListPanel() {
@@ -193,6 +225,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TemplateListPanel getTemplateListPanel() {
         return templateListPanel;
+    }
+
+    public JobListPanel getJobListPanel() {
+        return jobListPanel;
     }
 
     /**
@@ -206,7 +242,13 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            handleTemplate(commandResult.isTemplate());
+            if (commandResult.isTemplate()) {
+                handleTemplate(true);
+            } else if (commandResult.isJob()) {
+                handleJob(true);
+            } else {
+                handleContact(true);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

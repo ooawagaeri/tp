@@ -20,6 +20,9 @@ public class CommandResult {
     /** The application should show templates. */
     private final boolean showTemplate;
 
+    /** The application should show jobs. */
+    private final boolean showJob;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +31,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.showTemplate = showTemplate;
+        this.showJob = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showTemplate, boolean showJob) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showTemplate = showTemplate;
+        this.showJob = showJob;
     }
 
     /**
@@ -52,6 +67,10 @@ public class CommandResult {
 
     public boolean isTemplate() {
         return showTemplate;
+    }
+
+    public boolean isJob() {
+        return showJob;
     }
 
     @Override
