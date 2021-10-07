@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
+    private ProductListPanel productListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane templateListPanelPlaceholder;
+
+    @FXML
+    private StackPane productListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -118,12 +122,21 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
         personListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
+        personListPanelPlaceholder.setVisible(false);
+
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
 
         // Hides initial template
         templateListPanelPlaceholder.setVisible(false);
+
+        productListPanel = new ProductListPanel(logic.getFilteredProductList());
+        productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
+        productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
+
+        // Hides initial template
+        productListPanelPlaceholder.setVisible(true);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -180,8 +193,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleTemplate(boolean show) {
-        templateListPanelPlaceholder.setVisible(show);
-        personListPanelPlaceholder.setVisible(!show);
+        productListPanelPlaceholder.setVisible(true);
+        templateListPanelPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setVisible(false);
     }
 
     public ContactListPanel getContactListPanel() {
