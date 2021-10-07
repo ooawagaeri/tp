@@ -206,6 +206,16 @@ public class MainWindow extends UiPart<Stage> {
         jobListPanelPlaceholder.setVisible(show);
     }
 
+    /**
+     * Hides templates, jobs and shows contacts.
+     */
+    @FXML
+    private void handleContact(boolean show) {
+        templateListPanelPlaceholder.setVisible(!show);
+        personListPanelPlaceholder.setVisible(show);
+        jobListPanelPlaceholder.setVisible(!show);
+    }
+
     public ContactListPanel getContactListPanel() {
         return contactListPanel;
     }
@@ -233,6 +243,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleTemplate(true);
             } else if(commandResult.isJob()) {
                 handleJob(true);
+            } else {
+                handleContact(true);
             }
 
             if (commandResult.isShowHelp()) {
