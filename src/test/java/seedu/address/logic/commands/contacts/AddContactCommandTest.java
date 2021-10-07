@@ -22,6 +22,7 @@ import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
 import seedu.address.testutil.ContactBuilder;
@@ -123,6 +124,11 @@ class AddContactCommandTest {
         }
 
         @Override
+        public void addJob(Job job) {
+
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -143,12 +149,22 @@ class AddContactCommandTest {
         }
 
         @Override
+        public boolean hasJob(Job toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteTemplate(Template target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteJob(Job target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,6 +204,11 @@ class AddContactCommandTest {
         }
 
         @Override
+        public ObservableList<Job> getFilteredJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -199,6 +220,11 @@ class AddContactCommandTest {
 
         @Override
         public void updateFilteredProductList(Predicate<Product> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredJobList(Predicate<Job> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

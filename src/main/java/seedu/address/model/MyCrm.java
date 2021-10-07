@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.mail.Template;
 import seedu.address.model.mail.UniqueTemplateList;
 import seedu.address.model.products.Product;
@@ -39,6 +41,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     private final UniqueProductList products;
     {
         products = new UniqueProductList();
+    }
+
+    private final UniqueJobList jobs;
+    {
+        jobs = new UniqueJobList();
     }
 
     public MyCrm() {}
@@ -78,6 +85,14 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the jobs list with {@code jobs}.
+     * {@code jobs} must not contain duplicate jobs.
+     */
+    public void setJobs(List<Job> jobs) {
+        this.jobs.setJobs(jobs);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -107,6 +122,14 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    public boolean hasJob(Job job) {
+        requireNonNull(job);
+        return jobs.contains(job);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -120,6 +143,14 @@ public class MyCrm implements ReadOnlyAddressBook {
      */
     public void addTemplate(Template t) {
         templates.add(t);
+    }
+
+    /**
+     * Adds a job to the address book.
+     * The job must not already exist in the address book.
+     */
+    public void addJob(Job j) {
+        jobs.add(j);
     }
 
     /**
@@ -143,6 +174,17 @@ public class MyCrm implements ReadOnlyAddressBook {
         requireNonNull(editedTemplate);
 
         templates.setTemplate(target, editedTemplate);
+    }
+
+    /**
+     * Replaces the given job {@code target} in the list with {@code editedJob}.
+     * {@code target} must exist in the address book.
+     * The job identity of {@code editedJob} must not be the same as another existing job in the
+     * address book.
+     */
+    public void setJob(Job target, Job editedJob) {
+        requireNonNull(editedJob);
+        jobs.setJob(target, editedJob);
     }
 
     /**
@@ -187,6 +229,14 @@ public class MyCrm implements ReadOnlyAddressBook {
         products.remove(key);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeJob(Job key) {
+        jobs.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -208,6 +258,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Product> getProductList() {
         return products.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Job> getJobList() {
+        return jobs.asUnmodifiableObservableList();
     }
 
     @Override

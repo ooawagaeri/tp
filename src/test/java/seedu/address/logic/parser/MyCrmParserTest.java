@@ -16,12 +16,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.contacts.AddContactCommand;
 import seedu.address.logic.commands.contacts.DeleteContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.contacts.FindContactCommand;
 import seedu.address.logic.commands.contacts.ListContactCommand;
 import seedu.address.logic.commands.products.AddProductCommand;
 import seedu.address.logic.commands.products.DeleteProductCommand;
@@ -92,9 +92,9 @@ public class MyCrmParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindContactCommand command = (FindContactCommand) parser.parseCommand(
+                FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

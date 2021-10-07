@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
 
@@ -25,7 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredPersons;
     private final FilteredList<Template> filteredTemplates;
-
+    private final FilteredList<Job> filteredJobs;
     private final FilteredList<Product> filteredProducts;
 
     /**
@@ -41,7 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTemplates = new FilteredList<>(this.addressBook.getTemplateList());
-
+        filteredJobs = new FilteredList<>(this.addressBook.getJobList());
         filteredProducts = new FilteredList<>(this.addressBook.getProductList());
     }
 
@@ -109,6 +110,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasJob(Job job) {
+        requireNonNull(job);
+        return addressBook.hasJob(job);
+    }
+
+    @Override
     public void deleteContact(Contact target) {
         addressBook.removePerson(target);
     }
@@ -116,6 +123,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteTemplate(Template target) {
         addressBook.removeTemplate(target);
+    }
+
+    @Override
+    public void deleteJob(Job target) {
+        addressBook.removeJob(target);
     }
 
     @Override
@@ -128,6 +140,12 @@ public class ModelManager implements Model {
     public void addTemplate(Template template) {
         addressBook.addTemplate(template);
         updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+    }
+
+    @Override
+    public void addJob(Job job) {
+        addressBook.addJob(job);
+        updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
     }
 
     @Override
@@ -188,6 +206,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Job> getFilteredJobList() {
+        return filteredJobs;
+    }
+
+    @Override
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
@@ -203,6 +226,12 @@ public class ModelManager implements Model {
     public void updateFilteredProductList(Predicate<Product> predicate) {
         requireNonNull(predicate);
         filteredProducts.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredJobList(Predicate<Job> predicate) {
+        requireNonNull(predicate);
+        filteredJobs.setPredicate(predicate);
     }
 
     @Override

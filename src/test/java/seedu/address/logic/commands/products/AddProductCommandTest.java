@@ -24,6 +24,7 @@ import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
 import seedu.address.testutil.ProductBuilder;
@@ -80,9 +81,9 @@ public class AddProductCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that have all the methods failing.
      */
-    private class ModelStub implements Model {
+    private static class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -114,13 +115,18 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public void addContact(Contact person) {
+        public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addTemplate(Template template) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addJob(Job job) {
+
         }
 
         @Override
@@ -134,12 +140,17 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public boolean hasContact(Contact person) {
+        public boolean hasContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasTemplate(Template person) {
+        public boolean hasTemplate(Template contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasJob(Job toAdd) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,7 +165,12 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public void setContact(Contact target, Contact editedPerson) {
+        public void deleteJob(Job target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -189,6 +205,11 @@ public class AddProductCommandTest {
         }
 
         @Override
+        public ObservableList<Job> getFilteredJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -200,6 +221,11 @@ public class AddProductCommandTest {
 
         @Override
         public void updateFilteredProductList(Predicate<Product> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredJobList(Predicate<Job> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

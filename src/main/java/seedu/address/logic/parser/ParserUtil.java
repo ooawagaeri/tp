@@ -13,9 +13,11 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.tag.Tag;
+import seedu.address.model.job.JobDescription;
 import seedu.address.model.mail.Body;
 import seedu.address.model.mail.Subject;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -152,6 +154,21 @@ public class ParserUtil {
             throw new ParseException(Body.MESSAGE_CONSTRAINTS);
         }
         return new Body(trimmedBody);
+    }
+
+    /**
+     * Parses a {@code String jobDescription} into an {@code JobDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code jobDescription} is invalid.
+     */
+    public static JobDescription parseJobDescription(String jobDescription) throws ParseException {
+        requireNonNull(jobDescription);
+        String trimmedJobDescription = jobDescription.trim();
+        if (!JobDescription.isValidJobDescription(trimmedJobDescription)) {
+            throw new ParseException(JobDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new JobDescription(trimmedJobDescription);
     }
 
     /**
