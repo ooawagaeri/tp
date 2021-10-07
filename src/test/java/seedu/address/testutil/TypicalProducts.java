@@ -9,6 +9,7 @@ import seedu.address.model.products.Product;
 public class TypicalProducts {
     public static final Product ASUS_GPU = new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build();
     public static final Product INTEL_CPU = new ProductBuilder(ProductBuilder.DefaultProductIndex.TWO).build();
+    public static final Product SAMSUNG_SSD = new ProductBuilder(ProductBuilder.DefaultProductIndex.THREE).build();
 
     /**
      * Returns an {@code MyCrm} with all the typical products.
@@ -22,6 +23,6 @@ public class TypicalProducts {
     }
 
     public static ArrayList<Product> getTypicalProducts() {
-        return new ArrayList<>(Arrays.asList(ASUS_GPU, INTEL_CPU));
+        return new ArrayList<>(Arrays.asList(ASUS_GPU, INTEL_CPU, SAMSUNG_SSD));
     }
 }

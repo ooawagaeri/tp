@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.contacts.EditContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.contacts.ListContactCommand;
 import seedu.address.logic.commands.products.AddProductCommand;
+import seedu.address.logic.commands.products.DeleteProductCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
@@ -72,6 +74,13 @@ public class MyCrmParserTest {
         Product p = new ProductBuilder().build();
         AddProductCommand command = (AddProductCommand) parser.parseCommand(ProductUtil.getAddProductCommand(p));
         assertEquals(new AddProductCommand(p), command);
+    }
+
+    @Test
+    public void parseCommand_deleteProduct() throws Exception {
+        DeleteProductCommand command = (DeleteProductCommand) parser.parseCommand(
+                DeleteProductCommand.COMMAND_WORD + " " + INDEX_FIRST_PRODUCT.getOneBased());
+        assertEquals(new DeleteProductCommand(INDEX_FIRST_PRODUCT), command);
     }
 
     @Test

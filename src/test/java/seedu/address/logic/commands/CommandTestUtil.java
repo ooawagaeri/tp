@@ -30,6 +30,8 @@ import seedu.address.model.mail.SubjectContainsKeywordsPredicate;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Description;
 import seedu.address.model.products.Manufacturer;
+import seedu.address.model.products.Product;
+import seedu.address.model.products.ProductNameContainsKeywordsPredicate;
 import seedu.address.model.products.Type;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ProductBuilder;
@@ -176,5 +178,19 @@ public class CommandTestUtil {
                 .collect(Collectors.toList())));
 
         assertEquals(1, model.getFilteredTemplateList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the product at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showProductAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredProductList().size());
+
+        Product product = model.getFilteredProductList().get(targetIndex.getZeroBased());
+        final String[] splitName = product.getName().split("\\s+");
+        model.updateFilteredProductList(new ProductNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredProductList().size());
     }
 }

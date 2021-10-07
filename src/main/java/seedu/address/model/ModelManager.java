@@ -155,7 +155,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteProduct(Product product) {
         requireNonNull(product);
-        // unimplemented
+        addressBook.removeProduct(product);
     }
 
     //=========== Filtered Person List Accessors =============================================================

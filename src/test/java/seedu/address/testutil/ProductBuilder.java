@@ -18,6 +18,13 @@ public class ProductBuilder {
     public static final Description DEFAULT_PRODUCT_TWO_DESCRIPTION = Description.getDescription("Video output "
             + "interface: DisplayPort, HDMI");
 
+    public static final String DEFAULT_PRODUCT_THREE_NAME = "SAMSUNG 980 PRO 1TB SSD";
+    public static final Type DEFAULT_PRODUCT_THREE_TYPE = Type.getType("Hard disk");
+    public static final Manufacturer DEFAULT_PRODUCT_THREE_MANUFACTURER = Manufacturer.getManufacturer("SAMSUNG");
+    public static final Description DEFAULT_PRODUCT_THREE_DESCRIPTION = Description.getDescription(
+            "Connectivity technology: SATA");
+
+
     private String name;
     private Type type;
     private Manufacturer manufacturer;
@@ -39,6 +46,12 @@ public class ProductBuilder {
             this.type = DEFAULT_PRODUCT_TWO_TYPE;
             this.manufacturer = DEFAULT_PRODUCT_TWO_MANUFACTURER;
             this.description = DEFAULT_PRODUCT_TWO_DESCRIPTION;
+            break;
+        case THREE:
+            this.name = DEFAULT_PRODUCT_THREE_NAME;
+            this.type = DEFAULT_PRODUCT_THREE_TYPE;
+            this.manufacturer = DEFAULT_PRODUCT_THREE_MANUFACTURER;
+            this.description = DEFAULT_PRODUCT_THREE_DESCRIPTION;
             break;
         default:
             assert false : "Enum not implemented";
@@ -119,5 +132,5 @@ public class ProductBuilder {
         return new Product(name, type, manufacturer, description);
     }
 
-    public enum DefaultProductIndex { ONE, TWO };
+    public enum DefaultProductIndex { ONE, TWO, THREE };
 }
