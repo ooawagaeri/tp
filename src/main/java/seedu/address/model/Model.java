@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 
 /**
@@ -15,6 +16,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -65,6 +67,11 @@ public interface Model {
     boolean hasTemplate(Template toAdd);
 
     /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    boolean hasJob(Job toAdd);
+
+    /**
      * Deletes the given contact.
      * The contact must exist in the address book.
      */
@@ -77,6 +84,12 @@ public interface Model {
     void deleteTemplate(Template target);
 
     /**
+     * Deletes the given job.
+     * The job must exist in the address book.
+     */
+    void deleteJob(Job target);
+
+    /**
      * Adds the given contact.
      * {@code contact} must not already exist in the address book.
      */
@@ -87,6 +100,12 @@ public interface Model {
      * {@code template} must not already exist in the address book.
      */
     void addTemplate(Template template);
+
+    /**
+     * Adds the given job.
+     * {@code job} must not already exist in the address book.
+     */
+    void addJob(Job job);
 
 
     /**
@@ -103,6 +122,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered template list */
     ObservableList<Template> getFilteredTemplateList();
 
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Job> getFilteredJobList();
+
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -114,5 +136,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTemplateList(Predicate<Template> predicate);
+
+    /**
+     * Updates the filter of the filtered job list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredJobList(Predicate<Job> predicate);
 
 }

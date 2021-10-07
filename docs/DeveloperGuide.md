@@ -309,39 +309,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a repair job and specifies a job description, contact and product name.
-2. MyCRM attempts to create a new contact with the contact name.
-3. MyCRM attempts to create a new product with the product name.
-4. MyCRM creates a new repair job with the job description and associates a repair job with
+1. User requests to add a repair job and specifies a job description, client and product.
+2. MyCRM creates a new repair job with the job description and associates a repair job with
    a product and contact.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. User does not specify a job description, contact or product name.
+* 1a. User does not specify a job description, contact or product.
 
     * 1a1. MyCRM shows an error message and requests for the missing details.
     * 1a2. User enters the missing details.
 
       Steps 1a1-1a2 are repeated until the user enters the details. Use case resumes at step 2.
-
-* 2a. The given contact name matches existing contacts in MyCRM.
-
-    * 2a1. MyCRM displays the list of existing contacts with the same contact name.
-    * 2a2. User selects one of the existing contacts or indicates they want to create a new contact.
-    * 2a3. MyCRM uses the contact indicated by the User (existing or new) for the next steps in the use case.
-
-      Use case resumes at step 3.
-
-* 3a. The given contact name matches existing products in MyCRM.
-
-    * 3a1. MyCRM displays the list of existing products with the same product name.
-    * 3a2. User selects one of the existing products or indicates they want to create a new product.
-    * 3a3. MyCRM uses the product indicated by the User (existing or new) for the next steps in the use case.
-
-      Use case resumes at step 4.
-
 
 **Use case: UC02 - Editing a repair job**
 

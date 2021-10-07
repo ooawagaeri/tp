@@ -75,38 +75,16 @@ applications.
 
 Adds a new repair job to the CRM.
 
-Format: `addJob d/DESCRIPTION n/CLIENT_NAME p/PRODUCT_NAME [by/DELIVERY_DATE]`
-
-Format for possible follow up commands:\
-  `select [n/CONTACT_INDEX] [p/PRODUCT_INDEX]` (if multiple matching names for existing contacts and products)\
-OR\
-  `select [n/NEW] [p/NEW]` (if user  proceeds with creation of new contact and product)
+Format: `addJob d/DESCRIPTION c/CLIENT_INDEX p/PRODUCT_INDEX by/DELIVERY_DATE`
 
 * Creates a new repair job.
-* If the client name and product name provided correspond to existing contacts or products they will
-  automatically be linked to the repair job.
-* If not the contact and product entities will be created with just their name.
-  More contact/product specific details can be added subsequently using their respective commands.
-* In the case there happen to be multiple clients or products with the same name,
-  a list of client names and product names will be shown for the user to select from.
-  The command `select n/CONTACT_INDEX p/PRODUCT_INDEX`  will be used to select the specific contact and product,
-  where `CONTACT_INDEX` and `PRODUCT_INDEX` refer to the index in the contact and product listing.
-* However, if user wishes to actually create new contacts or products instead of choosing existing matching ones
-  they can issue the command `select n/NEW p/NEW`
-* Note: Any combination of the select commands is valid.  
-  Commands like `select n/CONTACT_INDEX` (if there is no matching existing products) or
-  `select n/NEW p/PRODUCT_INDEX` (if user wants to create a new contact but reuse an existing product) are valid.
+* Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
+  respective contact and product list) to the job.
 
 Examples:
 
-* `addJob d/Graphics card replacement needed n/John Doe p/Asus GPU by/15/09/2021`
-* In the case there happen to be multiple existing clients or products with the
-  same name, their listings are shown
+* `addJob d/Graphics card replacement needed c/1 p/2 by/15/09/2021`
 
-    <img src="images/ui-addJob-select-product-contact.jpg" width="600px">
-
-* Suppose the user wants to choose Product 1 and Contact 1.Then the following command can be issued:
-  `select n/1 p/1`
 * Then the addJob command is complete and the user sees the following screen:
 
     <img src="images/ui-addJob-success.jpg" width="600px">
@@ -316,9 +294,9 @@ contains the data of your previous MyCRM home folder.
 
 Action              | Format, Examples
 --------------------|------------------
-**Add Job**         |
-**List Job**        |
-**Delete Job**      |
+**Add Job**         | `addJob d/DESCRIPTION c/CLIENT_INDEX p/PRODUCT_INDEX by/DELIVERY_DATE` <br>e.g., `addJob d/Graphics card replacement needed c/1 p/2 by/15/09/2021`
+**List Job**        | `listJob`
+**Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
 **Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **List Contact**    | `listContact`
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`

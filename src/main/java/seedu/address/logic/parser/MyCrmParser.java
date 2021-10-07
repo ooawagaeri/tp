@@ -16,6 +16,9 @@ import seedu.address.logic.commands.contacts.DeleteContactCommand;
 import seedu.address.logic.commands.contacts.EditContactCommand;
 import seedu.address.logic.commands.contacts.LinkContactCommand;
 import seedu.address.logic.commands.contacts.ListContactCommand;
+import seedu.address.logic.commands.jobs.AddJobCommand;
+import seedu.address.logic.commands.jobs.DeleteJobCommand;
+import seedu.address.logic.commands.jobs.ListJobCommand;
 import seedu.address.logic.commands.mails.AddTemplateCommand;
 import seedu.address.logic.commands.mails.DeleteTemplateCommand;
 import seedu.address.logic.commands.mails.ListTemplateCommand;
@@ -24,6 +27,8 @@ import seedu.address.logic.parser.contacts.DeleteContactCommandParser;
 import seedu.address.logic.parser.contacts.EditContactCommandParser;
 import seedu.address.logic.parser.contacts.LinkContactCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.jobs.AddJobCommandParser;
+import seedu.address.logic.parser.jobs.DeleteJobCommandParser;
 import seedu.address.logic.parser.mails.AddTemplateCommandParser;
 import seedu.address.logic.parser.mails.DeleteTemplateCommandParser;
 
@@ -89,6 +94,15 @@ public class MyCrmParser {
 
         case DeleteTemplateCommand.COMMAND_WORD:
             return new DeleteTemplateCommandParser().parse(arguments);
+
+        case AddJobCommand.COMMAND_WORD:
+            return new AddJobCommandParser().parse(arguments);
+
+        case ListJobCommand.COMMAND_WORD:
+            return new ListJobCommand();
+
+        case DeleteJobCommand.COMMAND_WORD:
+            return new DeleteJobCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

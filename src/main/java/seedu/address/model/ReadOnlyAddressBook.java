@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 
 /**
@@ -20,4 +21,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any template persons.
      */
     ObservableList<Template> getTemplateList();
+
+    /**
+     * Returns an unmodifiable view of the jobs list.
+     * This list will not contain any duplicate jobs.
+     */
+    ObservableList<Job> getJobList();
 }
