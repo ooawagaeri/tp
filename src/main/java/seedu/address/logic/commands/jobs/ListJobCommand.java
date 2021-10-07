@@ -2,7 +2,6 @@ package seedu.address.logic.commands.jobs;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_JOBS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;

@@ -10,8 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.job.exceptions.DuplicateJobException;
 import seedu.address.model.job.exceptions.JobNotFoundException;
-import seedu.address.model.mail.exceptions.DuplicateTemplateException;
-import seedu.address.model.mail.exceptions.TemplateNotFoundException;
 
 /**
  * A list of jobs that enforces uniqueness between its elements and does not allow nulls.

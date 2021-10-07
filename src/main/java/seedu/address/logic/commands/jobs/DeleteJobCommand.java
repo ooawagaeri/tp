@@ -9,10 +9,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.mails.DeleteTemplateCommand;
 import seedu.address.model.Model;
 import seedu.address.model.job.Job;
-import seedu.address.model.mail.Template;
 
 public class DeleteJobCommand extends Command {
     public static final String COMMAND_WORD = "deleteJob";

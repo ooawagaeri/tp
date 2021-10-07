@@ -23,6 +23,9 @@ public class Job {
         this.isCompleted = false;
     }
 
+    /**
+     * Creates a job with all fields.
+     */
     public Job(JobDescription jobDescription, Contact client, String deliveryDate, boolean completionStatus) {
         this.jobDescription = jobDescription;
         this.client = client;
@@ -88,8 +91,8 @@ public class Job {
         }
 
         Job job = (Job) o;
-        return isCompleted() == job.isCompleted() && getJobDescription().equals(job.getJobDescription()) &&
-            getClient().equals(job.getClient()) && getDeliveryDate().equals(job.getDeliveryDate());
+        return isCompleted() == job.isCompleted() && getJobDescription().equals(job.getJobDescription())
+                && getClient().equals(job.getClient()) && getDeliveryDate().equals(job.getDeliveryDate());
     }
 
     @Override

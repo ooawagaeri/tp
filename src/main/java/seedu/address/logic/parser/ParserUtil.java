@@ -13,7 +13,6 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.job.Job;
 import seedu.address.model.job.JobDescription;
 import seedu.address.model.mail.Body;
 import seedu.address.model.mail.Subject;

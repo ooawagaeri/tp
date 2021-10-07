@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 
 /**
@@ -57,9 +56,9 @@ public class JobCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(job.getJobDescription().value + " - " + job.getClient().getName());
         deliveryDate.setText("Expected Delivery: " + job.getDeliveryDate());
-        if(job.isCompleted()){
+        if (job.isCompleted()) {
             status.getChildren().add(new Label("Complete"));
-        } else{
+        } else {
             status.getChildren().add(new Label("In Progress"));
         }
         clientInfo.setText("Client Info");

@@ -3,24 +3,16 @@ package seedu.address.model.job;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BODY_DONE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalJobs.COMPLETED;
-import static seedu.address.testutil.TypicalTemplates.THANK_YOU;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.job.exceptions.DuplicateJobException;
 import seedu.address.model.job.exceptions.JobNotFoundException;
-import seedu.address.model.mail.Template;
-import seedu.address.model.mail.UniqueTemplateList;
-import seedu.address.model.mail.exceptions.DuplicateTemplateException;
-import seedu.address.model.mail.exceptions.TemplateNotFoundException;
-import seedu.address.testutil.TemplateBuilder;
 
 public class UniqueJobListTest {
     private final UniqueJobList uniqueJobList = new UniqueJobList();

@@ -239,9 +239,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if(commandResult.isTemplate()) {
+            if (commandResult.isTemplate()) {
                 handleTemplate(true);
-            } else if(commandResult.isJob()) {
+            } else if (commandResult.isJob()) {
                 handleJob(true);
             } else {
                 handleContact(true);

@@ -3,9 +3,6 @@ package seedu.address.testutil;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobDescription;
-import seedu.address.model.mail.Body;
-import seedu.address.model.mail.Subject;
-import seedu.address.model.mail.Template;
 
 /**
  * A utility class to help with building Job objects.

@@ -3,8 +3,6 @@ package seedu.address.model.job;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.contact.Address;
-
 public class JobDescription {
 
     public static final String MESSAGE_CONSTRAINTS = "Job Description can take any values, and it should not be blank";

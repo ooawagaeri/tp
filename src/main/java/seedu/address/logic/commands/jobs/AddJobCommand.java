@@ -49,7 +49,7 @@ public class AddJobCommand extends Command {
         requireNonNull(model);
         List<Contact> lastShownList = model.getFilteredContactList();
 
-        if(contactIndex != null) {
+        if (contactIndex != null) {
             if (contactIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
             }
