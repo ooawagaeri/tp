@@ -44,7 +44,7 @@ public class UniqueJobList implements Iterable<Job> {
     public void add(Job toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateTemplateException();
+            throw new DuplicateJobException();
         }
         internalList.add(toAdd);
     }
@@ -76,7 +76,7 @@ public class UniqueJobList implements Iterable<Job> {
     public void remove(Job toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new TemplateNotFoundException();
+            throw new JobNotFoundException();
         }
     }
 
@@ -92,7 +92,7 @@ public class UniqueJobList implements Iterable<Job> {
     public void setJobs(List<Job> jobs) {
         requireAllNonNull(jobs);
         if (!jobsAreUnique(jobs)) {
-            throw new DuplicateTemplateException();
+            throw new DuplicateJobException();
         }
 
         internalList.setAll(jobs);

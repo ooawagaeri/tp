@@ -122,7 +122,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered template list */
     ObservableList<Template> getFilteredTemplateList();
 
-    /** Returns an unmodifiable view of the filtered template list */
+    /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredJobList();
 
     /**

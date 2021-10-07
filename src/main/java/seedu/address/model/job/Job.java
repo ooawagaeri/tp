@@ -12,7 +12,7 @@ public class Job {
     private boolean isCompleted;
 
     /**
-     * Creates a job with only the jobDescription
+     * Creates a job with the jobDescription and deliveryDate
      *
      * @param jobDescription
      */
@@ -21,6 +21,13 @@ public class Job {
         this.client = null;
         this.deliveryDate = deliveryDate;
         this.isCompleted = false;
+    }
+
+    public Job(JobDescription jobDescription, Contact client, String deliveryDate, boolean completionStatus) {
+        this.jobDescription = jobDescription;
+        this.client = client;
+        this.deliveryDate = deliveryDate;
+        this.isCompleted = completionStatus;
     }
 
     public JobDescription getJobDescription() {
