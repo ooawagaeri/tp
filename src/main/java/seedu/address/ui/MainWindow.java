@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private JobListPanel jobListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StackPane currentPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -129,8 +130,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
         personListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        personListPanelPlaceholder.setVisible(false);
-
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
@@ -143,12 +142,17 @@ public class MainWindow extends UiPart<Stage> {
         productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
         productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
 
+        // Show contacts as initial template
+        personListPanelPlaceholder.setVisible(true);
         // Hides initial template
         templateListPanelPlaceholder.setVisible(false);
         // Hides initial product list
         productListPanelPlaceholder.setVisible(false);
         // Hides initial job list
         jobListPanelPlaceholder.setVisible(false);
+
+        // Set current panel to person list
+        currentPanel = personListPanelPlaceholder;
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -200,36 +204,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**
-     * Hides contacts, jobs and shows list templates.
-     */
-    @FXML
-    private void handleTemplate(boolean show) {
-        templateListPanelPlaceholder.setVisible(show);
-        personListPanelPlaceholder.setVisible(!show);
-        jobListPanelPlaceholder.setVisible(!show);
-    }
-
-    /**
-     * Hides contacts, templates and shows jobs.
-     */
-    @FXML
-    private void handleJob(boolean show) {
-        templateListPanelPlaceholder.setVisible(!show);
-        personListPanelPlaceholder.setVisible(!show);
-        jobListPanelPlaceholder.setVisible(show);
-    }
-
-    /**
-     * Hides templates, jobs and shows contacts.
-     */
-    @FXML
-    private void handleContact(boolean show) {
-        templateListPanelPlaceholder.setVisible(!show);
-        personListPanelPlaceholder.setVisible(show);
-        jobListPanelPlaceholder.setVisible(!show);
-    }
-
     public ContactListPanel getContactListPanel() {
         return contactListPanel;
     }
@@ -253,27 +227,49 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isTemplate()) {
-                handleTemplate(true);
-            } else if (commandResult.isJob()) {
-                handleJob(true);
-            } else {
-                handleContact(true);
-            }
+            switch (commandResult.getCommandType()) {
+            case CONTACTS:
+                showPanel(personListPanelPlaceholder);
+                break;
 
-            if (commandResult.isShowHelp()) {
+            case MAILS:
+                showPanel(templateListPanelPlaceholder);
+                break;
+
+            case JOBS:
+                showPanel(jobListPanelPlaceholder);
+                break;
+
+            case PRODUCTS:
+                showPanel(productListPanelPlaceholder);
+                break;
+
+            case HELP:
                 handleHelp();
-            }
+                break;
 
-            if (commandResult.isExit()) {
+            case EXIT:
                 handleExit();
-            }
+                break;
 
+            case COMMON:
+                // do nothing
+                break;
+
+            default:
+                assert false;
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void showPanel(StackPane toShow) {
+        toShow.setVisible(true);
+        currentPanel.setVisible(false);
+        currentPanel = toShow;
     }
 }

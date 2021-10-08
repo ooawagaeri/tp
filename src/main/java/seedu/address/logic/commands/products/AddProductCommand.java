@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.products.Product;
@@ -26,6 +27,8 @@ public class AddProductCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in MyCRM";
 
+    private static final CommandType COMMAND_TYPE = CommandType.PRODUCTS;
+
     private final Product toAdd;
 
     /**
@@ -46,12 +49,17 @@ public class AddProductCommand extends Command {
         }
 
         model.addProduct(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toString()), COMMAND_TYPE);
     }
 
     @Override
     public String toString() {
         return toAdd.toString();
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override
