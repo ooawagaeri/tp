@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -26,6 +27,8 @@ public class DeleteContactCommand extends Command {
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
+    private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
+
     private final Index targetIndex;
 
     public DeleteContactCommand(Index targetIndex) {
@@ -43,7 +46,12 @@ public class DeleteContactCommand extends Command {
 
         Contact personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, personToDelete), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override

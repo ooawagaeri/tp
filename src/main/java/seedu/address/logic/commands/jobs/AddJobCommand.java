@@ -11,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -31,6 +32,8 @@ public class AddJobCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New repair job added: %1$s";
     public static final String MESSAGE_DUPLICATE_JOB = "This reapir job already exists in the MyCRM";
+
+    private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
     private final Job toAdd;
     private final Index contactIndex;
@@ -63,7 +66,12 @@ public class AddJobCommand extends Command {
         }
 
         model.addJob(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, false, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override
