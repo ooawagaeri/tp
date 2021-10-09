@@ -2,7 +2,9 @@ package seedu.address.model.products;
 
 import static java.util.Objects.requireNonNull;
 
-public class Manufacturer {
+import java.util.Optional;
+
+public class Manufacturer implements ProductComponent<Manufacturer> {
     private static final Manufacturer EMPTY_MANUFACTURER = new Manufacturer();
     private final String name;
 
@@ -24,12 +26,28 @@ public class Manufacturer {
         }
     }
 
+    public static Manufacturer getManufacturer(Optional<String> name) {
+        requireNonNull(name);
+
+        if (name.orElse("").length() == 0) {
+            return EMPTY_MANUFACTURER;
+        } else {
+            return new Manufacturer(name.get());
+        }
+    }
+
     public static Manufacturer getEmptyManufacturer() {
         return EMPTY_MANUFACTURER;
     }
 
-    protected boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
         return this == EMPTY_MANUFACTURER;
+    }
+
+    @Override
+    public String orElse(String alternativeString) {
+        return this.isEmpty() ? alternativeString : this.name;
     }
 
     @Override

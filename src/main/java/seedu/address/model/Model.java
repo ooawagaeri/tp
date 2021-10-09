@@ -118,21 +118,29 @@ public interface Model {
     void setContact(Contact target, Contact editedContact);
 
     /**
-     * Returns true if a product with the same identity as {@code product} exists in the address book.
+     * Returns true if a product with the same identity as {@code product} exists in MyCrm.
      */
     boolean hasProduct(Product product);
 
     /**
      * Adds the given product.
-     * {@code product} must not already exist in the address book
+     * {@code product} must not already exist in MyCrm.
      */
     void addProduct(Product product);
 
     /**
      * Deletes the given product.
-     * The product must exist in the address book.
+     * The product must exist in MyCrm.
      */
     void deleteProduct(Product product);
+
+    /**
+     * Replaces the given product {@code target} with {@code editedProduct}.
+     * {@code target} must exist in MyCrm.
+     * The product identity of {@code editedProduct} must not be the same as another existing product
+     * in MyCrm.
+     */
+    void setProduct(Product target, Product editedProduct);
 
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();

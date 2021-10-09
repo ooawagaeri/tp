@@ -33,12 +33,15 @@ public class ProductTest {
         assertFalse(new ProductBuilder().build().isSameProduct(editedProduct));
 
         // name differs in case, all other attributes same -> returns false
+        ProductName diffCaseName = ProductName.getName(
+                ProductBuilder.DEFAULT_PRODUCT_ONE_NAME.toString().toLowerCase());
         editedProduct = new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE)
-                .withName(ProductBuilder.DEFAULT_PRODUCT_ONE_NAME.toLowerCase()).build();
+                .withName(diffCaseName).build();
         assertFalse(new ProductBuilder().build().isSameProduct(editedProduct));
 
         // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME + " ";
+        ProductName nameWithTrailingSpaces = ProductName.getName(
+                ProductBuilder.DEFAULT_PRODUCT_ONE_NAME.toString() + " ");
         editedProduct = new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE)
                 .withName(nameWithTrailingSpaces).build();
         assertFalse(new ProductBuilder().build().isSameProduct(editedProduct));

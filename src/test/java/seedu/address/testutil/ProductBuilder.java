@@ -3,29 +3,35 @@ package seedu.address.testutil;
 import seedu.address.model.products.Description;
 import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Product;
+import seedu.address.model.products.ProductName;
 import seedu.address.model.products.Type;
 
 public class ProductBuilder {
 
-    public static final String DEFAULT_PRODUCT_ONE_NAME = "Intel i5-10400F";
+    public static final ProductName DEFAULT_PRODUCT_ONE_NAME = ProductName.getName("Intel i5-10400F");
     public static final Type DEFAULT_PRODUCT_ONE_TYPE = Type.getType("CPU");
     public static final Manufacturer DEFAULT_PRODUCT_ONE_MANUFACTURER = Manufacturer.getManufacturer("Intel");
     public static final Description DEFAULT_PRODUCT_ONE_DESCRIPTION = Description.getDescription("2.90GHz");
 
-    public static final String DEFAULT_PRODUCT_TWO_NAME = "Asus DUAL-GTX1060-O6G";
+    public static final ProductName DEFAULT_PRODUCT_TWO_NAME = ProductName.getName("Asus DUAL-GTX1060-O6G");
     public static final Type DEFAULT_PRODUCT_TWO_TYPE = Type.getType("GPU");
     public static final Manufacturer DEFAULT_PRODUCT_TWO_MANUFACTURER = Manufacturer.getManufacturer("Asus");
     public static final Description DEFAULT_PRODUCT_TWO_DESCRIPTION = Description.getDescription("Video output "
             + "interface: DisplayPort, HDMI");
 
-    public static final String DEFAULT_PRODUCT_THREE_NAME = "SAMSUNG 980 PRO 1TB SSD";
+    public static final ProductName DEFAULT_PRODUCT_THREE_NAME = ProductName.getName("SAMSUNG 980 PRO 1TB SSD");
     public static final Type DEFAULT_PRODUCT_THREE_TYPE = Type.getType("Hard disk");
     public static final Manufacturer DEFAULT_PRODUCT_THREE_MANUFACTURER = Manufacturer.getManufacturer("SAMSUNG");
     public static final Description DEFAULT_PRODUCT_THREE_DESCRIPTION = Description.getDescription(
             "Connectivity technology: SATA");
 
+    public static final ProductName DEFAULT_PRODUCT_FOUR_NAME = ProductName.getName("GIGABYTE B450M DS3H V2");
+    public static final Type DEFAULT_PRODUCT_FOUR_TYPE = Type.getType("Motherboard");
+    public static final Manufacturer DEFAULT_PRODUCT_FOUR_MANUFACTURER = Manufacturer.getManufacturer("GIGABYTE");
+    public static final Description DEFAULT_PRODUCT_FOUR_DESCRIPTION = Description.getDescription(
+            "Chipset type: AMD B450");
 
-    private String name;
+    private ProductName name;
     private Type type;
     private Manufacturer manufacturer;
     private Description description;
@@ -53,6 +59,12 @@ public class ProductBuilder {
             this.manufacturer = DEFAULT_PRODUCT_THREE_MANUFACTURER;
             this.description = DEFAULT_PRODUCT_THREE_DESCRIPTION;
             break;
+        case FOUR:
+            this.name = DEFAULT_PRODUCT_FOUR_NAME;
+            this.type = DEFAULT_PRODUCT_FOUR_TYPE;
+            this.manufacturer = DEFAULT_PRODUCT_FOUR_MANUFACTURER;
+            this.description = DEFAULT_PRODUCT_FOUR_DESCRIPTION;
+            break;
         default:
             assert false : "Enum not implemented";
         }
@@ -73,9 +85,17 @@ public class ProductBuilder {
     }
 
     /**
-     * Sets name field to given name.
+     *  Initializes product name field with given string.
      */
     public ProductBuilder withName(String productName) {
+        this.name = ProductName.getName(productName);
+        return this;
+    }
+
+    /**
+     * Sets name field to given name.
+     */
+    public ProductBuilder withName(ProductName productName) {
         this.name = productName;
         return this;
     }
@@ -132,5 +152,5 @@ public class ProductBuilder {
         return new Product(name, type, manufacturer, description);
     }
 
-    public enum DefaultProductIndex { ONE, TWO, THREE };
+    public enum DefaultProductIndex { ONE, TWO, THREE, FOUR };
 }

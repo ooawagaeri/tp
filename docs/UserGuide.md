@@ -143,12 +143,13 @@ Format: `deleteContact 4`
 Add a new product to the CRM.
 
 Format: `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
+* Product name is a compulsory field. It must be non-empty.
 
 Examples:
 
 * `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 * `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
-  
+
     <img src="images/ui-add-product.PNG" width="600px">
 
 ### Listing all products: `listProduct`
