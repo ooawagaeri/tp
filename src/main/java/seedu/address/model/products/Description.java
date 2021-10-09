@@ -2,7 +2,9 @@ package seedu.address.model.products;
 
 import static java.util.Objects.requireNonNull;
 
-public class Description {
+import java.util.Optional;
+
+public class Description implements ProductComponent<Description> {
     private static final Description EMPTY_DESCRIPTION = new Description();
     private final String contents;
 
@@ -24,12 +26,28 @@ public class Description {
         }
     }
 
+    public static Description getDescription(Optional<String> contents) {
+        requireNonNull(contents);
+
+        if (contents.orElse("").length() == 0) {
+            return EMPTY_DESCRIPTION;
+        } else {
+            return new Description(contents.get());
+        }
+    }
+
     public static Description getEmptyDescription() {
         return EMPTY_DESCRIPTION;
     }
 
-    protected boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
         return this == EMPTY_DESCRIPTION;
+    }
+
+    @Override
+    public String orElse(String alternativeString) {
+        return this.isEmpty() ? alternativeString : this.contents;
     }
 
     @Override

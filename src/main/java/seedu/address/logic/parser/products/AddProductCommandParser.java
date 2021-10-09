@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.products.Description;
 import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Product;
+import seedu.address.model.products.ProductName;
 import seedu.address.model.products.Type;
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
@@ -28,12 +29,15 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 PREFIX_PRODUCT_MANUFACTURER, PREFIX_PRODUCT_DESCRIPTION);
 
         Optional<String> name = argMap.getValue(PREFIX_PRODUCT_NAME);
+        ProductName pName;
         if (name.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddProductCommand.MESSAGE_USAGE));
         } else if (name.get().length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddProductCommand.MESSAGE_USAGE));
+        } else {
+            pName = ProductName.getName(name.get());
         }
 
         Optional<String> typeWrapper = argMap.getValue(PREFIX_PRODUCT_TYPE);
@@ -51,6 +55,6 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 ? Description.getEmptyDescription()
                 : Description.getDescription(descriptionWrapper.get());
 
-        return new AddProductCommand(new Product(name.get(), type, manufacturer, description));
+        return new AddProductCommand(new Product(pName, type, manufacturer, description));
     }
 }

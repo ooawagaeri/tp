@@ -31,6 +31,7 @@ import seedu.address.model.mail.Template;
 import seedu.address.model.products.Description;
 import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Product;
+import seedu.address.model.products.ProductName;
 import seedu.address.model.products.ProductNameContainsKeywordsPredicate;
 import seedu.address.model.products.Type;
 import seedu.address.testutil.EditContactDescriptorBuilder;
@@ -81,7 +82,7 @@ public class CommandTestUtil {
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
 
-    public static final String VALID_PRODUCT_NAME = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
+    public static final ProductName VALID_PRODUCT_NAME = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
     public static final Type VALID_PRODUCT_TYPE = ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE;
     public static final Manufacturer VALID_PRODUCT_MANUFACTURER = ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
     public static final Description VALID_PRODUCT_DESCRIPTION = ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION;
@@ -188,7 +189,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredProductList().size());
 
         Product product = model.getFilteredProductList().get(targetIndex.getZeroBased());
-        final String[] splitName = product.getName().split("\\s+");
+        final String[] splitName = product.getName().orElse("").split("\\s+");
         model.updateFilteredProductList(new ProductNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredProductList().size());

@@ -268,6 +268,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void showPanel(StackPane toShow) {
+        if (currentPanel == toShow) {
+            return;
+        }
         toShow.setVisible(true);
         currentPanel.setVisible(false);
         currentPanel = toShow;

@@ -230,6 +230,17 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in MyCrm.
+     * The product identity of {@code editedProduct} must not be the same as another existing product
+     * in MyCrm.
+     */
+    public void setProduct(Product target, Product editedProduct) {
+        requireNonNull(editedProduct);
+        products.setProduct(target, editedProduct);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
