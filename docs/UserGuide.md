@@ -143,12 +143,13 @@ Format: `deleteContact 4`
 Add a new product to the CRM.
 
 Format: `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
+* Product name is a compulsory field. It must be non-empty.
 
 Examples:
 
 * `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 * `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
-  
+
     <img src="images/ui-add-product.PNG" width="600px">
 
 ### Listing all products: `listProduct`
@@ -304,7 +305,7 @@ Action              | Format, Examples
 **List Product**    | `listProduct`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
 **Mail**            | `mail JOB_INDEX TEMPLATE_INDEX`<br>e.g., `mail 3 1`
-**Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress d/Your product is current;y being repaired`
+**Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
 **List Templates**  | `listTemplates`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`

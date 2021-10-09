@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.mail.Template;
@@ -28,6 +29,8 @@ public class AddTemplateCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New template added: %1$s";
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "This template already exists in the address book";
 
+    private static final CommandType COMMAND_TYPE = CommandType.MAILS;
+
     private final Template toAdd;
 
     /**
@@ -47,7 +50,12 @@ public class AddTemplateCommand extends Command {
         }
 
         model.addTemplate(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override

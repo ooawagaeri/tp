@@ -44,7 +44,7 @@ public class ProductCard extends UiPart<Region> {
         super(FXML);
         this.product = product;
         id.setText(displayedIndex + ". ");
-        name.setText(product.getName());
+        name.setText(product.getName().orElse(""));
         type.setText(product.getType().toString());
         manufacturer.setText(product.getManufacturer().toString());
         description.setText(product.getDescription().toString());

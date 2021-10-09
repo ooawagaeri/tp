@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a product in MyCRM.
  */
 public class Product {
-    private final String productName;
+    private final ProductName productName;
     private final Type type;
     private final Manufacturer manufacturer;
     private final Description description;
@@ -15,8 +15,9 @@ public class Product {
      * Create a product.
      * @param productName Name of the product.
      */
-    public Product(String productName, Type type, Manufacturer manufacturer, Description description) {
+    public Product(ProductName productName, Type type, Manufacturer manufacturer, Description description) {
         requireNonNull(productName);
+        assert !productName.isEmpty() : "Product name is empty.";
 
         this.productName = productName;
         this.type = type;
@@ -24,7 +25,7 @@ public class Product {
         this.description = description;
     }
 
-    public String getName() {
+    public ProductName getName() {
         return this.productName;
     }
 

@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Address;
@@ -48,6 +49,8 @@ public class EditContactCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in MyCRM";
+
+    private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
@@ -82,7 +85,7 @@ public class EditContactCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact), COMMAND_TYPE);
     }
 
     /**
@@ -99,6 +102,11 @@ public class EditContactCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(contactToEdit.getTags());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override

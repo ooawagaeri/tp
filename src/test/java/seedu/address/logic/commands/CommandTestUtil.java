@@ -12,6 +12,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_DESCRIPTION;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_MANUFACTURER;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_NAME;
+import static seedu.address.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_TYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +39,10 @@ import seedu.address.model.mail.Template;
 import seedu.address.model.products.Description;
 import seedu.address.model.products.Manufacturer;
 import seedu.address.model.products.Product;
+import seedu.address.model.products.ProductName;
 import seedu.address.model.products.ProductNameContainsKeywordsPredicate;
 import seedu.address.model.products.Type;
 import seedu.address.testutil.EditContactDescriptorBuilder;
-import seedu.address.testutil.ProductBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -81,16 +89,23 @@ public class CommandTestUtil {
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
 
-    public static final String VALID_PRODUCT_NAME = ProductBuilder.DEFAULT_PRODUCT_ONE_NAME;
-    public static final Type VALID_PRODUCT_TYPE = ProductBuilder.DEFAULT_PRODUCT_ONE_TYPE;
-    public static final Manufacturer VALID_PRODUCT_MANUFACTURER = ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
-    public static final Description VALID_PRODUCT_DESCRIPTION = ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION;
+    public static final ProductName VALID_PRODUCT_NAME = DEFAULT_PRODUCT_ONE_NAME;
+    public static final Type VALID_PRODUCT_TYPE = DEFAULT_PRODUCT_ONE_TYPE;
+    public static final Manufacturer VALID_PRODUCT_MANUFACTURER = DEFAULT_PRODUCT_ONE_MANUFACTURER;
+    public static final Description VALID_PRODUCT_DESCRIPTION = DEFAULT_PRODUCT_ONE_DESCRIPTION;
 
     public static final String PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME;
     public static final String PRODUCT_TYPE_DESC = " " + PREFIX_PRODUCT_TYPE + VALID_PRODUCT_TYPE;
     public static final String PRODUCT_MANUFACTURER_DESC = " " + PREFIX_PRODUCT_MANUFACTURER
             + VALID_PRODUCT_MANUFACTURER;
     public static final String PRODUCT_DESCRIPTION_DESC = " " + PREFIX_PRODUCT_DESCRIPTION + VALID_PRODUCT_DESCRIPTION;
+
+    public static final String PRODUCT_TWO_NAME_DESC = " " + PREFIX_PRODUCT_NAME + DEFAULT_PRODUCT_TWO_NAME;
+    public static final String PRODUCT_TWO_TYPE_DESC = " " + PREFIX_PRODUCT_TYPE + DEFAULT_PRODUCT_TWO_TYPE;
+    public static final String PRODUCT_TWO_MANUFACTURER_DESC = " " + PREFIX_PRODUCT_MANUFACTURER
+            + DEFAULT_PRODUCT_TWO_MANUFACTURER;
+    public static final String PRODUCT_TWO_DESCRIPTION_DESC = " " + PREFIX_PRODUCT_DESCRIPTION
+            + DEFAULT_PRODUCT_TWO_DESCRIPTION;
 
     public static final String PRODUCT_EMPTY_TYPE_DESC = " " + PREFIX_PRODUCT_TYPE;
     public static final String PRODUCT_EMPTY_MANUFACTURER_DESC = " " + PREFIX_PRODUCT_MANUFACTURER;
@@ -130,7 +145,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, command.getType());
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -188,7 +203,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredProductList().size());
 
         Product product = model.getFilteredProductList().get(targetIndex.getZeroBased());
-        final String[] splitName = product.getName().split("\\s+");
+        final String[] splitName = product.getName().orElse("").split("\\s+");
         model.updateFilteredProductList(new ProductNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredProductList().size());

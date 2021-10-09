@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.Job;
@@ -21,6 +22,8 @@ public class DeleteJobCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_JOB_SUCCESS = "Deleted Job: %1$s";
+
+    private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
     private final Index targetIndex;
 
@@ -39,7 +42,12 @@ public class DeleteJobCommand extends Command {
 
         Job jobToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteJob(jobToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_JOB_SUCCESS, jobToDelete), false, false, false, true);
+        return new CommandResult(String.format(MESSAGE_DELETE_JOB_SUCCESS, jobToDelete), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override

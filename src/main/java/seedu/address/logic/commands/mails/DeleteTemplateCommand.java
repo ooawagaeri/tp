@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.mail.Template;
@@ -26,6 +27,8 @@ public class DeleteTemplateCommand extends Command {
 
     public static final String MESSAGE_DELETE_TEMPLATE_SUCCESS = "Deleted Template: %1$s";
 
+    private static final CommandType COMMAND_TYPE = CommandType.MAILS;
+
     private final Index targetIndex;
 
     public DeleteTemplateCommand(Index targetIndex) {
@@ -43,7 +46,12 @@ public class DeleteTemplateCommand extends Command {
 
         Template templateToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTemplate(templateToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_SUCCESS, templateToDelete), false, false, true);
+        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_SUCCESS, templateToDelete), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
     }
 
     @Override

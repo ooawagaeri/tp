@@ -2,7 +2,9 @@ package seedu.address.model.products;
 
 import static java.util.Objects.requireNonNull;
 
-public class Type {
+import java.util.Optional;
+
+public class Type implements ProductComponent<Type> {
     private static final Type EMPTY_TYPE = new Type();
     private final String name;
 
@@ -24,12 +26,28 @@ public class Type {
         }
     }
 
+    public static Type getType(Optional<String> name) {
+        requireNonNull(name);
+
+        if (name.orElse("").length() == 0) {
+            return EMPTY_TYPE;
+        } else {
+            return new Type(name.get());
+        }
+    }
+
     public static Type getEmptyType() {
         return EMPTY_TYPE;
     }
 
-    protected boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
         return this == EMPTY_TYPE;
+    }
+
+    @Override
+    public String orElse(String alternativeString) {
+        return this.isEmpty() ? alternativeString : this.name;
     }
 
     @Override
