@@ -16,7 +16,6 @@ import static seedu.address.testutil.TypicalProducts.ASUS_GPU;
 import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 import static seedu.address.testutil.TypicalProducts.getTypicalMyCrm;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

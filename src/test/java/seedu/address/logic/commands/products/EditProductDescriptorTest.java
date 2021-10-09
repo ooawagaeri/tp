@@ -2,12 +2,12 @@ package seedu.address.logic.commands.products;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalProducts.ASUS_GPU;
-import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_MANUFACTURER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_TYPE;
+import static seedu.address.testutil.TypicalProducts.ASUS_GPU;
+import static seedu.address.testutil.TypicalProducts.INTEL_CPU;
 
 import org.junit.jupiter.api.Test;
 
