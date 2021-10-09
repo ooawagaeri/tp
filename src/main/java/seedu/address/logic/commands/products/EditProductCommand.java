@@ -62,7 +62,7 @@ public class EditProductCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (index.getZeroBased() >= model.getFilteredProductList().size()) {
+        if (index.getOneBased() > model.getFilteredProductList().size()) {
             throw new CommandException(MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
         }
 
