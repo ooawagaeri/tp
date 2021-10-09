@@ -30,7 +30,7 @@ public class AddJobCommand extends Command {
         + PREFIX_DELIVERY_DATE + "15/09/2021 ";
 
     public static final String MESSAGE_SUCCESS = "New repair job added: %1$s";
-    public static final String MESSAGE_DUPLICATE_JOB = "This reapir job already exists in the MyCRM";
+    public static final String MESSAGE_DUPLICATE_JOB = "This repair job already exists in the MyCRM";
 
     private final Job toAdd;
     private final Index contactIndex;
