@@ -9,7 +9,9 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.UniqueJobList;
+import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
+import seedu.address.model.mail.UniqueMailList;
 import seedu.address.model.mail.UniqueTemplateList;
 import seedu.address.model.products.Product;
 import seedu.address.model.products.UniqueProductList;
@@ -46,6 +48,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     private final UniqueJobList jobs;
     {
         jobs = new UniqueJobList();
+    }
+
+    private final UniqueMailList mails;
+    {
+        mails = new UniqueMailList();
     }
 
     public MyCrm() {}
@@ -146,6 +153,13 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a mail to the address book.
+     */
+    public void addMail(Mail m) {
+        mails.add(m);
+    }
+
+    /**
      * Adds a job to the address book.
      * The job must not already exist in the address book.
      */
@@ -201,6 +215,13 @@ public class MyCrm implements ReadOnlyAddressBook {
      */
     public void removeTemplate(Template key) {
         templates.remove(key);
+    }
+
+    /**
+     * Adds a mail to the address book.
+     */
+    public void removeMail(Mail key) {
+        mails.remove(key);
     }
 
     //// Product Methods
@@ -274,6 +295,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Job> getJobList() {
         return jobs.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Mail> getMailList() {
+        return mails.asUnmodifiableObservableList();
     }
 
     @Override
