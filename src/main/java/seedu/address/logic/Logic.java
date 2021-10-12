@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
+import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
 
@@ -38,6 +39,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of templates */
     ObservableList<Template> getFilteredTemplateList();
+
+    /** Returns an unmodifiable view of the filtered list of mails */
+    ObservableList<Mail> getFilteredMailList();
 
     /** Returns an unmodifiable view of the filtered list of products */
     ObservableList<Product> getFilteredProductList();

@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
+import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
 
@@ -19,6 +20,7 @@ public interface Model {
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
+    Predicate<Mail> PREDICATE_SHOW_ALL_MAILS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -80,12 +82,6 @@ public interface Model {
     void deleteContact(Contact target);
 
     /**
-     * Deletes the given template.
-     * The template must exist in the address book.
-     */
-    void deleteTemplate(Template target);
-
-    /**
      * Deletes the given job.
      * The job must exist in the address book.
      */
@@ -102,6 +98,24 @@ public interface Model {
      * {@code template} must not already exist in the address book.
      */
     void addTemplate(Template template);
+
+    /**
+     * Deletes the given template.
+     * The template must exist in the address book.
+     */
+    void deleteTemplate(Template target);
+
+    /**
+     * Adds the given mail.
+     * {@code mail} must not already exist in the address book.
+     */
+    void addMail(Mail mail);
+
+    /**
+     * Deletes the given mail.
+     * The mail must exist in the address book.
+     */
+    void deleteMail(Mail mail);
 
     /**
      * Adds the given job.
@@ -148,6 +162,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered template list */
     ObservableList<Template> getFilteredTemplateList();
 
+    /** Returns an unmodifiable view of the filtered mail list */
+    ObservableList<Mail> getFilteredMailList();
+
     /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
 
@@ -165,6 +182,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTemplateList(Predicate<Template> predicate);
+
+    /**
+     * Updates the filter of the filtered mail list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMailList(Predicate<Mail> predicate);
 
     /**
      * Updates the filter of the filtered product list to filter by the given {@code predicate}.

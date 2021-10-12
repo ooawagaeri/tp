@@ -15,6 +15,9 @@ public class CliSyntax {
     /* Prefix definitions for Emails */
     public static final Prefix PREFIX_SUBJECT = new Prefix("s/");
     public static final Prefix PREFIX_BODY = new Prefix("b/");
+    public static final Prefix PREFIX_JOB_INDEX = new Prefix("j/");
+    public static final Prefix PREFIX_TEMPLATE_INDEX = new Prefix("t/");
+
 
     /* Prefix definitions for Jobs */
     public static final Prefix PREFIX_JOB_DESCRIPTION = new Prefix("d/");
