@@ -3,7 +3,15 @@ package seedu.address.logic.commands.mails;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_JOB;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TEMPLATE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TEMPLATE;
+import static seedu.address.testutil.TypicalMails.COMPLETED_JOB;
+import static seedu.address.testutil.TypicalMails.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTemplates.COMPLETED;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,81 +20,105 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
-import seedu.address.testutil.TemplateBuilder;
+import seedu.address.testutil.MailBuilder;
 
-class AddTemplateCommandTest {
+
+class MailCommandTest {
+
     @Test
-    public void constructor_nullTemplate_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddTemplateCommand(null));
+    public void constructor_nullMail_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new MailCommand(null, null));
     }
 
     @Test
-    public void execute_templateAcceptedByModel_addSuccessful() throws Exception {
-        AddTemplateCommandTest.ModelStubAcceptingTemplateAdded modelStub =
-                new ModelStubAcceptingTemplateAdded();
-        Template validTemplate = new TemplateBuilder().build();
+    public void execute_mailAcceptedByModelManager_addSuccessful() throws Exception {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addJob(COMPLETED_JOB);
 
-        CommandResult commandResult = new AddTemplateCommand(validTemplate).execute(modelStub);
+        Job jobToMail = model.getFilteredJobList().get(INDEX_FIRST_JOB.getZeroBased());
+        Template templateToMail = model.getFilteredTemplateList().get(INDEX_FIRST_TEMPLATE.getZeroBased());
+        Mail validMail = new Mail(jobToMail, templateToMail);
 
-        assertEquals(String.format(AddTemplateCommand.MESSAGE_SUCCESS, validTemplate),
+        MailCommand expectedCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+
+        String expectedMessage = String.format(MailCommand.MESSAGE_MAIL_SUCCESS,
+                INDEX_FIRST_TEMPLATE.getZeroBased());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addMail(validMail);
+
+        assertCommandSuccess(expectedCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_mailAcceptedByModelStub_addSuccessful() throws Exception {
+        MailCommandTest.ModelStubAcceptingMailAdded modelStub =
+                new MailCommandTest.ModelStubAcceptingMailAdded();
+        modelStub.addJob(COMPLETED_JOB);
+        modelStub.addTemplate(COMPLETED);
+
+        Mail validMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED).build();
+
+        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub);
+
+        assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, INDEX_FIRST_TEMPLATE.getZeroBased()),
                 commandResult.getFeedbackToUser());
-        assertEquals(List.of(validTemplate), modelStub.templatesAdded);
+        assertEquals(List.of(validMail), modelStub.mailsAdded);
     }
+
 
     @Test
-    public void execute_duplicateTemplate_throwsCommandException() {
-        Template validTemplate = new TemplateBuilder().build();
-        AddTemplateCommand addCommand = new AddTemplateCommand(validTemplate);
-        AddTemplateCommandTest.ModelStub modelStub = new ModelStubWithTemplate(validTemplate);
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addJob(COMPLETED_JOB);
 
-        assertThrows(CommandException.class, AddTemplateCommand.MESSAGE_DUPLICATE_TEMPLATE, (
-            ) -> addCommand.execute(modelStub));
+        Index outOfBoundJobIndex = Index.fromOneBased(model.getFilteredJobList().size() + 1);
+        Index outOfBoundTemplateIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
+
+        MailCommand mailJobCommand = new MailCommand(outOfBoundJobIndex, INDEX_FIRST_TEMPLATE);
+        MailCommand mailTemplateCommand = new MailCommand(INDEX_FIRST_JOB, outOfBoundTemplateIndex);
+
+        assertCommandFailure(mailJobCommand, model, Messages.MESSAGE_INVALID_JOB_DISPLAYED_INDEX);
+        assertCommandFailure(mailTemplateCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void type() {
-        Template validTemplate = new TemplateBuilder().build();
-        AddTemplateCommand addCommand = new AddTemplateCommand(validTemplate);
-
-        assertEquals(addCommand.getType(), CommandType.TEMPLATE);
-        assertNotEquals(addCommand.getType(), CommandType.MAIL);
-    }
     @Test
     public void equals() {
-        Template alice = new TemplateBuilder().withSubject("To Alice").build();
-        Template bob = new TemplateBuilder().withSubject("To Bob").build();
-        AddTemplateCommand addAliceCommand = new AddTemplateCommand(alice);
-        AddTemplateCommand addBobCommand = new AddTemplateCommand(bob);
+        MailCommand completedCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+        MailCommand doneCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_SECOND_TEMPLATE);
 
         // same object -> returns true
-        assertEquals(addAliceCommand, addAliceCommand);
+        assertEquals(completedCommand, completedCommand);
 
         // same values -> returns true
-        AddTemplateCommand addAliceCommandCopy = new AddTemplateCommand(alice);
-        assertEquals(addAliceCommand, addAliceCommandCopy);
+        MailCommand completedCommandCopy = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+        assertEquals(completedCommand, completedCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, addAliceCommand);
+        assertNotEquals(1, completedCommand);
 
         // null -> returns false
-        assertNotEquals(null, addAliceCommand);
+        assertNotEquals(null, completedCommand);
 
-        // different template -> returns false
-        assertNotEquals(addAliceCommand, addBobCommand);
+        // different mail -> returns false
+        assertNotEquals(completedCommand, doneCommand);
     }
 
     /**
@@ -265,39 +297,39 @@ class AddTemplateCommandTest {
     }
 
     /**
-     * A Model stub that contains a single contact.
+     * A Model stub that always accept the template, job and only 1 mail being added.
      */
-    private static class ModelStubWithTemplate extends AddTemplateCommandTest.ModelStub {
-        private final Template template;
-
-        ModelStubWithTemplate(Template template) {
-            requireNonNull(template);
-            this.template = template;
-        }
-
-        @Override
-        public boolean hasTemplate(Template template) {
-            requireNonNull(template);
-            return this.template.isSameTemplate(template);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the template being added.
-     */
-    private static class ModelStubAcceptingTemplateAdded extends AddTemplateCommandTest.ModelStub {
+    private static class ModelStubAcceptingMailAdded extends MailCommandTest.ModelStub {
+        final ArrayList<Mail> mailsAdded = new ArrayList<>();
         final ArrayList<Template> templatesAdded = new ArrayList<>();
+        final ArrayList<Job> jobsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTemplate(Template template) {
-            requireNonNull(template);
-            return templatesAdded.stream().anyMatch(template::isSameTemplate);
+        public void addMail(Mail mail) {
+            requireNonNull(mail);
+            mailsAdded.add(mail);
         }
 
         @Override
         public void addTemplate(Template template) {
             requireNonNull(template);
             templatesAdded.add(template);
+        }
+
+        @Override
+        public void addJob(Job job) {
+            requireNonNull(job);
+            jobsAdded.add(job);
+        }
+
+        @Override
+        public ObservableList<Template> getFilteredTemplateList() {
+            return FXCollections.observableList(templatesAdded);
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredJobList() {
+            return FXCollections.observableList(jobsAdded);
         }
 
         @Override

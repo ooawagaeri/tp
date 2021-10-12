@@ -32,6 +32,7 @@ public class MailCommandParser implements Parser<MailCommand> {
 
         Index jobIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_JOB_INDEX).get());
         Index templateIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TEMPLATE_INDEX).get());
+
         return new MailCommand(jobIndex, templateIndex);
     }
 }

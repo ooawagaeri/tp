@@ -14,7 +14,7 @@ public class BodyTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructor_invalidBody_throwsIllegalArgumentException() {
         String invalidBody = "";
         assertThrows(IllegalArgumentException.class, () -> new Body(invalidBody));
     }

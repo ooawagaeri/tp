@@ -1,5 +1,7 @@
 package seedu.address.model.mail;
 
+import static java.util.Objects.requireNonNull;
+
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -16,6 +18,8 @@ public class Mail {
      *
      */
     public Mail(Job job, Template template) {
+        requireNonNull(job);
+        requireNonNull(template);
         this.job = job;
         this.template = template;
     }
