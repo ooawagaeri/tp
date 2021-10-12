@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.contact.ContactListPanel;
 import seedu.address.ui.job.JobListPanel;
 import seedu.address.ui.product.ProductListPanel;
+import seedu.address.ui.template.MailListPanel;
 import seedu.address.ui.template.TemplateListPanel;
 
 /**
@@ -37,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
+    private MailListPanel mailListPanel;
     private ProductListPanel productListPanel;
     private JobListPanel jobListPanel;
     private ResultDisplay resultDisplay;
@@ -56,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane templateListPanelPlaceholder;
 
     @FXML
+    private StackPane mailListPanelPlaceholder;
+
+    @FXML
     private StackPane productListPanelPlaceholder;
 
     @FXML
@@ -65,7 +71,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane statusBarPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -126,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts(HostServices hostServices) {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.managedProperty().bind(personListPanelPlaceholder.visibleProperty());
         personListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
@@ -134,6 +140,10 @@ public class MainWindow extends UiPart<Stage> {
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+
+        mailListPanel = new MailListPanel(logic.getFilteredMailList(), hostServices);
+        mailListPanelPlaceholder.managedProperty().bind(mailListPanelPlaceholder.visibleProperty());
+        mailListPanelPlaceholder.getChildren().add(mailListPanel.getRoot());
 
         jobListPanel = new JobListPanel(logic.getFilteredJobList());
         jobListPanelPlaceholder.managedProperty().bind(jobListPanelPlaceholder.visibleProperty());
@@ -147,6 +157,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.setVisible(true);
         // Hides initial template
         templateListPanelPlaceholder.setVisible(false);
+        // Hides initial template
+        mailListPanelPlaceholder.setVisible(false);
         // Hides initial product list
         productListPanelPlaceholder.setVisible(false);
         // Hides initial job list
@@ -159,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -233,8 +245,12 @@ public class MainWindow extends UiPart<Stage> {
                 showPanel(personListPanelPlaceholder);
                 break;
 
-            case MAILS:
+            case TEMPLATE:
                 showPanel(templateListPanelPlaceholder);
+                break;
+
+            case MAIL:
+                showPanel(mailListPanelPlaceholder);
                 break;
 
             case JOBS:

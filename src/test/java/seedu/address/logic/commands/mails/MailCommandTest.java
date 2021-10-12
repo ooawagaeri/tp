@@ -1,89 +1,130 @@
-package seedu.address.logic.commands.contacts;
+package seedu.address.logic.commands.mails;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_JOB;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TEMPLATE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TEMPLATE;
+import static seedu.address.testutil.TypicalMails.COMPLETED_JOB;
+import static seedu.address.testutil.TypicalMails.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTemplates.COMPLETED;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.MailBuilder;
 
 
-class AddContactCommandTest {
+class MailCommandTest {
+
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand(null));
+    public void constructor_nullMail_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new MailCommand(null, null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Contact validPerson = new ContactBuilder().build();
+    public void execute_mailAcceptedByModelManager_addSuccessful() throws Exception {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addJob(COMPLETED_JOB);
 
-        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
+        Job jobToMail = model.getFilteredJobList().get(INDEX_FIRST_JOB.getZeroBased());
+        Template templateToMail = model.getFilteredTemplateList().get(INDEX_FIRST_TEMPLATE.getZeroBased());
+        Mail validMail = new Mail(jobToMail, templateToMail);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        MailCommand expectedCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+
+        String expectedMessage = String.format(MailCommand.MESSAGE_MAIL_SUCCESS,
+                INDEX_FIRST_TEMPLATE.getZeroBased());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addMail(validMail);
+
+        assertCommandSuccess(expectedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Contact validPerson = new ContactBuilder().build();
-        AddContactCommand addCommand = new AddContactCommand(validPerson);
-        ModelStub modelStub = new AddContactCommandTest.ModelStubWithPerson(validPerson);
+    public void execute_mailAcceptedByModelStub_addSuccessful() throws Exception {
+        MailCommandTest.ModelStubAcceptingMailAdded modelStub =
+                new MailCommandTest.ModelStubAcceptingMailAdded();
+        modelStub.addJob(COMPLETED_JOB);
+        modelStub.addTemplate(COMPLETED);
 
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+        Mail validMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED).build();
+
+        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub);
+
+        assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, INDEX_FIRST_TEMPLATE.getZeroBased()),
+                commandResult.getFeedbackToUser());
+        assertEquals(List.of(validMail), modelStub.mailsAdded);
+    }
+
+
+    @Test
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addJob(COMPLETED_JOB);
+
+        Index outOfBoundJobIndex = Index.fromOneBased(model.getFilteredJobList().size() + 1);
+        Index outOfBoundTemplateIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
+
+        MailCommand mailJobCommand = new MailCommand(outOfBoundJobIndex, INDEX_FIRST_TEMPLATE);
+        MailCommand mailTemplateCommand = new MailCommand(INDEX_FIRST_JOB, outOfBoundTemplateIndex);
+
+        assertCommandFailure(mailJobCommand, model, Messages.MESSAGE_INVALID_JOB_DISPLAYED_INDEX);
+        assertCommandFailure(mailTemplateCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        Contact alice = new ContactBuilder().withName("Alice").build();
-        Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
+        MailCommand completedCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+        MailCommand doneCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_SECOND_TEMPLATE);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertEquals(completedCommand, completedCommand);
 
         // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        MailCommand completedCommandCopy = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+        assertEquals(completedCommand, completedCommandCopy);
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertNotEquals(1, completedCommand);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertNotEquals(null, completedCommand);
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different mail -> returns false
+        assertNotEquals(completedCommand, doneCommand);
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that have all the methods failing.
      */
-    private class ModelStub implements Model {
+    private static class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -115,7 +156,7 @@ class AddContactCommandTest {
         }
 
         @Override
-        public void addContact(Contact person) {
+        public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,12 +186,12 @@ class AddContactCommandTest {
         }
 
         @Override
-        public boolean hasContact(Contact person) {
+        public boolean hasContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasTemplate(Template person) {
+        public boolean hasTemplate(Template contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -180,7 +221,7 @@ class AddContactCommandTest {
         }
 
         @Override
-        public void setContact(Contact target, Contact editedPerson) {
+        public void setContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -256,39 +297,39 @@ class AddContactCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that always accept the template, job and only 1 mail being added.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Contact person;
+    private static class ModelStubAcceptingMailAdded extends MailCommandTest.ModelStub {
+        final ArrayList<Mail> mailsAdded = new ArrayList<>();
+        final ArrayList<Template> templatesAdded = new ArrayList<>();
+        final ArrayList<Job> jobsAdded = new ArrayList<>();
 
-        ModelStubWithPerson(Contact person) {
-            requireNonNull(person);
-            this.person = person;
+        @Override
+        public void addMail(Mail mail) {
+            requireNonNull(mail);
+            mailsAdded.add(mail);
         }
 
         @Override
-        public boolean hasContact(Contact person) {
-            requireNonNull(person);
-            return this.person.isSameContact(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Contact> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasContact(Contact person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSameContact);
+        public void addTemplate(Template template) {
+            requireNonNull(template);
+            templatesAdded.add(template);
         }
 
         @Override
-        public void addContact(Contact person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addJob(Job job) {
+            requireNonNull(job);
+            jobsAdded.add(job);
+        }
+
+        @Override
+        public ObservableList<Template> getFilteredTemplateList() {
+            return FXCollections.observableList(templatesAdded);
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredJobList() {
+            return FXCollections.observableList(jobsAdded);
         }
 
         @Override
