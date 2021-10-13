@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
-import seedu.address.model.products.Description;
 import seedu.address.model.products.Product;
 import seedu.address.ui.UiPart;
 
@@ -84,12 +83,12 @@ public class JobCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         String titleText = job.getJobDescription().value;
-        if(job.getClient() != null) {
+        if (job.getClient() != null) {
             titleText = titleText + " - " + job.getClient().getName().fullName;
         }
-       title.setText(titleText);
+        title.setText(titleText);
 
-        if(job.getDeliveryDate() != null) {
+        if (job.getDeliveryDate() != null) {
             deliveryDate.setText("Expected Delivery: " + job.getDeliveryDate().toString());
         }
 

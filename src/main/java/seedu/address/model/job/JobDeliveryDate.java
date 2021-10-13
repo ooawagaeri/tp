@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -34,15 +33,14 @@ public class JobDeliveryDate {
         try {
             LocalDate.parse(test, VALID_INPUT_FORMAT);
             return true;
-        } catch(DateTimeParseException e) {
-            System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
 
     @Override
     public String toString() {
-    return value.format(DISPLAY_FORMAT);
+        return value.format(DISPLAY_FORMAT);
     }
 
     @Override

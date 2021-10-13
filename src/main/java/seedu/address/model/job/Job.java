@@ -22,12 +22,12 @@ public class Job {
      * @param deliveryDate Expected date of delivery of repaired product.
      */
     public Job(JobDescription jobDescription, Contact client, Product product,
-               JobDeliveryDate deliveryDate) {
+               JobDeliveryDate deliveryDate, boolean completionStatus) {
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
         this.deliveryDate = deliveryDate;
-        this.isCompleted = false;
+        this.isCompleted = completionStatus;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Job {
     }
 
     /**
-     * Returns true if both jobs have the same client and description
+     * Returns true if both jobs have the same client, product and description
      * This defines a weaker notion of equality between two jobs.
      */
     public boolean isSameJob(Job otherJob) {
