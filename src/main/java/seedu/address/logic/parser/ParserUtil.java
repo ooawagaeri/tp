@@ -166,7 +166,6 @@ public class ParserUtil {
     public static JobDescription parseJobDescription(String jobDescription) throws ParseException {
         requireNonNull(jobDescription);
         String trimmedJobDescription = jobDescription.trim();
-        System.out.println(trimmedJobDescription);
         if (!JobDescription.isValidJobDescription(trimmedJobDescription)) {
             throw new ParseException(JobDescription.MESSAGE_CONSTRAINTS);
         }
