@@ -30,6 +30,8 @@ public class JobDescription {
      * Returns true if a given string is a valid job description.
      */
     public static boolean isValidJobDescription(String test) {
+        System.out.println(test);
+        System.out.println(test.matches(VALIDATION_REGEX));
         return test.matches(VALIDATION_REGEX);
     }
 

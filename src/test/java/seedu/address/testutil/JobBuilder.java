@@ -1,7 +1,11 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.model.contact.Contact;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobDeliveryDate;
 import seedu.address.model.job.JobDescription;
 
 /**
@@ -10,12 +14,12 @@ import seedu.address.model.job.JobDescription;
 public class JobBuilder {
 
     private static final String DEFAULT_JOB_DESCRIPTION = "Some description";
-    private static final String DEFAULT_DELIVERY_DATE = "Some date";
     private static final boolean DEFAULT_COMPLETION_STATUS = false;
+    private static final String DEFAULT_DELIVERY_DATE = "12/12/2021";
 
     private JobDescription jobDescription;
     private Contact client;
-    private String deliveryDate;
+    private JobDeliveryDate deliveryDate;
     private boolean completionStatus;
 
     /**
@@ -23,7 +27,7 @@ public class JobBuilder {
      */
     public JobBuilder() {
         jobDescription = new JobDescription(DEFAULT_JOB_DESCRIPTION);
-        deliveryDate = DEFAULT_DELIVERY_DATE;
+        deliveryDate = new JobDeliveryDate(DEFAULT_DELIVERY_DATE);
         completionStatus = DEFAULT_COMPLETION_STATUS;
         client = new ContactBuilder().build();
     }
