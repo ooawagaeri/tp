@@ -108,6 +108,7 @@ public class MyCrm implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setTemplates(newData.getTemplateList());
         setProducts(newData.getProductList());
+        setJobs(newData.getJobList());
     }
 
     //// person-level operations

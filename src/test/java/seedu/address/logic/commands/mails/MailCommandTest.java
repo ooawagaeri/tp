@@ -50,7 +50,6 @@ class MailCommandTest {
     @Test
     public void execute_mailAcceptedByModelManager_addSuccessful() throws Exception {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        model.addJob(COMPLETED_JOB);
 
         Job jobToMail = model.getFilteredJobList().get(INDEX_FIRST_JOB.getZeroBased());
         Template templateToMail = model.getFilteredTemplateList().get(INDEX_FIRST_TEMPLATE.getZeroBased());
@@ -87,7 +86,6 @@ class MailCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        model.addJob(COMPLETED_JOB);
 
         Index outOfBoundJobIndex = Index.fromOneBased(model.getFilteredJobList().size() + 1);
         Index outOfBoundTemplateIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
