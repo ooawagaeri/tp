@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Template> filteredTemplates;
     private final FilteredList<Job> filteredJobs;
     private final FilteredList<Product> filteredProducts;
+    private final FilteredList<History> filteredHistories;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,6 +46,7 @@ public class ModelManager implements Model {
         filteredTemplates = new FilteredList<>(this.addressBook.getTemplateList());
         filteredJobs = new FilteredList<>(this.addressBook.getJobList());
         filteredProducts = new FilteredList<>(this.addressBook.getProductList());
+        filteredHistories = new FilteredList<>(this.addressBook.getHistoryList());
     }
 
     public ModelManager() {
@@ -116,6 +119,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasHistory(History history) {
+        requireNonNull(history);
+        return addressBook.hasHistory(history);
+    }
+
+    @Override
     public void deleteContact(Contact target) {
         addressBook.removePerson(target);
     }
@@ -146,6 +155,12 @@ public class ModelManager implements Model {
     public void addJob(Job job) {
         addressBook.addJob(job);
         updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
+    }
+
+    @Override
+    public void addHistory(History history) {
+        addressBook.addHistory(history);
+        updateFilteredHistoryList(PREDICATE_SHOW_ALL_HISTORIES);
     }
 
     @Override
@@ -217,6 +232,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<History> getFilteredHistoryList() {
+        return filteredHistories;
+    }
+
+    @Override
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
@@ -238,6 +258,12 @@ public class ModelManager implements Model {
     public void updateFilteredJobList(Predicate<Job> predicate) {
         requireNonNull(predicate);
         filteredJobs.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredHistoryList(Predicate<History> predicate) {
+        requireNonNull(predicate);
+        filteredHistories.setPredicate(predicate);
     }
 
     @Override

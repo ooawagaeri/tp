@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.history.History;
+import seedu.address.model.history.UniqueHistoryList;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.mail.Template;
@@ -46,6 +48,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     private final UniqueJobList jobs;
     {
         jobs = new UniqueJobList();
+    }
+
+    private final UniqueHistoryList histories;
+    {
+        histories = new UniqueHistoryList();
     }
 
     public MyCrm() {}
@@ -154,6 +161,14 @@ public class MyCrm implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a entered command to the address book.
+     * The entered command must not already exist in MyCRM.
+     */
+    public void addHistory(History history) {
+        histories.add(history);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -248,6 +263,14 @@ public class MyCrm implements ReadOnlyAddressBook {
         jobs.remove(key);
     }
 
+    /**
+     * Returns true if a entered command with the same identity as {@code history} exists in MyCRM.
+     */
+    public boolean hasHistory(History history) {
+        requireNonNull(history);
+        return histories.contains(history);
+    }
+
     //// util methods
 
     @Override
@@ -274,6 +297,11 @@ public class MyCrm implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Job> getJobList() {
         return jobs.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<History> getHistoryList() {
+        return histories.asUnmodifiableObservableList();
     }
 
     @Override

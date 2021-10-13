@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.contact.CommandBox;
 import seedu.address.ui.contact.ContactListPanel;
+import seedu.address.ui.history.HistoryListPanel;
 import seedu.address.ui.template.TemplateListPanel;
 
 /**
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private TemplateListPanel templateListPanel;
     private ProductListPanel productListPanel;
     private JobListPanel jobListPanel;
+    private HistoryListPanel historyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StackPane currentPanel;
@@ -59,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane jobListPanelPlaceholder;
+
+    @FXML
+    private StackPane historyListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -142,6 +147,10 @@ public class MainWindow extends UiPart<Stage> {
         productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
         productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
 
+        historyListPanel = new HistoryListPanel(logic.getFilteredHistoryList());
+        historyListPanelPlaceholder.managedProperty().bind(historyListPanelPlaceholder.visibleProperty());
+        historyListPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+
         // Show contacts as initial template
         personListPanelPlaceholder.setVisible(true);
         // Hides initial template
@@ -150,6 +159,8 @@ public class MainWindow extends UiPart<Stage> {
         productListPanelPlaceholder.setVisible(false);
         // Hides initial job list
         jobListPanelPlaceholder.setVisible(false);
+        // Hides initial history list
+        historyListPanelPlaceholder.setVisible(false);
 
         // Set current panel to person list
         currentPanel = personListPanelPlaceholder;
@@ -216,6 +227,10 @@ public class MainWindow extends UiPart<Stage> {
         return jobListPanel;
     }
 
+    public HistoryListPanel getHistoryListPanel() {
+        return historyListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -242,6 +257,10 @@ public class MainWindow extends UiPart<Stage> {
 
             case PRODUCTS:
                 showPanel(productListPanelPlaceholder);
+                break;
+
+            case HISTORY:
+                showPanel(historyListPanelPlaceholder);
                 break;
 
             case HELP:
