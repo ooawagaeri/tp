@@ -129,6 +129,7 @@ public class MyCrmTest {
         private final ObservableList<Product> products = FXCollections.observableArrayList();
         private final ObservableList<Job> jobs = FXCollections.observableArrayList();
         private final ObservableList<Mail> mails = FXCollections.observableArrayList();
+        private final ObservableList<History> histories = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Contact> persons) {
             this.persons.setAll(persons);
@@ -157,6 +158,11 @@ public class MyCrmTest {
         @Override
         public ObservableList<Mail> getMailList() {
             return mails;
+        }
+        
+        @Override
+        public ObservableList<History> getHistoryList() {
+            return histories;
         }
     }
 
