@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
@@ -47,6 +48,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
+        model.addHistory(new History(commandText));
         commandResult = command.execute(model);
 
         try {
@@ -87,6 +89,11 @@ public class LogicManager implements Logic {
     public ObservableList<Job> getFilteredJobList() {
         return model.getFilteredJobList();
     }
+
+    @Override
+    public ObservableList<History> getFilteredHistoryList() {
+        return model.getFilteredHistoryList();
+    };
 
     @Override
     public Path getAddressBookFilePath() {

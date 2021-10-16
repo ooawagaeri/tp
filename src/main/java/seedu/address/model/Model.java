@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
@@ -20,6 +21,7 @@ public interface Model {
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
+    Predicate<History> PREDICATE_SHOW_ALL_HISTORIES = unused -> true;
     Predicate<Mail> PREDICATE_SHOW_ALL_MAILS = unused -> true;
 
     /**
@@ -156,6 +158,12 @@ public interface Model {
      */
     void setProduct(Product target, Product editedProduct);
 
+    /**
+     * Adds the entered command.
+     * {@code history} must not already exist in MyCrm.
+     */
+    void addHistory(History history);
+
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
@@ -170,6 +178,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredJobList();
+
+    /** Returns an unmodifiable view of the filtered history command list */
+    ObservableList<History> getFilteredHistoryList();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
@@ -200,4 +211,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredJobList(Predicate<Job> predicate);
+
+    /**
+     * Updates the filter of the filtered history command list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredHistoryList(Predicate<History> predicate);
 }

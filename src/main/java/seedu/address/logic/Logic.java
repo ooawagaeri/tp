@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
@@ -48,6 +49,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of jobs */
     ObservableList<Job> getFilteredJobList();
+
+    /** Returns an unmodifiable view of the filtered list of history commands */
+    ObservableList<History> getFilteredHistoryList();
 
     /**
      * Returns the user prefs' address book file path.

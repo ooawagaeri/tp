@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Mail;
 import seedu.address.model.mail.Template;
@@ -37,7 +38,13 @@ public interface ReadOnlyAddressBook {
     ObservableList<Job> getJobList();
 
     /**
-     * Returns an unmodifiable view of the jobs list.
+     * Returns an unmodifiable view of the history commands list.
+     * This list will not contain any duplicate commands.
+     */
+    ObservableList<History> getHistoryList();
+
+    /**
+     +Returns an unmodifiable view of the jobs list.
      * This list will not contain any duplicate jobs.
      */
     ObservableList<Mail> getMailList();
