@@ -52,12 +52,10 @@ public class MyCrm implements ReadOnlyAddressBook {
         jobs = new UniqueJobList();
     }
 
-
     private final UniqueHistoryList histories;
     {
-        histories = new UniqueHistoryList(); 
+        histories = new UniqueHistoryList();
     }
-  
     private final UniqueMailList mails;
     {
         mails = new UniqueMailList();
