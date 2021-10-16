@@ -119,12 +119,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasHistory(History history) {
-        requireNonNull(history);
-        return addressBook.hasHistory(history);
-    }
-
-    @Override
     public void deleteContact(Contact target) {
         addressBook.removePerson(target);
     }

@@ -145,11 +145,6 @@ public interface Model {
     void setProduct(Product target, Product editedProduct);
 
     /**
-     * Returns true if a history command with the same identity as {@code history} exists in MyCrm.
-     */
-    boolean hasHistory(History history);
-
-    /**
      * Adds the entered command.
      * {@code history} must not already exist in MyCrm.
      */

@@ -28,7 +28,7 @@ public class HistoryListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Histpru} using a {@code HistoryCard}.
      */
     class HistoryListViewCell extends ListCell<History> {
         @Override

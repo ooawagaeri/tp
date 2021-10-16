@@ -75,7 +75,7 @@ public class UniqueHistoryList implements Iterable<History> {
     }
 
     /**
-     * Returns true if {@code contacts} contains only unique history commands.
+     * Returns true if {@code histories} contains only unique history commands.
      */
     private boolean historiesAreUnique(List<History> histories) {
         for (int i = 0; i < histories.size() - 1; i++) {
