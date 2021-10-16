@@ -1,12 +1,12 @@
 package seedu.address.logic.commands.history;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HISTORIES;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandType;
 import seedu.address.model.Model;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_JOBS;
 
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
@@ -20,8 +20,8 @@ public class HistoryCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
-        return new CommandResult(SHOWING_HISTORY_MESSAGE,COMMAND_TYPE);
+        model.updateFilteredHistoryList(PREDICATE_SHOW_ALL_HISTORIES);
+        return new CommandResult(SHOWING_HISTORY_MESSAGE, COMMAND_TYPE);
     }
 
     @Override

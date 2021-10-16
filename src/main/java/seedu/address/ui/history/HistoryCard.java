@@ -8,7 +8,7 @@ import seedu.address.model.history.History;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.contact.ContactCard;
 
-public class HistoryCard  extends UiPart<Region> {
+public class HistoryCard extends UiPart<Region> {
 
     private static final String FXML = "HistoryListCard.fxml";
 
@@ -20,7 +20,7 @@ public class HistoryCard  extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public History history;
+    private History history;
 
     @FXML
     private HBox cardPane;

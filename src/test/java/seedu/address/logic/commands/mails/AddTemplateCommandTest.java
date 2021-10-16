@@ -21,6 +21,7 @@ import seedu.address.model.MyCrm;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.history.History;
 import seedu.address.model.job.Job;
 import seedu.address.model.mail.Template;
 import seedu.address.model.products.Product;
@@ -194,6 +195,11 @@ class AddTemplateCommandTest {
         }
 
         @Override
+        public void addHistory(History history) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -214,6 +220,11 @@ class AddTemplateCommandTest {
         }
 
         @Override
+        public ObservableList<History> getFilteredHistoryList() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -232,6 +243,12 @@ class AddTemplateCommandTest {
         public void updateFilteredJobList(Predicate<Job> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateFilteredHistoryList(Predicate<History> predicate) {
+            throw new AssertionError("This method should not be called.");
+        };
+
     }
 
     /**

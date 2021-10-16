@@ -1,15 +1,15 @@
 package seedu.address.ui.history;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.history.History;
 import seedu.address.ui.UiPart;
-
-import javafx.scene.layout.Region;
-import java.util.logging.Logger;
 
 public class HistoryListPanel extends UiPart<Region> {
     private static final String FXML = "HistoryListPanel.fxml";

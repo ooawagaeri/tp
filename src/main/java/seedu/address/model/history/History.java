@@ -3,9 +3,15 @@ package seedu.address.model.history;
 import static java.util.Objects.requireNonNull;
 
 public class History {
+
     public final String value;
 
-    public  History(String history) {
+    /**
+     * Creates a history with the entered command info
+     *
+     * @param history
+     */
+    public History(String history) {
         requireNonNull(history);
         value = history;
     }
