@@ -43,7 +43,8 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<History> getHistoryList();
 
-     * Returns an unmodifiable view of the jobs list.
+    /**
+     +Returns an unmodifiable view of the jobs list.
      * This list will not contain any duplicate jobs.
      */
     ObservableList<Mail> getMailList();
