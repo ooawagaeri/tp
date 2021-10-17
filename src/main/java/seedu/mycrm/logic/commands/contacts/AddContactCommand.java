@@ -1,0 +1,77 @@
+package seedu.mycrm.logic.commands.contacts;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.mycrm.logic.commands.Command;
+import seedu.mycrm.logic.commands.CommandResult;
+import seedu.mycrm.logic.commands.CommandType;
+import seedu.mycrm.logic.commands.exceptions.CommandException;
+import seedu.mycrm.model.Model;
+import seedu.mycrm.model.contact.Contact;
+
+public class AddContactCommand extends Command {
+
+    public static final String COMMAND_WORD = "addContact";
+
+    public static final Object MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to MyCRM. "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "owesMoney";
+
+    public static final Object MESSAGE_AT_LEAST_ONE_COMPONENT = "You have to give at least one info "
+            + "for this contact!!!";
+
+    public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the MyCRM";
+
+    private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
+
+    private final Contact toAdd;
+
+    /**
+     * Creates an AddContact to add the specified {@code Contact}
+     */
+    public AddContactCommand(Contact contact) {
+        requireNonNull(contact);
+        toAdd = contact;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasContact(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+        }
+
+        model.addContact(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
+    }
+
+    @Override
+    public CommandType getType() {
+        return COMMAND_TYPE;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddContactCommand // instanceof handles nulls
+                && toAdd.equals(((AddContactCommand) other).toAdd));
+    }
+}
