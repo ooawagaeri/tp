@@ -23,9 +23,9 @@ public class StorageManager implements Storage {
     /**
      * Creates a {@code StorageManager} with the given {@code MyCrmStorage} and {@code UserPrefStorage}.
      */
-    public StorageManager(MyCrmStorage MyCrmStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(MyCrmStorage myCrmStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.myCrmStorage = MyCrmStorage;
+        this.myCrmStorage = myCrmStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
