@@ -23,11 +23,13 @@ import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
+import seedu.mycrm.logic.commands.jobs.FindJobCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
 import seedu.mycrm.logic.commands.products.DeleteProductCommand;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
+import seedu.mycrm.model.job.JobContainsKeywordsPredicate;
 import seedu.mycrm.model.products.Product;
 import seedu.mycrm.testutil.ContactBuilder;
 import seedu.mycrm.testutil.ContactUtil;
@@ -54,7 +56,7 @@ public class MyCrmParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deleteContact() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
                 DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
         assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
@@ -84,13 +86,21 @@ public class MyCrmParserTest {
     }
 
     @Test
+    public void parseCommand_findJob() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindJobCommand command = (FindJobCommand) parser.parseCommand(
+                FindJobCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindJobCommand(new JobContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findContact() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindContactCommand command = (FindContactCommand) parser.parseCommand(
                 FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
