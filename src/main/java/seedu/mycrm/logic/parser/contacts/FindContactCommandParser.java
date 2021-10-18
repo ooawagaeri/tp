@@ -10,13 +10,13 @@ import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindContactCommand object
  */
 public class FindContactCommandParser implements Parser<FindContactCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindContactCommand
+     * and returns a FindContactCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindContactCommand parse(String args) throws ParseException {

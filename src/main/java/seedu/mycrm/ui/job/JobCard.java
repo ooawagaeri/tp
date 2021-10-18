@@ -82,7 +82,7 @@ public class JobCard extends UiPart<Region> {
     private void setJobInfo(Job job, int displayedIndex) {
         id.setText(displayedIndex + ". ");
 
-        String titleText = job.getJobDescription().value;
+        String titleText = job.getJobDescription().toString();
         if (job.getClient() != null) {
             titleText = titleText + " - " + job.getClient().getName().fullName;
         }
@@ -92,10 +92,9 @@ public class JobCard extends UiPart<Region> {
             deliveryDate.setText("Expected Delivery: " + job.getDeliveryDate().toString());
         }
 
-        if (job.isCompleted()) {
-            status.getChildren().add(new Label("Complete"));
-        } else {
-            status.getChildren().add(new Label("In Progress"));
+        if (job.getJobStatus() != null) {
+            String jobStatus = job.getJobStatus().toString();
+            status.getChildren().add(new Label(jobStatus));
         }
     }
 

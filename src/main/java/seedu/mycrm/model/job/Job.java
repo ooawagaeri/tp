@@ -11,7 +11,8 @@ public class Job {
     private Contact client;
     private Product product;
     private JobDeliveryDate deliveryDate;
-    private boolean isCompleted;
+    private JobStatus jobStatus;
+
 
     /**
      * Creates a new repair job.
@@ -22,12 +23,12 @@ public class Job {
      * @param deliveryDate Expected date of delivery of repaired product.
      */
     public Job(JobDescription jobDescription, Contact client, Product product,
-               JobDeliveryDate deliveryDate, boolean completionStatus) {
+               JobDeliveryDate deliveryDate, JobStatus jobStatus) {
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
         this.deliveryDate = deliveryDate;
-        this.isCompleted = completionStatus;
+        this.jobStatus = jobStatus;
     }
 
     /**
@@ -41,7 +42,7 @@ public class Job {
         this.client = null;
         this.product = null;
         this.deliveryDate = deliveryDate;
-        this.isCompleted = false;
+        this.jobStatus = new JobStatus(false);
     }
 
     public JobDescription getJobDescription() {
@@ -72,12 +73,12 @@ public class Job {
         this.deliveryDate = deliveryDate;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public JobStatus getJobStatus() {
+        return jobStatus;
     }
 
-    public void markCompleted() {
-        this.isCompleted = true;
+    public void setJobStatus(JobStatus jobStatus) {
+        this.jobStatus = jobStatus;
     }
 
     /**
@@ -110,7 +111,7 @@ public class Job {
         }
 
         Job job = (Job) o;
-        return isCompleted() == job.isCompleted()
+        return Objects.equals(getJobStatus(), job.getJobStatus())
                 && Objects.equals(getJobDescription(), job.getJobDescription())
                 && Objects.equals(getClient(), job.getClient())
                 && Objects.equals(getProduct(), job.getProduct())
@@ -120,7 +121,7 @@ public class Job {
     @Override
     public int hashCode() {
         return Objects.hash(getJobDescription(), getClient(),
-                getProduct(), getDeliveryDate(), isCompleted());
+                getProduct(), getDeliveryDate(), getJobStatus());
     }
 
     @Override

@@ -7,6 +7,7 @@ import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.job.JobDeliveryDate;
 import seedu.mycrm.model.job.JobDescription;
+import seedu.mycrm.model.job.JobStatus;
 import seedu.mycrm.model.products.Product;
 
 /**
@@ -22,7 +23,7 @@ public class JobBuilder {
     private Contact client;
     private Product product;
     private JobDeliveryDate deliveryDate;
-    private boolean completionStatus;
+    private JobStatus completionStatus;
 
     /**
      * Creates a {@code JobBuilder} with the default details.
@@ -30,7 +31,7 @@ public class JobBuilder {
     public JobBuilder() {
         jobDescription = new JobDescription(DEFAULT_JOB_DESCRIPTION);
         deliveryDate = new JobDeliveryDate(DEFAULT_DELIVERY_DATE);
-        completionStatus = DEFAULT_COMPLETION_STATUS;
+        completionStatus = new JobStatus(DEFAULT_COMPLETION_STATUS);
         client = ALICE;
         product = ASUS_GPU;
     }
@@ -43,7 +44,7 @@ public class JobBuilder {
         deliveryDate = jobToCopy.getDeliveryDate();
         client = jobToCopy.getClient();
         product = jobToCopy.getProduct();
-        completionStatus = jobToCopy.isCompleted();
+        completionStatus = jobToCopy.getJobStatus();
     }
 
     /**
@@ -82,7 +83,7 @@ public class JobBuilder {
      * Sets the {@code completionStatus} of the {@code Job} that we are building.
      */
     public JobBuilder withCompletionStatus(boolean completionStatus) {
-        this.completionStatus = completionStatus;
+        this.completionStatus = new JobStatus(completionStatus);
         return this;
     }
 
