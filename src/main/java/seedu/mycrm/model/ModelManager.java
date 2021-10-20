@@ -91,7 +91,7 @@ public class ModelManager implements Model {
         userPrefs.setMyCrmFilePath(myCrmFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== MyCRM ================================================================================
 
     @Override
     public void setMyCrm(ReadOnlyMyCrm myCrm) {
@@ -176,6 +176,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         myCrm.setContact(target, editedContact);
+    }
+
+    @Override
+    public void hideContact(Contact target) {
+        requireAllNonNull(target);
+
+        myCrm.hideContact(target);
     }
 
     //=========== Products ================================================================================
