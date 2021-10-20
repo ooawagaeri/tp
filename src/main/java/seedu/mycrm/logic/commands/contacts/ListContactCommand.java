@@ -32,7 +32,7 @@ public class ListContactCommand extends Command {
         this.listPredicate = PREDICATE_SHOW_ALL_CONTACTS;
     }
 
-    public ListContactCommand(Predicate listPredicate) {
+    public ListContactCommand(Predicate<Contact> listPredicate) {
         this.listPredicate = listPredicate;
     }
 

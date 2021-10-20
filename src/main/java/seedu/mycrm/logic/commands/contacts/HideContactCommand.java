@@ -12,7 +12,7 @@ import seedu.mycrm.model.contact.Contact;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
 public class HideContactCommand extends Command {
     public static final String COMMAND_WORD = "hideContact";
@@ -50,7 +50,7 @@ public class HideContactCommand extends Command {
         Contact contactToHide = lastShownList.get(index.getZeroBased());
         contactToHide.setHidden();
         model.hideContact(contactToHide);
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         return new CommandResult(String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide), COMMAND_TYPE);
     }
 
