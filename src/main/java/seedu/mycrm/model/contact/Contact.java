@@ -24,6 +24,9 @@ public class Contact {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    //Modifiable data fields
+    private boolean isHidden;
+
     /**
      * Every field must be present and not null.
      */
@@ -34,6 +37,7 @@ public class Contact {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isHidden = false;
     }
 
     public Name getName() {
@@ -58,6 +62,14 @@ public class Contact {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean checkIsHidden() {
+        return isHidden;
+    }
+
+    public void setHidden() {
+        isHidden = true;
     }
 
     /**
@@ -125,7 +137,5 @@ public class Contact {
         }
         return builder.toString();
     }
-
-
 
 }

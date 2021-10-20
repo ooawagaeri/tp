@@ -19,7 +19,7 @@ import seedu.mycrm.model.products.Product;
 import seedu.mycrm.model.products.UniqueProductList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the myCrm level
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class MyCrm implements ReadOnlyMyCrm {
@@ -72,7 +72,6 @@ public class MyCrm implements ReadOnlyMyCrm {
     }
 
     //// list overwrite operations
-
     /**
      * Replaces the contents of the contact list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.
@@ -191,6 +190,14 @@ public class MyCrm implements ReadOnlyMyCrm {
         requireNonNull(editedContact);
 
         contacts.setContact(target, editedContact);
+    }
+
+    /**
+     * Hides the given contact {@code target} in the list
+     * {@code target} must exist in the myCrm.
+     */
+    public void hideContact(Contact target) {
+        contacts.hideContact(target);
     }
 
     /**

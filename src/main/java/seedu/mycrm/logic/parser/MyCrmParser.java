@@ -14,6 +14,7 @@ import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
+import seedu.mycrm.logic.commands.contacts.HideContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
 import seedu.mycrm.logic.commands.history.HistoryCommand;
 import seedu.mycrm.logic.commands.jobs.AddJobCommand;
@@ -32,6 +33,8 @@ import seedu.mycrm.logic.parser.contacts.AddContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.DeleteContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.EditContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.FindContactCommandParser;
+import seedu.mycrm.logic.parser.contacts.HideContactCommandParser;
+import seedu.mycrm.logic.parser.contacts.ListContactCommandParser;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.logic.parser.jobs.AddJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.DeleteJobCommandParser;
@@ -79,14 +82,17 @@ public class MyCrmParser {
         case DeleteContactCommand.COMMAND_WORD:
             return new DeleteContactCommandParser().parse(arguments);
 
+        case FindContactCommand.COMMAND_WORD:
+            return new FindContactCommandParser().parse(arguments);
+
+        case HideContactCommand.COMMAND_WORD:
+            return new HideContactCommandParser().parse(arguments);
+
         case ListContactCommand.COMMAND_WORD:
-            return new ListContactCommand();
+            return new ListContactCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindContactCommand.COMMAND_WORD:
-            return new FindContactCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

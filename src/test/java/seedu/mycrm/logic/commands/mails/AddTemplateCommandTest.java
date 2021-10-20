@@ -195,6 +195,11 @@ class AddTemplateCommandTest {
         }
 
         @Override
+        public void hideContact(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addProduct(Product product) {
             throw new AssertionError("This method should not be called.");
         }

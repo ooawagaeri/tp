@@ -5,11 +5,13 @@ import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.contact.exceptions.ContactNotFoundException;
 import seedu.mycrm.model.contact.exceptions.DuplicateContactException;
+import seedu.mycrm.model.contact.tag.Tag;
 
 /**
  * A list of contacts that enforces uniqueness between its elements and does not allow nulls.
@@ -69,6 +71,25 @@ public class UniqueContactList implements Iterable<Contact> {
         internalList.set(index, editedContact);
     }
 
+
+    /**
+     * Hides the contact {@code target} in the list.
+     * {@code target} must exist in the list.
+     */
+    public void hideContact(Contact target) {
+        requireAllNonNull(target);
+        //Copy Contact info.
+        Contact hiddenContact = copyContact(target);
+        hiddenContact.setHidden();
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ContactNotFoundException();
+        }
+
+        internalList.set(index, hiddenContact);
+    }
+
     /**
      * Removes the equivalent contact from the list.
      * The contact must exist in the list.
@@ -96,6 +117,16 @@ public class UniqueContactList implements Iterable<Contact> {
         }
 
         internalList.setAll(contacts);
+    }
+
+    private Contact copyContact(Contact target) {
+        Name nameCopy = target.getName();
+        Phone phoneCopy = target.getPhone();
+        Email mailCopy = target.getEmail();
+        Address addressCopy = target.getAddress();
+        Set<Tag> tagsCopy = target.getTags();
+
+        return new Contact(nameCopy, phoneCopy, mailCopy, addressCopy, tagsCopy);
     }
 
     /**

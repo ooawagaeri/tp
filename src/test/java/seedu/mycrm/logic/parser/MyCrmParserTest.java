@@ -22,6 +22,7 @@ import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand.EditContactDescriptor;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
+import seedu.mycrm.logic.commands.contacts.HideContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
 import seedu.mycrm.logic.commands.jobs.FindJobCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
@@ -72,6 +73,27 @@ public class MyCrmParserTest {
     }
 
     @Test
+    public void parseCommand_hideContact() throws Exception {
+        HideContactCommand command = (HideContactCommand) parser.parseCommand(
+                HideContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
+        assertEquals(new HideContactCommand(INDEX_FIRST_CONTACT), command);
+    }
+
+    @Test
+    public void parseCommand_findContact() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindContactCommand command = (FindContactCommand) parser.parseCommand(
+                FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_listContact() throws Exception {
+        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD) instanceof ListContactCommand);
+        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " -a") instanceof ListContactCommand);
+    }
+
+    @Test
     public void parseCommand_addProduct() throws Exception {
         Product p = new ProductBuilder().build();
         AddProductCommand command = (AddProductCommand) parser.parseCommand(ProductUtil.getAddProductCommand(p));
@@ -100,23 +122,9 @@ public class MyCrmParserTest {
     }
 
     @Test
-    public void parseCommand_findContact() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindContactCommand command = (FindContactCommand) parser.parseCommand(
-                FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD) instanceof ListContactCommand);
-        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " 3") instanceof ListContactCommand);
     }
 
     @Test
