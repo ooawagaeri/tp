@@ -1,5 +1,10 @@
 package seedu.mycrm.logic.commands.contacts;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
+
+import java.util.List;
+
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.Command;
@@ -8,11 +13,6 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
 public class HideContactCommand extends Command {
     public static final String COMMAND_WORD = "hideContact";
@@ -27,15 +27,15 @@ public class HideContactCommand extends Command {
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
-    private final Index index;
+    private final Index targetIndex;
 
     /**
-    * @param index of the contact in the filtered contact list to edit
+    * @param targetIndex of the contact in the filtered contact list to edit
     **/
-    public HideContactCommand(Index index) {
-        requireNonNull(index);
+    public HideContactCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
 
-        this.index = index;
+        this.targetIndex = targetIndex;
     }
 
     @Override
@@ -43,12 +43,11 @@ public class HideContactCommand extends Command {
         requireNonNull(model);
         List<Contact> lastShownList = model.getFilteredContactList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Contact contactToHide = lastShownList.get(index.getZeroBased());
-        contactToHide.setHidden();
+        Contact contactToHide = lastShownList.get(targetIndex.getZeroBased());
         model.hideContact(contactToHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         return new CommandResult(String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide), COMMAND_TYPE);
@@ -56,6 +55,13 @@ public class HideContactCommand extends Command {
 
     @Override
     public CommandType getType() {
-        return null;
+        return COMMAND_TYPE;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof HideContactCommand // instanceof handles nulls
+                && targetIndex.equals(((HideContactCommand) other).targetIndex)); // state check
     }
 }

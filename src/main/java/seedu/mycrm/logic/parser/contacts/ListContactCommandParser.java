@@ -4,7 +4,6 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
-import seedu.mycrm.logic.commands.contacts.FindContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
 import seedu.mycrm.logic.parser.Parser;
 import seedu.mycrm.logic.parser.exceptions.ParseException;

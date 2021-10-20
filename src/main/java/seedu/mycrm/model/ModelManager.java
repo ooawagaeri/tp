@@ -183,6 +183,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target);
 
         myCrm.hideContact(target);
+        updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
     }
 
     //=========== Products ================================================================================
@@ -310,6 +311,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
+        System.out.println(filteredContacts);
+        System.out.println(other.filteredContacts);
+
         return myCrm.equals(other.myCrm)
                 && userPrefs.equals(other.userPrefs)
                 && filteredContacts.equals(other.filteredContacts);

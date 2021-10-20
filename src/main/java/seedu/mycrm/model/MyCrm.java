@@ -72,7 +72,6 @@ public class MyCrm implements ReadOnlyMyCrm {
     }
 
     //// list overwrite operations
-
     /**
      * Replaces the contents of the contact list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.

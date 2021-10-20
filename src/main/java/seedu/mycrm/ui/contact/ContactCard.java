@@ -61,7 +61,7 @@ public class ContactCard extends UiPart<Region> {
         email.setText(contact.getEmail().value);
 
         if (contact.checkIsHidden()) {
-            AddHiddenTag();
+            addContactTag();
         }
 
         contact.getTags().stream()
@@ -69,7 +69,7 @@ public class ContactCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-    private void AddHiddenTag() {
+    private void addContactTag() {
         isHidden.getChildren().add(new Label("Hidden"));
     }
 

@@ -79,15 +79,15 @@ public class UniqueContactList implements Iterable<Contact> {
     public void hideContact(Contact target) {
         requireAllNonNull(target);
         //Copy Contact info.
-        Contact editedContact = copyContact(target);
-        editedContact.setHidden();
+        Contact hiddenContact = copyContact(target);
+        hiddenContact.setHidden();
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new ContactNotFoundException();
         }
 
-        internalList.set(index, editedContact);
+        internalList.set(index, hiddenContact);
     }
 
     /**
@@ -124,7 +124,7 @@ public class UniqueContactList implements Iterable<Contact> {
         Phone phoneCopy = target.getPhone();
         Email mailCopy = target.getEmail();
         Address addressCopy = target.getAddress();
-        Set<Tag> tagsCopy  = target.getTags();
+        Set<Tag> tagsCopy = target.getTags();
 
         return new Contact(nameCopy, phoneCopy, mailCopy, addressCopy, tagsCopy);
     }
