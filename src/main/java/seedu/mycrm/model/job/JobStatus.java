@@ -7,7 +7,7 @@ package seedu.mycrm.model.job;
 public class JobStatus {
 
     private boolean isCompleted;
-    private final String value;
+    private String value;
 
     /**
      * Constructs a {@code Job Status}.
@@ -32,6 +32,7 @@ public class JobStatus {
      */
     public void markCompleted() {
         this.isCompleted = true;
+        this.value = "Completed";
     }
 
     @Override

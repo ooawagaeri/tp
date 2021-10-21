@@ -22,6 +22,8 @@ public interface Model {
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
+    Predicate<Job> PREDICATE_SHOW_ALL_INCOMPLETE_JOBS = job -> !(job.isCompleted());
+    Predicate<Job> PREDICATE_SHOW_ALL_COMPLETED_JOBS = job -> job.isCompleted();
     Predicate<History> PREDICATE_SHOW_ALL_HISTORIES = unused -> true;
     Predicate<Mail> PREDICATE_SHOW_ALL_MAILS = unused -> true;
 
@@ -125,6 +127,14 @@ public interface Model {
      * {@code job} must not already exist in the myCrm.
      */
     void addJob(Job job);
+
+    /**
+     * Replaces the given job {@code target} with {@code editedJob}.
+     * {@code target} must exist in myCrm.
+     * The contact identity of {@code editedJob} must not be the same as another existing
+     * job in the myCRM.
+     */
+    void setJob(Job target, Job editedJob);
 
     /**
      * Replaces the given contact {@code target} with {@code editedContact}.

@@ -162,7 +162,13 @@ public class ModelManager implements Model {
     @Override
     public void addJob(Job job) {
         myCrm.addJob(job);
-        updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
+        updateFilteredJobList(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+    }
+
+    @Override
+    public void setJob(Job target, Job editedJob) {
+        requireAllNonNull(target, editedJob);
+        myCrm.setJob(target, editedJob);
     }
 
     @Override
