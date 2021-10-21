@@ -39,6 +39,21 @@
     -fx-max-height: 0;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab-pane .tab {
+     -fx-background-color: #1d1d1d;
+}
+
+.tab-pane .tab .text{
+    -fx-font-size: 11pt;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-opacity: 0.9;
+    -fx-fill: white;
+}
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;

@@ -6,6 +6,8 @@ import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -46,7 +48,6 @@ public class MainWindow extends UiPart<Stage> {
     private HistoryListPanel historyListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StackPane currentPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -77,6 +78,25 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusBarPlaceholder;
+
+    // Side display components
+    @FXML
+    private TabPane sideDisplayPlaceHolder;
+
+    @FXML
+    private Tab contactTab;
+
+    @FXML
+    private Tab productTab;
+
+    @FXML
+    private Tab templateTab;
+
+    @FXML
+    private Tab historyTab;
+
+    @FXML
+    private Tab mailTab;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -162,22 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         historyListPanelPlaceholder.managedProperty().bind(historyListPanelPlaceholder.visibleProperty());
         historyListPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
 
-        // Show contacts as initial template
-        contactListPanelPlaceholder.setVisible(true);
-        // Hides initial template
-        templateListPanelPlaceholder.setVisible(false);
-        // Hides initial template
-        mailListPanelPlaceholder.setVisible(false);
-        // Hides initial product list
-        productListPanelPlaceholder.setVisible(false);
-        // Hides initial job list
-        jobListPanelPlaceholder.setVisible(false);
-        // Hides initial history list
-        historyListPanelPlaceholder.setVisible(false);
-
-        // Set current panel to contact list
-        currentPanel = contactListPanelPlaceholder;
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -257,27 +261,27 @@ public class MainWindow extends UiPart<Stage> {
 
             switch (commandResult.getCommandType()) {
             case CONTACTS:
-                showPanel(contactListPanelPlaceholder);
+                switchTab(contactTab);
                 break;
 
             case TEMPLATE:
-                showPanel(templateListPanelPlaceholder);
+                switchTab(templateTab);
                 break;
 
             case MAIL:
-                showPanel(mailListPanelPlaceholder);
+                switchTab(mailTab);
                 break;
 
             case JOBS:
-                showPanel(jobListPanelPlaceholder);
+
                 break;
 
             case PRODUCTS:
-                showPanel(productListPanelPlaceholder);
+                switchTab(productTab);
                 break;
 
             case HISTORY:
-                showPanel(historyListPanelPlaceholder);
+                switchTab(historyTab);
                 break;
 
             case HELP:
@@ -303,12 +307,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void showPanel(StackPane toShow) {
-        if (currentPanel == toShow) {
-            return;
-        }
-        toShow.setVisible(true);
-        currentPanel.setVisible(false);
-        currentPanel = toShow;
+    private void switchTab(Tab tab) {
+        sideDisplayPlaceHolder.getSelectionModel().select(tab);
     }
 }
