@@ -47,7 +47,7 @@ public class ModelManager implements Model {
         filteredContacts = new FilteredList<>(this.myCrm.getContactList(), PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         filteredTemplates = new FilteredList<>(this.myCrm.getTemplateList());
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
-        filteredJobs = new FilteredList<>(this.myCrm.getJobList());
+        filteredJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         filteredProducts = new FilteredList<>(this.myCrm.getProductList());
         filteredHistories = new FilteredList<>(this.myCrm.getHistoryList());
     }
@@ -162,7 +162,13 @@ public class ModelManager implements Model {
     @Override
     public void addJob(Job job) {
         myCrm.addJob(job);
-        updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
+        updateFilteredJobList(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+    }
+
+    @Override
+    public void setJob(Job target, Job editedJob) {
+        requireAllNonNull(target, editedJob);
+        myCrm.setJob(target, editedJob);
     }
 
     @Override

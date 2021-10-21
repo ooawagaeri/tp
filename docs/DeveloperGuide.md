@@ -155,9 +155,51 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+* [Adding a contact](#adding-a-contact)
+* [Hiding a contact](#hiding-a-contact)
+* [Listing contacts](#listing-contacts)
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)
 * [Constructing an email](#constructing-an-email)
+
+### Adding a Contact
+
+#### Implementation
+
+The Adding a Contact mechanism is facilitated by `AddressBook`. This Contact created is stored internally using 
+`UniqueContactList` inside the `MyCrm` object.  
+Additionally, `addContact` allows to have only partially info of a client with consideration of privacy. Commands
+such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `addContact` command behave when executed by a user: 
+
+![](images/AddContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the Adding a Contact mechanism behaves at each step.
+
+![](images/AddContactParseSequenceDiagram.png)
+
+:information_source: **Note:** The lifeline for `AddContactCommandParser` should end at the destroy 
+marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Within AddContactCommandParser#parse, ParserUtil#parseName will be called to create a name using 
+"Sans", ParserUtil#parsePhone to create a phone using "83921823", ParserUtil#parseEmail to 
+create an email using "Sans@gmail.com", ParserUtil#parseAddress to create an address using "Maxwell...".  
+Then create a contact using the new name, phone, email and address.
+
+![](images/AddContactSequenceDiagram.png)
+
+### Hiding a Contact
+
+#### Implementation
+
+The Hiding a Contact mechanism follows the `EditCommand` mechanism in `AddressBook`. It hides a specific contact
+which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
+Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+
+### Listing Contacts
 
 ### Adding a Template
 
@@ -379,14 +421,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC05 - Hide a repair job**
+**Use case: UC05 - Mark a repair job as completed**
 
 **MSS**
 
-1. User requests to hide a repair job so that its no longer visible.
+1. User requests to mark a repair job as completed.
 2. MyCRM shows a list of repair jobs.
-3. User selects a repair job from the list which they want to hide.
-4. MyCRM hides the repair job.
+3. User selects a repair job from the list which they want to mark as completed.
+4. MyCRM marks the repair job as complete, and hides the repair job from the job list.
 
    Use case ends.
 
@@ -402,6 +444,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a2. User re-selects a repair job they want to hide.
 
       Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+* 3b. User selects a job that is already marked as completed.
+    * 3b1. MyCRM shows an error message telling the user the job has 
+      already been marked as completed.
+    
+    Use case ends.
 
 **Use case: UC06 - List repair jobs**
 

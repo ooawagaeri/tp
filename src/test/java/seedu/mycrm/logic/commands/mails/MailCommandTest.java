@@ -230,6 +230,11 @@ class MailCommandTest {
         }
 
         @Override
+        public void setJob(Job job, Job editedJob) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void hideContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
