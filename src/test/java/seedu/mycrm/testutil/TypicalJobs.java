@@ -1,6 +1,7 @@
 package seedu.mycrm.testutil;
 
 import static seedu.mycrm.testutil.TypicalContacts.BENSON;
+import static seedu.mycrm.testutil.TypicalContacts.CARL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,8 @@ public class TypicalJobs {
     public static final Job INCOMPLETE = new JobBuilder().withCompletionStatus(false).build();
 
     public static final Job BENSON_JOB = new JobBuilder().withClient(BENSON).build();
+
+    public static final Job CARL_JOB = new JobBuilder().withClient(CARL).withCompletionStatus(false).build();
 
     private TypicalJobs() {}
 
@@ -34,6 +37,6 @@ public class TypicalJobs {
      * Returns list of typical jobs.
      */
     public static List<Job> getTypicalJobs() {
-        return new ArrayList<>(Arrays.asList(COMPLETED));
+        return new ArrayList<>(Arrays.asList(COMPLETED, CARL_JOB));
     }
 }

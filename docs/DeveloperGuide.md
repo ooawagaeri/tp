@@ -421,14 +421,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: UC05 - Hide a repair job**
+**Use case: UC05 - Mark a repair job as completed**
 
 **MSS**
 
-1. User requests to hide a repair job so that its no longer visible.
+1. User requests to mark a repair job as completed.
 2. MyCRM shows a list of repair jobs.
-3. User selects a repair job from the list which they want to hide.
-4. MyCRM hides the repair job.
+3. User selects a repair job from the list which they want to mark as completed.
+4. MyCRM marks the repair job as complete, and hides the repair job from the job list.
 
    Use case ends.
 
@@ -444,6 +444,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a2. User re-selects a repair job they want to hide.
 
       Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
+
+* 3b. User selects a job that is already marked as completed.
+    * 3b1. MyCRM shows an error message telling the user the job has 
+      already been marked as completed.
+    
+    Use case ends.
 
 **Use case: UC06 - List repair jobs**
 

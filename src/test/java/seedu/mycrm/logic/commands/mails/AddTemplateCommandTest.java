@@ -141,7 +141,7 @@ class AddTemplateCommandTest {
 
         @Override
         public void addJob(Job job) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -191,6 +191,11 @@ class AddTemplateCommandTest {
 
         @Override
         public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setJob(Job job, Job editedJob) {
             throw new AssertionError("This method should not be called.");
         }
 

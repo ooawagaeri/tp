@@ -1,6 +1,7 @@
 package seedu.mycrm.logic.commands.jobs;
 
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
 import static seedu.mycrm.testutil.TypicalTemplates.getTypicalMyCrm;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,8 @@ public class ListJobCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListJobCommand(), model, ListJobCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListJobCommand(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS), model,
+                ListJobCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

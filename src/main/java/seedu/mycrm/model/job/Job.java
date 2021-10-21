@@ -81,6 +81,14 @@ public class Job {
         this.jobStatus = jobStatus;
     }
 
+    public boolean isCompleted() {
+        return jobStatus.isCompleted();
+    }
+
+    public void markCompleted() {
+        jobStatus.markCompleted();
+    }
+
     /**
      * Returns true if both jobs have the same client, product and description
      * This defines a weaker notion of equality between two jobs.
