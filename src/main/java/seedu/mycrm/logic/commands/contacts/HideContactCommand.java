@@ -24,6 +24,8 @@ public class HideContactCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_HIDE_CONTACT_SUCCESS = "Hidden Contact: %1$s";
+    public static final String MESSAGE_UNHIDE_CONTACT_SUCCESS = "Unhidden Contact: %1$s";
+
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
@@ -48,14 +50,18 @@ public class HideContactCommand extends Command {
         }
 
         Contact contactToHide = lastShownList.get(targetIndex.getZeroBased());
+        String successMessage;
 
-        if (contactToHide.checkIsHidden()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+        if (!contactToHide.checkIsHidden()) {
+            successMessage = String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide);
+        } else {
+            successMessage = String.format(MESSAGE_UNHIDE_CONTACT_SUCCESS, contactToHide);
         }
 
         model.hideContact(contactToHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide), COMMAND_TYPE);
+
+        return new CommandResult(successMessage, COMMAND_TYPE);
     }
 
     @Override
