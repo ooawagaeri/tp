@@ -24,6 +24,15 @@ Class Name
 Class Phone
 Class Tag
 
+Class UniqueTemplateList
+Class Template
+Class Subject
+Class Body
+
+Class UniqueMailList
+Class Mail
+
+Class Job
 }
 
 Class HiddenOutside #FFFFFF
@@ -46,9 +55,23 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
+AddressBook *--> "1" UniqueTemplateList
+UniqueTemplateList --> "~* all" Template
+Template *--> "1" Subject
+Template *--> "1" Body
+
+AddressBook *--> "1" UniqueMailList
+UniqueMailList --> "1" Mail
+Mail *-right-> "1" Template
+Mail *-left-> "1" Job
+
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+Subject -[hidden]right-> Body
+ModelManager -[hidden]down-> UniquePersonList
 
 ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Template
+ModelManager -->"~* filtered" Mail
 @enduml

@@ -38,6 +38,15 @@ public class JobDeliveryDate {
         }
     }
 
+    /**
+     * Returns original date string representation format.
+     *
+     * @return original string format
+     */
+    public String raw() {
+        return value.format(VALID_INPUT_FORMAT);
+    }
+
     @Override
     public String toString() {
         return value.format(DISPLAY_FORMAT);
