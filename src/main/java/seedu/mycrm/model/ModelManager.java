@@ -44,7 +44,7 @@ public class ModelManager implements Model {
 
         this.myCrm = new MyCrm(myCrm);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredContacts = new FilteredList<>(this.myCrm.getContactList());
+        filteredContacts = new FilteredList<>(this.myCrm.getContactList(), PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         filteredTemplates = new FilteredList<>(this.myCrm.getTemplateList());
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
         filteredJobs = new FilteredList<>(this.myCrm.getJobList());
@@ -134,7 +134,7 @@ public class ModelManager implements Model {
     @Override
     public void addContact(Contact contact) {
         myCrm.addContact(contact);
-        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
     }
 
     @Override

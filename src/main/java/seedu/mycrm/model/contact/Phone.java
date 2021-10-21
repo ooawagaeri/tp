@@ -22,7 +22,7 @@ public class Phone implements ContactComponent<Phone> {
     /**
      * Constructs a {@code Phone}.
      */
-    private Phone() {
+    public Phone() {
         this.value = null;
     }
 

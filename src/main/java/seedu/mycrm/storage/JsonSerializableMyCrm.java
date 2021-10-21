@@ -32,16 +32,16 @@ class JsonSerializableMyCrm {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyMyCrm} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableMyCrm}.
      */
     public JsonSerializableMyCrm(ReadOnlyMyCrm source) {
         contacts.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this myCrm into the model's {@code AddressBook} object.
+     * Converts this myCrm into the model's {@code MyCrm} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
