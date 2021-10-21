@@ -1,6 +1,7 @@
 package seedu.mycrm.testutil;
 
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_SUBJECT_COMPLETE;
+import static seedu.mycrm.testutil.TypicalJobs.CARL_JOB;
 
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.job.Job;
@@ -23,7 +24,7 @@ public class TypicalMails {
      */
     public static MyCrm getTypicalMyCrm() {
         MyCrm ab = new MyCrm();
-        ab.addJob(COMPLETED_JOB);
+        ab.addJob(CARL_JOB);
         ab.addTemplate(COMPLETED_TEMPLATE);
         return ab;
     }
