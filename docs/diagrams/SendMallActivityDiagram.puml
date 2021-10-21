@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes mail command;
+:MyCRM parses user inputs;
+if () then ([Valid inputs])
+    if () then ([Valid job & template index])
+        fork
+            :Retrieves job to be mailed;
+        fork again
+            :Retrieves template to be followed;
+        end fork
+        :Creates new mail;
+        :Displays successful mail on UI;
+    else ([Invalid job or template index])
+        :Throws CommandException;
+        :Displays unsuccessful mail on UI;
+    endif
+else ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful mail on UI;
+endif
+stop
+
+@enduml

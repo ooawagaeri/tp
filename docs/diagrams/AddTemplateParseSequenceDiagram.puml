@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddTemplateCommandParser" as AddTemplateCommandParser LOGIC_COLOR
+participant "toAdd:AddTemplateCommand" as AddTemplateCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "s:Subject" as Subject MODEL_COLOR
+participant "b:Body" as Body MODEL_COLOR
+participant "t:Template" as Template MODEL_COLOR
+end box
+[-> LogicManager : execute("addTemplate s/Completed b/Dear customer...")
+activate LogicManager
+
+group sd parse add template
+LogicManager -> AddressBookParser : parseCommand("addTemplate s/Completed b/Dear customer...")
+activate AddressBookParser
+
+create AddTemplateCommandParser
+AddressBookParser -> AddTemplateCommandParser
+activate AddTemplateCommandParser
+
+AddTemplateCommandParser --> AddressBookParser
+deactivate AddTemplateCommandParser
+
+AddressBookParser -> AddTemplateCommandParser : parse("s/Completed b/Dear customer...")
+activate AddTemplateCommandParser
+
+create Subject
+AddTemplateCommandParser -> Subject : "Completed"
+activate Subject
+Subject --> AddTemplateCommandParser : s
+deactivate Subject
+
+create Body
+AddTemplateCommandParser -> Body : "Dear customer..."
+activate Body
+Body --> AddTemplateCommandParser : b
+deactivate Body
+
+create Template
+AddTemplateCommandParser -> Template : s, b
+activate Template
+Template --> AddTemplateCommandParser : t
+deactivate Template
+
+create AddTemplateCommand
+AddTemplateCommandParser -> AddTemplateCommand : t
+activate AddTemplateCommand
+AddTemplateCommand --> AddTemplateCommandParser : toAdd
+deactivate AddTemplateCommand
+
+AddTemplateCommandParser --> AddressBookParser : toAdd
+deactivate AddTemplateCommandParser
+'Hidden arrow to position destroy marker below the end of the activation bar.
+AddTemplateCommandParser -[hidden]-> AddressBookParser
+destroy AddTemplateCommandParser
+
+AddressBookParser --> LogicManager : toAdd
+deactivate AddressBookParser
+end
+
+deactivate LogicManager
+@enduml

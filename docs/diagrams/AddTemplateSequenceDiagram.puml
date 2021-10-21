@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toAdd:AddTemplateCommand" as AddTemplateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("addTemplate s/Completed b/Dear customer...")
+activate LogicManager
+
+ref over LogicManager, AddTemplateCommand : parse add template
+
+LogicManager -> AddTemplateCommand : execute()
+activate AddTemplateCommand
+
+AddTemplateCommand -> Model : addTemplate(toAdd)
+activate Model
+
+Model --> AddTemplateCommand
+deactivate Model
+
+create CommandResult
+AddTemplateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTemplateCommand
+deactivate CommandResult
+
+AddTemplateCommand --> LogicManager : result
+deactivate AddTemplateCommand
+
+AddTemplateCommand -[hidden]-> LogicManager
+destroy AddTemplateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
