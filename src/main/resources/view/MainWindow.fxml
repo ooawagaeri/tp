@@ -6,14 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="MyCRM App" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -50,33 +48,13 @@
           </padding>
         </StackPane>
 
-        <HBox fx:id="contentsDisplayPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+        <HBox fx:id="contentsDisplayPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="10">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
 
-          <HBox fx:id="mainDisplayPlaceHolder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
-            <StackPane fx:id="jobListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
-          </HBox>
-
-          <TabPane fx:id="sideDisplayPlaceHolder" minWidth="340" prefWidth="340" HBox.hgrow="NEVER"
-                   styleClass="tab-pane">
-            <Tab fx:id="contactTab" closable="false" text="Contact">
-              <StackPane fx:id="contactListPanelPlaceholder"/>
-            </Tab>
-            <Tab fx:id="productTab" closable="false" text="Product">
-              <StackPane fx:id="productListPanelPlaceholder"/>
-            </Tab>
-            <Tab fx:id="templateTab" closable="false" text="Template">
-              <StackPane fx:id="templateListPanelPlaceholder"/>
-            </Tab>
-            <Tab fx:id="mailTab" closable="false" text="Mail">
-              <StackPane fx:id="mailListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
-            </Tab>
-            <Tab fx:id="historyTab" closable="false" text="History">
-              <StackPane fx:id="historyListPanelPlaceholder"/>
-            </Tab>
-          </TabPane>
+          <StackPane fx:id="mainDisplayPlaceholder" HBox.hgrow="ALWAYS"/>
+          <StackPane fx:id="sideDisplayPlaceholder" HBox.hgrow="NEVER"/>
         </HBox>
 
         <StackPane fx:id="statusBarPlaceholder" VBox.vgrow="NEVER" />

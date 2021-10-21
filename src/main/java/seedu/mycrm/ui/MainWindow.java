@@ -17,6 +17,7 @@ import seedu.mycrm.commons.core.GuiSettings;
 import seedu.mycrm.commons.core.LogsCenter;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.logic.commands.CommandResult;
+import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.ui.contact.ContactListPanel;
@@ -40,13 +41,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ContactListPanel contactListPanel;
-    private TemplateListPanel templateListPanel;
-    private MailListPanel mailListPanel;
-    private ProductListPanel productListPanel;
-    private JobListPanel jobListPanel;
-    private HistoryListPanel historyListPanel;
+
     private ResultDisplay resultDisplay;
+    private MainDisplay mainDisplay;
+    private SideDisplay sideDisplay;
     private HelpWindow helpWindow;
 
     @FXML
@@ -56,47 +54,17 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane contactListPanelPlaceholder;
-
-    @FXML
-    private StackPane templateListPanelPlaceholder;
-
-    @FXML
-    private StackPane mailListPanelPlaceholder;
-
-    @FXML
-    private StackPane productListPanelPlaceholder;
-
-    @FXML
-    private StackPane jobListPanelPlaceholder;
-
-    @FXML
-    private StackPane historyListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane mainDisplayPlaceholder;
+
+    @FXML
+    private StackPane sideDisplayPlaceholder;
 
     @FXML
     private StackPane statusBarPlaceholder;
 
-    // Side display components
-    @FXML
-    private TabPane sideDisplayPlaceHolder;
-
-    @FXML
-    private Tab contactTab;
-
-    @FXML
-    private Tab productTab;
-
-    @FXML
-    private Tab templateTab;
-
-    @FXML
-    private Tab historyTab;
-
-    @FXML
-    private Tab mailTab;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -158,32 +126,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts(HostServices hostServices) {
-        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
-        contactListPanelPlaceholder.managedProperty().bind(contactListPanelPlaceholder.visibleProperty());
-        contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
-
-        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
-        templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
-        templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
-
-        mailListPanel = new MailListPanel(logic.getFilteredMailList(), hostServices);
-        mailListPanelPlaceholder.managedProperty().bind(mailListPanelPlaceholder.visibleProperty());
-        mailListPanelPlaceholder.getChildren().add(mailListPanel.getRoot());
-
-        jobListPanel = new JobListPanel(logic.getFilteredJobList());
-        jobListPanelPlaceholder.managedProperty().bind(jobListPanelPlaceholder.visibleProperty());
-        jobListPanelPlaceholder.getChildren().add(jobListPanel.getRoot());
-
-        productListPanel = new ProductListPanel(logic.getFilteredProductList());
-        productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
-        productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
-
-        historyListPanel = new HistoryListPanel(logic.getFilteredHistoryList());
-        historyListPanelPlaceholder.managedProperty().bind(historyListPanelPlaceholder.visibleProperty());
-        historyListPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        mainDisplay = new MainDisplay();
+        mainDisplay.init(logic, hostServices);
+        mainDisplayPlaceholder.getChildren().add(mainDisplay.getRoot());
+
+        sideDisplay = new SideDisplay();
+        sideDisplay.init(logic);
+        sideDisplayPlaceholder.getChildren().add(sideDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMyCrmFilePath());
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -232,22 +184,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ContactListPanel getContactListPanel() {
-        return contactListPanel;
-    }
-
-    public TemplateListPanel getTemplateListPanel() {
-        return templateListPanel;
-    }
-
-    public JobListPanel getJobListPanel() {
-        return jobListPanel;
-    }
-
-    public HistoryListPanel getHistoryListPanel() {
-        return historyListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -256,32 +192,24 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            CommandType commandType = commandResult.getCommandType();
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            switch (commandResult.getCommandType()) {
+            switch (commandType) {
             case CONTACTS:
-                switchTab(contactTab);
-                break;
-
             case TEMPLATE:
-                switchTab(templateTab);
+            case PRODUCTS:
+            case HISTORY:
+                sideDisplay.switchTab(commandType);
                 break;
 
             case MAIL:
-                switchTab(mailTab);
+                mainDisplay.showMailList();;
                 break;
 
             case JOBS:
-
-                break;
-
-            case PRODUCTS:
-                switchTab(productTab);
-                break;
-
-            case HISTORY:
-                switchTab(historyTab);
+                mainDisplay.showJobList();;
                 break;
 
             case HELP:
@@ -305,9 +233,5 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    private void switchTab(Tab tab) {
-        sideDisplayPlaceHolder.getSelectionModel().select(tab);
     }
 }
