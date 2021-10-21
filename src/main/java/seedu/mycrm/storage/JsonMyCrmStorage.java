@@ -47,7 +47,8 @@ public class JsonMyCrmStorage implements MyCrmStorage {
 
         Optional<JsonSerializableMyCrm> jsonMyCrm = JsonUtil.readJsonFile(
                 filePath, JsonSerializableMyCrm.class);
-        if (!jsonMyCrm.isPresent()) {
+
+        if (jsonMyCrm.isEmpty()) {
             return Optional.empty();
         }
 

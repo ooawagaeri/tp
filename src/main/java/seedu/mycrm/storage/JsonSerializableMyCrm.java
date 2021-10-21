@@ -27,6 +27,7 @@ class JsonSerializableMyCrm {
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "Template list contains duplicate template(s)";
     public static final String MESSAGE_DUPLICATE_PRODUCT = "Product list contains duplicate product(s)";
     public static final String MESSAGE_DUPLICATE_JOBS = "Job list contains duplicate job(s)";
+    public static final String MESSAGE_INVALID_JOBS = "JSON Job list contains an illegal job(s)";
 
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
     private final List<JsonAdaptedTemplate> templates = new ArrayList<>();
@@ -100,17 +101,25 @@ class JsonSerializableMyCrm {
                     .filter(contact -> clientName.equals(contact.getName().toString()))
                     .findFirst();
 
-            matchClient.ifPresent(job::setClient);
+            if (matchClient.isPresent()) {
+                job.setClient(matchClient.get());
+            } else {
+                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
+            }
 
             Optional<Product> matchProduct = myCrm.getProductList()
                     .stream()
                     .filter(product -> productName.equals(product.getName().toString()))
                     .findFirst();
 
-            matchProduct.ifPresent(job::setProduct);
+            if (matchProduct.isPresent()) {
+                job.setProduct(matchProduct.get());
+            } else {
+                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
+            }
 
             if (myCrm.hasJob(job)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PRODUCT);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_JOBS);
             }
             myCrm.addJob(job);
         }
