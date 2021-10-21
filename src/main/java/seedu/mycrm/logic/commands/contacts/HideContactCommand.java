@@ -18,8 +18,9 @@ public class HideContactCommand extends Command {
     public static final String COMMAND_WORD = "hideContact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Hides the details of the contact identified "
-            + "by the index number used in the displayed contact list. "
-            + "Existing contact info will be hidden"
+            + "by the index number used in the displayed contact list.\n"
+            + "Existing contact info will be hidden.\n"
+            + "If the specific contact is already hidden, calling hideContact will unhide this contact.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
