@@ -29,6 +29,7 @@ class JsonAdaptedContact {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final boolean isHidden;
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -36,11 +37,13 @@ class JsonAdaptedContact {
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email, @JsonProperty("address") String address,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("isHidden") boolean isHidden) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.isHidden = isHidden;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,6 +57,7 @@ class JsonAdaptedContact {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        isHidden = source.checkIsHidden();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,32 +82,45 @@ class JsonAdaptedContact {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
+
+        if (phone != null && !Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
-
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        final Phone modelPhone;
+        if (phone != null) {
+            modelPhone = new Phone(phone);
+        } else {
+            modelPhone = new Phone();
         }
-        if (!Email.isValidEmail(email)) {
+
+
+        if (email != null && !Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Email modelEmail;
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (email != null) {
+            modelEmail = new Email(email);
+        } else {
+            modelEmail = new Email();
         }
-        if (!Address.isValidAddress(address)) {
+
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Address modelAddress;
+
+        if (address != null) {
+            modelAddress = new Address(address);
+        } else {
+            modelAddress = new Address();
+        }
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        final boolean isHidden = this.isHidden;
+
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags, isHidden);
     }
 
 }

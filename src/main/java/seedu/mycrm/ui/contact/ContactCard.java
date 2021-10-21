@@ -41,6 +41,8 @@ public class ContactCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane isHidden;
 
     /**
      * Creates a {@code ContactCode} with the given {@code Contact} and index to display.
@@ -48,14 +50,27 @@ public class ContactCard extends UiPart<Region> {
     public ContactCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
+        setContactInfo(contact, displayedIndex);
+    }
+
+    private void setContactInfo(Contact contact, int displayedIndex) {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         phone.setText(contact.getPhone().value);
         address.setText(contact.getAddress().value);
         email.setText(contact.getEmail().value);
+
+        if (contact.checkIsHidden()) {
+            addContactTag();
+        }
+
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    private void addContactTag() {
+        isHidden.getChildren().add(new Label("Hidden"));
     }
 
     @Override

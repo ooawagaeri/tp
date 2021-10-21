@@ -18,6 +18,7 @@ import seedu.mycrm.model.products.Product;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
+    Predicate<Contact> PREDICATE_SHOW_NOT_HIDDEN_CONTACTS = contact -> !contact.checkIsHidden();
     Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
@@ -132,6 +133,12 @@ public interface Model {
      * in the myCrm.
      */
     void setContact(Contact target, Contact editedContact);
+
+    /**
+     * Hides the given contact {@code target}.
+     * {@code target} must exist in the myCrm.
+     */
+    void hideContact(Contact target);
 
     /**
      * Returns true if a product with the same identity as {@code product} exists in MyCrm.
