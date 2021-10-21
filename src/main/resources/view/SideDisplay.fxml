@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane  fx:id="sideDisplayPane" styleClass="tab-pane" minWidth="340" prefWidth="340" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="NEVER" tabMinWidth="69">
+    <Tab fx:id="contactTab" closable="false" text="Contact">
+        <StackPane fx:id="contactListPanelPlaceholder"/>
+    </Tab>
+    <Tab fx:id="productTab" closable="false" text="Product">
+        <StackPane fx:id="productListPanelPlaceholder"/>
+    </Tab>
+    <Tab fx:id="templateTab" closable="false" text="Template">
+        <StackPane fx:id="templateListPanelPlaceholder"/>
+    </Tab>
+    <Tab fx:id="historyTab" closable="false" text="History">
+        <StackPane fx:id="historyListPanelPlaceholder"/>
+    </Tab>
+</TabPane>

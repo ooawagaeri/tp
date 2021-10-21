@@ -6,13 +6,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         title="My CRM App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="MyCRM App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/myCrm_icon.png" />
   </icons>
@@ -47,17 +47,14 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="contactList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <HBox fx:id="contentsDisplayPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="10">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
-          <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          <StackPane fx:id="mailListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          <StackPane fx:id="productListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          <StackPane fx:id="jobListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          <StackPane fx:id="historyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+
+          <StackPane fx:id="mainDisplayPlaceholder" HBox.hgrow="ALWAYS"/>
+          <StackPane fx:id="sideDisplayPlaceholder" HBox.hgrow="NEVER"/>
+        </HBox>
 
         <StackPane fx:id="statusBarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

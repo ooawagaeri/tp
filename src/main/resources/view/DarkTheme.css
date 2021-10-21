@@ -39,6 +39,30 @@
     -fx-max-height: 0;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab-pane .tab {
+     -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected {
+     -fx-background-color: #3c3e3f;
+}
+
+.tab-pane .tab .text{
+     -fx-alignment: CENTER;
+     -fx-font-size: 11pt;
+     -fx-font-family: "Open Sans Semibold";
+     -fx-opacity: 0.9;
+     -fx-fill: #535353;
+}
+
+.tab-pane .tab:selected .text{
+     -fx-fill: white;
+}
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
@@ -377,4 +401,22 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#mainDisplayBox {
+    -fx-border-width: 1;
+}
+
+#mainDisplayBox > .label {
+    -fx-padding: 0 0 0 10;
+    -fx-background-radius: 2 2 0 0;
+    -fx-border-width: 1;
+    -fx-background-color: #232525;
+}
+
+#mainDisplayBox > .label .text {
+     -fx-font-size: 11pt;
+     -fx-font-family: "Open Sans Semibold";
+     -fx-opacity: 0.9;
+     -fx-fill: white;
 }
