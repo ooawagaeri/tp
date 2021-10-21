@@ -299,7 +299,9 @@ Action              | Format, Examples
 **List Job**        | `listJob`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
 **Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+**Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
 **List Contact**    | `listContact`
+**Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`

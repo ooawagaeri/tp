@@ -482,7 +482,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC08 - Adding a contact**
+**Use case: UC08 - Adding a client contact**
 
 **MSS**
 
@@ -511,7 +511,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 1.
   
-**Use case: UC09 - Editing a contact**
+**Use case: UC09 - Editing a client contact**
 
 **MSS**
 
@@ -540,7 +540,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-**Use case: UC10 - Deleting a contact**
+**Use case: UC10 - Deleting a client contact**
 
 **MSS**
 
@@ -563,7 +563,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC11 - Linking a contact to a job**
+**Use case: UC11 - Linking a client contact to a job**
 
 **MSS**
 
@@ -598,7 +598,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4
 
-**Use case: UC12 - Hiding a contact**
+**Use case: UC12 - Hiding a client contact**
 
 **MSS**
 
