@@ -48,6 +48,11 @@ public class HideContactCommand extends Command {
         }
 
         Contact contactToHide = lastShownList.get(targetIndex.getZeroBased());
+
+        if (contactToHide.checkIsHidden()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+        }
+
         model.hideContact(contactToHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         return new CommandResult(String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide), COMMAND_TYPE);

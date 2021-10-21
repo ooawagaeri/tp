@@ -331,6 +331,7 @@ public class MyCrm implements ReadOnlyMyCrm {
     public ObservableList<History> getHistoryList() {
         return histories.asUnmodifiableObservableList();
     }
+
     public ObservableList<Mail> getMailList() {
         return mails.asUnmodifiableObservableList();
     }
