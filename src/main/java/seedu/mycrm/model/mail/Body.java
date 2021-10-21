@@ -11,7 +11,7 @@ public class Body {
 
     public static final String MESSAGE_CONSTRAINTS = "Body can take any values, and it should not be blank";
 
-    /*
+    /**
      * The first character of the template must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
@@ -31,7 +31,7 @@ public class Body {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid body.
      */
     public static boolean isValidBody(String test) {
         return test.matches(VALIDATION_REGEX);

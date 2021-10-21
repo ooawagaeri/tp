@@ -26,15 +26,15 @@ public class TypicalContacts {
     public static final Contact ALICE = new ContactBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends").build();
+            .withTags("1st Tier").build();
     public static final Contact BENSON = new ContactBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
+            .withTags("2nd Tier", "Premium").build();
     public static final Contact CARL = new ContactBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Contact DANIEL = new ContactBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withAddress("10th street").withTags("1st Tier").build();
     public static final Contact ELLE = new ContactBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Contact FIONA = new ContactBuilder().withName("Fiona Kunz").withPhone("9482427")
