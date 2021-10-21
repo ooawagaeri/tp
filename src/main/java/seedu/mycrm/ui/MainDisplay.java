@@ -16,6 +16,10 @@ import seedu.mycrm.ui.template.MailListPanel;
  * After creating an instance of SideDisplay, should instantly call method fillInnerParts(Logic).
  */
 public class MainDisplay extends UiPart<Region> {
+    private static final String FXML = "MainDisplay.fxml";
+    private static final String HEADER_JOBS = "Jobs";
+    private static final String HEADER_MAIL = "Mail";
+
     private MailListPanel mailListPanel;
     private JobListPanel jobListPanel;
 
@@ -31,14 +35,13 @@ public class MainDisplay extends UiPart<Region> {
     @FXML
     private StackPane jobListPanelPlaceholder;
 
-    private static final String FXML = "MainDisplay.fxml";
-    private static final String HEADER_JOBS = "Jobs";
-    private static final String HEADER_MAIL = "Mail";
-
     public MainDisplay() {
         super(FXML);
     }
 
+    /**
+     * Initialize inner parts.
+     */
     public void init(Logic logic, HostServices hostServices) {
         requireNonNull(logic);
         requireNonNull(hostServices);
@@ -55,12 +58,18 @@ public class MainDisplay extends UiPart<Region> {
         showJobList();
     }
 
+    /**
+     * Display job list.
+     */
     public void showJobList() {
         mailListPanelPlaceholder.setVisible(false);
         jobListPanelPlaceholder.setVisible(true);
         changeHeaderText(HEADER_JOBS);
     }
 
+    /**
+     * Display mail list.
+     */
     public void showMailList() {
         jobListPanelPlaceholder.setVisible(false);
         mailListPanelPlaceholder.setVisible(true);

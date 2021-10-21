@@ -6,8 +6,6 @@ import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -20,12 +18,6 @@ import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
-import seedu.mycrm.ui.contact.ContactListPanel;
-import seedu.mycrm.ui.history.HistoryListPanel;
-import seedu.mycrm.ui.job.JobListPanel;
-import seedu.mycrm.ui.product.ProductListPanel;
-import seedu.mycrm.ui.template.MailListPanel;
-import seedu.mycrm.ui.template.TemplateListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

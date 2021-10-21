@@ -18,6 +18,8 @@ import seedu.mycrm.ui.template.TemplateListPanel;
  * After creating an instance of SideDisplay, should instantly call method fillInnerParts(Logic).
  */
 public class SideDisplay extends UiPart<Region> {
+    private static final String FXML = "SideDisplay.fxml";
+
     private ContactListPanel contactListPanel;
     private TemplateListPanel templateListPanel;
     private ProductListPanel productListPanel;
@@ -50,12 +52,13 @@ public class SideDisplay extends UiPart<Region> {
     @FXML
     private StackPane historyListPanelPlaceholder;
 
-    private static final String FXML = "SideDisplay.fxml";
-
     public SideDisplay() {
         super(FXML);
     }
 
+    /**
+     * Initialize inner parts.
+     */
     public void init(Logic logic) {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         contactListPanelPlaceholder.managedProperty().bind(contactListPanelPlaceholder.visibleProperty());
@@ -74,6 +77,9 @@ public class SideDisplay extends UiPart<Region> {
         historyListPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
     }
 
+    /**
+     * Switch tab based on command type.
+     */
     public void switchTab(CommandType type) {
         switch (type) {
         case CONTACTS:
