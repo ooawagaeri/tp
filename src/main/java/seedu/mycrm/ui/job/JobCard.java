@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.products.Product;
@@ -32,15 +33,24 @@ public class JobCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
 
+    @FXML
+    private VBox clientInfo;
+    @FXML
+    private VBox productInfo;
+
     // Job Info Fields
     @FXML
     private Label id;
     @FXML
     private Label title;
     @FXML
-    private Label deliveryDate;
+    private Label completionDate;
     @FXML
     private FlowPane status;
+    @FXML
+    private Label receivedDate;
+    @FXML
+    private Label fee;
 
     // Client Info Fields
     @FXML
@@ -88,13 +98,22 @@ public class JobCard extends UiPart<Region> {
         }
         title.setText(titleText);
 
-        if (job.getDeliveryDate() != null) {
-            deliveryDate.setText("Expected Delivery: " + job.getDeliveryDate().toString());
-        }
-
         if (job.getJobStatus() != null) {
             String jobStatus = job.getJobStatus().toString();
             status.getChildren().add(new Label(jobStatus));
+        }
+
+        receivedDate.setText("Repair Job Received On: " + job.getReceivedDate().toString());
+        if (job.isCompleted()) {
+            completionDate.setText("Date completed:" + job.getCompletedDate().toString());
+        } else {
+            if (job.getDeliveryDate() != null) {
+                completionDate.setText("Expected Delivery: " + job.getDeliveryDate().toString());
+            }
+        }
+
+        if (job.getFee() != null) {
+            fee.setText("Repair Fee: " + job.getFee());
         }
     }
 
@@ -107,6 +126,9 @@ public class JobCard extends UiPart<Region> {
             client.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        } else {
+            clientInfo.setVisible(false);
+            clientInfo.setManaged(false);
         }
     }
 
@@ -116,6 +138,9 @@ public class JobCard extends UiPart<Region> {
             productType.setText("Type: " + product.getType().toString());
             productManufacturer.setText("Manufacturer: " + product.getManufacturer().toString());
             productDescription.setText("Description: " + product.getDescription().toString());
+        } else {
+            productInfo.setVisible(false);
+            productInfo.setManaged(false);
         }
     }
 

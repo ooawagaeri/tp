@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class JobDeliveryDate {
-    public static final String MESSAGE_CONSTRAINTS = "Job Delivery Date should follow the format dd/MM/YYYY";
+public class JobDate {
+    public static final String MESSAGE_CONSTRAINTS = "Date should follow the format dd/MM/YYYY";
 
     private static final DateTimeFormatter VALID_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -16,20 +16,28 @@ public class JobDeliveryDate {
     public final LocalDate value;
 
     /**
-     * Constructs a {@code JobDeliveryDate}.
+     * Constructs a {@code JobDate}.
      *
-     * @param deliveryDate A string representation of the delivery date.
+     * @param date A string representation of the delivery date.
      */
-    public JobDeliveryDate(String deliveryDate) {
-        requireNonNull(deliveryDate);
-        checkArgument(isValidJobDeliveryDate(deliveryDate), MESSAGE_CONSTRAINTS);
-        this.value = LocalDate.parse(deliveryDate, VALID_INPUT_FORMAT);;
+    public JobDate(String date) {
+        requireNonNull(date);
+        checkArgument(isValidJobDate(date), MESSAGE_CONSTRAINTS);
+        this.value = LocalDate.parse(date, VALID_INPUT_FORMAT);;
+    }
+
+    /**
+     * Returns current date as a JobDate object.
+     */
+    public static JobDate getCurrentDate() {
+        LocalDate currentDate = LocalDate.now();
+        return new JobDate(currentDate.format(VALID_INPUT_FORMAT));
     }
 
     /**
      * Returns true if the given string for the delivery date conforms to the correct format.
      */
-    public static boolean isValidJobDeliveryDate(String test) {
+    public static boolean isValidJobDate(String test) {
         try {
             LocalDate.parse(test, VALID_INPUT_FORMAT);
             return true;
@@ -44,19 +52,25 @@ public class JobDeliveryDate {
      * @return original string format
      */
     public String raw() {
+        if (value == null) {
+            return null;
+        }
         return value.format(VALID_INPUT_FORMAT);
     }
 
     @Override
     public String toString() {
+        if (value == null) {
+            return null;
+        }
         return value.format(DISPLAY_FORMAT);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof JobDeliveryDate // instanceof handles nulls
-            && value.equals(((JobDeliveryDate) other).value)); // state check
+            || (other instanceof JobDate // instanceof handles nulls
+            && value.equals(((JobDate) other).value)); // state check
     }
 
     @Override

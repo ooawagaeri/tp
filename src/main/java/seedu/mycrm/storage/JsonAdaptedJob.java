@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.mycrm.commons.exceptions.IllegalValueException;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.job.JobDeliveryDate;
+import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
+import seedu.mycrm.model.job.JobFee;
 import seedu.mycrm.model.job.JobStatus;
 
 /**
@@ -21,6 +22,9 @@ class JsonAdaptedJob {
     private String product;
     private String deliveryDate;
     private String jobStatus;
+    private String receivedDate;
+    private String completedDate;
+    private String fee;
 
     /**
      * Constructs a {@code JsonAdaptedJob} with the given job details.
@@ -28,12 +32,18 @@ class JsonAdaptedJob {
     @JsonCreator
     public JsonAdaptedJob(@JsonProperty("jobDescription") String jobDescription, @JsonProperty("client") String client,
                           @JsonProperty("product") String product, @JsonProperty("deliveryDate") String deliveryDate,
-                          @JsonProperty("jobStatus") String jobStatus) {
+                          @JsonProperty("jobStatus") String jobStatus,
+                          @JsonProperty("receivedDate") String receivedDate,
+                          @JsonProperty("completedDate") String completedDate,
+                          @JsonProperty("fee") String fee) {
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
         this.deliveryDate = deliveryDate;
         this.jobStatus = jobStatus;
+        this.receivedDate = receivedDate;
+        this.completedDate = completedDate;
+        this.fee = fee;
     }
 
     /**
@@ -41,10 +51,29 @@ class JsonAdaptedJob {
      */
     public JsonAdaptedJob(Job source) {
         jobDescription = source.getJobDescription().toString();
-        client = source.getClient().getName().toString();
-        product = source.getProduct().getName().toString();
-        deliveryDate = source.getDeliveryDate().raw();
+
+        if (source.getClient() != null) {
+            client = source.getClient().getName().toString();
+        }
+
+        if (source.getProduct() != null) {
+            product = source.getProduct().getName().toString();
+        }
+
         jobStatus = source.getJobStatus().toString();
+        receivedDate = source.getReceivedDate().raw();
+
+        if (source.isCompleted()) {
+            completedDate = source.getCompletedDate().raw();
+        }
+
+        if (source.getFee() != null) {
+            fee = source.getFee().toString();
+        }
+
+        if (source.getDeliveryDate() != null) {
+            deliveryDate = source.getDeliveryDate().raw();
+        }
     }
 
     public String getClient() {
@@ -71,14 +100,41 @@ class JsonAdaptedJob {
         }
         final JobDescription modelJobDescription = new JobDescription(jobDescription);
 
-        if (deliveryDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    JobDeliveryDate.class.getSimpleName()));
+        JobDate modelJobDeliveryDate = null;
+        if (deliveryDate != null) {
+            if (JobDate.isValidJobDate(deliveryDate)) {
+                modelJobDeliveryDate = new JobDate(deliveryDate);
+            } else {
+                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
+            }
         }
-        if (!JobDeliveryDate.isValidJobDeliveryDate(deliveryDate)) {
-            throw new IllegalValueException(JobDeliveryDate.MESSAGE_CONSTRAINTS);
+
+        JobDate modelJobReceivedDate = null;
+        if (receivedDate != null) {
+            if (JobDate.isValidJobDate(receivedDate)) {
+                modelJobReceivedDate = new JobDate(receivedDate);
+            } else {
+                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
+            }
         }
-        final JobDeliveryDate modelJobDeliveryDate = new JobDeliveryDate(deliveryDate);
+
+        JobDate modelJobCompletedDate = null;
+        if (completedDate != null) {
+            if (JobDate.isValidJobDate(completedDate)) {
+                modelJobCompletedDate = new JobDate(completedDate);
+            } else {
+                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
+            }
+        }
+
+        JobFee modelJobfee = null;
+        if (fee != null) {
+            if (JobFee.isValidJobFee(fee)) {
+                modelJobfee = new JobFee(fee);
+            } else {
+                throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
+            }
+        }
 
         if (jobStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -91,8 +147,10 @@ class JsonAdaptedJob {
             modelJobStatus = new JobStatus(false);
         }
 
-        final Job modeJob = new Job(modelJobDescription, modelJobDeliveryDate);
+        final Job modeJob = new Job(modelJobDescription, modelJobDeliveryDate,
+                modelJobReceivedDate, modelJobfee);
         modeJob.setJobStatus(modelJobStatus);
+        modeJob.setCompletedDate(modelJobCompletedDate);
 
         return modeJob;
     }

@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
 import java.util.stream.Stream;
 
@@ -18,8 +20,9 @@ import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.Prefix;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.job.JobDeliveryDate;
+import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
+import seedu.mycrm.model.job.JobFee;
 
 public class AddJobCommandParser implements Parser<AddJobCommand> {
     /**
@@ -32,8 +35,8 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
     public AddJobCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_JOB_DESCRIPTION,
-                PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_DELIVERY_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_JOB_DESCRIPTION, PREFIX_CONTACT_INDEX,
+                PREFIX_PRODUCT_INDEX, PREFIX_DELIVERY_DATE, PREFIX_RECEIVED_DATE, PREFIX_FEE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_JOB_DESCRIPTION)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -44,10 +47,24 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
         JobDescription jobDescription = ParserUtil.parseJobDescription(
                 argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get());
 
-        JobDeliveryDate deliveryDate = null;
+        JobDate deliveryDate = null;
         if (arePrefixesPresent(argMultimap, PREFIX_DELIVERY_DATE)) {
-            deliveryDate = ParserUtil.parseJobDeliveryDate(
+            deliveryDate = ParserUtil.parseJobDate(
                 argMultimap.getValue(PREFIX_DELIVERY_DATE).get());
+        }
+
+        JobDate receivedDate = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_RECEIVED_DATE)) {
+            receivedDate = ParserUtil.parseJobDate(
+                argMultimap.getValue(PREFIX_RECEIVED_DATE).get());
+        } else {
+            receivedDate = JobDate.getCurrentDate();
+        }
+
+        JobFee fee = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_FEE)) {
+            fee = ParserUtil.parseJobFee(
+                argMultimap.getValue(PREFIX_FEE).get());
         }
 
         Index contactIndex = null;
@@ -60,7 +77,7 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
             productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get());
         }
 
-        Job job = new Job(jobDescription, deliveryDate);
+        Job job = new Job(jobDescription, deliveryDate, receivedDate, fee);
 
         return new AddJobCommand(job, contactIndex, productIndex);
     }

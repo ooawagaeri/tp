@@ -33,25 +33,28 @@
                         </minWidth>
                     </Label>
                 </HBox>
-                <HBox>
+                <VBox>
+                    <FlowPane fx:id="status" />
                     <Label fx:id="deliveryDate" styleClass="cell_small_label">
                         <minWidth>
                             <!-- Ensures that the label text is never truncated -->
                             <Region fx:constant="USE_PREF_SIZE" />
                         </minWidth>
                     </Label>
-                    <FlowPane fx:id="status" />
-                </HBox>
+                    <Label fx:id="fee" styleClass="cell_small_label" />
+                    <Label fx:id="receivedDate" styleClass="cell_small_label" />
+                    <Label fx:id="completionDate" styleClass="cell_small_label" />
+                </VBox>
             </VBox>
             <HBox spacing="10">
-                <VBox id="clientInfo">
+                <VBox fx:id="clientInfo">
                     <Label fx:id="clientInfoHeader" styleClass="cell_medium_label" />
                     <Label fx:id="phone" styleClass="cell_small_label" />
                     <Label fx:id="address" styleClass="cell_small_label" />
                     <Label fx:id="email" styleClass="cell_small_label" />
                     <FlowPane fx:id="tags" />
                 </VBox>
-                <VBox id="productInfo">
+                <VBox fx:id="productInfo">
                     <Label fx:id="productInfoHeader" styleClass="cell_medium_label" />
                     <Label fx:id="productType" styleClass="cell_small_label" />
                     <Label fx:id="productManufacturer" styleClass="cell_small_label" />

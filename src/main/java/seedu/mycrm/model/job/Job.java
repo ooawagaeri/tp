@@ -5,14 +5,19 @@ import java.util.Objects;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.products.Product;
 
+/**
+ * Represents a repair job in MyCRM.
+ */
 public class Job {
 
     private JobDescription jobDescription;
     private Contact client;
     private Product product;
-    private JobDeliveryDate deliveryDate;
+    private JobDate receivedDate;
+    private JobDate completedDate;
+    private JobDate deliveryDate;
     private JobStatus jobStatus;
-
+    private JobFee fee;
 
     /**
      * Creates a new repair job.
@@ -21,28 +26,41 @@ public class Job {
      * @param client The contact object that corresponds to the client making the job request.
      * @param product The product object that is to be repaired.
      * @param deliveryDate Expected date of delivery of repaired product.
+     * @param jobStatus Repair job's completion status.
+     * @param receivedDate Date repair job request was received from client.
+     * @param completedDate Date repair job was completed.
+     * @param fee Fee charged to client for completion of repair.
      */
-    public Job(JobDescription jobDescription, Contact client, Product product,
-               JobDeliveryDate deliveryDate, JobStatus jobStatus) {
+    public Job(JobDescription jobDescription, Contact client, Product product, JobDate deliveryDate,
+               JobStatus jobStatus, JobDate receivedDate, JobDate completedDate, JobFee fee) {
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
         this.deliveryDate = deliveryDate;
         this.jobStatus = jobStatus;
+        this.receivedDate = receivedDate;
+        this.completedDate = completedDate;
+        this.fee = fee;
     }
 
     /**
-     * Creates a new job with the jobDescription and deliveryDate.
+     * Creates a new repair job.
      *
      * @param jobDescription Description of the repair job.
      * @param deliveryDate Expected date of delivery of repaired product.
+     * @param receivedDate Date repair job request was received from client.
+     * @param fee Fee charged to client for completion of repair.
      */
-    public Job(JobDescription jobDescription, JobDeliveryDate deliveryDate) {
+    public Job(JobDescription jobDescription, JobDate deliveryDate,
+               JobDate receivedDate, JobFee fee) {
         this.jobDescription = jobDescription;
         this.client = null;
         this.product = null;
         this.deliveryDate = deliveryDate;
         this.jobStatus = new JobStatus(false);
+        this.receivedDate = receivedDate;
+        this.completedDate = completedDate;
+        this.fee = fee;
     }
 
     public JobDescription getJobDescription() {
@@ -65,11 +83,11 @@ public class Job {
         this.product = product;
     }
 
-    public JobDeliveryDate getDeliveryDate() {
+    public JobDate getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(JobDeliveryDate deliveryDate) {
+    public void setDeliveryDate(JobDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -89,6 +107,30 @@ public class Job {
         jobStatus.markCompleted();
     }
 
+    public JobDate getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(JobDate receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public JobDate getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(JobDate completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public JobFee getFee() {
+        return fee;
+    }
+
+    public void setFee(JobFee fee) {
+        this.fee = fee;
+    }
+
     /**
      * Returns true if both jobs have the same client, product and description
      * This defines a weaker notion of equality between two jobs.
@@ -105,7 +147,7 @@ public class Job {
     }
 
     /**
-     * Returns true if both jobs templates have the same fields.
+     * Returns true if both jobs have the same fields.
      * This defines a stronger notion of equality between two jobs.
      */
     @Override
@@ -123,13 +165,16 @@ public class Job {
                 && Objects.equals(getJobDescription(), job.getJobDescription())
                 && Objects.equals(getClient(), job.getClient())
                 && Objects.equals(getProduct(), job.getProduct())
-                && Objects.equals(getDeliveryDate(), job.getDeliveryDate());
+                && Objects.equals(getDeliveryDate(), job.getDeliveryDate())
+                && Objects.equals(getReceivedDate(), job.getReceivedDate())
+                && Objects.equals(getCompletedDate(), job.getCompletedDate())
+                && Objects.equals(getFee(), job.getFee());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getJobDescription(), getClient(),
-                getProduct(), getDeliveryDate(), getJobStatus());
+        return Objects.hash(getJobDescription(), getClient(), getProduct(), getDeliveryDate(),
+                getJobStatus(), getReceivedDate(), getCompletedDate(), getFee());
     }
 
     @Override

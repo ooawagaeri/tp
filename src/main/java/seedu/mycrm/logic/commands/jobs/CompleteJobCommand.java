@@ -12,6 +12,7 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.job.Job;
+import seedu.mycrm.model.job.JobDate;
 
 public class CompleteJobCommand extends Command {
     public static final String COMMAND_WORD = "completeJob";
@@ -47,6 +48,7 @@ public class CompleteJobCommand extends Command {
         }
 
         jobToMarkComplete.markCompleted();
+        jobToMarkComplete.setCompletedDate(JobDate.getCurrentDate());
         model.setJob(jobToMarkComplete, jobToMarkComplete);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToMarkComplete), COMMAND_TYPE);
