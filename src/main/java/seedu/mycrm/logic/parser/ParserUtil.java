@@ -14,8 +14,9 @@ import seedu.mycrm.model.contact.Email;
 import seedu.mycrm.model.contact.Name;
 import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
-import seedu.mycrm.model.job.JobDeliveryDate;
+import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
+import seedu.mycrm.model.job.JobFee;
 import seedu.mycrm.model.mail.Body;
 import seedu.mycrm.model.mail.Subject;
 
@@ -173,18 +174,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String deliveryDate} into an {@code JobDeliveryDate}.
+     * Parses a {@code String date} into an {@code JobDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code deliveryDate} is invalid.
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static JobDeliveryDate parseJobDeliveryDate(String deliveryDate) throws ParseException {
-        requireNonNull(deliveryDate);
-        String trimmedDeliveryDate = deliveryDate.trim();
-        if (!JobDeliveryDate.isValidJobDeliveryDate(deliveryDate)) {
-            throw new ParseException(JobDeliveryDate.MESSAGE_CONSTRAINTS);
+    public static JobDate parseJobDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!JobDate.isValidJobDate(date)) {
+            throw new ParseException(JobDate.MESSAGE_CONSTRAINTS);
         }
-        return new JobDeliveryDate(trimmedDeliveryDate);
+        return new JobDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code JobDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static JobFee parseJobFee(String fee) throws ParseException {
+        requireNonNull(fee);
+        String trimmedDeliveryDate = fee.trim();
+        if (!JobFee.isValidJobFee(fee)) {
+            throw new ParseException(JobFee.MESSAGE_CONSTRAINTS);
+        }
+        return new JobFee(fee);
     }
 
     /**

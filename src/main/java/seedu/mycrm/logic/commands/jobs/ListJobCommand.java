@@ -24,7 +24,7 @@ public class ListJobCommand extends Command {
         + SHOW_COMPLETED_FLAG + ": to show only completed jobs\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Listed all pending jobs";
+    public static final String MESSAGE_SUCCESS = "Listed jobs";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 

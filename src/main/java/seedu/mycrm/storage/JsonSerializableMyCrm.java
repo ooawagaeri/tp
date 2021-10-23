@@ -96,26 +96,27 @@ class JsonSerializableMyCrm {
             String clientName = jsonAdaptedJob.getClient();
             String productName = jsonAdaptedJob.getProduct();
 
-            Optional<Contact> matchClient = myCrm.getContactList()
+
+            if (clientName != null) {
+                Optional<Contact> matchClient = myCrm.getContactList()
                     .stream()
                     .filter(contact -> clientName.equals(contact.getName().toString()))
                     .findFirst();
 
-            if (matchClient.isPresent()) {
-                job.setClient(matchClient.get());
-            } else {
-                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
+                if (matchClient.isPresent()) {
+                    job.setClient(matchClient.get());
+                }
             }
 
-            Optional<Product> matchProduct = myCrm.getProductList()
+            if (productName != null) {
+                Optional<Product> matchProduct = myCrm.getProductList()
                     .stream()
                     .filter(product -> productName.equals(product.getName().toString()))
                     .findFirst();
 
-            if (matchProduct.isPresent()) {
-                job.setProduct(matchProduct.get());
-            } else {
-                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
+                if (matchProduct.isPresent()) {
+                    job.setProduct(matchProduct.get());
+                }
             }
 
             if (myCrm.hasJob(job)) {
