@@ -1,10 +1,8 @@
 package seedu.mycrm.model.history;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -180,6 +180,11 @@ class MailCommandTest {
         }
 
         @Override
+        public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setMyCrm(ReadOnlyMyCrm newData) {
             throw new AssertionError("This method should not be called.");
         }
