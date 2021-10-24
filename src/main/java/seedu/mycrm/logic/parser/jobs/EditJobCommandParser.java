@@ -2,25 +2,14 @@ package seedu.mycrm.logic.parser.jobs;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.mycrm.commons.core.index.Index;
-import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.parser.ArgumentMultimap;
 import seedu.mycrm.logic.parser.ArgumentTokenizer;
@@ -65,11 +54,11 @@ public class EditJobCommandParser {
             editJobDescriptor.setFee(ParserUtil.parseJobFee(argMultimap.getValue(PREFIX_FEE).get()));
         }
 
-        if(argMultimap.getValue(PREFIX_CONTACT_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_CONTACT_INDEX).isPresent()) {
             editJobDescriptor.setClientIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get()));
         }
 
-        if(argMultimap.getValue(PREFIX_PRODUCT_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PRODUCT_INDEX).isPresent()) {
             editJobDescriptor.setProductIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get()));
         }
 

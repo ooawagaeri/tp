@@ -7,7 +7,6 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
-import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
 
 import java.util.List;
 import java.util.Optional;
@@ -108,7 +107,7 @@ public class EditJobCommand extends Command {
         Index clientIndex = editJobDescriptor.getClientIndex();
         Contact updatedClient = jobToEdit.getClient();
 
-        if(clientIndex != null) {
+        if (clientIndex != null) {
             if (clientIndex.getZeroBased() >= lastShownContactList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
             }
@@ -119,7 +118,7 @@ public class EditJobCommand extends Command {
         Index productIndex = editJobDescriptor.getProductIndex();
         Product updatedProduct = jobToEdit.getProduct();
 
-        if(productIndex != null) {
+        if (productIndex != null) {
             if (productIndex.getZeroBased() >= lastShownProductList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
             }
