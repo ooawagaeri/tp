@@ -77,18 +77,24 @@ public class Mail {
 
     /**
      * Creates a string URL mailto with job and template information.
+     *
+     * @return mailto URL
      */
     public String constructMail() {
         return String.format("mailto:%s?subject=%s&body=%s",
-                job.getClient().getEmail().toString(),
+                job.getClientEmail(),
                 urlEncode(template.getSubject().toString()),
                 urlEncode(template.getBody().toString()));
     }
 
     /**
      * Encodes given string into URL friendly string.
+     * Replaces ' ' with '%20'
+     *
+     * @param str target subject/body string
+     * @return URL friendly string
      */
-    private String urlEncode(String str) {
+    public static String urlEncode(String str) {
         return URLEncoder.encode(str, StandardCharsets.UTF_8).replace("+", "%20");
     }
 }

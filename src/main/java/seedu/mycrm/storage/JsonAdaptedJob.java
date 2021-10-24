@@ -127,10 +127,10 @@ class JsonAdaptedJob {
             }
         }
 
-        JobFee modelJobfee = null;
+        JobFee modelJobFee = null;
         if (fee != null) {
             if (JobFee.isValidJobFee(fee)) {
-                modelJobfee = new JobFee(fee);
+                modelJobFee = new JobFee(fee);
             } else {
                 throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
             }
@@ -148,7 +148,7 @@ class JsonAdaptedJob {
         }
 
         final Job modeJob = new Job(modelJobDescription, modelJobDeliveryDate,
-                modelJobReceivedDate, modelJobfee);
+                modelJobReceivedDate, modelJobFee);
         modeJob.setJobStatus(modelJobStatus);
         modeJob.setCompletedDate(modelJobCompletedDate);
 
