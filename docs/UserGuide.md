@@ -231,19 +231,16 @@ Format: `Press Up arrow key`/ `history`
 * `history` will list all history commands in the CRM
 
 Examples:
-* `Press up arrow`:
 
-```
-addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
-```
+* `history`(Assume that `listJob` and  `listContact` have been entered before running  `history`): 
 
-* `history`: 
+    <img src="images/ui-history.png" width="600px">
+    
+### Clear history command data: `clearHistory`
 
-```
-addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus
-addTemplate s/Repair Issue b/Your product has faced an issue listTemplates
-```
+Clear all historical data of user input
 
+Format:  `clearHistory`
 
 ### Viewing user guide: `help`
 
