@@ -117,10 +117,12 @@ public interface Model {
     void addMail(Mail mail);
 
     /**
-     * Deletes the given mail.
-     * The mail must exist in the myCrm.
+     * Replaces the given template {@code target} with {@code editedTemplate}.
+     * {@code target} must exist in the myCrm.
+     * The template identity of {@code editedTemplate} must not be the same as another existing template
+     * in the myCrm.
      */
-    void deleteMail(Mail mail);
+    void setTemplate(Template target, Template editedTemplate);
 
     /**
      * Adds the given job.

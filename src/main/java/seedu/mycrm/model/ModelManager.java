@@ -149,14 +149,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addMail(Mail mail) {
-        myCrm.addMail(mail);
-        updateFilteredMailList(PREDICATE_SHOW_ALL_MAILS);
+    public void setTemplate(Template target, Template editedTemplate) {
+        requireAllNonNull(target, editedTemplate);
+        myCrm.setTemplate(target, editedTemplate);
     }
 
     @Override
-    public void deleteMail(Mail target) {
-        myCrm.removeMail(target);
+    public void addMail(Mail mail) {
+        myCrm.addMail(mail);
+        updateFilteredMailList(PREDICATE_SHOW_ALL_MAILS);
     }
 
     @Override

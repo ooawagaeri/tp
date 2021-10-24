@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
+import seedu.mycrm.logic.commands.mails.EditTemplateCommand.EditTemplateDescriptor;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.contact.Contact;
@@ -43,6 +44,7 @@ import seedu.mycrm.model.products.ProductName;
 import seedu.mycrm.model.products.ProductNameContainsKeywordsPredicate;
 import seedu.mycrm.model.products.Type;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;
+import seedu.mycrm.testutil.EditTemplateDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -80,11 +82,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_SUBJECT_ISSUE = "An issue has occurred";
     public static final String VALID_SUBJECT_DONE = "Order is done";
     public static final String VALID_SUBJECT_COMPLETE = "Your order has been completed";
 
     public static final String VALID_BODY_DONE = "Your order is done and ready for collection";
+    public static final String VALID_BODY_COMPLETE = "Your order has been completed";
     public static final int HEAD_SUBJECT_SIZE = 2;
+
+    public static final EditTemplateDescriptor DESC_DONE;
+    public static final EditTemplateDescriptor DESC_COMPLETE;
 
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
@@ -121,6 +128,10 @@ public class CommandTestUtil {
         DESC_BOB = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_DONE = new EditTemplateDescriptorBuilder().withSubject(VALID_SUBJECT_DONE)
+                .withBody(VALID_BODY_DONE).build();
+        DESC_COMPLETE = new EditTemplateDescriptorBuilder().withSubject(VALID_SUBJECT_COMPLETE)
+                .withBody(VALID_BODY_COMPLETE).build();
     }
 
     /**
