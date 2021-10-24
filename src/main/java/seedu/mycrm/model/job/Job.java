@@ -131,6 +131,10 @@ public class Job {
         this.fee = fee;
     }
 
+    public String getClientEmail() {
+        return client.getEmail().toString();
+    }
+
     /**
      * Returns true if both jobs have the same client, product and description
      * This defines a weaker notion of equality between two jobs.

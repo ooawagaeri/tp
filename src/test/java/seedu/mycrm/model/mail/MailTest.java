@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalJobs.BENSON_JOB;
 import static seedu.mycrm.testutil.TypicalJobs.INCOMPLETE;
+import static seedu.mycrm.testutil.TypicalMails.COMPLETED_JOB;
 import static seedu.mycrm.testutil.TypicalMails.COMPLETED_MAIL;
+import static seedu.mycrm.testutil.TypicalTemplates.COMPLETED;
 import static seedu.mycrm.testutil.TypicalTemplates.DONE;
 import static seedu.mycrm.testutil.TypicalTemplates.THANK_YOU;
 
@@ -81,5 +83,27 @@ public class MailTest {
         Template template = new TemplateBuilder().build();
         Mail mail = new MailBuilder().build();
         assertEquals(mail.toString(), String.format("Job: %s; Template: %s", job, template));
+    }
+
+    @Test
+    public void isSameConstructMail() {
+        Mail completedMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED).build();
+        Mail thankMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(THANK_YOU).build();
+
+        assertEquals(completedMail.constructMail(), String.format("mailto:%s?subject=%s&body=%s",
+                COMPLETED_JOB.getClientEmail(), Mail.urlEncode(COMPLETED.getSubject().toString()),
+                Mail.urlEncode(COMPLETED.getBody().toString())));
+
+        assertNotEquals(thankMail.constructMail(), String.format("mailto:%s?subject=%s&body=%s",
+                COMPLETED_JOB.getClientEmail(), Mail.urlEncode(COMPLETED.getSubject().toString()),
+                Mail.urlEncode(COMPLETED.getBody().toString())));
+    }
+
+    @Test
+    public void isSameUrlEncode() {
+        String subject = "Your Order is Completed";
+        String expectedSubject = "Your%20Order%20is%20Completed";
+
+        assertEquals(Mail.urlEncode(subject), expectedSubject);
     }
 }
