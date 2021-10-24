@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.UniqueContactList;
 import seedu.mycrm.model.history.History;
-import seedu.mycrm.model.history.UniqueHistoryList;
+import seedu.mycrm.model.history.HistoryList;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.job.UniqueJobList;
 import seedu.mycrm.model.mail.Mail;
@@ -52,9 +52,9 @@ public class MyCrm implements ReadOnlyMyCrm {
         jobs = new UniqueJobList();
     }
 
-    private final UniqueHistoryList histories;
+    private final HistoryList histories;
     {
-        histories = new UniqueHistoryList();
+        histories = new HistoryList();
     }
     private final UniqueMailList mails;
     {
@@ -182,6 +182,13 @@ public class MyCrm implements ReadOnlyMyCrm {
     }
 
     /**
+     * Clears all entered command data in the myCrm.
+     */
+    public void clearHistory() {
+        histories.clearHistory();
+    }
+
+    /**
      * Replaces the given contact {@code target} in the list with {@code editedContact}.
      * {@code target} must exist in the myCrm.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the myCrm.
@@ -289,14 +296,6 @@ public class MyCrm implements ReadOnlyMyCrm {
      */
     public void removeJob(Job key) {
         jobs.remove(key);
-    }
-
-    /**
-     * Returns true if a entered command with the same identity as {@code history} exists in MyCRM.
-     */
-    public boolean hasHistory(History history) {
-        requireNonNull(history);
-        return histories.contains(history);
     }
 
     //// util methods

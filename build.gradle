@@ -73,4 +73,9 @@ run {
     enableAssertions = true;
 }
 
+tasks.withType(JavaCompile) {
+    options.fork = true
+    options.forkOptions.jvmArgs += ["-Duser.language=en"]
+}
+
 defaultTasks 'clean', 'test'

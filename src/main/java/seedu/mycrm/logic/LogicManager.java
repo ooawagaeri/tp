@@ -48,7 +48,6 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = myCrmParser.parseCommand(commandText);
-        model.addHistory(new History(commandText));
         commandResult = command.execute(model);
 
         try {
@@ -108,5 +107,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void traceUserInput(History history) {
+        model.addHistory(history);
     }
 }
