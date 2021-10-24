@@ -21,6 +21,7 @@ import seedu.mycrm.logic.commands.history.HistoryCommand;
 import seedu.mycrm.logic.commands.jobs.AddJobCommand;
 import seedu.mycrm.logic.commands.jobs.CompleteJobCommand;
 import seedu.mycrm.logic.commands.jobs.DeleteJobCommand;
+import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.commands.jobs.FindJobCommand;
 import seedu.mycrm.logic.commands.jobs.ListJobCommand;
 import seedu.mycrm.logic.commands.mails.AddTemplateCommand;
@@ -41,6 +42,7 @@ import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.logic.parser.jobs.AddJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.CompleteJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.DeleteJobCommandParser;
+import seedu.mycrm.logic.parser.jobs.EditJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.FindJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.ListJobCommandParser;
 import seedu.mycrm.logic.parser.mails.AddTemplateCommandParser;
@@ -139,6 +141,9 @@ public class MyCrmParser {
 
         case CompleteJobCommand.COMMAND_WORD:
             return new CompleteJobCommandParser().parse(arguments);
+
+        case EditJobCommand.COMMAND_WORD:
+            return new EditJobCommandParser().parse(arguments);
 
         case DeleteJobCommand.COMMAND_WORD:
             return new DeleteJobCommandParser().parse(arguments);
