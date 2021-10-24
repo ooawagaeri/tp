@@ -78,7 +78,7 @@ public class MainApp extends Application {
         ReadOnlyMyCrm initialData;
         try {
             myCrmOptional = storage.readMyCrm();
-            if (!myCrmOptional.isPresent()) {
+            if (myCrmOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample MyCrm");
             }
             initialData = myCrmOptional.orElseGet(SampleDataUtil::getSampleMyCrm);
