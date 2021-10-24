@@ -32,7 +32,7 @@ public class EditTemplateCommand extends Command {
             + "[" + PREFIX_SUBJECT + "SUBJECT] "
             + "[" + PREFIX_BODY + "BODY]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SUBJECT + "Alert"
+            + PREFIX_SUBJECT + "Alert "
             + PREFIX_BODY + "Your repair product requires attention!";
 
     public static final String MESSAGE_EDIT_TEMPLATE_SUCCESS = "Edited Template: %1$s";
