@@ -178,6 +178,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearHistory() {
+        myCrm.clearHistory();
+    }
+
+    @Override
     public void setContact(Contact target, Contact editedContact) {
         requireAllNonNull(target, editedContact);
 
