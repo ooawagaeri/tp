@@ -37,19 +37,19 @@
             <Label fx:id="completionDate" styleClass="cell_small_label" />
         </VBox>
     </VBox>
-    <GridPane hgap="10" VBox.vgrow="ALWAYS">
-        <VBox fx:id="clientInfo" maxWidth="280" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <GridPane fx:id="gridPane" hgap="10" VBox.vgrow="ALWAYS">
+        <VBox fx:id="clientInfo" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="280">
             <Label fx:id="clientInfoHeader" styleClass="cell_medium_label" />
             <Label fx:id="phone" styleClass="cell_small_label" />
-            <Label fx:id="address" styleClass="cell_small_label" wrapText="true"/>
+            <Label fx:id="address" styleClass="cell_small_label"/>
             <Label fx:id="email" styleClass="cell_small_label" />
             <FlowPane fx:id="tags" />
         </VBox>
-        <VBox fx:id="productInfo" maxWidth="280" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <VBox fx:id="productInfo" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="280">
             <Label fx:id="productInfoHeader" styleClass="cell_medium_label" />
             <Label fx:id="productType" styleClass="cell_small_label" />
             <Label fx:id="productManufacturer" styleClass="cell_small_label" />
-            <Label fx:id="productDescription" styleClass="cell_small_label" wrapText="true"/>
+            <Label fx:id="productDescription" styleClass="cell_small_label"/>
         </VBox>
         <columnConstraints>
             <ColumnConstraints percentWidth="50.0"/>
