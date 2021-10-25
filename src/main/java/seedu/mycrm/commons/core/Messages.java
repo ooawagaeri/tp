@@ -15,5 +15,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_JOB_COMPLETE_REQUEST = "The job has already been completed!";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_JOBS_LISTED_OVERVIEW = "%1$d jobs listed!";
+    public static final String MESSAGE_REMOVE_LINKED_PRODUCT = "The product is linked to one or more job";
 
 }
