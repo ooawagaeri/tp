@@ -33,8 +33,6 @@ public class ModelManager implements Model {
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<History> filteredHistories;
 
-    private Predicate<Job> jobPredicate;
-
     /**
      * Initializes a ModelManager with the given myCrm and userPrefs.
      */
@@ -302,7 +300,6 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredJobList(Predicate<Job> predicate) {
         requireNonNull(predicate);
-        jobPredicate = predicate;
         filteredJobs.setPredicate(predicate);
     }
 
@@ -310,11 +307,6 @@ public class ModelManager implements Model {
     public void updateFilteredHistoryList(Predicate<History> predicate) {
         requireNonNull(predicate);
         filteredHistories.setPredicate(predicate);
-    }
-
-    @Override
-    public Predicate<Job> getJobPredicate() {
-        return this.jobPredicate;
     }
 
     @Override

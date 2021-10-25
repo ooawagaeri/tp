@@ -226,11 +226,6 @@ class AddContactCommandTest {
         }
 
         @Override
-        public Predicate<Job> getJobPredicate() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
