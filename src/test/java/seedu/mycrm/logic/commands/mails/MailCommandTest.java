@@ -170,8 +170,13 @@ class MailCommandTest {
         }
 
         @Override
-        public void addJob(Job job) {
+        public void setTemplate(Template target, Template editedTemplate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void addJob(Job job) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -225,11 +230,6 @@ class MailCommandTest {
         }
 
         @Override
-        public void deleteMail(Mail target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
@@ -266,6 +266,11 @@ class MailCommandTest {
 
         @Override
         public void setProduct(Product target, Product edited) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Predicate<Job> getJobPredicate() {
             throw new AssertionError("This method should not be called.");
         }
 
