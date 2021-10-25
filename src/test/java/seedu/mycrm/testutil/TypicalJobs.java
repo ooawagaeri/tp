@@ -12,7 +12,8 @@ import seedu.mycrm.model.job.Job;
 
 public class TypicalJobs {
 
-    public static final Job COMPLETED = new JobBuilder().withCompletionStatus(true).build();
+    public static final Job COMPLETED =
+            new JobBuilder().withCompletedDate("13/12/2021").withCompletionStatus(true).build();
 
     public static final Job INCOMPLETE = new JobBuilder().withCompletionStatus(false).build();
 
