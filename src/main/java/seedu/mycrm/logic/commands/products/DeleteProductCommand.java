@@ -52,19 +52,17 @@ public class DeleteProductCommand extends Command {
 
         Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        boolean isLinkedToJob = model.getFilteredJobList().stream()
-                .anyMatch(j -> j.getProduct() != null && j.getProduct().isSameProduct(productToDelete));
-
         // update job
         Predicate<Job> jobPredicate = model.getJobPredicate() == null
                 ? model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
                 : model.getJobPredicate();
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_JOBS);
+        boolean isLinkedToJob = model.getFilteredJobList().stream()
+                .anyMatch(j -> j.getProduct() != null && j.getProduct().isSameProduct(productToDelete));
+        model.updateFilteredJobList(jobPredicate);
         if (isLinkedToJob) {
-            model.updateFilteredJobList(jobPredicate);
             throw new CommandException(MESSAGE_REMOVE_LINKED_PRODUCT);
         }
-        model.updateFilteredJobList(jobPredicate);
 
         model.deleteProduct(productToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete), COMMAND_TYPE);
