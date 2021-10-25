@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 public class History {
 
-    public final String value;
+    private final String value;
 
     /**
      * Creates a history with the entered command info

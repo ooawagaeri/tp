@@ -222,6 +222,11 @@ public class AddProductCommandTest {
         }
 
         @Override
+        public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
