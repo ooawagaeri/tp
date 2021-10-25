@@ -132,8 +132,13 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public void addJob(Job job) {
+        public void setTemplate(Template target, Template editedTemplate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void addJob(Job job) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -173,11 +178,6 @@ public class AddProductCommandTest {
 
         @Override
         public void deleteJob(Job target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMail(Mail target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -223,6 +223,11 @@ public class AddProductCommandTest {
 
         @Override
         public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Predicate<Job> getLatestJobPredicate() {
             throw new AssertionError("This method should not be called.");
         }
 
