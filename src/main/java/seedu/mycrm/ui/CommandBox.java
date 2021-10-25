@@ -1,12 +1,19 @@
 package seedu.mycrm.ui;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.mycrm.logic.Logic;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
+import seedu.mycrm.model.history.History;
+
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -16,6 +23,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private Logic logic;
 
     @FXML
     private TextField commandTextField;
@@ -23,11 +31,13 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(Logic logic, CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        retrieveHistoryCommand();
     }
 
     /**
@@ -36,15 +46,18 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         String commandText = commandTextField.getText();
+        logic.traceUserInput(new History(commandText));
+        //logic.getFilteredHistoryList().add(new History(commandText));
         if (commandText.equals("")) {
             return;
         }
 
         try {
             commandExecutor.execute(commandText);
-            commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        } finally {
+            commandTextField.setText("");
         }
     }
 
@@ -66,6 +79,52 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Retrieve the recent entered command using arrow keys
+     */
+    private void retrieveHistoryCommand() {
+        commandTextField.setOnKeyPressed(
+                new EventHandler<KeyEvent>() {
+                    private Integer currentSize = logic.getFilteredHistoryList().size();
+                    private Integer recentCommandIndex = currentSize;
+
+                    @Override
+                    public void handle(KeyEvent event) {
+                        ObservableList<History> histories = logic.getFilteredHistoryList();
+                        if (histories.size() != currentSize) {
+                            currentSize = histories.size();
+                            recentCommandIndex = currentSize;
+                        }
+                        if (event.getCode() == KeyCode.UP) {
+                            if (recentCommandIndex > 0) {
+                                recentCommandIndex--;
+                            } else {
+                                recentCommandIndex = 0;
+                            }
+                            if (currentSize != 0) {
+                                commandTextField.setText(histories.get(recentCommandIndex).toString());
+                            }
+                        } else if (event.getCode() == KeyCode.DOWN) {
+                            if (recentCommandIndex < histories.size() - 1) {
+                                recentCommandIndex++;
+                            } else {
+                                recentCommandIndex = histories.size() - 1;
+                            }
+                            if (currentSize != 0) {
+                                commandTextField.setText(histories.get(recentCommandIndex).toString());
+                            }
+                        }
+                        // Keep the caret at the end of TextField when tracing user input
+                        if (event.getCode() != KeyCode.LEFT && event.getCode() != KeyCode.RIGHT) {
+                            commandTextField.positionCaret(commandTextField.getLength());
+                        }
+                    }
+                }
+        );
+
+
     }
 
     /**

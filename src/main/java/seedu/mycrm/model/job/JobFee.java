@@ -62,8 +62,6 @@ public class JobFee {
         return amount;
     }
 
-
-
     /**
      * Adds two job fees together.
      */
@@ -75,7 +73,7 @@ public class JobFee {
     public String toString() {
         int dollars = cents / 100;
         int centsRemaining = cents % 100;
-        return String.format("$%d.%d", dollars, centsRemaining);
+        return String.format("$%d.%02d", dollars, centsRemaining);
     }
 
     @Override
