@@ -79,10 +79,11 @@ public class EditProductCommand extends Command {
         model.setProduct(toEdit, edited);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ALL_PRODUCTS);
 
-        // update job
-        Predicate<Job> jobPredicate = model.getJobPredicate() == null
+        // update product references in jobs
+        Predicate<Job> latestJobPredicate = model.getLatestJobPredicate() == null
                 ? model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
-                : model.getJobPredicate();
+                : model.getLatestJobPredicate();
+
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_JOBS);
         model.getFilteredJobList().stream()
                 .filter(j -> j.getProduct() != null && j.getProduct().isSameProduct(toEdit))
@@ -90,7 +91,9 @@ public class EditProductCommand extends Command {
                     j.setProduct(edited);
                     model.setJob(j, j);
                 });
-        model.updateFilteredJobList(jobPredicate);
+        // restore the user's job predicate
+        model.updateFilteredJobList(latestJobPredicate);
+
 
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, edited), COMMAND_TYPE);
     }

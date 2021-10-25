@@ -270,7 +270,7 @@ class MailCommandTest {
         }
 
         @Override
-        public Predicate<Job> getJobPredicate() {
+        public Predicate<Job> getLatestJobPredicate() {
             throw new AssertionError("This method should not be called.");
         }
 
