@@ -205,6 +205,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered history command list */
     ObservableList<History> getFilteredHistoryList();
 
+    /** Returns the latest predicate of the filtered job list */
+    Predicate<Job> getLatestJobPredicate();
+
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -230,7 +233,8 @@ public interface Model {
     void updateFilteredProductList(Predicate<Product> predicate);
 
     /**
-     * Updates the filter of the filtered job list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered job list to filter by the given {@code predicate}. Update the latest job
+     * predicate.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredJobList(Predicate<Job> predicate);
