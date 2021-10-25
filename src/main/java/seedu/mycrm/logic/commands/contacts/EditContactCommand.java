@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
@@ -30,6 +31,7 @@ import seedu.mycrm.model.contact.Email;
 import seedu.mycrm.model.contact.Name;
 import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
+import seedu.mycrm.model.job.Job;
 
 public class EditContactCommand extends Command {
 
@@ -87,6 +89,8 @@ public class EditContactCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+        Predicate<Job> latestJobPredicate = model.getLatestJobPredicate() == null ? PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
+                : model.getLatestJobPredicate();
         model.updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
         model.getFilteredJobList().stream()
                 .filter(job -> job.getClient() != null && job.getClient().isSameContact(contactToEdit))
@@ -94,7 +98,7 @@ public class EditContactCommand extends Command {
                     job.setClient(editedContact);
                     model.setJob(job, job);
                 });
-        model.updateFilteredJobList(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+        model.updateFilteredJobList(latestJobPredicate);
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), COMMAND_TYPE);
     }
 
