@@ -5,8 +5,8 @@ import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
@@ -31,7 +31,7 @@ public class JobCard extends UiPart<Region> {
     public final Job job;
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
 
     @FXML
     private VBox clientInfo;
@@ -46,7 +46,7 @@ public class JobCard extends UiPart<Region> {
     @FXML
     private Label completionDate;
     @FXML
-    private FlowPane status;
+    private StackPane status;
     @FXML
     private Label receivedDate;
     @FXML
