@@ -57,7 +57,6 @@ public class HideContactCommand extends Command {
         successMessage = String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide);
         model.hideContact(contactToHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
-
         return new CommandResult(successMessage, COMMAND_TYPE);
     }
 

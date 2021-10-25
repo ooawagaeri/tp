@@ -6,6 +6,8 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_JOBS;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
 import java.util.Collections;
@@ -85,6 +87,14 @@ public class EditContactCommand extends Command {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+        model.updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
+        model.getFilteredJobList().stream()
+                .filter(job -> job.getClient() != null && job.getClient().isSameContact(contactToEdit))
+                .forEach(job -> {
+                    job.setClient(editedContact);
+                    model.setJob(job, job);
+                });
+        model.updateFilteredJobList(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), COMMAND_TYPE);
     }
 

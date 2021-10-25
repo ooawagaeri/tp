@@ -15,7 +15,7 @@ import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 
 public class UndoHideContactCommand extends Command {
-    public static final String COMMAND_WORD = "UndoHideContact";
+    public static final String COMMAND_WORD = "undoHideContact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo Hiding the details of the contact identified "
             + "by the index number used in the displayed contact list.\n"
@@ -51,13 +51,12 @@ public class UndoHideContactCommand extends Command {
         String successMessage;
 
         if (!contactToUndoHide.checkIsHidden()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_UNDO_HIDE_REQUEST);
         }
 
         successMessage = String.format(MESSAGE_UNDO_HIDE_CONTACT_SUCCESS, contactToUndoHide);
         model.undoHideContact(contactToUndoHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
-
         return new CommandResult(successMessage, COMMAND_TYPE);
     }
 
