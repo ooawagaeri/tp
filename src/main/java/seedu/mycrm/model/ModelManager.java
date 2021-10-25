@@ -182,6 +182,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         myCrm.setContact(target, editedContact);
+
     }
 
     @Override
@@ -189,6 +190,15 @@ public class ModelManager implements Model {
         requireAllNonNull(target);
 
         myCrm.hideContact(target);
+        updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+    }
+
+
+    @Override
+    public void undoHideContact(Contact target) {
+        requireAllNonNull(target);
+
+        myCrm.undoHideContact(target);
         updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
     }
 

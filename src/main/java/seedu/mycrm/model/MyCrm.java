@@ -201,6 +201,14 @@ public class MyCrm implements ReadOnlyMyCrm {
     }
 
     /**
+     * Undoes hiding the given contact {@code target} in the list
+     * {@code target} must exist in the myCrm.
+     */
+    public void undoHideContact(Contact target) {
+        contacts.undoHideContact(target);
+    }
+
+    /**
      * Replaces the given template {@code target} in the list with {@code editedTemplate}.
      * {@code target} must exist in the myCrm.
      * The template identity of {@code editedTemplate} must not be the same as another existing template in the

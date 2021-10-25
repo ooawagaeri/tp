@@ -80,7 +80,25 @@ public class UniqueContactList implements Iterable<Contact> {
         requireAllNonNull(target);
         //Copy Contact info.
         Contact hiddenContact = copyContact(target);
-        hiddenContact.toggleHidden();
+        hiddenContact.setHidden();
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ContactNotFoundException();
+        }
+
+        internalList.set(index, hiddenContact);
+    }
+
+    /**
+     * Undoes Hiding the contact {@code target} in the list.
+     * {@code target} must exist in the list.
+     */
+    public void undoHideContact(Contact target) {
+        requireAllNonNull(target);
+        //Copy Contact info.
+        Contact hiddenContact = copyContact(target);
+        hiddenContact.setNotHidden();
 
         int index = internalList.indexOf(target);
         if (index == -1) {
