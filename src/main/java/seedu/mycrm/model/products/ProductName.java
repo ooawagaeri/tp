@@ -13,6 +13,10 @@ public class ProductName implements ProductComponent<ProductName> {
         this.name = null;
     }
 
+    /**
+     * Constructs a product name instance.
+     * @param name Name of the product. It cannot be null or empty string.
+     */
     public ProductName(String name) {
         requireNonNull(name);
         assert name.length() > 0;
