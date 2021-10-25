@@ -177,9 +177,13 @@ public interface Model {
 
     /**
      * Adds the entered command.
-     * {@code history} must not already exist in MyCrm.
      */
     void addHistory(History history);
+
+    /**
+     * Clears history command data.
+     */
+    void clearHistory();
 
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();

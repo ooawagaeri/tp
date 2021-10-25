@@ -68,4 +68,9 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Tracing UserInput from CommandBox.
+     */
+    void traceUserInput(History history);
+
 }
