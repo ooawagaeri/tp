@@ -76,7 +76,6 @@ public class JobCard extends UiPart<Region> {
     @FXML
     private Label productDescription;
 
-
     /**
      * Creates a {@code JobCard} with the given {@code Job} and index to display.
      */

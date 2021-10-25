@@ -14,25 +14,25 @@ import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 
-public class HideContactCommand extends Command {
-    public static final String COMMAND_WORD = "hideContact";
+public class UndoHideContactCommand extends Command {
+    public static final String COMMAND_WORD = "undoHideContact";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Hides the details of the contact identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo Hiding the details of the contact identified "
             + "by the index number used in the displayed contact list.\n"
             + "Existing contact info will be hidden.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_HIDE_CONTACT_SUCCESS = "Hidden Contact: %1$s";
+    public static final String MESSAGE_UNDO_HIDE_CONTACT_SUCCESS = "Unhidden Contact: %1$s";
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
     private final Index targetIndex;
 
     /**
-    * @param targetIndex of the contact in the filtered contact list to edit
-    **/
-    public HideContactCommand(Index targetIndex) {
+     * @param targetIndex of the contact in the filtered contact list to edit
+     **/
+    public UndoHideContactCommand(Index targetIndex) {
         requireNonNull(targetIndex);
 
         this.targetIndex = targetIndex;
@@ -47,15 +47,15 @@ public class HideContactCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Contact contactToHide = lastShownList.get(targetIndex.getZeroBased());
+        Contact contactToUndoHide = lastShownList.get(targetIndex.getZeroBased());
         String successMessage;
 
-        if (contactToHide.checkIsHidden()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+        if (!contactToUndoHide.checkIsHidden()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_UNDO_HIDE_REQUEST);
         }
 
-        successMessage = String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide);
-        model.hideContact(contactToHide);
+        successMessage = String.format(MESSAGE_UNDO_HIDE_CONTACT_SUCCESS, contactToUndoHide);
+        model.undoHideContact(contactToUndoHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
         return new CommandResult(successMessage, COMMAND_TYPE);
     }
@@ -68,7 +68,7 @@ public class HideContactCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof HideContactCommand // instanceof handles nulls
-                && targetIndex.equals(((HideContactCommand) other).targetIndex)); // state check
+                || (other instanceof UndoHideContactCommand // instanceof handles nulls
+                && targetIndex.equals(((UndoHideContactCommand) other).targetIndex)); // state check
     }
 }

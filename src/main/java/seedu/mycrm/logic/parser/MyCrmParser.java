@@ -16,6 +16,7 @@ import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
 import seedu.mycrm.logic.commands.contacts.HideContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
+import seedu.mycrm.logic.commands.contacts.UndoHideContactCommand;
 import seedu.mycrm.logic.commands.history.ClearHistoryCommand;
 import seedu.mycrm.logic.commands.history.HistoryCommand;
 import seedu.mycrm.logic.commands.jobs.AddJobCommand;
@@ -39,6 +40,7 @@ import seedu.mycrm.logic.parser.contacts.EditContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.FindContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.HideContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.ListContactCommandParser;
+import seedu.mycrm.logic.parser.contacts.UndoHideContactCommandParser;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.logic.parser.jobs.AddJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.CompleteJobCommandParser;
@@ -95,6 +97,9 @@ public class MyCrmParser {
 
         case HideContactCommand.COMMAND_WORD:
             return new HideContactCommandParser().parse(arguments);
+
+        case UndoHideContactCommand.COMMAND_WORD:
+            return new UndoHideContactCommandParser().parse(arguments);
 
         case ListContactCommand.COMMAND_WORD:
             return new ListContactCommandParser().parse(arguments);
