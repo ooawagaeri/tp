@@ -66,7 +66,6 @@ public class DeleteProductCommand extends Command {
             throw new CommandException(MESSAGE_REMOVE_LINKED_PRODUCT);
         }
 
-
         model.deleteProduct(productToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete), COMMAND_TYPE);
     }

@@ -94,6 +94,7 @@ public class EditProductCommand extends Command {
         // restore the user's job predicate
         model.updateFilteredJobList(latestJobPredicate);
 
+
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, edited), COMMAND_TYPE);
     }
 
