@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <TabPane  fx:id="sideDisplayPane" styleClass="tab-pane" minWidth="340" prefWidth="340" xmlns="http://javafx.com/javafx/8"
-          xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="NEVER" tabMinWidth="69">
+          xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="NEVER" tabMinWidth="65">
     <Tab fx:id="contactTab" closable="false" text="Contact">
         <StackPane fx:id="contactListPanelPlaceholder"/>
     </Tab>

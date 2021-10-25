@@ -24,9 +24,9 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="subject" text="\$subject" styleClass="cell_big_label" />
+        <Label fx:id="subject" text="\$subject" styleClass="cell_big_label" wrapText="true"/>
       </HBox>
-      <Label fx:id="body" styleClass="cell_small_label" text="\$body" />
+      <Label fx:id="body" styleClass="cell_small_label" text="\$body" wrapText="true"/>
     </VBox>
   </GridPane>
 </HBox>
