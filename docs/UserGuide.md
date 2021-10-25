@@ -190,15 +190,22 @@ Examples:
 
 ### Adding mail template: `addTemplate`
 
-
-Adds a new email template to the CRM.
+Adds a new email template into the CRM.
 
 Format: `addTemplate s/SUBJECT b/BODY`
 
+* `SUBJECT` and `BODY` field must be non-empty.
+* `SUBJECT` only accepts alphanumeric values and spaces in between.
+  * i.e. Special characters are not allowed 
+  * Such as `s/He@der 3!`
+* `BODY` accepts any string value (alphanumeric and special characters).
+
 Examples:
 
-* `addTemplate s/Repair Completed b/Your product has been completely repaired.`
-* `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.`
+* `addTemplate s/Repair Completed b/Your product has been completely repaired.` adds a new Template with subject
+  "Repair Completed" and body "Your product has been completely repaired.". 
+* `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.` adds a new 
+  Template with subject "Repair Issue" and body "Your product has faced an issue which requires your attention.".
 
     <img src="images/ui-add-email-template.jpg" width="600px">
 
@@ -207,6 +214,26 @@ Examples:
 Shows a list of all templates in the CRM.
 
 Format: `listTemplates`
+
+### Editing mail template: `editTemplate`
+
+Edits the specified template from the CRM.
+
+Format: `editTempalte INDEX [s/SUBJECT] [b/BODY]`
+
+* At least one optional edit field must be provided
+* `SUBJECT` only accepts alphanumeric values and spaces in between.
+* `BODY` accepts any string value (alphanumeric and special characters).
+
+Edits the template at the specified `INDEX`
+
+* `INDEX` refers to the index of the template as shown in the template listing
+* `INDEX` must be a positive integer(1,2,3…).
+
+Examples:
+
+* `listTemplate` followed by `editTemplate 2 b/Dear ma'am ...` edits the 2nd email template in 
+  the CRM, overriding the 2nd email template's body with the new input.
 
 ### Deleting mail template: `deleteTemplate`
 
@@ -219,11 +246,12 @@ Deletes the template at the specified `INDEX`
 * `INDEX` must be a positive integer(1,2,3…).
 
 Examples:
-* listTemplate followed by deleteTemplate 2 deletes the 2nd email template in the CRM.
+
+* `listTemplate` followed by `deleteTemplate 2` deletes the 2nd email template in the CRM.
 
 ### Retrieve previous command: `history`
 
-Retrieve the previously entered command
+Retrieves the previously entered command
 
 Format: `Press Up arrow key`/ `history`
 
@@ -238,7 +266,7 @@ Examples:
     
 ### Clear history command data: `clearHistory`
 
-Clear all historical data of user input
+Clears all historical data of user input
 
 Format:  `clearHistory`
 
@@ -250,17 +278,16 @@ Format: `help`
 
 ### Exiting the program : `exit`
 
-End MyCRM and exit the programme.
+Ends MyCRM and exits the programme.
 
 Format: `exit`
 
-### Loading JSON data: `[coming in v1.3]`
+### Clearing data: `clear`
 
-_Details coming soon ..._
+Clears current data in the CRM. Empties CRM data.
 
-### Purging JSON data: `[coming in v1.3]`
+Format: `clear`
 
-_Details coming soon ..._
 
 ### Pinning Jobs `[coming in v1.3]`
 
@@ -303,9 +330,10 @@ Action              | Format, Examples
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
-**Mail**            | `mail JOB_INDEX TEMPLATE_INDEX`<br>e.g., `mail 3 1`
+**Mail**            | `mail j/JOB_INDEX t/TEMPLATE_INDEX`<br>e.g., `mail j/3 t/1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
 **List Templates**  | `listTemplates`
+**Edit Templates**  | `editTempalte INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`

@@ -623,6 +623,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC13 - Sending an email**
 
+**Precondition:** Operating system has a default email application 
+
 **MSS**
 
 1. User requests to send an email.
@@ -673,9 +675,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 1b. The given body is empty.
+* 1b. The given subject is invalid format.
 
     * 1b1. MyCRM shows an error message.
+
+      Use case resumes at step 1.
+
+* 1c. The given body is empty.
+
+    * 1c1. MyCRM shows an error message.
 
       Use case resumes at step 1.
 
@@ -688,7 +696,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Deleting an email template**
+**Use case: UC16 - Editing an email template**
+
+**MSS**
+
+1. User request to edit an email template.
+2. MyCRM shows a list of email template.
+3. User requests to edit a specific template's subject or body (or both) in the list.
+4. MyCRM modifies the template with new subject or body (or both).
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given subject is empty
+
+    * 3b1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The given subject is invalid format.
+
+    * 3c1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3d. The given body is empty.
+
+    * 3d1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC17 - Deleting an email template**
 
 **MSS**
 
@@ -711,7 +760,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC17 - Viewing user guide**
+**Use case: UC18 - Viewing user guide**
 
 **MSS**
 
@@ -720,7 +769,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC18 - Exiting the program**
+**Use case: UC19 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -731,36 +780,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC19 - Loading from JSON file**
-
-**MSS**
-
-1. User request to load data from a specific JSON file.
-2. MyCRM loads data from JSON file data into job, contact, product list.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The JSON file does not exist.
-
-    * 1a1. MyCRM shows an error message.
-
-      Use case ends.
-
-* 1b. The JSON file's content fails to parse.
-
-    * 1b1. MyCRM shows an error message.
-
-      Use case ends.
-
-**Use case: UC20 - Purging MyCRM data**
+**Use case: UC20 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
 **MSS**
 
-1. User request to purge data.
+1. User request to clear data.
 2. MyCRM removes data from job, contact, product list.
 
    Use case ends.
