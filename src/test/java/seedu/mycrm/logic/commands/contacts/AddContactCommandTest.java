@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.mycrm.commons.core.GuiSettings;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
@@ -41,7 +42,8 @@ class AddContactCommandTest {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
         Contact validContact = new ContactBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub,
+            new StateManager(modelStub));
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
@@ -54,7 +56,7 @@ class AddContactCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, new StateManager(modelStub)));
     }
 
     @Test

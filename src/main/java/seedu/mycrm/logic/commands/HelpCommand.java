@@ -1,5 +1,6 @@
 package seedu.mycrm.logic.commands;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.model.Model;
 
 /**
@@ -17,7 +18,7 @@ public class HelpCommand extends Command {
     private static final CommandType COMMAND_TYPE = CommandType.HELP;
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         return new CommandResult(SHOWING_HELP_MESSAGE, COMMAND_TYPE);
     }
 

@@ -5,6 +5,7 @@ import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.function.Predicate;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -39,7 +40,7 @@ public class ListContactCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.updateFilteredContactList(listPredicate);
         String successMessage;
@@ -48,7 +49,7 @@ public class ListContactCommand extends Command {
         } else {
             successMessage = MESSAGE_SUCCESS_NOT_HIDDEN;
         }
-        return new CommandResult(successMessage, COMMAND_TYPE);
+        return stateManager.handleList(new CommandResult(successMessage, COMMAND_TYPE));
     }
 
     @Override

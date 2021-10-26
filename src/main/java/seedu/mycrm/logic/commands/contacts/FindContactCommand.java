@@ -3,6 +3,7 @@ package seedu.mycrm.logic.commands.contacts;
 import static java.util.Objects.requireNonNull;
 
 import seedu.mycrm.commons.core.Messages;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -31,12 +32,11 @@ public class FindContactCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.updateFilteredContactList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()),
-                COMMAND_TYPE);
+        return stateManager.handleList(new CommandResult(String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW,
+            model.getFilteredContactList().size()), COMMAND_TYPE));
     }
 
     @Override

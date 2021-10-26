@@ -14,6 +14,7 @@ import java.util.Optional;
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.commons.util.CollectionUtil;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -67,7 +68,7 @@ public class EditJobCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         List<Job> lastShownJobList = model.getFilteredJobList();
         List<Contact> lastShownContactList = model.getFilteredContactList();
@@ -84,8 +85,10 @@ public class EditJobCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_JOB);
         }
 
-        model.setJob(jobToEdit, editedJob);
-        return new CommandResult(String.format(MESSAGE_EDIT_JOB_SUCCESS, editedJob), COMMAND_TYPE);
+        CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_JOB_SUCCESS, editedJob), COMMAND_TYPE);
+
+        return stateManager.handleEditJob(jobToEdit, editedJob, editJobDescriptor.shouldEditContact,
+            editJobDescriptor.shouldEditProduct, result);
     }
 
     /**
@@ -164,6 +167,8 @@ public class EditJobCommand extends Command {
         private JobFee fee;
         private Index clientIndex;
         private Index productIndex;
+        private boolean shouldEditContact = false;
+        private boolean shouldEditProduct = false;
 
         public EditJobDescriptor() {}
 
@@ -177,6 +182,8 @@ public class EditJobCommand extends Command {
             setFee(toCopy.fee);
             setClientIndex(toCopy.clientIndex);
             setProductIndex(toCopy.productIndex);
+            setEditContact(toCopy.shouldEditContact);
+            setEditProduct(toCopy.shouldEditProduct);
         }
 
         /**
@@ -184,7 +191,7 @@ public class EditJobCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(jobDescription, deliveryDate, receivedDate,
-                    fee, clientIndex, productIndex);
+                    fee, clientIndex, productIndex) || shouldEditProduct || shouldEditContact;
         }
 
         public void setJobDescription(JobDescription jobDescription) {
@@ -235,6 +242,14 @@ public class EditJobCommand extends Command {
             return productIndex;
         }
 
+        public void setEditProduct(boolean shouldEditProduct) {
+            this.shouldEditProduct = shouldEditProduct;
+        }
+
+        public void setEditContact(boolean shouldEditContact) {
+            this.shouldEditContact = shouldEditContact;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -255,7 +270,11 @@ public class EditJobCommand extends Command {
                 && getReceivedDate().equals(e.getReceivedDate())
                 && getFee().equals(e.getFee())
                 && getClientIndex().equals(e.getClientIndex())
-                && getProductIndex().equals(e.getProductIndex());
+                && getProductIndex().equals(e.getProductIndex())
+                && shouldEditContact == e.shouldEditContact
+                && shouldEditProduct == e.shouldEditProduct;
         }
+
+
     }
 }

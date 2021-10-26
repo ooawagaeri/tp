@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.logic.commands.mails.EditTemplateCommand.EditTemplateDescriptor;
@@ -150,7 +151,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, new StateManager(actualModel));
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -180,7 +181,8 @@ public class CommandTestUtil {
         MyCrm expectedMyCrm = new MyCrm(actualModel.getMyCrm());
         List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel,
+            new StateManager(actualModel)));
         assertEquals(expectedMyCrm, actualModel.getMyCrm());
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }
