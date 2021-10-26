@@ -50,8 +50,8 @@ public class StateManager {
 
     private static final String CONTACT_PROVIDED_MESSAGE = "Following contact: %s will be assigned to the job.\n";
 
-    private static final String PROVIDE_PRODUCT_INSTR = "You can either assign a a new product to the job by " +
-        "issuing a addProduct command or select an existing one from the contact list by issuing a select command.\n";
+    private static final String PROVIDE_PRODUCT_INSTR = "You can either assign a a new product to the job by "
+        + "issuing a addProduct command or select an existing one from the contact list by issuing a select command.\n";
 
     private static final String PRODUCT_PROVIDED_MESSAGE = "Following product: %s will be assigned to the job.\n";
 
@@ -72,22 +72,22 @@ public class StateManager {
 
 
     private enum State {
-          NEW_JOB_CONTACT(NEW_JOB_CONTACT_MESSAGE, PROVIDE_CONTACT_INSTR,
-              CONTACT_PROVIDED_MESSAGE, CommandType.CONTACTS),
+        NEW_JOB_CONTACT(NEW_JOB_CONTACT_MESSAGE, PROVIDE_CONTACT_INSTR,
+            CONTACT_PROVIDED_MESSAGE, CommandType.CONTACTS),
 
-          NEW_JOB_PRODUCT(NEW_JOB_PRODUCT_MESSAGE, PROVIDE_PRODUCT_INSTR,
-              PRODUCT_PROVIDED_MESSAGE, CommandType.PRODUCTS),
+        NEW_JOB_PRODUCT(NEW_JOB_PRODUCT_MESSAGE, PROVIDE_PRODUCT_INSTR,
+            PRODUCT_PROVIDED_MESSAGE, CommandType.PRODUCTS),
 
-          EDIT_JOB_CONTACT(EDIT_JOB_CONTACT_MESSAGE, PROVIDE_CONTACT_INSTR,
-              CONTACT_PROVIDED_MESSAGE, CommandType.CONTACTS),
+        EDIT_JOB_CONTACT(EDIT_JOB_CONTACT_MESSAGE, PROVIDE_CONTACT_INSTR,
+            CONTACT_PROVIDED_MESSAGE, CommandType.CONTACTS),
 
-          EDIT_JOB_PRODUCT(EDIT_JOB_PRODUCT_MESSAGE, PROVIDE_PRODUCT_INSTR,
-              PRODUCT_PROVIDED_MESSAGE, CommandType.PRODUCTS);
+        EDIT_JOB_PRODUCT(EDIT_JOB_PRODUCT_MESSAGE, PROVIDE_PRODUCT_INSTR,
+            PRODUCT_PROVIDED_MESSAGE, CommandType.PRODUCTS);
 
-          private String userMessage;
-          private String instructions;
-          private String successMessage;
-          private CommandType commandType;
+        private String userMessage;
+        private String instructions;
+        private String successMessage;
+        private CommandType commandType;
 
         private State(String userMessage, String instructions, String successMessage, CommandType commandType) {
             this.userMessage = userMessage;
@@ -113,13 +113,16 @@ public class StateManager {
         }
     }
 
+    private static Map<State, List<String>> allowedCommandsForState;
     private Job job;
     private Job jobToEdit;
     private Model model;
     private State currentState;
     private Queue<State> stateQueue;
-    private static Map<State, List<String>> allowedCommandsForState;
 
+    /**
+     * Constructs a StateManager object.
+     */
     public StateManager(Model model) {
         this.model = model;
         stateQueue = new LinkedList<>();
@@ -160,7 +163,7 @@ public class StateManager {
     public CommandResult handleAddJob(Job job) {
         this.job = job;
 
-        if(job.hasProduct() && job.hasClient()) {
+        if (job.hasProduct() && job.hasClient()) {
             model.addJob(job);
             return new CommandResult(String.format(AddJobCommand.MESSAGE_SUCCESS, job), CommandType.JOBS);
         }
@@ -215,11 +218,11 @@ public class StateManager {
      * of a addJob or editJob command.
      *
      * @param product Product that was added.
-     * @param commandResult Result of the orignial addProduct command.
+     * @param commandResult Result of the original addProduct command.
      * @return Modified result of the addProduct command based on current state.
      */
     public CommandResult handleProduct(Product product, CommandResult commandResult) {
-        if(currentState == State.NEW_JOB_PRODUCT || currentState == State.EDIT_JOB_PRODUCT) {
+        if (currentState == State.NEW_JOB_PRODUCT || currentState == State.EDIT_JOB_PRODUCT) {
             job.setProduct(product);
             return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), product));
 
@@ -228,8 +231,15 @@ public class StateManager {
         }
     }
 
+    /**
+     * Handles the behaviour of the addContact command if it is used in the context
+     * of a addJob or editJob command.
+     * @param contact Contact that was added.
+     * @param commandResult Result of the original addContact command.
+     * @return Modified result of the addContact command based on current state.
+     */
     public CommandResult handleContact(Contact contact, CommandResult commandResult) {
-        if(currentState == State.NEW_JOB_CONTACT || currentState == State.EDIT_JOB_CONTACT) {
+        if (currentState == State.NEW_JOB_CONTACT || currentState == State.EDIT_JOB_CONTACT) {
             job.setClient(contact);
             return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), contact));
         } else {
@@ -246,7 +256,7 @@ public class StateManager {
      * @throws CommandException If the index is invalid.
      */
     public CommandResult handleIndex(Index targetIndex) throws CommandException {
-        if(currentState == State.NEW_JOB_CONTACT || currentState == State.EDIT_JOB_CONTACT) {
+        if (currentState == State.NEW_JOB_CONTACT || currentState == State.EDIT_JOB_CONTACT) {
             List<Contact> lastShownContactList = model.getFilteredContactList();
             if (targetIndex.getZeroBased() >= lastShownContactList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
@@ -256,7 +266,7 @@ public class StateManager {
             job.setClient(client);
             return constructCommandResult(null, String.format(currentState.getSuccessMessage(), client));
 
-        } else if(currentState == State.NEW_JOB_PRODUCT || currentState == State.EDIT_JOB_PRODUCT) {
+        } else if (currentState == State.NEW_JOB_PRODUCT || currentState == State.EDIT_JOB_PRODUCT) {
             List<Product> lastShownProductList = model.getFilteredProductList();
             if (targetIndex.getZeroBased() >= lastShownProductList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
@@ -270,8 +280,15 @@ public class StateManager {
         }
     }
 
+    /**
+     * Handles the behaviour of list or find commands for product and command.
+     * Modifies the feedBackToUser string of the command result.
+     *
+     * @param commandResult Original result of the execution of a list or find command.
+     * @return CommandResult with modified feedbackToUser string.
+     */
     public CommandResult handleList(CommandResult commandResult) {
-        if(currentState == null){
+        if (currentState == null) {
             return commandResult;
         }
         String userFeedback = String.format(currentState.getUserMessage(), job);
@@ -286,12 +303,12 @@ public class StateManager {
      * @throws CommandException If the usage of abort is done outside the context of a
      * addJob or editJob command.
      */
-    public CommandResult handleAbort() throws CommandException{
+    public CommandResult handleAbort() throws CommandException {
         CommandResult result;
-        if(isJobBeingEdited()) {
+        if (isJobBeingEdited()) {
             result = new CommandResult(String.format(EDIT_JOB_ABORTED, jobToEdit), CommandType.JOBS);
 
-        } else if(isJobBeingAdded()) {
+        } else if (isJobBeingAdded()) {
             result = new CommandResult(String.format(ADD_JOB_ABORTED, job), CommandType.JOBS);
         } else {
             throw new CommandException("Invalid usage of Abort Command\n" + AbortCommand.MESSAGE_USAGE);
@@ -309,25 +326,30 @@ public class StateManager {
      * @return Whether the command is allowed based on the current state.
      */
     public boolean isCommandAllowedForState(Command command) {
-        if(currentState == null) {
+        if (currentState == null) {
             return true;
         }
         List<String> allowedCommands = allowedCommandsForState.get(currentState);
         return allowedCommands.contains(command.getClass().getName());
     }
 
-
+    /**
+     * Returns an error message based on current state.
+     */
     public String getErrorMessage() {
         String userFeedback = "";
         if (currentState != null) {
-           userFeedback += String.format(currentState.getUserMessage(), job);
-           userFeedback += ERROR_MESSAGE;
+            userFeedback += String.format(currentState.getUserMessage(), job);
+            userFeedback += ERROR_MESSAGE;
         }
         return userFeedback;
     }
 
+    /**
+     * Returns a command not allowed message based on current state.
+     */
     public String getCommandNotAllowedMessage() {
-        if(currentState==null) {
+        if (currentState == null) {
             return "";
         }
 
@@ -341,18 +363,18 @@ public class StateManager {
 
         String userFeedback;
 
-        if(commandResult == null) {
+        if (commandResult == null) {
             userFeedback = message;
         } else {
             userFeedback = commandResult.getFeedbackToUser() + message;
         }
 
-        if(isJobBeingAdded() && nextState == null) {
+        if (isJobBeingAdded() && nextState == null) {
             model.addJob(job);
             userFeedback += String.format(AddJobCommand.MESSAGE_SUCCESS, job);
             clearState();
             return new CommandResult(userFeedback, CommandType.JOBS);
-        } else if(isJobBeingEdited() && nextState == null) {
+        } else if (isJobBeingEdited() && nextState == null) {
             model.setJob(jobToEdit, job);
             userFeedback += String.format(EditJobCommand.MESSAGE_EDIT_JOB_SUCCESS, job);
             clearState();
@@ -379,5 +401,4 @@ public class StateManager {
     private boolean isJobBeingAdded() {
         return (currentState == State.NEW_JOB_CONTACT || currentState == State.NEW_JOB_PRODUCT);
     }
-
 }

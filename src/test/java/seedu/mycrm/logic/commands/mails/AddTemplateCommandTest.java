@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.mycrm.commons.core.GuiSettings;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
@@ -41,7 +42,8 @@ class AddTemplateCommandTest {
                 new ModelStubAcceptingTemplateAdded();
         Template validTemplate = new TemplateBuilder().build();
 
-        CommandResult commandResult = new AddTemplateCommand(validTemplate).execute(modelStub, );
+        CommandResult commandResult = new AddTemplateCommand(validTemplate).execute(modelStub,
+            new StateManager(modelStub));
 
         assertEquals(String.format(AddTemplateCommand.MESSAGE_SUCCESS, validTemplate),
                 commandResult.getFeedbackToUser());
@@ -55,7 +57,7 @@ class AddTemplateCommandTest {
         AddTemplateCommandTest.ModelStub modelStub = new ModelStubWithTemplate(validTemplate);
 
         assertThrows(CommandException.class, AddTemplateCommand.MESSAGE_DUPLICATE_TEMPLATE, (
-            ) -> addCommand.execute(modelStub, ));
+            ) -> addCommand.execute(modelStub, new StateManager(modelStub)));
     }
 
     @Test

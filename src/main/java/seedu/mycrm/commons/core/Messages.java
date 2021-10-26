@@ -1,7 +1,5 @@
 package seedu.mycrm.commons.core;
 
-import seedu.mycrm.model.products.ProductNameContainsKeywordsPredicate;
-
 /**
  * Container for user visible messages.
  */

@@ -52,18 +52,18 @@ public class LogicManager implements Logic {
         Command command;
 
         try {
-             command = myCrmParser.parseCommand(commandText);
-             if(!stateManager.isCommandAllowedForState(command)) {
+            command = myCrmParser.parseCommand(commandText);
+            if (!stateManager.isCommandAllowedForState(command)) {
                 throw new CommandException(stateManager.getCommandNotAllowedMessage());
-             }
-        } catch(ParseException e) {
+            }
+        } catch (ParseException e) {
             throw new ParseException(stateManager.getErrorMessage() + e.getMessage());
         }
 
         try {
             commandResult = command.execute(model, stateManager);
-        } catch(CommandException e) {
-            throw new CommandException(stateManager.getErrorMessage()+e.getMessage());
+        } catch (CommandException e) {
+            throw new CommandException(stateManager.getErrorMessage() + e.getMessage());
         }
 
         try {
