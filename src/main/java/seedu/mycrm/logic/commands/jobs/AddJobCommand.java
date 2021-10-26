@@ -30,7 +30,7 @@ public class AddJobCommand extends Command {
         + PREFIX_DELIVERY_DATE + "DELIVERY DATE"
         + PREFIX_FEE + "FEE"
         + " [" + PREFIX_CONTACT_INDEX + "CONTACT INDEX]"
-        + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
+        + " [" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_JOB_DESCRIPTION + "Graphics card replacement needed "
         + PREFIX_CONTACT_INDEX + "1 "
