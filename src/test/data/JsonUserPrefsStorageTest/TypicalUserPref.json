@@ -5,7 +5,8 @@
     "windowCoordinates" : {
       "x" : 300,
       "y" : 100
-    }
+    },
+    "themeUrl" : "file:/D:/cs2103/tp/build/resources/main/view/DarkTheme.css"
   },
   "myCrmFilePath" : "myCrm.json"
 }
