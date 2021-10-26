@@ -27,6 +27,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    // Urls of theme stylesheets
+    private final String darkThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "DarkTheme.css")
+            .toExternalForm();
+    private final String lightThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "LightTheme.css")
+            .toExternalForm();
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -174,6 +180,26 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Changes Ui to dark theme.
+     */
+    @FXML
+    private void changeToDarkTheme() {
+        logger.info("Changing to dark theme.");
+        primaryStage.getScene().getStylesheets().remove(lightThemeUrl);
+        primaryStage.getScene().getStylesheets().add(darkThemeUrl);
+    }
+
+    /**
+     * Changes Ui to light theme.
+     */
+    @FXML
+    private void changeToLightTheme() {
+        logger.info("Changing to light theme.");
+        primaryStage.getScene().getStylesheets().remove(darkThemeUrl);
+        primaryStage.getScene().getStylesheets().add(lightThemeUrl);
     }
 
     /**

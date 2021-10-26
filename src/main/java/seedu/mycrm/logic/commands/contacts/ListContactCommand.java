@@ -18,11 +18,13 @@ public class ListContactCommand extends Command {
 
     public static final String COMMAND_WORD = "listContact";
 
-    public static final String MESSAGE_SUCCESS = "Here are the listed all contacts:";
+    public static final String MESSAGE_SUCCESS_ALL = "Here are the contacts all listed:";
+    public static final String MESSAGE_SUCCESS_NOT_HIDDEN = "Here are the active contacts listed:";
+    public static final String SHOW_ALL_CONTACTS = "-a";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all unhidden contact by default. "
             + "If a user types in '-a', MyCRM will also list hidden contact. "
             + "Parameters: [-a]\n"
-            + "Example: " + COMMAND_WORD + "-a";;
+            + "Example: " + COMMAND_WORD + SHOW_ALL_CONTACTS;;
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
@@ -40,7 +42,13 @@ public class ListContactCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredContactList(listPredicate);
-        return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);
+        String successMessage;
+        if (listPredicate.equals(PREDICATE_SHOW_ALL_CONTACTS)) {
+            successMessage = MESSAGE_SUCCESS_ALL;
+        } else {
+            successMessage = MESSAGE_SUCCESS_NOT_HIDDEN;
+        }
+        return new CommandResult(successMessage, COMMAND_TYPE);
     }
 
     @Override

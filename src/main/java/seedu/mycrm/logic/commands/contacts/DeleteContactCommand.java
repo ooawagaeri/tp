@@ -1,8 +1,12 @@
 package seedu.mycrm.logic.commands.contacts;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_JOBS;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
@@ -12,6 +16,7 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
+import seedu.mycrm.model.job.Job;
 
 /**
  * Deletes a contact identified using it's displayed index from the myCrm.
@@ -45,7 +50,20 @@ public class DeleteContactCommand extends Command {
         }
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Predicate<Job> latestJobPredicate = model.getLatestJobPredicate() == null ? PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
+                : model.getLatestJobPredicate();
+        model.updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS);
+        boolean isLinkedToJob = model.getFilteredJobList().stream()
+                .anyMatch(job -> job.getClient() != null && job.getClient().isSameContact(contactToDelete));
+        model.updateFilteredJobList(latestJobPredicate);
+
+        if (isLinkedToJob) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DELETE_REQUEST);
+        }
+
         model.deleteContact(contactToDelete);
+        model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete), COMMAND_TYPE);
     }
 
