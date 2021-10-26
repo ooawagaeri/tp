@@ -3,6 +3,7 @@ package seedu.mycrm.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -10,6 +11,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_MANUFACTURER;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION;
@@ -85,9 +87,15 @@ public class CommandTestUtil {
     public static final String VALID_SUBJECT_ISSUE = "An issue has occurred";
     public static final String VALID_SUBJECT_DONE = "Order is done";
     public static final String VALID_SUBJECT_COMPLETE = "Your order has been completed";
-
     public static final String VALID_BODY_DONE = "Your order is done and ready for collection";
-    public static final String VALID_BODY_COMPLETE = "Your order has been completed";
+    public static final String VALID_BODY_COMPLETE = "Your order has been completed and ready for collection";
+
+    public static final String SUBJECT_DESC_COMPLETE = " " + PREFIX_SUBJECT + VALID_SUBJECT_COMPLETE;
+    public static final String BODY_DESC_COMPLETE = " " + PREFIX_BODY + VALID_BODY_COMPLETE;
+    public static final String SUBJECT_DESC_DONE = " " + PREFIX_SUBJECT + VALID_SUBJECT_DONE;
+    public static final String BODY_DESC_DONE = " " + PREFIX_BODY + VALID_BODY_DONE;
+    public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "W#lcome";
+    public static final String INVALID_BODY_DESC = " " + PREFIX_BODY + " ";
     public static final int HEAD_SUBJECT_SIZE = 2;
 
     public static final EditTemplateDescriptor DESC_DONE;

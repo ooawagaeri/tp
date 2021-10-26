@@ -37,10 +37,12 @@ public class MailCard extends UiPart<Region> {
     public MailCard(Mail mail) {
         super(FXML);
         this.mail = mail;
-        link.setText("Mail Here");
+        link.setText("Click here to send email");
         email.setText(mail.getJob().getClient().getEmail().value);
         subject.setText(mail.getTemplate().getSubject().subject);
-        body.setText(mail.getTemplate().getBody().body);
+
+        String bodyWithNewLine = mail.getTemplate().getBody().body.replace("\\n", "\n");
+        body.setText(bodyWithNewLine);
 
         link.setOnAction(e -> {
             myHostServices.showDocument(mail.constructMail());
