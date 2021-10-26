@@ -1,5 +1,6 @@
 package seedu.mycrm.testutil;
 
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_BODY_COMPLETE;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_BODY_DONE;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_SUBJECT_COMPLETE;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_SUBJECT_DONE;
@@ -14,7 +15,7 @@ import seedu.mycrm.model.mail.Template;
 public class TypicalTemplates {
 
     public static final Template COMPLETED = new TemplateBuilder().withSubject(VALID_SUBJECT_COMPLETE)
-            .withBody("Dear valued customer, your order has been completed and ready for collection").build();
+            .withBody(VALID_BODY_COMPLETE).build();
 
     public static final Template DONE = new TemplateBuilder()
             .withSubject(VALID_SUBJECT_DONE)

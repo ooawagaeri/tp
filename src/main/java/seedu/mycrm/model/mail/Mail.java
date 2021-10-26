@@ -89,12 +89,14 @@ public class Mail {
 
     /**
      * Encodes given string into URL friendly string.
-     * Replaces ' ' with '%20'
+     * Replaces ' ' and '\n' with URL variate.
      *
      * @param str target subject/body string
      * @return URL friendly string
      */
     public static String urlEncode(String str) {
-        return URLEncoder.encode(str, StandardCharsets.UTF_8).replace("+", "%20");
+        return URLEncoder.encode(str, StandardCharsets.UTF_8)
+                .replace("+", "%20")
+                .replace("%5Cn", "%0D%0A");
     }
 }
