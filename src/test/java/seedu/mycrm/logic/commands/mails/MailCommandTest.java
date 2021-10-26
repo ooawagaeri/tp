@@ -76,7 +76,7 @@ class MailCommandTest {
 
         Mail validMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED).build();
 
-        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub);
+        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub, );
 
         assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, INDEX_FIRST_TEMPLATE.getZeroBased()),
                 commandResult.getFeedbackToUser());

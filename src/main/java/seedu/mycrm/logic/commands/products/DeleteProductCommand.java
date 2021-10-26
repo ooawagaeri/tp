@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -41,7 +42,7 @@ public class DeleteProductCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         List<Product> lastShownList = model.getFilteredProductList();

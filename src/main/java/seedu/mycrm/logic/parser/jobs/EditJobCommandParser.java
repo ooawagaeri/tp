@@ -9,11 +9,14 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
+import java.util.stream.Stream;
+
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.parser.ArgumentMultimap;
 import seedu.mycrm.logic.parser.ArgumentTokenizer;
 import seedu.mycrm.logic.parser.ParserUtil;
+import seedu.mycrm.logic.parser.Prefix;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 
 public class EditJobCommandParser {
@@ -55,17 +58,36 @@ public class EditJobCommandParser {
         }
 
         if (argMultimap.getValue(PREFIX_CONTACT_INDEX).isPresent()) {
-            editJobDescriptor.setClientIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get()));
+            try {
+                editJobDescriptor.setClientIndex(
+                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get()));
+            } catch (ParseException e) {
+                editJobDescriptor.setEditContact(true);
+            }
         }
 
         if (argMultimap.getValue(PREFIX_PRODUCT_INDEX).isPresent()) {
-            editJobDescriptor.setProductIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get()));
+            try {
+                editJobDescriptor.setProductIndex(
+                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get()));
+            } catch (ParseException e) {
+                editJobDescriptor.setEditProduct(true);
+            }
         }
+
 
         if (!editJobDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditJobCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditJobCommand(index, editJobDescriptor);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

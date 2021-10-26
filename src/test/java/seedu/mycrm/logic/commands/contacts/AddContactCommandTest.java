@@ -41,7 +41,7 @@ class AddContactCommandTest {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
         Contact validContact = new ContactBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub, );
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
@@ -54,7 +54,7 @@ class AddContactCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, ));
     }
 
     @Test

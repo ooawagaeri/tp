@@ -42,7 +42,7 @@ public class AddProductCommandTest {
     public void execute_productAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingProductAdded modelStub = new ModelStubAcceptingProductAdded();
 
-        CommandResult commandResult = new AddProductCommand(INTEL_CPU).execute(modelStub);
+        CommandResult commandResult = new AddProductCommand(INTEL_CPU).execute(modelStub, );
 
         assertEquals(String.format(AddProductCommand.MESSAGE_SUCCESS, INTEL_CPU), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(INTEL_CPU), modelStub.productsAdded);
@@ -54,7 +54,7 @@ public class AddProductCommandTest {
         ModelStub modelStub = new ModelStubWithProduct(INTEL_CPU);
 
         assertThrows(CommandException.class, AddProductCommand.MESSAGE_DUPLICATE_PRODUCT, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, ));
     }
 
     @Test

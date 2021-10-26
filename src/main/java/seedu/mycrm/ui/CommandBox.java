@@ -117,7 +117,7 @@ public class CommandBox extends UiPart<Region> {
                             }
                         }
                         // Keep the caret at the end of TextField when tracing user input
-                        if (event.getCode() != KeyCode.LEFT && event.getCode() != KeyCode.RIGHT) {
+                        if (event.getCode() == KeyCode.UP && event.getCode() == KeyCode.DOWN) {
                             commandTextField.positionCaret(commandTextField.getLength());
                         }
                     }

@@ -142,7 +142,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, );
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -172,7 +172,7 @@ public class CommandTestUtil {
         MyCrm expectedMyCrm = new MyCrm(actualModel.getMyCrm());
         List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, ));
         assertEquals(expectedMyCrm, actualModel.getMyCrm());
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }

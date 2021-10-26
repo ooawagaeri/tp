@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -61,7 +62,7 @@ public class EditProductCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         if (index.getOneBased() > model.getFilteredProductList().size()) {
