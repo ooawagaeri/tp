@@ -170,7 +170,7 @@
 
 .pane-with-border {
      -fx-background-color: derive(#FFFEFB, 20%);
-     -fx-border-color: derive(#282F2E, 10%);
+     -fx-border-color: #c2c2c2;
      -fx-border-top-width: 1px;
 }
 
@@ -361,11 +361,6 @@
     -fx-text-fill: black;
 }
 
-#resultDisplay .content {
-    -fx-background-color: transparent, #FFFEFB, transparent, #FFFEFB;
-    -fx-background-radius: 0;
-}
-
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -433,5 +428,12 @@
 }
 
 .result-display-placeholder {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-width: 1;
+    -fx-border-color: #c2c2c2;
+}
+
+.main-display-box .label {
+     -fx-font-size: 12pt;
+     -fx-font-family: "Roboto Medium";
+     -fx-fill: black;
 }
