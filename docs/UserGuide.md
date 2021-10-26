@@ -75,11 +75,23 @@ applications.
 
 Adds a new repair job to the CRM.
 
-Format: `addJob d/DESCRIPTION [c/CONTACT_INDEX] [p/PRODUCT_INDEX] [by/DELIVERY_DATE]`
+Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
 
 * Creates a new repair job.
 * Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
   respective contact and product list) to the job.
+* Both product and contact are compulsory attributes of job. If they are not provided 
+  in the form of an index in the above command, the job is not immediately added.
+  * Instead in such a case the user will be asked for info on the missing contact or product (or both).
+  * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
+  * Or the user can issue a command `select INDEX` to select an item from the displayed list.
+  * While the user is being asked for a contact/product only selected commands will be allowed
+    (namely the list, find and add commands for either product or contact).
+  * The user can choose to stop this operation and not add any new job by issuing a `abort` command.
+  * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
+    user cannot instead select a product.
+  * Note: If the operation is stopped via the `abort` command, the job will not be added but any new products/contacts
+    created through the `addContact` and `addProduct` commands will still be added.
 
 Examples:
 
@@ -89,9 +101,45 @@ Examples:
 
     <img src="images/ui-addJob-success.png" width="600px">
 
+### Editing a job: `editJob`
+
+Edits an existing repair job to the CRM.
+
+Format: `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+
+* Edits the repair job at the specified `INDEX`
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
+* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob c/ p/` is valid.
+    * In such a case the user will be asked for info which product or contact (or both) they now want to assign to the job.
+    * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
+    * Or the user can issue a command `select INDEX` to select an item from the displayed list.
+    * While the user is being asked for a contact/product only selected commands will be allowed
+      (namely the list, find and add commands for either product or contact).
+    * The user can choose to stop this operation and not edit the job by issuing a `abort` command.
+    * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
+      user cannot instead select a product.
+    * Note: If the operation is stopped via the `abort` command, the job will not be edited at all.
+      However any new products/contacts created through the `addContact` and `addProduct` commands will still be added.
+
 ### Listing all jobs: `listJob`
 
-Shows a list of all repair jobs in the CRM.
+Shows a list of all repair jobs that have yet to be completed in the CRM.
+
+Format: `listJob [-a] [-c]`
+
+* To show a list of all jobs, regardless of completion status the command `listJob -a` can be issued
+* To show a list of all completed jobs the command `listJob -c` can be issued
+
+### Mark job as complete: `completeJob`
+
+Marks a repair job as complete
+
+Format: `completeJob INDEX`
+
+* Marks the repair job at the specified `INDEX` as complete
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
 
 Format: `listJob`
 

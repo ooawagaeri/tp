@@ -6,10 +6,12 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.mycrm.logic.commands.AbortCommand;
 import seedu.mycrm.logic.commands.ClearCommand;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.ExitCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
+import seedu.mycrm.logic.commands.SelectCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
@@ -33,6 +35,7 @@ import seedu.mycrm.logic.commands.mails.MailCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
 import seedu.mycrm.logic.commands.products.DeleteProductCommand;
 import seedu.mycrm.logic.commands.products.EditProductCommand;
+import seedu.mycrm.logic.commands.products.FindProductCommand;
 import seedu.mycrm.logic.commands.products.ListProductCommand;
 import seedu.mycrm.logic.parser.contacts.AddContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.DeleteContactCommandParser;
@@ -55,6 +58,7 @@ import seedu.mycrm.logic.parser.mails.MailCommandParser;
 import seedu.mycrm.logic.parser.products.AddProductCommandParser;
 import seedu.mycrm.logic.parser.products.DeleteProductCommandParser;
 import seedu.mycrm.logic.parser.products.EditProductCommandParser;
+import seedu.mycrm.logic.parser.products.FindProductCommandParser;
 
 /**
  * Parses user input.
@@ -122,6 +126,9 @@ public class MyCrmParser {
         case EditProductCommand.COMMAND_WORD:
             return new EditProductCommandParser().parse(arguments);
 
+        case FindProductCommand.COMMAND_WORD:
+            return new FindProductCommandParser().parse(arguments);
+
         case DeleteProductCommand.COMMAND_WORD:
             return new DeleteProductCommandParser().parse(arguments);
 
@@ -163,6 +170,12 @@ public class MyCrmParser {
 
         case ClearHistoryCommand.COMMAND_WORD:
             return new ClearHistoryCommand();
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
+        case AbortCommand.COMMAND_WORD:
+            return new AbortCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

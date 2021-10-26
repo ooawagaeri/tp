@@ -28,6 +28,7 @@ public class UniqueProductList implements Iterable<Product> {
     private final ObservableList<Product> internalList = FXCollections.observableArrayList();
     private final ObservableList<Product> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private Product lastAddedProduct;
 
     /**
      * Returns true if the list contains an equivalent product as the given argument.
@@ -47,6 +48,7 @@ public class UniqueProductList implements Iterable<Product> {
             throw new DuplicateProductException();
         }
         internalList.add(toAdd);
+        lastAddedProduct = toAdd;
     }
 
     /**

@@ -7,6 +7,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -36,7 +37,7 @@ public class AddContactCommand extends Command {
     public static final Object MESSAGE_AT_LEAST_ONE_COMPONENT = "You have to give at least one info "
             + "for this contact!!!";
 
-    public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New contact added: %1$s\n";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the MyCRM";
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
@@ -52,7 +53,7 @@ public class AddContactCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         if (model.hasContact(toAdd)) {
@@ -60,7 +61,8 @@ public class AddContactCommand extends Command {
         }
 
         model.addContact(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
+        return stateManager.handleContact(toAdd, commandResult);
     }
 
     @Override
