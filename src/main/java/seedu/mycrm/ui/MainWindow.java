@@ -28,9 +28,9 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     // Urls of theme stylesheets
-    private final String DARK_THEME_URL = getClass().getResource(UiPart.FXML_FILE_FOLDER + "DarkTheme.css")
+    private final String darkThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "DarkTheme.css")
             .toExternalForm();
-    private final String LIGHT_THEME_URL = getClass().getResource(UiPart.FXML_FILE_FOLDER + "LightTheme.css")
+    private final String lightThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "LightTheme.css")
             .toExternalForm();
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -188,8 +188,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void changeToDarkTheme() {
         logger.info("Changing to dark theme.");
-        primaryStage.getScene().getStylesheets().remove(LIGHT_THEME_URL);
-        primaryStage.getScene().getStylesheets().add(DARK_THEME_URL);
+        primaryStage.getScene().getStylesheets().remove(lightThemeUrl);
+        primaryStage.getScene().getStylesheets().add(darkThemeUrl);
     }
 
     /**
@@ -198,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void changeToLightTheme() {
         logger.info("Changing to light theme.");
-        primaryStage.getScene().getStylesheets().remove(DARK_THEME_URL);
-        primaryStage.getScene().getStylesheets().add(LIGHT_THEME_URL);
+        primaryStage.getScene().getStylesheets().remove(darkThemeUrl);
+        primaryStage.getScene().getStylesheets().add(lightThemeUrl);
     }
 
     /**
