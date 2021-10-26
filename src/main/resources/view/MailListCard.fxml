@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -16,14 +16,22 @@
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="10" left="15" right="5" top="5" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="subject" text="\$subject" styleClass="cell_big_label" />
+      <Hyperlink  fx:id="link" styleClass="link" text="\$link" />
+      <HBox prefWidth="280">
+        <Label styleClass="cell_medium_label" prefWidth="80" text="To: " />
+        <Label fx:id="email" styleClass="email" text="\$email" />
       </HBox>
-      <Hyperlink fx:id="link" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$body" />
-      <Label fx:id="body" styleClass="cell_small_label" text="\$body" />
+      <HBox prefWidth="280">
+        <Label styleClass="cell_medium_label" prefWidth="80" text="Subject:" />
+        <Label fx:id="subject" styleClass="cell_small_label" text="\$subject" />
+      </HBox>
+      <Label styleClass="cell_medium_label" prefWidth="80" text="Body:" />
+      <Label fx:id="body" styleClass="body" text="\$body" />
     </VBox>
+      <rowConstraints>
+        <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>
