@@ -187,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void changeToDarkTheme() {
+        logger.info("Changing to dark theme.");
         primaryStage.getScene().getStylesheets().remove(LIGHT_THEME_URL);
         primaryStage.getScene().getStylesheets().add(DARK_THEME_URL);
     }
@@ -196,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void changeToLightTheme() {
+        logger.info("Changing to light theme.");
         primaryStage.getScene().getStylesheets().remove(DARK_THEME_URL);
         primaryStage.getScene().getStylesheets().add(LIGHT_THEME_URL);
     }
