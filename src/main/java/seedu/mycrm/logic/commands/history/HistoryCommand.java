@@ -11,8 +11,6 @@ import seedu.mycrm.model.Model;
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Show all the previously entered commands.\n";
-
     public static final String SHOWING_HISTORY_MESSAGE = "Commands history are shown";
 
     private static final CommandType COMMAND_TYPE = CommandType.HISTORY;

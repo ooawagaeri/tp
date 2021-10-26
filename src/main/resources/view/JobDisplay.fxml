@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane  fx:id="tabPane" styleClass="tab-pane" minWidth="340" prefWidth="340" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" tabMinWidth="69">
+    <Tab fx:id="completedJobTab" closable="false" text="Completed Job" >
+        <StackPane fx:id="completedJobListPanelPlaceholder"/>
+    </Tab>
+    <Tab fx:id="inProgressJobTab" closable="false" text="In-Progress Job">
+        <StackPane fx:id="inProgressJobListPanelPlaceholder" />
+    </Tab>
+</TabPane>

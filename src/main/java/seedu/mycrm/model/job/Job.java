@@ -135,6 +135,11 @@ public class Job {
         return client.getEmail().toString();
     }
 
+    public boolean isCompletedThisMonth() {
+        return this.isCompleted() &&
+                this.getCompletedDate().isThisMonth();
+    }
+
     /**
      * Returns true if both jobs have the same client, product and description
      * This defines a weaker notion of equality between two jobs.

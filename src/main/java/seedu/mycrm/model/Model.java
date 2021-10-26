@@ -24,6 +24,7 @@ public interface Model {
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_INCOMPLETE_JOBS = job -> !(job.isCompleted());
     Predicate<Job> PREDICATE_SHOW_ALL_COMPLETED_JOBS = job -> job.isCompleted();
+    Predicate<Job> PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS = job -> job.isCompletedThisMonth();
     Predicate<History> PREDICATE_SHOW_ALL_HISTORIES = unused -> true;
     Predicate<Mail> PREDICATE_SHOW_ALL_MAILS = unused -> true;
 
@@ -199,6 +200,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredJobList();
+
+    ObservableList<Job> getFilteredAllJobList();
+
+    /** Returns an unmodifiable view of the filtered monthly completed job list */
+    ObservableList<Job> getFilteredMonthlyCompletedJobList();
 
     /** Returns an unmodifiable view of the filtered history command list */
     ObservableList<History> getFilteredHistoryList();

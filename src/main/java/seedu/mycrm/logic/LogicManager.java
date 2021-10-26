@@ -90,6 +90,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+        return model.getFilteredMonthlyCompletedJobList();
+    }
+
+    @Override
     public ObservableList<History> getFilteredHistoryList() {
         return model.getFilteredHistoryList();
     };

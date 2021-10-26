@@ -30,6 +30,8 @@ public class ModelManager implements Model {
     private final FilteredList<Template> filteredTemplates;
     private final FilteredList<Mail> filteredMails;
     private final FilteredList<Job> filteredJobs;
+    private final FilteredList<Job> filteredAllJobs;
+    private final FilteredList<Job> filteredMonthlyCompletedJobs;
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<History> filteredHistories;
 
@@ -48,6 +50,8 @@ public class ModelManager implements Model {
         filteredTemplates = new FilteredList<>(this.myCrm.getTemplateList());
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
         filteredJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+        filteredAllJobs = new FilteredList<>(this.myCrm.getJobList());
+        filteredMonthlyCompletedJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
         filteredProducts = new FilteredList<>(this.myCrm.getProductList());
         filteredHistories = new FilteredList<>(this.myCrm.getHistoryList());
     }
@@ -267,6 +271,20 @@ public class ModelManager implements Model {
         return filteredJobs;
     }
 
+    @Override
+    public ObservableList<Job> getFilteredAllJobList() {
+        return filteredAllJobs;
+    }
+
+    @Override
+    public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+        return filteredMonthlyCompletedJobs;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code History} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<History> getFilteredHistoryList() {
         return filteredHistories;

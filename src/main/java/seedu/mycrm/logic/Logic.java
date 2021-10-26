@@ -50,6 +50,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of jobs */
     ObservableList<Job> getFilteredJobList();
 
+    /** Returns an unmodifiable view of the filtered list of monthly completed jobs */
+    ObservableList<Job> getFilteredMonthlyCompletedJobList();
+
     /** Returns an unmodifiable view of the filtered list of history commands */
     ObservableList<History> getFilteredHistoryList();
 

@@ -47,6 +47,14 @@ public class JobDate {
     }
 
     /**
+     * Returns true if this JobDate is in this month.
+     */
+    public boolean isThisMonth() {
+        LocalDate currentDate = LocalDate.now();
+        return this.value.getMonth().equals(currentDate.getMonth());
+    }
+
+    /**
      * Returns original date string representation format.
      *
      * @return original string format

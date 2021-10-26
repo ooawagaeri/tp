@@ -11,8 +11,6 @@ import seedu.mycrm.model.Model;
 public class ClearHistoryCommand extends Command {
     public static final String COMMAND_WORD = "clearHistory";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clear all the history commands.\n";
-
     public static final String MESSAGE_SUCCESS = "History command data has been cleared";
 
     private static final CommandType COMMAND_TYPE = CommandType.HISTORY;

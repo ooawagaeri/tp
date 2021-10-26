@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.UniqueContactList;
