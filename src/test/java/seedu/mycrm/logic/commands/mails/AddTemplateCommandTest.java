@@ -246,7 +246,7 @@ class AddTemplateCommandTest {
         public int getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public ObservableList<Product> getFilteredTopThreeProductList() {
             throw new AssertionError("This method should not be called.");
@@ -262,7 +262,7 @@ class AddTemplateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-       @Override
+        @Override
         public Predicate<Job> getLatestJobPredicate() {
             throw new AssertionError("This method should not be called.");
         }

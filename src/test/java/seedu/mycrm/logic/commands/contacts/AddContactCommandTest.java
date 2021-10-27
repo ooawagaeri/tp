@@ -234,11 +234,10 @@ class AddContactCommandTest {
         }
 
         @Override
-
         public int getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public ObservableList<Product> getFilteredTopThreeProductList() {
             throw new AssertionError("This method should not be called.");
@@ -253,7 +252,7 @@ class AddContactCommandTest {
         public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
             throw new AssertionError("This method should not be called.");
         }
-          
+
         @Override
         public Predicate<Job> getLatestJobPredicate() {
             throw new AssertionError("This method should not be called.");

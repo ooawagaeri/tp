@@ -1,5 +1,7 @@
 package seedu.mycrm.model.job;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -156,8 +158,13 @@ public class Job {
      * Returns true this job is completed at the same month with the given {@code date}
      */
     public boolean isCompletedThisMonth(LocalDate date) {
-        return this.isCompleted()
-                && this.getCompletedDate().isThisMonth(date);
+        requireNonNull(date);
+
+        if (this.getCompletedDate() == null) {
+            return false;
+        } else {
+            return this.getCompletedDate().isThisMonth(date);
+        }
     }
 
     /**
