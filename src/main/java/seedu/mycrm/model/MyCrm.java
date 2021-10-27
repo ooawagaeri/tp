@@ -2,9 +2,9 @@ package seedu.mycrm.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.UniqueContactList;
@@ -299,6 +299,10 @@ public class MyCrm implements ReadOnlyMyCrm {
         jobs.remove(key);
     }
 
+    public int getRevenue(LocalDate date) {
+        return jobs.getMonthlyRevenue(date);
+    }
+
     //// util methods
 
     @Override
@@ -332,8 +336,14 @@ public class MyCrm implements ReadOnlyMyCrm {
         return histories.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Mail> getMailList() {
         return mails.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Product> getTopThreeProductList() {
+        return jobs.getUnmodifiableTopThreeProductList();
     }
 
     @Override

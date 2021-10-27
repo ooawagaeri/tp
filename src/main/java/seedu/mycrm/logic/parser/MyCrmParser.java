@@ -6,7 +6,11 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.mycrm.logic.commands.*;
+import seedu.mycrm.logic.commands.ClearCommand;
+import seedu.mycrm.logic.commands.Command;
+import seedu.mycrm.logic.commands.ExitCommand;
+import seedu.mycrm.logic.commands.HelpCommand;
+import seedu.mycrm.logic.commands.PrintReportCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;

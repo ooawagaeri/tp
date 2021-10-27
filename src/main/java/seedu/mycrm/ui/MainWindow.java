@@ -77,7 +77,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         reportWindow = new ReportWindow(logic);
-        reportWindow.fillInnerParts();
     }
 
     public Stage getPrimaryStage() {
@@ -182,6 +181,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handlePrintReport() {
+        reportWindow.fillInnerParts();
         if (!reportWindow.isShowing()) {
             reportWindow.show();
         } else {

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -33,6 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Job> filteredAllJobs;
     private final FilteredList<Job> filteredMonthlyCompletedJobs;
     private final FilteredList<Product> filteredProducts;
+    private final FilteredList<Product> filteredTopThreeProducts;
     private final FilteredList<History> filteredHistories;
 
     /**
@@ -51,8 +53,10 @@ public class ModelManager implements Model {
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
         filteredJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         filteredAllJobs = new FilteredList<>(this.myCrm.getJobList());
-        filteredMonthlyCompletedJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
+        filteredMonthlyCompletedJobs =
+                new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
         filteredProducts = new FilteredList<>(this.myCrm.getProductList());
+        filteredTopThreeProducts = new FilteredList<>(this.myCrm.getTopThreeProductList());
         filteredHistories = new FilteredList<>(this.myCrm.getHistoryList());
     }
 
@@ -135,6 +139,7 @@ public class ModelManager implements Model {
         myCrm.removeJob(target);
     }
 
+
     @Override
     public void addContact(Contact contact) {
         myCrm.addContact(contact);
@@ -201,6 +206,11 @@ public class ModelManager implements Model {
         updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
     }
 
+    @Override
+    public int getRevenue(LocalDate date) {
+        return myCrm.getRevenue(date);
+    }
+
     //=========== Products ================================================================================
 
     @Override
@@ -264,6 +274,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Product> getFilteredProductList() {
         return filteredProducts;
+    }
+
+    @Override
+    public ObservableList<Product> getFilteredTopThreeProductList() {
+        return filteredTopThreeProducts;
     }
 
     @Override

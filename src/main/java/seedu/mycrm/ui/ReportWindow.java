@@ -1,14 +1,14 @@
 package seedu.mycrm.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.mycrm.commons.core.LogsCenter;
 import seedu.mycrm.logic.Logic;
-import seedu.mycrm.ui.job.JobListPanel;
+import seedu.mycrm.ui.report.GraphDisplay;
 import seedu.mycrm.ui.report.JobDisplay;
-
-import java.util.logging.Logger;
 
 public class ReportWindow extends UiPart<Stage> {
 
@@ -20,9 +20,13 @@ public class ReportWindow extends UiPart<Stage> {
     private Logic logic;
 
     private JobDisplay jobDisplay;
+    private GraphDisplay graphDisplay;
 
     @FXML
     private StackPane jobDisplayPlaceholder;
+
+    @FXML
+    private StackPane graphDisplayPlaceholder;
 
     /**
      * Creates a {@code ReportWindow} with the given {@code Stage} and {@code Logic}.
@@ -50,8 +54,15 @@ public class ReportWindow extends UiPart<Stage> {
         jobDisplay = new JobDisplay();
         jobDisplay.init(logic);
         jobDisplayPlaceholder.getChildren().add(jobDisplay.getRoot());
+
+        graphDisplay = new GraphDisplay();
+        graphDisplay.init(logic);
+        graphDisplayPlaceholder.getChildren().add(graphDisplay.getRoot());
     }
 
+    /**
+     * Shows the report window.
+     */
     public void show() {
         logger.fine("Showing report page about the monthly job records.");
         getRoot().show();

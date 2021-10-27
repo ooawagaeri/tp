@@ -1,30 +1,30 @@
 package seedu.mycrm.ui.report;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.ui.UiPart;
-
-import javafx.scene.layout.Region;
 import seedu.mycrm.ui.job.JobListPanel;
+import seedu.mycrm.ui.product.ProductListPanel;
 
+/**
+ * After creating an instance of JobDisplay, should instantly call method fillInnerParts(Logic).
+ */
 public class JobDisplay extends UiPart<Region> {
 
     private static final String FXML = "JobDisplay.fxml";
 
-    private String COMPLETED_JOB_NUMBER_MESSAGE = "The total number of jobs completed in this month: ";
-    private String INPROGRESS_JOB_NUMBER_MESSAGE = "The total number of in-progress jobs: ";
+    private static final String COMPLETED_JOB_NUMBER_MESSAGE = "The total number of jobs completed in this month: ";
+    private static final String IN_PROGRESS_JOB_NUMBER_MESSAGE = "The total number of in-progress jobs: ";
 
     private JobListPanel completedJobListPanel;
     private JobListPanel inProgressJobListPanel;
+    private ProductListPanel topThreeProductListPanel;
 
     @FXML
     private TabPane tabPane;
@@ -36,10 +36,16 @@ public class JobDisplay extends UiPart<Region> {
     private Tab inProgressJobTab;
 
     @FXML
+    private Tab topThreeProductTab;
+
+    @FXML
     private StackPane completedJobListPanelPlaceholder;
 
     @FXML
     private StackPane inProgressJobListPanelPlaceholder;
+
+    @FXML
+    private StackPane topThreeProductListPanelPlaceholder;
 
     @FXML
     private NumberCard numberOfCompletedJobDisplay;
@@ -51,6 +57,9 @@ public class JobDisplay extends UiPart<Region> {
         super(FXML);
     }
 
+    /**
+     * Initialize inner parts.
+     */
     public void init(Logic logic) {
         int numberOfCompletedJob = logic.getFilteredMonthlyCompletedJobList().size();
         int numberOfInProgressJob = logic.getFilteredJobList().size();
@@ -63,10 +72,16 @@ public class JobDisplay extends UiPart<Region> {
         completedJobListPanelPlaceholder.getChildren().add(vBox1);
 
         inProgressJobListPanel = new JobListPanel(logic.getFilteredJobList());
-        numberOfInProgressJobDisplay = new NumberCard(INPROGRESS_JOB_NUMBER_MESSAGE, numberOfInProgressJob);
+        numberOfInProgressJobDisplay = new NumberCard(IN_PROGRESS_JOB_NUMBER_MESSAGE, numberOfInProgressJob);
         VBox vBox2 = new VBox(numberOfInProgressJobDisplay.getRoot(), inProgressJobListPanel.getRoot());
         vBox2.setVgrow(inProgressJobListPanel.getRoot(), Priority.ALWAYS);
         inProgressJobListPanelPlaceholder.managedProperty().bind(inProgressJobListPanelPlaceholder.visibleProperty());
         inProgressJobListPanelPlaceholder.getChildren().add(vBox2);
+
+        topThreeProductListPanel = new ProductListPanel(logic.getFilteredTopThreeProductList());
+        topThreeProductListPanelPlaceholder
+                .managedProperty()
+                .bind(topThreeProductListPanelPlaceholder.visibleProperty());
+        topThreeProductListPanelPlaceholder.getChildren().add(topThreeProductListPanel.getRoot());
     }
 }

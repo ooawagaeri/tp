@@ -15,6 +15,9 @@ public class NumberCard extends UiPart<Region> {
     @FXML
     private Label numberMessage;
 
+    /**
+     * Creates a {@code NumberCard} with the given {@code message} and {@code number} to display.
+     */
     public NumberCard(String message, int number) {
         super(FXML);
         numberMessage.setText(message + number);

@@ -49,9 +49,9 @@ public class JobDate {
     /**
      * Returns true if this JobDate is in this month.
      */
-    public boolean isThisMonth() {
-        LocalDate currentDate = LocalDate.now();
-        return this.value.getMonth().equals(currentDate.getMonth());
+    public boolean isThisMonth(LocalDate date) {
+        return this.value.getMonth().equals(date.getMonth())
+                && this.value.getYear() == date.getYear();
     }
 
     /**

@@ -28,6 +28,7 @@
                 </padding>
 
                 <StackPane fx:id="jobDisplayPlaceholder"  HBox.hgrow="ALWAYS"/>
+                <StackPane fx:id="graphDisplayPlaceholder" HBox.hgrow="ALWAYS"/>
             </HBox>
         </Scene>
     </scene>

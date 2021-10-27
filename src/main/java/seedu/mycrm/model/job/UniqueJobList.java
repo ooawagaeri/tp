@@ -3,13 +3,17 @@ package seedu.mycrm.model.job;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.job.exceptions.DuplicateJobException;
 import seedu.mycrm.model.job.exceptions.JobNotFoundException;
+import seedu.mycrm.model.products.Product;
 
 /**
  * A list of jobs that enforces uniqueness between its elements and does not allow nulls.
@@ -96,11 +100,36 @@ public class UniqueJobList implements Iterable<Job> {
         internalList.setAll(jobs);
     }
 
+    public int getMonthlyRevenue(LocalDate date) {
+        requireNonNull(date);
+        ObservableList<Job> monthlyJob = getMonthlyJob(date);
+        int revenue = 0;
+
+
+        if (monthlyJob.size() > 0) {
+            for (Job j : monthlyJob) {
+                if (j.getFee() != null) {
+                    revenue += j.getFee().getCents();
+                }
+            }
+        }
+
+        return revenue;
+    }
+
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Job> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns the most three common {@code Product} received this month.
+     */
+    public ObservableList<Product> getUnmodifiableTopThreeProductList() {
+        return FXCollections.unmodifiableObservableList(this.getTopThreeProduct());
     }
 
     @Override
@@ -133,5 +162,54 @@ public class UniqueJobList implements Iterable<Job> {
         }
         return true;
     }
+
+    private ObservableList<Job> getMonthlyJob(LocalDate date) {
+        ObservableList<Job> jobs = FXCollections.observableArrayList();
+
+        for (Job j: internalList) {
+            if (j.isCompletedThisMonth(date)) {
+                jobs.add(j);
+            }
+        }
+        return jobs;
+    }
+
+    private Map<Product, Integer> getMonthlyProduct() {
+        Map<Product, Integer> monthlyProducts = new HashMap<>();
+
+        for (Job j: internalList) {
+            if (j.isReceivedThisMonth(LocalDate.now()) && j.getProduct() != null) {
+                Product product = j.getProduct();
+                Integer val = monthlyProducts.get(product);
+
+                monthlyProducts.put(product, val == null ? 1 : val + 1);
+            }
+        }
+
+        return monthlyProducts;
+    }
+
+    private ObservableList<Product> getTopThreeProduct() {
+        ObservableList<Product> products = FXCollections.observableArrayList();
+        Map<Product, Integer> productIntegerMap = this.getMonthlyProduct();
+
+        for (int i = 0; i < 3; i++) {
+            Map.Entry<Product, Integer> max = null;
+
+            for (Map.Entry<Product, Integer> e : productIntegerMap.entrySet()) {
+                if (max == null || e.getValue() > max.getValue()) {
+                    max = e;
+                }
+            }
+
+            if (max != null && max.getKey() != null) {
+                products.add(max.getKey());
+                productIntegerMap.remove(max.getKey());
+            }
+
+        }
+        return products;
+    }
+
 
 }

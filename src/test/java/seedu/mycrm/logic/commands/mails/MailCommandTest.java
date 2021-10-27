@@ -14,6 +14,7 @@ import static seedu.mycrm.testutil.TypicalMails.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalTemplates.COMPLETED;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -263,6 +264,26 @@ class MailCommandTest {
         public void setProduct(Product target, Product edited) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int getRevenue(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Product> getFilteredTopThreeProductList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredAllJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public ObservableList<Contact> getFilteredContactList() {
