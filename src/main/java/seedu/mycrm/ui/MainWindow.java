@@ -1,7 +1,5 @@
 package seedu.mycrm.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.logging.Logger;
 
 import javafx.application.HostServices;
@@ -29,9 +27,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
-    private static ThemeManager themeManager;
-
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final ThemeManager themeManager;
 
     private Stage primaryStage;
     private Logic logic;
@@ -185,13 +182,17 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    // Theme methods
-
+    /**
+     * Changes Ui to dark theme.
+     */
     @FXML
     private void changeToDarkTheme() {
         themeManager.changeToDarkTheme();
     }
 
+    /**
+     * Changes Ui to light theme.
+     */
     @FXML
     private void changeToLightTheme() {
         themeManager.changeToLightTheme();
@@ -210,39 +211,39 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandType) {
-                case CONTACTS:
-                case TEMPLATE:
-                case PRODUCTS:
-                case HISTORY:
-                    sideDisplay.switchTab(commandType);
-                    break;
+            case CONTACTS:
+            case TEMPLATE:
+            case PRODUCTS:
+            case HISTORY:
+                sideDisplay.switchTab(commandType);
+                break;
 
-                case MAIL:
-                    mainDisplay.showMailList();
-                    break;
+            case MAIL:
+                mainDisplay.showMailList();
+                break;
 
-                case JOBS:
-                    mainDisplay.showJobList();
-                    break;
+            case JOBS:
+                mainDisplay.showJobList();
+                break;
 
-                case HELP:
-                    handleHelp();
-                    break;
+            case HELP:
+                handleHelp();
+                break;
 
-                case EXIT:
-                    handleExit();
-                    break;
+            case EXIT:
+                handleExit();
+                break;
 
-                case THEME:
-                    themeManager.changeTheme(commandResult.getThemeName());
-                    break;
+            case THEME:
+                themeManager.changeTheme(commandResult.getThemeName());
+                break;
 
-                case COMMON:
-                    // do nothing
-                    break;
+            case COMMON:
+                // do nothing
+                break;
 
-                default:
-                    assert false;
+            default:
+                assert false;
             }
 
             return commandResult;

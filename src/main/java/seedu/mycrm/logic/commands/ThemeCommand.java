@@ -6,9 +6,6 @@ import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 
-/**
- * Change theme of Ui.
- */
 public class ThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
@@ -24,6 +21,9 @@ public class ThemeCommand extends Command {
 
     private final String themeName;
 
+    /**
+     * Constructs a {@code ThemeCommand}.
+     */
     public ThemeCommand(String themeName) {
         requireNonNull(themeName);
 
@@ -32,7 +32,9 @@ public class ThemeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, themeName), COMMAND_TYPE, themeName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, themeName),
+                COMMAND_TYPE,
+                themeName); // pass theme name to main window
     }
 
     @Override

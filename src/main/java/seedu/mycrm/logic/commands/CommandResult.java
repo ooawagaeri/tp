@@ -16,12 +16,13 @@ public class CommandResult {
     private final String themeName;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields. Set themeName to null.
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code commandType},
+     * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, CommandType commandType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
-        this.themeName = null;
+        this.themeName = null; // theme name is set to null by default
     }
 
     /**
@@ -33,7 +34,7 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields. Set themeName to null.
+     * Constructs a {@code CommandResult} of theme command with the specified fields.
      */
     public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
         requireNonNull(themeName);
@@ -41,7 +42,6 @@ public class CommandResult {
         this.commandType = commandType;
         this.themeName = themeName;
     }
-
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -51,6 +51,9 @@ public class CommandResult {
         return commandType;
     }
 
+    /**
+     * Returns name of desired theme if the instance is created by {@code ThemeCommand}. Returns null otherwise.
+     */
     public String getThemeName() {
         return this.themeName;
     }

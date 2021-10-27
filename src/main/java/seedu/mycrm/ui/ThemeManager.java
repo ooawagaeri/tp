@@ -1,15 +1,18 @@
 package seedu.mycrm.ui;
 
-import javafx.collections.ObservableList;
-import seedu.mycrm.commons.core.GuiSettings;
-import seedu.mycrm.commons.core.LogsCenter;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.mycrm.commons.core.GuiSettings;
+import seedu.mycrm.commons.core.LogsCenter;
 
+/**
+ * Manage theme of MyCrm.
+ */
 public class ThemeManager {
     // Theme names
     public static final String THEME_DARK = "dark";
@@ -30,45 +33,24 @@ public class ThemeManager {
     private final ObservableList<String> styleSheets;
 
     // Url of current theme stylesheet
+    // If no theme is stored in user pref since last time and
+    //     * user did not make any changes to theme in this use.
     private String themeUrl;
 
     public ThemeManager(ObservableList<String> styleSheets) {
         this.styleSheets = styleSheets;
     }
 
+    /**
+     * Returns true if there is a theme with provided name.
+     */
     public static boolean hasTheme(String themeName) {
         requireNonNull(themeName);
         return themeNames.contains(themeName);
     }
 
     /**
-     * Return url of last theme the user uses. Return dark theme url if
-     *  1. no theme is stored in user pref since last time, and
-     *  2. user did not make any changes to theme in this use.
-     */
-    protected String getThemeUrl() {
-        return themeUrl == null ? darkThemeUrl : themeUrl;
-    }
-
-    /**
-     * Change Ui theme based on provided theme name. Return true if a theme with the provided name exists, false
-     * otherwise.
-     */
-    protected boolean changeTheme(String themeName) {
-        switch (themeName) {
-        case (THEME_DARK):
-            changeToDarkTheme();
-            return true;
-        case (THEME_LIGHT):
-            changeToLightTheme();
-            return true;
-        default:
-            return false;
-        }
-    }
-
-    /**
-     * Set the Ui theme based on {@code guiSettings}.
+     * Initializes Ui theme based on {@code guiSettings}.
      */
     protected void initTheme(GuiSettings guiSettings) {
         themeUrl = guiSettings.getThemeUrl() == null
@@ -83,6 +65,32 @@ public class ThemeManager {
             // the stored theme url is invalid
             logger.warning("Loaded theme url is invalid. Ui is set to dark theme.");
             changeToDarkTheme();
+        }
+    }
+
+    /**
+     * Returns the url of the latest theme user uses.
+     */
+    protected String getThemeUrl() {
+        return themeUrl;
+    }
+
+    /**
+     * Changes Ui theme based on provided theme name. Return true if a theme with the provided name exists, false
+     * otherwise.
+     */
+    protected boolean changeTheme(String themeName) {
+        switch (themeName) {
+        case (THEME_DARK):
+            changeToDarkTheme();
+            return true;
+
+        case (THEME_LIGHT):
+            changeToLightTheme();
+            return true;
+
+        default:
+            return false;
         }
     }
 
