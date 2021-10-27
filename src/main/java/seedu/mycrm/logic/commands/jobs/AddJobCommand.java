@@ -6,6 +6,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class AddJobCommand extends Command {
     public static final Object MESSAGE_USAGE = COMMAND_WORD + ": Adds a repair job to MyCRM.\n"
         + "Parameters: "
         + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION "
-        + PREFIX_DELIVERY_DATE + "DELIVERY DATE"
-        + PREFIX_FEE + "FEE"
+        + PREFIX_DELIVERY_DATE + "DELIVERY DATE "
+        + PREFIX_FEE + "FEE "
+        + " [" + PREFIX_RECEIVED_DATE + "RECEIVED DATE]"
         + " [" + PREFIX_CONTACT_INDEX + "CONTACT INDEX]"
         + " [" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
         + "Example: " + COMMAND_WORD + " "

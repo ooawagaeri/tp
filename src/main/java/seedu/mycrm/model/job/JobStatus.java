@@ -35,6 +35,14 @@ public class JobStatus {
         this.value = "Completed";
     }
 
+    /**
+     * Mark a Specific Job as incomplete.
+     */
+    public void markIncomplete() {
+        this.isCompleted = false;
+        this.value = "In Progress";
+    }
+
     @Override
     public String toString() {
         return value;

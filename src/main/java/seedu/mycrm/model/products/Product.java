@@ -92,4 +92,9 @@ public class Product {
                 + (this.manufacturer.isEmpty() ? "" : " Manufacturer: " + this.manufacturer)
                 + (this.description.isEmpty() ? "" : " Description: " + this.description);
     }
+
+    @Override
+    public int hashCode() {
+        return this.productName.hashCode();
+    }
 }

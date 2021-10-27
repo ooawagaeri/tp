@@ -2,6 +2,7 @@ package seedu.mycrm.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -52,10 +53,12 @@ public class LogicManager implements Logic {
         Command command;
 
         try {
-            command = myCrmParser.parseCommand(commandText);
-            if (!stateManager.isCommandAllowedForState(command)) {
-                throw new CommandException(stateManager.getCommandNotAllowedMessage());
+            String commandWord = MyCrmParser.parseCommandWord(commandText);
+            if (!stateManager.isCommandAllowedForState(commandWord)) {
+                throw new CommandException(stateManager.getCommandNotAllowedMessage(commandWord));
             }
+            command = myCrmParser.parseCommand(commandText);
+
         } catch (ParseException e) {
             throw new ParseException(stateManager.getErrorMessage() + e.getMessage());
         }
@@ -101,8 +104,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Product> getFilteredTopThreeProductList() {
+        return model.getFilteredTopThreeProductList();
+    }
+
+    @Override
     public ObservableList<Job> getFilteredJobList() {
         return model.getFilteredJobList();
+    }
+
+    @Override
+    public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+        return model.getFilteredMonthlyCompletedJobList();
+    }
+
+    @Override
+    public int getRevenue(LocalDate date) {
+        return model.getRevenue(date);
     }
 
     @Override
