@@ -45,9 +45,9 @@ public class ProductCard extends UiPart<Region> {
         this.product = product;
         id.setText(displayedIndex + ". ");
         name.setText(product.getName().orElse(""));
-        type.setText(product.getType().toString());
-        manufacturer.setText(product.getManufacturer().toString());
-        description.setText(product.getDescription().toString());
+        type.setText("Type: " + product.getType().toString());
+        manufacturer.setText("Manufacturer: " + product.getManufacturer().toString());
+        description.setText("Description: " + product.getDescription().toString());
     }
 
     @Override

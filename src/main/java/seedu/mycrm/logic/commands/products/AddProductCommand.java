@@ -2,6 +2,7 @@ package seedu.mycrm.logic.commands.products;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -23,7 +24,7 @@ public class AddProductCommand extends Command {
             + "\nNote: Product name cannot be empty."
             + "\nExample: addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz";
 
-    public static final String MESSAGE_SUCCESS = "New product added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New product added: %1$s\n";
 
     public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in MyCRM";
 
@@ -41,7 +42,7 @@ public class AddProductCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         if (model.hasProduct(toAdd)) {
@@ -49,7 +50,8 @@ public class AddProductCommand extends Command {
         }
 
         model.addProduct(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toString()), COMMAND_TYPE);
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toString()), COMMAND_TYPE);
+        return stateManager.handleProduct(toAdd, commandResult);
     }
 
     @Override

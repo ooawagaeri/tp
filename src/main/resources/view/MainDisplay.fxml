@@ -6,6 +6,6 @@
 <VBox fx:id="mainDisplayBox" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="header" prefWidth="${mainDisplayBox.width}" prefHeight="22"/>
-    <StackPane fx:id="jobListPanelPlaceholder"/>
-    <StackPane fx:id="mailListPanelPlaceholder"/>
+    <StackPane fx:id="jobListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+    <StackPane fx:id="mailListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
 </VBox>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -36,7 +37,7 @@ public class DeleteTemplateCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         List<Template> lastShownList = model.getFilteredTemplateList();
 

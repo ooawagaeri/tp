@@ -75,11 +75,23 @@ applications.
 
 Adds a new repair job to the CRM.
 
-Format: `addJob d/DESCRIPTION [c/CONTACT_INDEX] [p/PRODUCT_INDEX] [by/DELIVERY_DATE]`
+Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
 
 * Creates a new repair job.
 * Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
   respective contact and product list) to the job.
+* Both product and contact are compulsory attributes of job. If they are not provided 
+  in the form of an index in the above command, the job is not immediately added.
+  * Instead in such a case the user will be asked for info on the missing contact or product (or both).
+  * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
+  * Or the user can issue a command `select INDEX` to select an item from the displayed list.
+  * While the user is being asked for a contact/product only selected commands will be allowed
+    (namely the list, find and add commands for either product or contact).
+  * The user can choose to stop this operation and not add any new job by issuing a `abort` command.
+  * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
+    user cannot instead select a product.
+  * Note: If the operation is stopped via the `abort` command, the job will not be added but any new products/contacts
+    created through the `addContact` and `addProduct` commands will still be added.
 
 Examples:
 
@@ -89,9 +101,45 @@ Examples:
 
     <img src="images/ui-addJob-success.png" width="600px">
 
+### Editing a job: `editJob`
+
+Edits an existing repair job to the CRM.
+
+Format: `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+
+* Edits the repair job at the specified `INDEX`
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
+* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob c/ p/` is valid.
+    * In such a case the user will be asked for info which product or contact (or both) they now want to assign to the job.
+    * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
+    * Or the user can issue a command `select INDEX` to select an item from the displayed list.
+    * While the user is being asked for a contact/product only selected commands will be allowed
+      (namely the list, find and add commands for either product or contact).
+    * The user can choose to stop this operation and not edit the job by issuing a `abort` command.
+    * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
+      user cannot instead select a product.
+    * Note: If the operation is stopped via the `abort` command, the job will not be edited at all.
+      However any new products/contacts created through the `addContact` and `addProduct` commands will still be added.
+
 ### Listing all jobs: `listJob`
 
-Shows a list of all repair jobs in the CRM.
+Shows a list of all repair jobs that have yet to be completed in the CRM.
+
+Format: `listJob [-a] [-c]`
+
+* To show a list of all jobs, regardless of completion status the command `listJob -a` can be issued
+* To show a list of all completed jobs the command `listJob -c` can be issued
+
+### Mark job as complete: `completeJob`
+
+Marks a repair job as complete
+
+Format: `completeJob INDEX`
+
+* Marks the repair job at the specified `INDEX` as complete
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
 
 Format: `listJob`
 
@@ -109,11 +157,14 @@ Format: `deleteJob INDEX`
 
 Add a new contact info of a client into the CRM.
 
-Format: `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS`
+Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
-* Creates a new contact info of a client
-* In the case there happen to be multiple clients with the same name, a list of client names will be shown for the user to select from.
-* Contact number, Address, Email are optional, but must have one of them to make it realistic to get access to the client.
+* Creates a new contact info of a client.
+* In order to protect client's privacy, we allow client to conceal certain 
+  part of their info, but at least one of their phone, email, address 
+  should be given in order to get in touch.
+* Contact number, Address, Email are optional, but must have one of them to
+  make it realistic to get access to the client.
 
 Examples:
 
@@ -122,21 +173,83 @@ Examples:
   
     <img src="images/ui-add-contact.png" width="600px">
 
-### Listing all contacts: `listContact`
-
-Show a list of all contact info in the CRM.
-
-Format:  `listContact` 
-
 ### Deleting a contact: `deleteContact`
 
 Deletes the specified contact from the CRM
 
-Format: `deleteContact 4`
+Format: `deleteContact INDEX`
 
 * Deletes the contact at the specified `INDEX`
 * `INDEX` refers to the index of the contact as shown in the contact listing
 * `INDEX` must be a positive integer(1,2,3…)
+* If this contact is link to a job, it can not be deleted unless the linked job is deleted.
+
+Example:
+
+`deleteIndex 4`
+
+### Editing a contact: `editContact`
+
+Edits the specified contact from the CRM
+
+Format: `editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS]`
+
+* At least one field of name, phone, email or address has to provide in order to
+  change a contact's info.
+* After invoking `editContact ...` command, the job linked to this contact will also
+  update.
+
+
+Example: `editContact 1 n/Chales a/Jurong Branch` 
+
+### Finding a contact: `findContact `
+
+Find certain contact with keyword specified.
+
+Format: `findContact [MORE_KEYWORDS]... `
+
+* User must provide at least one keyword of a contact.
+
+Example:
+
+`findContact Frisk Sans`
+
+### Hiding a contact: `hideContact`
+
+Hide certain contact with INDEX specified.
+
+Format: `hideContact INDEX`
+
+* `hideContact` will add a tag `hidden` to those being hidden.
+* Cannot invoke `hideContact` **again** to those being hidden.
+
+Example:
+
+`hideContact 1`
+
+
+### Undoing hiding a contact: `undoHideContact`
+
+Undo a previous `hideContact` command to certain contact with INDEX specified.
+
+Format: `UndoHideContact INDEX`
+
+* `UndoHideContact` will delete `hidden` tag to the hidden contact.
+* Cannot invoke `UndoHideContact` to visible contacts.
+
+Example:
+
+`UndoHideContact 1`
+
+### Listing all contacts: `listContact`
+
+Show a list of all contact info in the CRM.
+
+Format: `listContact` or `listContact -a`
+
+* Normally, `listContact` will only list contacts not being hidden.
+* If `listContact -a` is invoked, all contacts including hidden ones will be listed.
+
 
 ### Adding a product: `addProduct`
 
@@ -322,10 +435,12 @@ Action              | Format, Examples
 **Add Job**         | `addJob d/DESCRIPTION c/CONTACT_INDEX p/PRODUCT_INDEX by/DELIVERY_DATE` <br>e.g., `addJob d/CPU replacement needed c/1 p/1 by/15/09/2021`
 **List Job**        | `listJob`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
-**Add Contact**     | `addContact n/CLIENT_NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+**Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
 **List Contact**    | `listContact`
 **Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`
+**Hide Contact**     |`hideContact INDEX ` <br>e.g., `hideContact 1`
+**Undo Hide Contact**     |`undoHideContact INDEX... ` <br>e.g., `undoHideContact 1`
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`

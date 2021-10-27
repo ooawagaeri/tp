@@ -27,9 +27,9 @@
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
-            <Label fx:id="manufacturer" styleClass="cell_small_label" text="\$manufacturer" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="type" styleClass="cell_small_label" text="\$type" wrapText="true"/>
+            <Label fx:id="manufacturer" styleClass="cell_small_label" text="\$manufacturer" wrapText="true"/>
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true"/>
         </VBox>
     </GridPane>
 </HBox>

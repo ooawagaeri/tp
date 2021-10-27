@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import seedu.mycrm.commons.core.GuiSettings;
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
@@ -76,7 +77,8 @@ class MailCommandTest {
 
         Mail validMail = new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED).build();
 
-        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub);
+        CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub,
+            new StateManager(modelStub));
 
         assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, INDEX_FIRST_TEMPLATE.getZeroBased()),
                 commandResult.getFeedbackToUser());
@@ -241,6 +243,11 @@ class MailCommandTest {
 
         @Override
         public void hideContact(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoHideContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 

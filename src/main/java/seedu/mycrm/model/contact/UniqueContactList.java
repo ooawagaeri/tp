@@ -30,6 +30,7 @@ public class UniqueContactList implements Iterable<Contact> {
     private final ObservableList<Contact> internalList = FXCollections.observableArrayList();
     private final ObservableList<Contact> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private Contact lastAddedContact;
 
     /**
      * Returns true if the list contains an equivalent contact as the given argument.
@@ -49,6 +50,7 @@ public class UniqueContactList implements Iterable<Contact> {
             throw new DuplicateContactException();
         }
         internalList.add(toAdd);
+        lastAddedContact = toAdd;
     }
 
     /**
@@ -80,7 +82,25 @@ public class UniqueContactList implements Iterable<Contact> {
         requireAllNonNull(target);
         //Copy Contact info.
         Contact hiddenContact = copyContact(target);
-        hiddenContact.toggleHidden();
+        hiddenContact.setHidden();
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ContactNotFoundException();
+        }
+
+        internalList.set(index, hiddenContact);
+    }
+
+    /**
+     * Undoes Hiding the contact {@code target} in the list.
+     * {@code target} must exist in the list.
+     */
+    public void undoHideContact(Contact target) {
+        requireAllNonNull(target);
+        //Copy Contact info.
+        Contact hiddenContact = copyContact(target);
+        hiddenContact.setNotHidden();
 
         int index = internalList.indexOf(target);
         if (index == -1) {

@@ -153,6 +153,13 @@ public interface Model {
     void hideContact(Contact target);
 
     /**
+     * Undo hiding the given contact {@code target}.
+     * {@code target} must exist in the myCrm.
+     */
+    void undoHideContact(Contact target);
+
+
+    /**
      * Returns true if a product with the same identity as {@code product} exists in MyCrm.
      */
     boolean hasProduct(Product product);

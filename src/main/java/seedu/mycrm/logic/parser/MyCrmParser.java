@@ -6,16 +6,19 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.mycrm.logic.commands.AbortCommand;
 import seedu.mycrm.logic.commands.ClearCommand;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.ExitCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
+import seedu.mycrm.logic.commands.SelectCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
 import seedu.mycrm.logic.commands.contacts.HideContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
+import seedu.mycrm.logic.commands.contacts.UndoHideContactCommand;
 import seedu.mycrm.logic.commands.history.ClearHistoryCommand;
 import seedu.mycrm.logic.commands.history.HistoryCommand;
 import seedu.mycrm.logic.commands.jobs.AddJobCommand;
@@ -32,6 +35,7 @@ import seedu.mycrm.logic.commands.mails.MailCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
 import seedu.mycrm.logic.commands.products.DeleteProductCommand;
 import seedu.mycrm.logic.commands.products.EditProductCommand;
+import seedu.mycrm.logic.commands.products.FindProductCommand;
 import seedu.mycrm.logic.commands.products.ListProductCommand;
 import seedu.mycrm.logic.parser.contacts.AddContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.DeleteContactCommandParser;
@@ -39,6 +43,7 @@ import seedu.mycrm.logic.parser.contacts.EditContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.FindContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.HideContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.ListContactCommandParser;
+import seedu.mycrm.logic.parser.contacts.UndoHideContactCommandParser;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.logic.parser.jobs.AddJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.CompleteJobCommandParser;
@@ -53,6 +58,7 @@ import seedu.mycrm.logic.parser.mails.MailCommandParser;
 import seedu.mycrm.logic.parser.products.AddProductCommandParser;
 import seedu.mycrm.logic.parser.products.DeleteProductCommandParser;
 import seedu.mycrm.logic.parser.products.EditProductCommandParser;
+import seedu.mycrm.logic.parser.products.FindProductCommandParser;
 
 /**
  * Parses user input.
@@ -96,6 +102,9 @@ public class MyCrmParser {
         case HideContactCommand.COMMAND_WORD:
             return new HideContactCommandParser().parse(arguments);
 
+        case UndoHideContactCommand.COMMAND_WORD:
+            return new UndoHideContactCommandParser().parse(arguments);
+
         case ListContactCommand.COMMAND_WORD:
             return new ListContactCommandParser().parse(arguments);
 
@@ -116,6 +125,9 @@ public class MyCrmParser {
 
         case EditProductCommand.COMMAND_WORD:
             return new EditProductCommandParser().parse(arguments);
+
+        case FindProductCommand.COMMAND_WORD:
+            return new FindProductCommandParser().parse(arguments);
 
         case DeleteProductCommand.COMMAND_WORD:
             return new DeleteProductCommandParser().parse(arguments);
@@ -158,6 +170,12 @@ public class MyCrmParser {
 
         case ClearHistoryCommand.COMMAND_WORD:
             return new ClearHistoryCommand();
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
+        case AbortCommand.COMMAND_WORD:
+            return new AbortCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

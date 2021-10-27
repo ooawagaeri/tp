@@ -3,6 +3,7 @@ package seedu.mycrm.logic.commands.jobs;
 import static java.util.Objects.requireNonNull;
 
 import seedu.mycrm.commons.core.Messages;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -26,7 +27,7 @@ public class FindJobCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.updateFilteredJobList(predicate);
         return new CommandResult(

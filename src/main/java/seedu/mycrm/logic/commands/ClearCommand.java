@@ -2,6 +2,7 @@ package seedu.mycrm.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.MyCrm;
 
@@ -16,7 +17,7 @@ public class ClearCommand extends Command {
     private static final CommandType COMMAND_TYPE = CommandType.COMMON;
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.setMyCrm(new MyCrm());
         return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);

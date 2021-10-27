@@ -7,7 +7,8 @@
       "x" : 300,
       "y" : 100,
       "z" : 99
-    }
+    },
+    "themeUrl" : "file:/D:/cs2103/tp/build/resources/main/view/DarkTheme.css"
   },
   "myCrmFilePath" : "myCrm.json"
 }
