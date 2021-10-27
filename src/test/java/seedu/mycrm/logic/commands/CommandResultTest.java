@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 public class CommandResultTest {
     @Test
     public void equals() {
-        CommandResult commandResult = new CommandResult("feedback", CommandType.COMMON);
+        CommandResult commandResult = new CommandResult("feedback", CommandType.THEME, "dark");
 
         // same values -> returns true
-        assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", CommandType.COMMON)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", CommandType.THEME, "dark")));
+        assertTrue(new CommandResult("feedback_").equals(new CommandResult("feedback_", CommandType.COMMON)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,7 +29,11 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different command type value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", CommandType.HELP)));
+        assertFalse(new CommandResult("_feedback_", CommandType.HELP).equals(
+                new CommandResult("_feedback_", CommandType.PRODUCTS)));
+
+        // different theme name -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandType.THEME, "light")));
     }
 
     @Test

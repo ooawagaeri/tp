@@ -13,12 +13,18 @@ public class CommandResult {
 
     private final CommandType commandType;
 
+    private final String themeName;
+
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code commandType},
+     * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, CommandType commandType) {
+        assert commandType != CommandType.THEME;
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
+        this.themeName = null; // theme name is set to null by default
     }
 
     /**
@@ -29,12 +35,31 @@ public class CommandResult {
         this(feedbackToUser, CommandType.COMMON);
     }
 
+    /**
+     * Constructs a {@code CommandResult} of theme command with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
+        assert commandType == CommandType.THEME;
+        requireNonNull(themeName);
+
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.commandType = commandType;
+        this.themeName = themeName;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
     public CommandType getCommandType() {
         return commandType;
+    }
+
+    /**
+     * Returns name of desired theme if the instance is created by {@code ThemeCommand}.
+     */
+    public String getThemeName() {
+        return this.themeName;
     }
 
     @Override
@@ -50,7 +75,8 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && commandType == otherCommandResult.commandType;
+                && commandType == otherCommandResult.commandType
+                && (themeName == null || themeName.equals(otherCommandResult.themeName));
     }
 
     @Override
