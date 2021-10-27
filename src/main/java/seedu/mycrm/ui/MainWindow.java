@@ -135,6 +135,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         mainDisplay = new MainDisplay();
+        helpWindow.setGetHostController(hostServices);
         mainDisplay.init(logic, hostServices);
         mainDisplayPlaceholder.getChildren().add(mainDisplay.getRoot());
 

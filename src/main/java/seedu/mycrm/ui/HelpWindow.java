@@ -2,8 +2,10 @@ package seedu.mycrm.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -15,17 +17,22 @@ import seedu.mycrm.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay2122s1-cs2103-t14-3.github.io/tp/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USER_GUIDE_URL = "https://ay2122s1-cs2103-t14-3.github.io/tp/UserGuide.html";
+    public static final String HELP_MESSAGE = "Refer to the user guide: ";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
+
+    private HostServices myHostServices;
 
     @FXML
     private Button copyButton;
 
     @FXML
     private Label helpMessage;
+
+    @FXML
+    private Hyperlink link;
 
     /**
      * Creates a new HelpWindow.
@@ -35,6 +42,15 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+        link.setText(USER_GUIDE_URL);
+
+        link.setOnAction(e -> {
+            myHostServices.showDocument(USER_GUIDE_URL);
+        });
+    }
+
+    public void setGetHostController(HostServices hostServices) {
+        myHostServices = hostServices;
     }
 
     /**
@@ -96,7 +112,7 @@ public class HelpWindow extends UiPart<Stage> {
     private void copyUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
+        url.putString(USER_GUIDE_URL);
         clipboard.setContent(url);
     }
 }
