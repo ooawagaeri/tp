@@ -19,13 +19,15 @@ public class ListJobCommand extends Command {
     public static final String COMMAND_WORD = "listJob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Lists all incomplete jobs by default\n"
+        + ": Lists all pending jobs by default\n"
         + "Flags to modify list of jobs displayed (only one flag allowed at a time): \n"
         + SHOW_ALL_FLAG + ": to show all jobs\n"
         + SHOW_COMPLETED_FLAG + ": to show only completed jobs\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Listed jobs";
+    public static final String MESSAGE_SUCCESS_ALL = "Listed all jobs";
+    public static final String MESSAGE_SUCCESS_ONLY_COMPLETED = "Listed all completed jobs";
+    public static final String MESSAGE_SUCCESS_ONLY_PENDING = "Listed all pending jobs";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
@@ -43,7 +45,15 @@ public class ListJobCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         model.updateFilteredJobList(listPredicate);
-        return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);
+        String userFeedback = MESSAGE_SUCCESS_ALL;
+
+        if(listPredicate == Model.PREDICATE_SHOW_ALL_COMPLETED_JOBS) {
+            userFeedback = MESSAGE_SUCCESS_ONLY_COMPLETED;
+        } else if(listPredicate == Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS) {
+            userFeedback = MESSAGE_SUCCESS_ONLY_PENDING;
+        }
+
+        return new CommandResult(userFeedback, COMMAND_TYPE);
     }
 
     @Override
