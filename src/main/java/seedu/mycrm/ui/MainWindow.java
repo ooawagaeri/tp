@@ -1,9 +1,10 @@
 package seedu.mycrm.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.application.HostServices;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -28,12 +29,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
-    // Urls of theme stylesheets
-    private final String darkThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "DarkTheme.css")
-            .toExternalForm();
-    private final String lightThemeUrl = getClass().getResource(UiPart.FXML_FILE_FOLDER + "LightTheme.css")
-            .toExternalForm();
-
+    private static ThemeManager themeManager;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -46,9 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private MainDisplay mainDisplay;
     private SideDisplay sideDisplay;
     private HelpWindow helpWindow;
-
-    // Url of current theme stylesheet
-    private String themeUrl;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -79,12 +72,15 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        // Initialize theme manager
+        themeManager = new ThemeManager(primaryStage.getScene().getStylesheets());
+
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
-        setTheme(logic.getGuiSettings());
+        themeManager.initTheme(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
     }
@@ -162,25 +158,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Set the Ui theme based on {@code guiSettings}.
-     */
-    public void setTheme(GuiSettings guiSettings) {
-        themeUrl = guiSettings.getThemeUrl() == null
-                ? darkThemeUrl // If UserPref did not store theme, set Ui theme to dark by default
-                : guiSettings.getThemeUrl();
-
-        if (themeUrl.equals(darkThemeUrl)) {
-            changeToDarkTheme();
-        } else if (themeUrl.equals(lightThemeUrl)) {
-            changeToLightTheme();
-        } else {
-            // the stored theme url is invalid
-            logger.warning("Loaded theme url is invalid. Ui is set to dark theme.");
-            changeToDarkTheme();
-        }
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -202,40 +179,22 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), themeUrl);
+                (int) primaryStage.getX(), (int) primaryStage.getY(), themeManager.getThemeUrl());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    /**
-     * Changes Ui to dark theme.
-     */
+    // Theme methods
+
     @FXML
     private void changeToDarkTheme() {
-        logger.info("Changing to dark theme.");
-        ObservableList<String> styleSheets = primaryStage.getScene().getStylesheets();
-
-        if (!styleSheets.contains(darkThemeUrl)) {
-            styleSheets.removeAll(lightThemeUrl);
-            styleSheets.add(darkThemeUrl);
-            themeUrl = darkThemeUrl;
-        }
+        themeManager.changeToDarkTheme();
     }
 
-    /**
-     * Changes Ui to light theme.
-     */
     @FXML
     private void changeToLightTheme() {
-        logger.info("Changing to light theme.");
-        ObservableList<String> styleSheets = primaryStage.getScene().getStylesheets();
-
-        if (!styleSheets.contains(lightThemeUrl)) {
-            styleSheets.removeAll(darkThemeUrl);
-            styleSheets.add(lightThemeUrl);
-            themeUrl = lightThemeUrl;
-        }
+        themeManager.changeToLightTheme();
     }
 
     /**
@@ -251,36 +210,41 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandType) {
-            case CONTACTS:
-            case TEMPLATE:
-            case PRODUCTS:
-            case HISTORY:
-                sideDisplay.switchTab(commandType);
-                break;
+                case CONTACTS:
+                case TEMPLATE:
+                case PRODUCTS:
+                case HISTORY:
+                    sideDisplay.switchTab(commandType);
+                    break;
 
-            case MAIL:
-                mainDisplay.showMailList();;
-                break;
+                case MAIL:
+                    mainDisplay.showMailList();
+                    break;
 
-            case JOBS:
-                mainDisplay.showJobList();;
-                break;
+                case JOBS:
+                    mainDisplay.showJobList();
+                    break;
 
-            case HELP:
-                handleHelp();
-                break;
+                case HELP:
+                    handleHelp();
+                    break;
 
-            case EXIT:
-                handleExit();
-                break;
+                case EXIT:
+                    handleExit();
+                    break;
 
-            case COMMON:
-                // do nothing
-                break;
+                case THEME:
+                    themeManager.changeTheme(commandResult.getThemeName());
+                    break;
 
-            default:
-                assert false;
+                case COMMON:
+                    // do nothing
+                    break;
+
+                default:
+                    assert false;
             }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

@@ -13,12 +13,15 @@ public class CommandResult {
 
     private final CommandType commandType;
 
+    private final String themeName;
+
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields. Set themeName to null.
      */
     public CommandResult(String feedbackToUser, CommandType commandType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
+        this.themeName = null;
     }
 
     /**
@@ -29,12 +32,27 @@ public class CommandResult {
         this(feedbackToUser, CommandType.COMMON);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified fields. Set themeName to null.
+     */
+    public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
+        requireNonNull(themeName);
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.commandType = commandType;
+        this.themeName = themeName;
+    }
+
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
     public CommandType getCommandType() {
         return commandType;
+    }
+
+    public String getThemeName() {
+        return this.themeName;
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.ExitCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
 import seedu.mycrm.logic.commands.SelectCommand;
+import seedu.mycrm.logic.commands.ThemeCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
@@ -38,6 +39,7 @@ import seedu.mycrm.logic.commands.products.DeleteProductCommand;
 import seedu.mycrm.logic.commands.products.EditProductCommand;
 import seedu.mycrm.logic.commands.products.FindProductCommand;
 import seedu.mycrm.logic.commands.products.ListProductCommand;
+import seedu.mycrm.logic.parser.ThemeCommandParser;
 import seedu.mycrm.logic.parser.contacts.AddContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.DeleteContactCommandParser;
 import seedu.mycrm.logic.parser.contacts.EditContactCommandParser;
@@ -143,6 +145,9 @@ public class MyCrmParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
 
         case AddProductCommand.COMMAND_WORD:
             return new AddProductCommandParser().parse(arguments);
