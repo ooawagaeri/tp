@@ -20,7 +20,8 @@ public class CompleteJobCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + "Marks the job identified by the index number in the displayed job list as complete.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[COMPLETION DATE (in dd/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Repair job marked as complete: %1$s";
@@ -28,9 +29,11 @@ public class CompleteJobCommand extends Command {
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
     private final Index targetIndex;
+    private final JobDate completionDate;
 
-    public CompleteJobCommand(Index targetIndex) {
+    public CompleteJobCommand(Index targetIndex, JobDate completionDate) {
         this.targetIndex = targetIndex;
+        this.completionDate = completionDate;
     }
 
     @Override
@@ -49,7 +52,11 @@ public class CompleteJobCommand extends Command {
         }
 
         jobToMarkComplete.markCompleted();
-        jobToMarkComplete.setCompletedDate(JobDate.getCurrentDate());
+        if(completionDate != null) {
+            jobToMarkComplete.setCompletedDate(completionDate);
+        } else {
+            jobToMarkComplete.setCompletedDate(JobDate.getCurrentDate());
+        }
         model.setJob(jobToMarkComplete, jobToMarkComplete);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToMarkComplete), COMMAND_TYPE);

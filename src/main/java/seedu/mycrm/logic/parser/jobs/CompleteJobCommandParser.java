@@ -7,6 +7,7 @@ import seedu.mycrm.logic.commands.jobs.CompleteJobCommand;
 import seedu.mycrm.logic.parser.Parser;
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
+import seedu.mycrm.model.job.JobDate;
 
 public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
     /**
@@ -15,12 +16,21 @@ public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CompleteJobCommand parse(String args) throws ParseException {
+        Index index;
+        String splitArgs[];
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new CompleteJobCommand(index);
+            String trimmedArgs = args.trim();
+            splitArgs = trimmedArgs.split(" ", 2);
+             index = ParserUtil.parseIndex(splitArgs[0]);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteJobCommand.MESSAGE_USAGE), pe);
         }
+
+        JobDate completionDate = null;
+        if(splitArgs.length == 2) {
+            completionDate = ParserUtil.parseJobDate(splitArgs[1]);
+        }
+        return new CompleteJobCommand(index, completionDate);
     }
 }
