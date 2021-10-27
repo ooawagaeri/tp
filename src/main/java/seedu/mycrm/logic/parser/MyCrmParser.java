@@ -73,6 +73,35 @@ public class MyCrmParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
+     * Used to parse the command word from the user input
+     *
+     * @param userInput full user input string
+     * @return the command word
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public static String parseCommandWord(String userInput) throws ParseException {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        return matcher.group("commandWord");
+    }
+
+    /**
+     * Used to parse the arguments from the user input
+     * @param userInput full user input string
+     * @return the arguments of the command
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public static String parseArguments(String userInput) throws ParseException {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        return matcher.group("arguments");
+    }
+
+    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -80,13 +109,9 @@ public class MyCrmParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
+        final String commandWord = parseCommandWord(userInput);
+        final String arguments = parseArguments(userInput);
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         case AddContactCommand.COMMAND_WORD:
