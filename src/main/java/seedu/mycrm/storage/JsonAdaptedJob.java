@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.mycrm.commons.exceptions.IllegalValueException;
-import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
@@ -88,34 +87,34 @@ class JsonAdaptedJob {
         final JobDescription modelJobDescription = new JobDescription(jobDescription);
 
 
-        if(deliveryDate == null) {
+        if (deliveryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "Delivery Date"));
         }
 
-        if(!JobDate.isValidJobDate(deliveryDate)) {
+        if (!JobDate.isValidJobDate(deliveryDate)) {
             throw new IllegalValueException("Delivery Date: " + JobDate.MESSAGE_CONSTRAINTS);
         }
         final JobDate modelJobDeliveryDate = new JobDate(deliveryDate);
 
 
-        if(receivedDate == null) {
+        if (receivedDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 "Received Date"));
         }
 
-        if(!JobDate.isValidJobDate(receivedDate)) {
+        if (!JobDate.isValidJobDate(receivedDate)) {
             throw new IllegalValueException("Received Date: " + JobDate.MESSAGE_CONSTRAINTS);
         }
         final JobDate modelJobReceivedDate = new JobDate(receivedDate);
 
 
-        if(fee == null) {
+        if (fee == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 JobFee.class.getSimpleName()));
         }
 
-        if(!JobFee.isValidJobFee(fee)){
+        if (!JobFee.isValidJobFee(fee)) {
             throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
         }
         final JobFee modelJobFee = new JobFee(fee);
@@ -134,7 +133,7 @@ class JsonAdaptedJob {
 
         JobDate modelJobCompletedDate = null;
         if (completedDate != null) {
-            if(!jobStatus.equals("Completed")){
+            if (!jobStatus.equals("Completed")) {
                 throw new IllegalValueException("Pending job should not have a completed date");
             }
 

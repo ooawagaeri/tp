@@ -17,18 +17,18 @@ public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
      */
     public CompleteJobCommand parse(String args) throws ParseException {
         Index index;
-        String splitArgs[];
+        String[] splitArgs;
         try {
             String trimmedArgs = args.trim();
             splitArgs = trimmedArgs.split(" ", 2);
-             index = ParserUtil.parseIndex(splitArgs[0]);
+            index = ParserUtil.parseIndex(splitArgs[0]);
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteJobCommand.MESSAGE_USAGE), pe);
         }
 
         JobDate completionDate = null;
-        if(splitArgs.length == 2) {
+        if (splitArgs.length == 2) {
             completionDate = ParserUtil.parseJobDate(splitArgs[1]);
         }
         return new CompleteJobCommand(index, completionDate);

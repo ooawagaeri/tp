@@ -47,9 +47,9 @@ public class ListJobCommand extends Command {
         model.updateFilteredJobList(listPredicate);
         String userFeedback = MESSAGE_SUCCESS_ALL;
 
-        if(listPredicate == Model.PREDICATE_SHOW_ALL_COMPLETED_JOBS) {
+        if (listPredicate == Model.PREDICATE_SHOW_ALL_COMPLETED_JOBS) {
             userFeedback = MESSAGE_SUCCESS_ONLY_COMPLETED;
-        } else if(listPredicate == Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS) {
+        } else if (listPredicate == Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS) {
             userFeedback = MESSAGE_SUCCESS_ONLY_PENDING;
         }
 

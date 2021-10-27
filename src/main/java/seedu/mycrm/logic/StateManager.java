@@ -1,7 +1,5 @@
 package seedu.mycrm.logic;
 
-import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,15 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.regex.Matcher;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.AbortCommand;
-import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
-import seedu.mycrm.logic.commands.HelpCommand;
 import seedu.mycrm.logic.commands.SelectCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
@@ -28,8 +23,6 @@ import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
 import seedu.mycrm.logic.commands.products.FindProductCommand;
 import seedu.mycrm.logic.commands.products.ListProductCommand;
-import seedu.mycrm.logic.parser.MyCrmParser;
-import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
@@ -328,7 +321,7 @@ public class StateManager {
     /**
      * Checks if the command issued is allowed based on the current state.
      *
-     * @param command Command to be executed.
+     * @param commandWord Command Word of the command to be executed.
      * @return Whether the command is allowed based on the current state.
      */
     public boolean isCommandAllowedForState(String commandWord) {

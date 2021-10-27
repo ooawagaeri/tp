@@ -31,6 +31,11 @@ public class CompleteJobCommand extends Command {
     private final Index targetIndex;
     private final JobDate completionDate;
 
+    /**
+     * Constructs a CompleteJobCommand object
+     * @param targetIndex Index of job from displayed list that should be marked complete
+     * @param completionDate Date job was completed
+     */
     public CompleteJobCommand(Index targetIndex, JobDate completionDate) {
         this.targetIndex = targetIndex;
         this.completionDate = completionDate;
@@ -52,7 +57,7 @@ public class CompleteJobCommand extends Command {
         }
 
         jobToMarkComplete.markCompleted();
-        if(completionDate != null) {
+        if (completionDate != null) {
             jobToMarkComplete.setCompletedDate(completionDate);
         } else {
             jobToMarkComplete.setCompletedDate(JobDate.getCurrentDate());
