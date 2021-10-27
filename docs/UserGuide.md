@@ -411,7 +411,7 @@ Format:  `clearHistory`
 
 ### Viewing user guide: `help`
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the help page and a hyperlink to it.
 
 Format: `help`
 

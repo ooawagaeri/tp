@@ -39,7 +39,7 @@ public class JsonAdaptedJobTest {
         JsonAdaptedJob job =
                 new JsonAdaptedJob(VALID_JOB_DESCRIPTION, VALID_CLIENT, VALID_PRODUCT, INVALID_DATE,
                         VALID_JOB_STATUS, VALID_DATE, VALID_DATE, VALID_FEE);
-        String expectedMessage = JobDate.MESSAGE_CONSTRAINTS;
+        String expectedMessage = "Delivery Date: " + JobDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, job::toModelType);
     }
 
@@ -48,7 +48,7 @@ public class JsonAdaptedJobTest {
         JsonAdaptedJob job =
                 new JsonAdaptedJob(VALID_JOB_DESCRIPTION, VALID_CLIENT, VALID_PRODUCT, VALID_DATE,
                         VALID_JOB_STATUS, INVALID_DATE, VALID_DATE, VALID_FEE);
-        String expectedMessage = JobDate.MESSAGE_CONSTRAINTS;
+        String expectedMessage = "Received Date: " + JobDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, job::toModelType);
     }
 
@@ -57,7 +57,7 @@ public class JsonAdaptedJobTest {
         JsonAdaptedJob job =
                 new JsonAdaptedJob(VALID_JOB_DESCRIPTION, VALID_CLIENT, VALID_PRODUCT, VALID_DATE,
                         VALID_JOB_STATUS, VALID_DATE, INVALID_DATE, VALID_FEE);
-        String expectedMessage = JobDate.MESSAGE_CONSTRAINTS;
+        String expectedMessage = "Pending job should not have a completed date";
         assertThrows(IllegalValueException.class, expectedMessage, job::toModelType);
     }
 
