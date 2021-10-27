@@ -24,8 +24,10 @@ public class HistoryCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label command;
+
     @FXML
     private Label id;
 

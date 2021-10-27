@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -30,7 +31,10 @@ public class ModelManager implements Model {
     private final FilteredList<Template> filteredTemplates;
     private final FilteredList<Mail> filteredMails;
     private final FilteredList<Job> filteredJobs;
+    private final FilteredList<Job> filteredAllJobs;
+    private final FilteredList<Job> filteredMonthlyCompletedJobs;
     private final FilteredList<Product> filteredProducts;
+    private final FilteredList<Product> filteredTopThreeProducts;
     private final FilteredList<History> filteredHistories;
 
     private Predicate<Job> latestJobPredicate;
@@ -50,7 +54,11 @@ public class ModelManager implements Model {
         filteredTemplates = new FilteredList<>(this.myCrm.getTemplateList());
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
         filteredJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+        filteredAllJobs = new FilteredList<>(this.myCrm.getJobList());
+        filteredMonthlyCompletedJobs =
+                new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
         filteredProducts = new FilteredList<>(this.myCrm.getProductList());
+        filteredTopThreeProducts = new FilteredList<>(this.myCrm.getTopThreeProductList());
         filteredHistories = new FilteredList<>(this.myCrm.getHistoryList());
     }
 
@@ -133,6 +141,7 @@ public class ModelManager implements Model {
         myCrm.removeJob(target);
     }
 
+
     @Override
     public void addContact(Contact contact) {
         myCrm.addContact(contact);
@@ -201,6 +210,10 @@ public class ModelManager implements Model {
         updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
     }
 
+    @Override
+    public int getRevenue(LocalDate date) {
+        return myCrm.getRevenue(date);
+    }
 
     @Override
     public void undoHideContact(Contact target) {
@@ -208,6 +221,7 @@ public class ModelManager implements Model {
 
         myCrm.undoHideContact(target);
         updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+
     }
 
     //=========== Products ================================================================================
@@ -276,10 +290,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Product> getFilteredTopThreeProductList() {
+        return filteredTopThreeProducts;
+    }
+
+    @Override
     public ObservableList<Job> getFilteredJobList() {
         return filteredJobs;
     }
 
+    @Override
+    public ObservableList<Job> getFilteredAllJobList() {
+        return filteredAllJobs;
+    }
+
+    @Override
+    public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+        return filteredMonthlyCompletedJobs;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code History} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<History> getFilteredHistoryList() {
         return filteredHistories;

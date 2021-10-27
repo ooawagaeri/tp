@@ -8,6 +8,7 @@ import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalProducts.INTEL_CPU;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -229,6 +230,25 @@ public class AddProductCommandTest {
 
         @Override
         public void clearHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getRevenue(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Product> getFilteredTopThreeProductList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredAllJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
             throw new AssertionError("This method should not be called.");
         }
 

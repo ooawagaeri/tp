@@ -1,6 +1,7 @@
 package seedu.mycrm.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public interface Model {
     Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
     Predicate<Job> PREDICATE_SHOW_ALL_INCOMPLETE_JOBS = job -> !(job.isCompleted());
     Predicate<Job> PREDICATE_SHOW_ALL_COMPLETED_JOBS = job -> job.isCompleted();
+    Predicate<Job> PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS = job -> job.isCompletedThisMonth(LocalDate.now());
     Predicate<History> PREDICATE_SHOW_ALL_HISTORIES = unused -> true;
     Predicate<Mail> PREDICATE_SHOW_ALL_MAILS = unused -> true;
 
@@ -194,6 +196,8 @@ public interface Model {
      */
     void clearHistory();
 
+    int getRevenue(LocalDate date);
+
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
@@ -206,8 +210,17 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
 
+    /** Returns an unmodifiable view of the filtered product list */
+    ObservableList<Product> getFilteredTopThreeProductList();
+
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredJobList();
+
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Job> getFilteredAllJobList();
+
+    /** Returns an unmodifiable view of the filtered monthly completed job list */
+    ObservableList<Job> getFilteredMonthlyCompletedJobList();
 
     /** Returns an unmodifiable view of the filtered history command list */
     ObservableList<History> getFilteredHistoryList();
