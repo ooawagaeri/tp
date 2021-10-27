@@ -48,4 +48,11 @@ public interface ReadOnlyMyCrm {
      * This list will not contain any duplicate jobs.
      */
     ObservableList<Mail> getMailList();
+
+    /**
+     +Returns an unmodifiable view of the top three product list.
+     * This list will not contain any duplicate products.
+     */
+    ObservableList<Product> getTopThreeProductList();
 }
+

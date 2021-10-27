@@ -11,6 +11,7 @@ import seedu.mycrm.logic.commands.ClearCommand;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.ExitCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
+import seedu.mycrm.logic.commands.PrintReportCommand;
 import seedu.mycrm.logic.commands.SelectCommand;
 import seedu.mycrm.logic.commands.ThemeCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
@@ -204,6 +205,9 @@ public class MyCrmParser {
 
         case ClearHistoryCommand.COMMAND_WORD:
             return new ClearHistoryCommand();
+
+        case PrintReportCommand.COMMAND_WORD:
+            return new PrintReportCommand();
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);

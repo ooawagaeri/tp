@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainDisplay mainDisplay;
     private SideDisplay sideDisplay;
     private HelpWindow helpWindow;
+    private ReportWindow reportWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -80,6 +81,8 @@ public class MainWindow extends UiPart<Stage> {
         themeManager.initTheme(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+
+        reportWindow = new ReportWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -179,7 +182,17 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY(), themeManager.getThemeUrl());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        reportWindow.hide();
         primaryStage.hide();
+    }
+
+    private void handlePrintReport() {
+        reportWindow.fillInnerParts();
+        if (!reportWindow.isShowing()) {
+            reportWindow.show();
+        } else {
+            reportWindow.focus();
+        }
     }
 
     /**
@@ -236,6 +249,10 @@ public class MainWindow extends UiPart<Stage> {
 
             case THEME:
                 themeManager.changeTheme(commandResult.getThemeName());
+                break;
+
+            case REPORT:
+                handlePrintReport();
                 break;
 
             case COMMON:

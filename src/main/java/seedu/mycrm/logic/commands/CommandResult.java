@@ -20,6 +20,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, CommandType commandType) {
+        assert commandType != CommandType.THEME;
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
         this.themeName = null; // theme name is set to null by default
@@ -37,7 +39,9 @@ public class CommandResult {
      * Constructs a {@code CommandResult} of theme command with the specified fields.
      */
     public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
+        assert commandType == CommandType.THEME;
         requireNonNull(themeName);
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
         this.themeName = themeName;
@@ -52,7 +56,7 @@ public class CommandResult {
     }
 
     /**
-     * Returns name of desired theme if the instance is created by {@code ThemeCommand}. Returns null otherwise.
+     * Returns name of desired theme if the instance is created by {@code ThemeCommand}.
      */
     public String getThemeName() {
         return this.themeName;
@@ -71,7 +75,8 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && commandType == otherCommandResult.commandType;
+                && commandType == otherCommandResult.commandType
+                && (themeName == null || themeName.equals(otherCommandResult.themeName));
     }
 
     @Override

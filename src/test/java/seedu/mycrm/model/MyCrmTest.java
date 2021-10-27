@@ -165,6 +165,11 @@ public class MyCrmTest {
         public ObservableList<Mail> getMailList() {
             return mail;
         }
+
+        @Override
+        public ObservableList<Product> getTopThreeProductList() {
+            return products;
+        }
     }
 
 }
