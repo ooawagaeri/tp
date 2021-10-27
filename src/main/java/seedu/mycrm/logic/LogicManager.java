@@ -52,10 +52,12 @@ public class LogicManager implements Logic {
         Command command;
 
         try {
-            command = myCrmParser.parseCommand(commandText);
-            if (!stateManager.isCommandAllowedForState(command)) {
-                throw new CommandException(stateManager.getCommandNotAllowedMessage());
+            String commandWord = MyCrmParser.parseCommandWord(commandText);
+            if (!stateManager.isCommandAllowedForState(commandWord)) {
+                throw new CommandException(stateManager.getCommandNotAllowedMessage(commandWord));
             }
+            command = myCrmParser.parseCommand(commandText);
+
         } catch (ParseException e) {
             throw new ParseException(stateManager.getErrorMessage() + e.getMessage());
         }

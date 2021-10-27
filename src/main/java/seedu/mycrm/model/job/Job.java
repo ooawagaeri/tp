@@ -115,6 +115,10 @@ public class Job {
         jobStatus.markCompleted();
     }
 
+    public void markIncomplete() {
+        jobStatus.markIncomplete();
+    }
+
     public JobDate getReceivedDate() {
         return receivedDate;
     }

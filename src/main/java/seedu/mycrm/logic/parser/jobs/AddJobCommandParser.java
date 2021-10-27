@@ -47,11 +47,11 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
         JobDescription jobDescription = ParserUtil.parseJobDescription(
                 argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get());
 
-        JobDate deliveryDate = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_DELIVERY_DATE)) {
-            deliveryDate = ParserUtil.parseJobDate(
+        JobDate deliveryDate = ParserUtil.parseJobDate(
                 argMultimap.getValue(PREFIX_DELIVERY_DATE).get());
-        }
+
+        JobFee fee = ParserUtil.parseJobFee(
+                argMultimap.getValue(PREFIX_FEE).get());
 
         JobDate receivedDate = null;
         if (arePrefixesPresent(argMultimap, PREFIX_RECEIVED_DATE)) {
@@ -59,12 +59,6 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
                 argMultimap.getValue(PREFIX_RECEIVED_DATE).get());
         } else {
             receivedDate = JobDate.getCurrentDate();
-        }
-
-        JobFee fee = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_FEE)) {
-            fee = ParserUtil.parseJobFee(
-                argMultimap.getValue(PREFIX_FEE).get());
         }
 
         Index contactIndex = null;

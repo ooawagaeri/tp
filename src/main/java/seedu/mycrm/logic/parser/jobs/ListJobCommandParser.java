@@ -28,6 +28,7 @@ public class ListJobCommandParser implements Parser<ListJobCommand> {
 
         if (trimmedArgs.isEmpty()) {
             listPredicate = PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
+            return new ListJobCommand(listPredicate);
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
@@ -42,6 +43,9 @@ public class ListJobCommandParser implements Parser<ListJobCommand> {
             } else if (SHOW_COMPLETED_FLAG.equals(nameKeywords[0])) {
                 System.out.println(nameKeywords[0]);
                 listPredicate = PREDICATE_SHOW_ALL_COMPLETED_JOBS;
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListJobCommand.MESSAGE_USAGE));
             }
         }
         return new ListJobCommand(listPredicate);
