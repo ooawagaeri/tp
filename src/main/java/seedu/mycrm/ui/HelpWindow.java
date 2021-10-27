@@ -49,10 +49,6 @@ public class HelpWindow extends UiPart<Stage> {
         });
     }
 
-    public void setGetHostController(HostServices hostServices) {
-        myHostServices = hostServices;
-    }
-
     /**
      * Creates a new HelpWindow.
      */
@@ -103,6 +99,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Sets help window host service for URL opening.
+     */
+    public void setGetHostController(HostServices hostServices) {
+        myHostServices = hostServices;
     }
 
     /**
