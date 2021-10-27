@@ -1,6 +1,7 @@
 package seedu.mycrm.logic;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import javafx.collections.ObservableList;
 import seedu.mycrm.commons.core.GuiSettings;
@@ -47,11 +48,19 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of products */
     ObservableList<Product> getFilteredProductList();
 
+    /** Returns an unmodifiable view of the filtered list of top three products */
+    ObservableList<Product> getFilteredTopThreeProductList();
+
     /** Returns an unmodifiable view of the filtered list of jobs */
     ObservableList<Job> getFilteredJobList();
 
+    /** Returns an unmodifiable view of the filtered list of monthly completed jobs */
+    ObservableList<Job> getFilteredMonthlyCompletedJobList();
+
     /** Returns an unmodifiable view of the filtered list of history commands */
     ObservableList<History> getFilteredHistoryList();
+
+    int getRevenue(LocalDate date);
 
     /**
      * Returns the user prefs' myCrm file path.

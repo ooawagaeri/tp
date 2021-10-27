@@ -28,7 +28,7 @@ public class ListJobCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListJobCommand(PREDICATE_SHOW_ALL_INCOMPLETE_JOBS), model,
-                ListJobCommand.MESSAGE_SUCCESS, expectedModel);
+                ListJobCommand.MESSAGE_SUCCESS_ONLY_PENDING, expectedModel);
     }
 
 }

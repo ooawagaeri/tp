@@ -11,6 +11,7 @@ import seedu.mycrm.logic.commands.ClearCommand;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.ExitCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
+import seedu.mycrm.logic.commands.PrintReportCommand;
 import seedu.mycrm.logic.commands.SelectCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
@@ -27,6 +28,7 @@ import seedu.mycrm.logic.commands.jobs.DeleteJobCommand;
 import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.commands.jobs.FindJobCommand;
 import seedu.mycrm.logic.commands.jobs.ListJobCommand;
+import seedu.mycrm.logic.commands.jobs.UndoCompleteJobCommand;
 import seedu.mycrm.logic.commands.mails.AddTemplateCommand;
 import seedu.mycrm.logic.commands.mails.DeleteTemplateCommand;
 import seedu.mycrm.logic.commands.mails.EditTemplateCommand;
@@ -52,6 +54,7 @@ import seedu.mycrm.logic.parser.jobs.DeleteJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.EditJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.FindJobCommandParser;
 import seedu.mycrm.logic.parser.jobs.ListJobCommandParser;
+import seedu.mycrm.logic.parser.jobs.UndoCompleteJobCommandParser;
 import seedu.mycrm.logic.parser.mails.AddTemplateCommandParser;
 import seedu.mycrm.logic.parser.mails.DeleteTemplateCommandParser;
 import seedu.mycrm.logic.parser.mails.EditTemplateCommandParser;
@@ -73,6 +76,35 @@ public class MyCrmParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
+     * Used to parse the command word from the user input
+     *
+     * @param userInput full user input string
+     * @return the command word
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public static String parseCommandWord(String userInput) throws ParseException {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        return matcher.group("commandWord");
+    }
+
+    /**
+     * Used to parse the arguments from the user input
+     * @param userInput full user input string
+     * @return the arguments of the command
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public static String parseArguments(String userInput) throws ParseException {
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+        return matcher.group("arguments");
+    }
+
+    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -80,13 +112,9 @@ public class MyCrmParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
+        final String commandWord = parseCommandWord(userInput);
+        final String arguments = parseArguments(userInput);
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         case AddContactCommand.COMMAND_WORD:
@@ -164,6 +192,9 @@ public class MyCrmParser {
         case CompleteJobCommand.COMMAND_WORD:
             return new CompleteJobCommandParser().parse(arguments);
 
+        case UndoCompleteJobCommand.COMMAND_WORD:
+            return new UndoCompleteJobCommandParser().parse(arguments);
+
         case EditJobCommand.COMMAND_WORD:
             return new EditJobCommandParser().parse(arguments);
 
@@ -175,6 +206,9 @@ public class MyCrmParser {
 
         case ClearHistoryCommand.COMMAND_WORD:
             return new ClearHistoryCommand();
+
+        case PrintReportCommand.COMMAND_WORD:
+            return new PrintReportCommand();
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);

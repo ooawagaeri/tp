@@ -20,7 +20,7 @@ public class CompleteJobCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredJobList().size() + 1);
-        CompleteJobCommand completeJobCommand = new CompleteJobCommand(INDEX_SECOND_JOB);
+        CompleteJobCommand completeJobCommand = new CompleteJobCommand(INDEX_SECOND_JOB, null);
 
 
         assertCommandFailure(completeJobCommand, model, Messages.MESSAGE_INVALID_JOB_DISPLAYED_INDEX);
@@ -28,13 +28,13 @@ public class CompleteJobCommandTest {
 
     @Test
     public void equals() {
-        CompleteJobCommand completeJobCommand = new CompleteJobCommand(INDEX_SECOND_JOB);
+        CompleteJobCommand completeJobCommand = new CompleteJobCommand(INDEX_SECOND_JOB, null);
 
         // same object -> returns true
         assertTrue(completeJobCommand.equals(completeJobCommand));
 
         // same values -> returns true
-        CompleteJobCommand completeJobCommandCopy = new CompleteJobCommand(INDEX_SECOND_JOB);
+        CompleteJobCommand completeJobCommandCopy = new CompleteJobCommand(INDEX_SECOND_JOB, null);
         assertTrue(completeJobCommand.equals(completeJobCommandCopy));
 
         // different types -> returns false

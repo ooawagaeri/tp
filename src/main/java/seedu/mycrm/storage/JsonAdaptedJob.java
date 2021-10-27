@@ -51,28 +51,14 @@ class JsonAdaptedJob {
      */
     public JsonAdaptedJob(Job source) {
         jobDescription = source.getJobDescription().toString();
-
-        if (source.getClient() != null) {
-            client = source.getClient().getName().toString();
-        }
-
-        if (source.getProduct() != null) {
-            product = source.getProduct().getName().toString();
-        }
-
+        client = source.getClient().getName().toString();
+        product = source.getProduct().getName().toString();
+        deliveryDate = source.getDeliveryDate().raw();
         jobStatus = source.getJobStatus().toString();
         receivedDate = source.getReceivedDate().raw();
-
+        fee = source.getFee().toString();
         if (source.isCompleted()) {
             completedDate = source.getCompletedDate().raw();
-        }
-
-        if (source.getFee() != null) {
-            fee = source.getFee().toString();
-        }
-
-        if (source.getDeliveryDate() != null) {
-            deliveryDate = source.getDeliveryDate().raw();
         }
     }
 
@@ -100,46 +86,44 @@ class JsonAdaptedJob {
         }
         final JobDescription modelJobDescription = new JobDescription(jobDescription);
 
-        JobDate modelJobDeliveryDate = null;
-        if (deliveryDate != null) {
-            if (JobDate.isValidJobDate(deliveryDate)) {
-                modelJobDeliveryDate = new JobDate(deliveryDate);
-            } else {
-                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
-            }
+
+        if (deliveryDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Delivery Date"));
         }
 
-        JobDate modelJobReceivedDate = null;
-        if (receivedDate != null) {
-            if (JobDate.isValidJobDate(receivedDate)) {
-                modelJobReceivedDate = new JobDate(receivedDate);
-            } else {
-                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
-            }
+        if (!JobDate.isValidJobDate(deliveryDate)) {
+            throw new IllegalValueException("Delivery Date: " + JobDate.MESSAGE_CONSTRAINTS);
+        }
+        final JobDate modelJobDeliveryDate = new JobDate(deliveryDate);
+
+
+        if (receivedDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                "Received Date"));
         }
 
-        JobDate modelJobCompletedDate = null;
-        if (completedDate != null) {
-            if (JobDate.isValidJobDate(completedDate)) {
-                modelJobCompletedDate = new JobDate(completedDate);
-            } else {
-                throw new IllegalValueException(JobDate.MESSAGE_CONSTRAINTS);
-            }
+        if (!JobDate.isValidJobDate(receivedDate)) {
+            throw new IllegalValueException("Received Date: " + JobDate.MESSAGE_CONSTRAINTS);
+        }
+        final JobDate modelJobReceivedDate = new JobDate(receivedDate);
+
+
+        if (fee == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                JobFee.class.getSimpleName()));
         }
 
-        JobFee modelJobFee = null;
-        if (fee != null) {
-            if (JobFee.isValidJobFee(fee)) {
-                modelJobFee = new JobFee(fee);
-            } else {
-                throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
-            }
+        if (!JobFee.isValidJobFee(fee)) {
+            throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
         }
+        final JobFee modelJobFee = new JobFee(fee);
 
         if (jobStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     JobStatus.class.getSimpleName()));
         }
+
         final JobStatus modelJobStatus;
         if (jobStatus.equals("Completed")) {
             modelJobStatus = new JobStatus(true);
@@ -147,11 +131,24 @@ class JsonAdaptedJob {
             modelJobStatus = new JobStatus(false);
         }
 
-        final Job modeJob = new Job(modelJobDescription, modelJobDeliveryDate,
-                modelJobReceivedDate, modelJobFee);
-        modeJob.setJobStatus(modelJobStatus);
-        modeJob.setCompletedDate(modelJobCompletedDate);
+        JobDate modelJobCompletedDate = null;
+        if (completedDate != null) {
+            if (!jobStatus.equals("Completed")) {
+                throw new IllegalValueException("Pending job should not have a completed date");
+            }
 
-        return modeJob;
+            if (JobDate.isValidJobDate(completedDate)) {
+                modelJobCompletedDate = new JobDate(completedDate);
+            } else {
+                throw new IllegalValueException("Completed Date: " + JobDate.MESSAGE_CONSTRAINTS);
+            }
+        }
+
+        final Job modelJob = new Job(modelJobDescription, modelJobDeliveryDate,
+                modelJobReceivedDate, modelJobFee);
+        modelJob.setJobStatus(modelJobStatus);
+        modelJob.setCompletedDate(modelJobCompletedDate);
+
+        return modelJob;
     }
 }

@@ -30,7 +30,6 @@ public class UniqueContactList implements Iterable<Contact> {
     private final ObservableList<Contact> internalList = FXCollections.observableArrayList();
     private final ObservableList<Contact> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private Contact lastAddedContact;
 
     /**
      * Returns true if the list contains an equivalent contact as the given argument.
@@ -50,7 +49,6 @@ public class UniqueContactList implements Iterable<Contact> {
             throw new DuplicateContactException();
         }
         internalList.add(toAdd);
-        lastAddedContact = toAdd;
     }
 
     /**

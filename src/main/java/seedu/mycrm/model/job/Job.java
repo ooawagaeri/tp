@@ -1,5 +1,8 @@
 package seedu.mycrm.model.job;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.mycrm.model.contact.Contact;
@@ -115,6 +118,10 @@ public class Job {
         jobStatus.markCompleted();
     }
 
+    public void markIncomplete() {
+        jobStatus.markIncomplete();
+    }
+
     public JobDate getReceivedDate() {
         return receivedDate;
     }
@@ -141,6 +148,23 @@ public class Job {
 
     public String getClientEmail() {
         return client.getEmail().toString();
+    }
+
+    public boolean isReceivedThisMonth(LocalDate date) {
+        return this.getReceivedDate().isThisMonth(date);
+    }
+
+    /**
+     * Returns true this job is completed at the same month with the given {@code date}
+     */
+    public boolean isCompletedThisMonth(LocalDate date) {
+        requireNonNull(date);
+
+        if (this.getCompletedDate() == null) {
+            return false;
+        } else {
+            return this.getCompletedDate().isThisMonth(date);
+        }
     }
 
     /**

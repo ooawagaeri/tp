@@ -16,6 +16,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX = "The product index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_DISPLAYED_INDEX = "The job index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_COMPLETE_REQUEST = "The job has already been completed!";
+    public static final String MESSAGE_INVALID_JOB_UNDO_COMPLETE_REQUEST = "The job has not been completed yet!";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_JOBS_LISTED_OVERVIEW = "%1$d jobs listed!";
     public static final String MESSAGE_PRODUCTS_LISTED_OVERVIEW = "%1$d products listed!";

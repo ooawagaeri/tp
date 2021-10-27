@@ -11,7 +11,6 @@ import java.util.Queue;
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.AbortCommand;
-import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.SelectCommand;
@@ -59,7 +58,7 @@ public class StateManager {
         + "Please try to issue the command again after correcting based on the info below.\n";
 
     private static final String COMMAND_NOT_ALLOWED_MESSAGE =
-        "The command is now allowed right now\n"
+        "Command %s is now allowed right now\n"
             + "You can issue the abort command to stop the current operation\n";
 
     private static final String ADD_JOB_ABORTED = "New job %s will not added to MyCRM\n"
@@ -133,24 +132,24 @@ public class StateManager {
         allowedCommandsForState = new HashMap<>();
 
         allowedCommandsForState.put(State.NEW_JOB_CONTACT,
-            new ArrayList<>(Arrays.asList(AddContactCommand.class.getName(),
-                FindContactCommand.class.getName(), ListContactCommand.class.getName(),
-                SelectCommand.class.getName(), AbortCommand.class.getName())));
+            new ArrayList<>(Arrays.asList(AddContactCommand.COMMAND_WORD,
+                FindContactCommand.COMMAND_WORD, ListContactCommand.COMMAND_WORD,
+                SelectCommand.COMMAND_WORD, AbortCommand.COMMAND_WORD)));
 
         allowedCommandsForState.put(State.NEW_JOB_PRODUCT,
-            new ArrayList<>(Arrays.asList(AddProductCommand.class.getName(),
-                FindProductCommand.class.getName(), ListProductCommand.class.getName(),
-                SelectCommand.class.getName(), AbortCommand.class.getName())));
+            new ArrayList<>(Arrays.asList(AddProductCommand.COMMAND_WORD,
+                FindProductCommand.COMMAND_WORD, ListProductCommand.COMMAND_WORD,
+                SelectCommand.COMMAND_WORD, AbortCommand.COMMAND_WORD)));
 
         allowedCommandsForState.put(State.EDIT_JOB_CONTACT,
-            new ArrayList<>(Arrays.asList(AddContactCommand.class.getName(),
-                FindContactCommand.class.getName(), ListContactCommand.class.getName(),
-                SelectCommand.class.getName(), AbortCommand.class.getName())));
+            new ArrayList<>(Arrays.asList(AddContactCommand.COMMAND_WORD,
+                FindContactCommand.COMMAND_WORD, ListContactCommand.COMMAND_WORD,
+                SelectCommand.COMMAND_WORD, AbortCommand.COMMAND_WORD)));
 
         allowedCommandsForState.put(State.EDIT_JOB_PRODUCT,
-            new ArrayList<>(Arrays.asList(AddProductCommand.class.getName(),
-                FindProductCommand.class.getName(), ListProductCommand.class.getName(),
-                SelectCommand.class.getName(), AbortCommand.class.getName())));
+            new ArrayList<>(Arrays.asList(AddProductCommand.COMMAND_WORD,
+                FindProductCommand.COMMAND_WORD, ListProductCommand.COMMAND_WORD,
+                SelectCommand.COMMAND_WORD, AbortCommand.COMMAND_WORD)));
     }
 
     /**
@@ -322,15 +321,15 @@ public class StateManager {
     /**
      * Checks if the command issued is allowed based on the current state.
      *
-     * @param command Command to be executed.
+     * @param commandWord Command Word of the command to be executed.
      * @return Whether the command is allowed based on the current state.
      */
-    public boolean isCommandAllowedForState(Command command) {
+    public boolean isCommandAllowedForState(String commandWord) {
         if (currentState == null) {
             return true;
         }
         List<String> allowedCommands = allowedCommandsForState.get(currentState);
-        return allowedCommands.contains(command.getClass().getName());
+        return allowedCommands.contains(commandWord);
     }
 
     /**
@@ -348,12 +347,12 @@ public class StateManager {
     /**
      * Returns a command not allowed message based on current state.
      */
-    public String getCommandNotAllowedMessage() {
+    public String getCommandNotAllowedMessage(String commandWord) {
         if (currentState == null) {
             return "";
         }
 
-        String userFeedback = COMMAND_NOT_ALLOWED_MESSAGE;
+        String userFeedback = String.format(COMMAND_NOT_ALLOWED_MESSAGE, commandWord);
         userFeedback += String.format(currentState.getUserMessage(), job);
         return userFeedback;
     }
