@@ -283,7 +283,8 @@ Format: `deleteProduct INDEX`
 
 ### Send mail: `mail`
 
-Constructs an email to send to a customer of a specified job.
+Constructs an email to send to a customer of a specified job. This command also generates a `mailto:` hyperlink to 
+mail the email to a customer of a specified job.
 
 Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
@@ -296,30 +297,80 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
 Examples:
 
-* `listJobs` and `listTemplates` followed by` mail j/2 t/2` constructs an email to the 2nd job’s customer with the 2nd
+* `listJobs` and `listTemplates` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template
 
-    <img src="images/ui-send-mail.jpg" width="600px">
+    <img src="images/ui-mail.png" width="600px">
 
 ### Adding mail template: `addTemplate`
 
-
-Adds a new email template to the CRM.
+Adds a new email template into the CRM.
 
 Format: `addTemplate s/SUBJECT b/BODY`
 
+* `SUBJECT` and `BODY` field must be non-empty.
+* `SUBJECT` only accepts alphanumeric values and spaces in between.
+  * i.e. Special characters are not allowed. 
+  * Such as `s/He@der 3!` are not allowed.
+* `BODY` accepts any string value (alphanumeric and special characters).
+* `BODY` processes special string `\n` as newline for constructing email.
+  * This is only displayed on `mail` command
+
 Examples:
 
-* `addTemplate s/Repair Completed b/Your product has been completely repaired.`
-* `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.`
+* `addTemplate s/Issue Has Occurred b/Attention:\nYour product has encountered an issue` adds a new Template with 
+  subject "Issue Has Occurred" and body "Attention:\nYour product has encountered an issue". 
+* `addTemplate s/Your order is confirmed b/Your order is confirmed! Thank you for ordering from XXX` adds a new 
+  Template with subject "our order is confirmed" and body "Your order is confirmed! Thank you for ordering from XXX".
 
-    <img src="images/ui-add-email-template.jpg" width="600px">
+    <img src="images/ui-add-template.png" width="600px">
 
 ### Listing all templates: `listTemplate`
 
 Shows a list of all templates in the CRM.
 
 Format: `listTemplates`
+
+  <img src="images/ui-list-template.png" width="600px">
+
+### Editing mail template: `editTemplate`
+
+Edits the specified template from the CRM.
+
+Format: `editTempalte INDEX [s/SUBJECT] [b/BODY]`
+
+* At least one optional edit field must be provided
+* `SUBJECT` only accepts alphanumeric values and spaces in between.
+* `BODY` accepts any string value (alphanumeric and special characters).
+
+Edits the template at the specified `INDEX`
+
+* `INDEX` refers to the index of the template as shown in the template listing
+* `INDEX` must be a positive integer(1,2,3…).
+
+Examples:
+
+* `listTemplate` followed by `editTemplate 4 b/We’re excited for you to receive your order` edits the 4th email
+  template in the CRM, overriding the 4th email template's body with the new input.
+
+    <img src="images/ui-edit-template.png" width="600px">
+
+### Finding mail template: `findTemplate`
+
+Find certain template(s) with keyword specified.
+
+Format: `findTemplate [MORE_KEYWORDS]... `
+
+* User must provide at least one keyword of a template.
+* `MORE_KEYWORDS` searches for `Subject` title
+* `MORE_KEYWORDS` are case-insensitive
+* `MORE_KEYWORDS` searched are whole words
+
+Example:
+
+* `findTemplate Order`
+
+    <img src="images/ui-find-template.png" width="600px">
 
 ### Deleting mail template: `deleteTemplate`
 
@@ -332,11 +383,14 @@ Deletes the template at the specified `INDEX`
 * `INDEX` must be a positive integer(1,2,3…).
 
 Examples:
-* listTemplate followed by deleteTemplate 2 deletes the 2nd email template in the CRM.
+
+* `listTemplate` followed by `deleteTemplate 4` deletes the 4th email template in the CRM.
+
+    <img src="images/ui-delete-template.png" width="600px">
 
 ### Retrieve previous command: `history`
 
-Retrieve the previously entered command
+Retrieves the previously entered command
 
 Format: `Press Up arrow key`/ `history`
 
@@ -351,29 +405,28 @@ Examples:
     
 ### Clear history command data: `clearHistory`
 
-Clear all historical data of user input
+Clears all historical data of user input
 
 Format:  `clearHistory`
 
 ### Viewing user guide: `help`
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the help page and a hyperlink to it.
 
 Format: `help`
 
 ### Exiting the program : `exit`
 
-End MyCRM and exit the programme.
+Ends MyCRM and exits the programme.
 
 Format: `exit`
 
-### Loading JSON data: `[coming in v1.3]`
+### Clearing data: `clear`
 
-_Details coming soon ..._
+Clears current data in the CRM. Empties CRM data.
 
-### Purging JSON data: `[coming in v1.3]`
+Format: `clear`
 
-_Details coming soon ..._
 
 ### Pinning Jobs `[coming in v1.3]`
 
@@ -418,9 +471,11 @@ Action              | Format, Examples
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
-**Mail**            | `mail JOB_INDEX TEMPLATE_INDEX`<br>e.g., `mail 3 1`
+**Mail**            | `mail j/JOB_INDEX t/TEMPLATE_INDEX`<br>e.g., `mail j/3 t/1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
-**List Templates**  | `listTemplates`
+**List Templates**  | `listTemplate`
+**Find Templates**     |`findTemplate [MORE_KEYWORDS]... ` <br>e.g., `findTemplates complete`
+**Edit Templates**  | `editTempalte INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`

@@ -49,6 +49,9 @@ public class MailCard extends UiPart<Region> {
         });
     }
 
+    /**
+     * Sets mail card host service for URL opening.
+     */
     public static void setGetHostController(HostServices hostServices) {
         myHostServices = hostServices;
     }

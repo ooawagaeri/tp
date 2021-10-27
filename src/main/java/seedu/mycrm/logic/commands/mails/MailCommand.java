@@ -30,7 +30,7 @@ public class MailCommand extends Command {
             + PREFIX_JOB_INDEX + "1 "
             + PREFIX_TEMPLATE_INDEX + "1 \n";
 
-    public static final String MESSAGE_MAIL_SUCCESS = "New Email Type %1$s Mailed: \nMailto URL is ready";
+    public static final String MESSAGE_MAIL_SUCCESS = "New Email Type '%s': \nMailto URL is ready";
 
     private static final CommandType COMMAND_TYPE = CommandType.MAIL;
 
@@ -67,7 +67,8 @@ public class MailCommand extends Command {
         Template templateToMail = lastTemplateList.get(templateIndex.getZeroBased());
         model.addMail(new Mail(jobToMail, templateToMail));
 
-        return new CommandResult(String.format(MESSAGE_MAIL_SUCCESS, templateIndex.getZeroBased()), COMMAND_TYPE);
+        return new CommandResult(String.format(MESSAGE_MAIL_SUCCESS, templateToMail.getSubject().toString()),
+                COMMAND_TYPE);
     }
 
     @Override
