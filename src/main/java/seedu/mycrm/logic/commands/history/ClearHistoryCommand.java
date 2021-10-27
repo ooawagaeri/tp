@@ -2,6 +2,7 @@ package seedu.mycrm.logic.commands.history;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -16,7 +17,7 @@ public class ClearHistoryCommand extends Command {
     private static final CommandType COMMAND_TYPE = CommandType.HISTORY;
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.clearHistory();
         return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);

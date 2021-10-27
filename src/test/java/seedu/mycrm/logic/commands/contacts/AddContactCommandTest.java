@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.mycrm.commons.core.GuiSettings;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
@@ -42,7 +43,8 @@ class AddContactCommandTest {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
         Contact validContact = new ContactBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub,
+            new StateManager(modelStub));
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
@@ -55,7 +57,7 @@ class AddContactCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, new StateManager(modelStub)));
     }
 
     @Test
@@ -132,8 +134,13 @@ class AddContactCommandTest {
         }
 
         @Override
-        public void addJob(Job job) {
+        public void setTemplate(Template target, Template editedTemplate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void addJob(Job job) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -177,11 +184,6 @@ class AddContactCommandTest {
         }
 
         @Override
-        public void deleteMail(Mail target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,6 +195,11 @@ class AddContactCommandTest {
 
         @Override
         public void hideContact(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoHideContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -227,9 +234,11 @@ class AddContactCommandTest {
         }
 
         @Override
+
         public int getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
+      
         @Override
         public ObservableList<Product> getFilteredTopThreeProductList() {
             throw new AssertionError("This method should not be called.");
@@ -242,6 +251,11 @@ class AddContactCommandTest {
 
         @Override
         public ObservableList<Job> getFilteredMonthlyCompletedJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+          
+        @Override
+        public Predicate<Job> getLatestJobPredicate() {
             throw new AssertionError("This method should not be called.");
         }
 

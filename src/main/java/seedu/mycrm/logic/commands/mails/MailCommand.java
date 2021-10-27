@@ -6,6 +6,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TEMPLATE_INDEX;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -48,7 +49,7 @@ public class MailCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         java.util.List<Job> lastJobList = model.getFilteredJobList();

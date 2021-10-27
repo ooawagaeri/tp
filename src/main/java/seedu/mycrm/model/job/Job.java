@@ -76,12 +76,20 @@ public class Job {
         this.client = client;
     }
 
+    public boolean hasClient() {
+        return client != null;
+    }
+
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public boolean hasProduct() {
+        return product != null;
     }
 
     public JobDate getDeliveryDate() {
@@ -106,6 +114,10 @@ public class Job {
 
     public void markCompleted() {
         jobStatus.markCompleted();
+    }
+
+    public void markIncomplete() {
+        jobStatus.markIncomplete();
     }
 
     public JobDate getReceivedDate() {

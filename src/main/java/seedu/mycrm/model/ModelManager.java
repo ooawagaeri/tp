@@ -37,6 +37,8 @@ public class ModelManager implements Model {
     private final FilteredList<Product> filteredTopThreeProducts;
     private final FilteredList<History> filteredHistories;
 
+    private Predicate<Job> latestJobPredicate;
+
     /**
      * Initializes a ModelManager with the given myCrm and userPrefs.
      */
@@ -158,14 +160,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addMail(Mail mail) {
-        myCrm.addMail(mail);
-        updateFilteredMailList(PREDICATE_SHOW_ALL_MAILS);
+    public void setTemplate(Template target, Template editedTemplate) {
+        requireAllNonNull(target, editedTemplate);
+        myCrm.setTemplate(target, editedTemplate);
     }
 
     @Override
-    public void deleteMail(Mail target) {
-        myCrm.removeMail(target);
+    public void addMail(Mail mail) {
+        myCrm.addMail(mail);
+        updateFilteredMailList(PREDICATE_SHOW_ALL_MAILS);
     }
 
     @Override
@@ -196,6 +199,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         myCrm.setContact(target, editedContact);
+
     }
 
     @Override
@@ -209,6 +213,15 @@ public class ModelManager implements Model {
     @Override
     public int getRevenue(LocalDate date) {
         return myCrm.getRevenue(date);
+    }
+
+    @Override
+    public void undoHideContact(Contact target) {
+        requireAllNonNull(target);
+
+        myCrm.undoHideContact(target);
+        updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
+
     }
 
     //=========== Products ================================================================================
@@ -332,6 +345,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredJobList(Predicate<Job> predicate) {
         requireNonNull(predicate);
+        latestJobPredicate = predicate;
         filteredJobs.setPredicate(predicate);
     }
 
@@ -339,6 +353,11 @@ public class ModelManager implements Model {
     public void updateFilteredHistoryList(Predicate<History> predicate) {
         requireNonNull(predicate);
         filteredHistories.setPredicate(predicate);
+    }
+
+    @Override
+    public Predicate<Job> getLatestJobPredicate() {
+        return this.latestJobPredicate;
     }
 
     @Override

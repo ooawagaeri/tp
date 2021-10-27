@@ -2,65 +2,58 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-        <VBox alignment="CENTER_LEFT" spacing="5" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
-            </padding>
-            <VBox id="jobInfo" alignment="CENTER_LEFT">
-                <HBox>
-                    <Label fx:id="id" styleClass="cell_big_label">
-                        <minWidth>
-                            <!-- Ensures that the label text is never truncated -->
-                            <Region fx:constant="USE_PREF_SIZE" />
-                        </minWidth>
-                    </Label>
-                    <Label fx:id="title" styleClass="cell_big_label">
-                        <minWidth>
-                            <!-- Ensures that the label text is never truncated -->
-                            <Region fx:constant="USE_PREF_SIZE" />
-                        </minWidth>
-                    </Label>
-                </HBox>
-                <VBox>
-                    <FlowPane fx:id="status" />
-                    <Label fx:id="deliveryDate" styleClass="cell_small_label">
-                        <minWidth>
-                            <!-- Ensures that the label text is never truncated -->
-                            <Region fx:constant="USE_PREF_SIZE" />
-                        </minWidth>
-                    </Label>
-                    <Label fx:id="fee" styleClass="cell_small_label" />
-                    <Label fx:id="receivedDate" styleClass="cell_small_label" />
-                    <Label fx:id="completionDate" styleClass="cell_small_label" />
-                </VBox>
-            </VBox>
-            <HBox spacing="10">
-                <VBox fx:id="clientInfo">
-                    <Label fx:id="clientInfoHeader" styleClass="cell_medium_label" />
-                    <Label fx:id="phone" styleClass="cell_small_label" />
-                    <Label fx:id="address" styleClass="cell_small_label" />
-                    <Label fx:id="email" styleClass="cell_small_label" />
-                    <FlowPane fx:id="tags" />
-                </VBox>
-                <VBox fx:id="productInfo">
-                    <Label fx:id="productInfoHeader" styleClass="cell_medium_label" />
-                    <Label fx:id="productType" styleClass="cell_small_label" />
-                    <Label fx:id="productManufacturer" styleClass="cell_small_label" />
-                    <Label fx:id="productDescription" styleClass="cell_small_label" />
-                </VBox>
-            </HBox>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<VBox fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+      alignment="CENTER_LEFT" spacing="5" minHeight="105">
+    <padding>
+        <Insets top="8" right="15" bottom="8" left="15" />
+    </padding>
+    <VBox id="jobInfo" alignment="CENTER_LEFT" VBox.vgrow="NEVER" spacing="3">
+        <HBox VBox.vgrow="NEVER">
+            <Label fx:id="id" styleClass="cell_big_label">
+                <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+            <Label fx:id="title" styleClass="cell_big_label">
+                <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+        </HBox>
+        <VBox VBox.vgrow="NEVER">
+            <StackPane fx:id="status" alignment="CENTER_LEFT" />
+            <Label fx:id="fee" styleClass="cell_small_label" />
+            <Label fx:id="receivedDate" styleClass="cell_small_label" />
+            <Label fx:id="completionDate" styleClass="cell_small_label" />
         </VBox>
+    </VBox>
+    <GridPane fx:id="gridPane" hgap="10" VBox.vgrow="ALWAYS">
+        <VBox fx:id="clientInfo" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="280">
+            <Label fx:id="clientInfoHeader" styleClass="cell_medium_label" />
+            <Label fx:id="phone" styleClass="cell_small_label" />
+            <Label fx:id="address" styleClass="cell_small_label"/>
+            <Label fx:id="email" styleClass="cell_small_label" />
+            <FlowPane fx:id="tags" />
+        </VBox>
+        <VBox fx:id="productInfo" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="280">
+            <Label fx:id="productInfoHeader" styleClass="cell_medium_label" />
+            <Label fx:id="productType" styleClass="cell_small_label" />
+            <Label fx:id="productManufacturer" styleClass="cell_small_label" />
+            <Label fx:id="productDescription" styleClass="cell_small_label"/>
+        </VBox>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
     </GridPane>
-</HBox>
+</VBox>

@@ -1,6 +1,7 @@
 package seedu.mycrm.logic.parser.contacts;
 
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mycrm.logic.commands.contacts.ListContactCommand.SHOW_ALL_CONTACTS;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 
@@ -28,7 +29,7 @@ public class ListContactCommandParser implements Parser<ListContactCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        if (nameKeywords.length > 1 || !nameKeywords[0].equals("-a")) {
+        if (nameKeywords.length > 1 || !nameKeywords[0].equals(SHOW_ALL_CONTACTS)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListContactCommand.MESSAGE_USAGE));
         }
 

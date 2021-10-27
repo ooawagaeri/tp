@@ -2,15 +2,19 @@ package seedu.mycrm.logic.commands.products;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_REMOVE_LINKED_PRODUCT;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
+import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.products.Product;
 
 public class DeleteProductCommand extends Command {
@@ -38,7 +42,7 @@ public class DeleteProductCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         List<Product> lastShownList = model.getFilteredProductList();
@@ -48,6 +52,21 @@ public class DeleteProductCommand extends Command {
         }
 
         Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        // check the full job list to find if the product is linked with any jobs
+        Predicate<Job> latestJobPredicate = model.getLatestJobPredicate() == null
+                ? model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
+                : model.getLatestJobPredicate();
+        model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_JOBS);
+        boolean isLinkedToJob = model.getFilteredJobList().stream()
+                .anyMatch(j -> j.getProduct() != null && j.getProduct().isSameProduct(productToDelete));
+        // restore the user's job predicate
+        model.updateFilteredJobList(latestJobPredicate);
+
+        if (isLinkedToJob) {
+            throw new CommandException(MESSAGE_REMOVE_LINKED_PRODUCT);
+        }
+
         model.deleteProduct(productToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete), COMMAND_TYPE);
     }

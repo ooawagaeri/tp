@@ -445,6 +445,7 @@
 
 #mainDisplayBox {
     -fx-border-width: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 #mainDisplayBox > .label {
@@ -459,4 +460,34 @@
      -fx-font-family: "Open Sans Semibold";
      -fx-opacity: 0.9;
      -fx-fill: white;
+}
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: #383838;
+}
+
+.result-display-placeholder {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-border-top-width: 1px;
+}
+
+.link {
+    -fx-padding: 0 0 0 0;
+}
+
+.email {
+    -fx-text-fill: white;
+    -fx-background-color: #FF8000;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+.body {
+    -fx-font-family: "Open Sans Regular";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
 }

@@ -33,6 +33,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final MyCrmParser myCrmParser;
+    private final StateManager stateManager;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -41,6 +42,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         myCrmParser = new MyCrmParser();
+        stateManager = new StateManager(model);
     }
 
     @Override
@@ -48,8 +50,24 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = myCrmParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Command command;
+
+        try {
+            String commandWord = MyCrmParser.parseCommandWord(commandText);
+            if (!stateManager.isCommandAllowedForState(commandWord)) {
+                throw new CommandException(stateManager.getCommandNotAllowedMessage(commandWord));
+            }
+            command = myCrmParser.parseCommand(commandText);
+
+        } catch (ParseException e) {
+            throw new ParseException(stateManager.getErrorMessage() + e.getMessage());
+        }
+
+        try {
+            commandResult = command.execute(model, stateManager);
+        } catch (CommandException e) {
+            throw new CommandException(stateManager.getErrorMessage() + e.getMessage());
+        }
 
         try {
             storage.saveMyCrm(model.getMyCrm());

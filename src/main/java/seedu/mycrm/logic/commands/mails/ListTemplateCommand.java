@@ -3,6 +3,7 @@ package seedu.mycrm.logic.commands.mails;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -20,7 +21,7 @@ public class ListTemplateCommand extends Command {
     private static final CommandType COMMAND_TYPE = CommandType.TEMPLATE;
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
         return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);

@@ -48,22 +48,6 @@ public class DeleteContactCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
-
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
-        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
-
-        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
-
-        Model expectedModel = new ModelManager(model.getMyCrm(), new UserPrefs());
-        expectedModel.deleteContact(contactToDelete);
-        showNoContact(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
 

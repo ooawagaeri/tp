@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -20,13 +21,10 @@ public class HideContactCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Hides the details of the contact identified "
             + "by the index number used in the displayed contact list.\n"
             + "Existing contact info will be hidden.\n"
-            + "If the specific contact is already hidden, calling hideContact will unhide this contact.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_HIDE_CONTACT_SUCCESS = "Hidden Contact: %1$s";
-    public static final String MESSAGE_UNHIDE_CONTACT_SUCCESS = "Unhidden Contact: %1$s";
-
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
@@ -42,7 +40,7 @@ public class HideContactCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
         List<Contact> lastShownList = model.getFilteredContactList();
 
@@ -53,15 +51,13 @@ public class HideContactCommand extends Command {
         Contact contactToHide = lastShownList.get(targetIndex.getZeroBased());
         String successMessage;
 
-        if (!contactToHide.checkIsHidden()) {
-            successMessage = String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide);
-        } else {
-            successMessage = String.format(MESSAGE_UNHIDE_CONTACT_SUCCESS, contactToHide);
+        if (contactToHide.checkIsHidden()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
         }
 
+        successMessage = String.format(MESSAGE_HIDE_CONTACT_SUCCESS, contactToHide);
         model.hideContact(contactToHide);
         model.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
-
         return new CommandResult(successMessage, COMMAND_TYPE);
     }
 

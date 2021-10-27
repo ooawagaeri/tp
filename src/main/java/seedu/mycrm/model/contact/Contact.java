@@ -82,8 +82,12 @@ public class Contact {
         return isHidden;
     }
 
-    public void toggleHidden() {
-        isHidden = !isHidden;
+    public void setHidden() {
+        isHidden = true;
+    }
+
+    public void setNotHidden() {
+        isHidden = false;
     }
 
     /**

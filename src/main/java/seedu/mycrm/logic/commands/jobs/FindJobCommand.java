@@ -3,6 +3,7 @@ package seedu.mycrm.logic.commands.jobs;
 import static java.util.Objects.requireNonNull;
 
 import seedu.mycrm.commons.core.Messages;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
@@ -15,7 +16,7 @@ public class FindJobCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all jobs whose descriptions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + "Graphics card replacement needed";
+            + "Example: " + COMMAND_WORD + " Graphics card replacement needed";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
@@ -26,7 +27,7 @@ public class FindJobCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StateManager stateManager) {
         requireNonNull(model);
         model.updateFilteredJobList(predicate);
         return new CommandResult(

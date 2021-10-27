@@ -119,10 +119,12 @@ public interface Model {
     void addMail(Mail mail);
 
     /**
-     * Deletes the given mail.
-     * The mail must exist in the myCrm.
+     * Replaces the given template {@code target} with {@code editedTemplate}.
+     * {@code target} must exist in the myCrm.
+     * The template identity of {@code editedTemplate} must not be the same as another existing template
+     * in the myCrm.
      */
-    void deleteMail(Mail mail);
+    void setTemplate(Template target, Template editedTemplate);
 
     /**
      * Adds the given job.
@@ -151,6 +153,13 @@ public interface Model {
      * {@code target} must exist in the myCrm.
      */
     void hideContact(Contact target);
+
+    /**
+     * Undo hiding the given contact {@code target}.
+     * {@code target} must exist in the myCrm.
+     */
+    void undoHideContact(Contact target);
+
 
     /**
      * Returns true if a product with the same identity as {@code product} exists in MyCrm.
@@ -216,6 +225,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered history command list */
     ObservableList<History> getFilteredHistoryList();
 
+    /** Returns the latest predicate of the filtered job list */
+    Predicate<Job> getLatestJobPredicate();
+
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -241,7 +253,8 @@ public interface Model {
     void updateFilteredProductList(Predicate<Product> predicate);
 
     /**
-     * Updates the filter of the filtered job list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered job list to filter by the given {@code predicate}. Update the latest job
+     * predicate.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredJobList(Predicate<Job> predicate);

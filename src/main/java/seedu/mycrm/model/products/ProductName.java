@@ -13,7 +13,14 @@ public class ProductName implements ProductComponent<ProductName> {
         this.name = null;
     }
 
-    private ProductName(String name) {
+    /**
+     * Constructs a product name instance.
+     * @param name Name of the product. It cannot be null or empty string.
+     */
+    public ProductName(String name) {
+        requireNonNull(name);
+        assert name.length() > 0;
+
         this.name = name;
     }
 
@@ -22,18 +29,11 @@ public class ProductName implements ProductComponent<ProductName> {
     }
 
     public static ProductName getName(String name) {
-        requireNonNull(name);
-        assert name.length() > 0;
-
         return new ProductName(name);
     }
 
     public static ProductName getName(Optional<String> name) {
-        requireNonNull(name);
-        assert name.orElse("").length() > 0;
-
-        String nameString = name.get();
-        return new ProductName(nameString);
+        return new ProductName(name.orElse(""));
     }
 
     @Override

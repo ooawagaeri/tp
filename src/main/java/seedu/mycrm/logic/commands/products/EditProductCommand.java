@@ -9,13 +9,16 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
+import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.products.Description;
 import seedu.mycrm.model.products.Manufacturer;
 import seedu.mycrm.model.products.Product;
@@ -59,7 +62,7 @@ public class EditProductCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
         if (index.getOneBased() > model.getFilteredProductList().size()) {
@@ -73,8 +76,25 @@ public class EditProductCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
+        // update product
         model.setProduct(toEdit, edited);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ALL_PRODUCTS);
+
+        // update product references in jobs
+        Predicate<Job> latestJobPredicate = model.getLatestJobPredicate() == null
+                ? model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS
+                : model.getLatestJobPredicate();
+
+        model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_JOBS);
+        model.getFilteredJobList().stream()
+                .filter(j -> j.getProduct() != null && j.getProduct().isSameProduct(toEdit))
+                .forEach(j -> {
+                    j.setProduct(edited);
+                    model.setJob(j, j);
+                });
+        // restore the user's job predicate
+        model.updateFilteredJobList(latestJobPredicate);
+
 
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, edited), COMMAND_TYPE);
     }
