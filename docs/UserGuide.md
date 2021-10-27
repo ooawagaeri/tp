@@ -310,9 +310,11 @@ Format: `addTemplate s/SUBJECT b/BODY`
 
 * `SUBJECT` and `BODY` field must be non-empty.
 * `SUBJECT` only accepts alphanumeric values and spaces in between.
-  * i.e. Special characters are not allowed 
-  * Such as `s/He@der 3!`
+  * i.e. Special characters are not allowed. 
+  * Such as `s/He@der 3!` are not allowed.
 * `BODY` accepts any string value (alphanumeric and special characters).
+* `BODY` processes special string `\n` as newline for constructing email.
+  * This is only displayed on `mail` command
 
 Examples:
 
@@ -361,7 +363,8 @@ Format: `findTemplate [MORE_KEYWORDS]... `
 
 * User must provide at least one keyword of a template.
 * `MORE_KEYWORDS` searches for `Subject` title
-  * Specified keywords are case-insensitive
+* `MORE_KEYWORDS` are case-insensitive
+* `MORE_KEYWORDS` searched are whole words
 
 Example:
 

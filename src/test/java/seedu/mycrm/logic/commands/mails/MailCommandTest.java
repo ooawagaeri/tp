@@ -59,8 +59,7 @@ class MailCommandTest {
 
         MailCommand expectedCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
 
-        String expectedMessage = String.format(MailCommand.MESSAGE_MAIL_SUCCESS,
-                INDEX_FIRST_TEMPLATE.getZeroBased());
+        String expectedMessage = String.format(MailCommand.MESSAGE_MAIL_SUCCESS, COMPLETED.getSubject().toString());
 
         ModelManager expectedModel = new ModelManager(model.getMyCrm(), new UserPrefs());
         expectedModel.addMail(validMail);
@@ -80,7 +79,7 @@ class MailCommandTest {
         CommandResult commandResult = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE).execute(modelStub,
             new StateManager(modelStub));
 
-        assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, INDEX_FIRST_TEMPLATE.getZeroBased()),
+        assertEquals(String.format(MailCommand.MESSAGE_MAIL_SUCCESS, COMPLETED.getSubject().toString()),
                 commandResult.getFeedbackToUser());
         assertEquals(List.of(validMail), modelStub.mailsAdded);
     }

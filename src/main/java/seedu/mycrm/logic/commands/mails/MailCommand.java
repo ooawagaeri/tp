@@ -67,7 +67,8 @@ public class MailCommand extends Command {
         Template templateToMail = lastTemplateList.get(templateIndex.getZeroBased());
         model.addMail(new Mail(jobToMail, templateToMail));
 
-        return new CommandResult(String.format(MESSAGE_MAIL_SUCCESS, templateToMail.getSubject().toString()), COMMAND_TYPE);
+        return new CommandResult(String.format(MESSAGE_MAIL_SUCCESS, templateToMail.getSubject().toString()),
+                COMMAND_TYPE);
     }
 
     @Override
