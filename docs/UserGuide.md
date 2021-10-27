@@ -283,7 +283,8 @@ Format: `deleteProduct INDEX`
 
 ### Send mail: `mail`
 
-Constructs an email to send to a customer of a specified job.
+Constructs an email to send to a customer of a specified job. This command also generates a `mailto:` hyperlink to 
+mail the email to a customer of a specified job.
 
 Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
@@ -296,10 +297,10 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
 Examples:
 
-* `listJobs` and `listTemplates` followed by` mail j/2 t/2` constructs an email to the 2nd job’s customer with the 2nd
+* `listJobs` and `listTemplates` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template
 
-    <img src="images/ui-send-mail.jpg" width="600px">
+    <img src="images/ui-mail.png" width="600px">
 
 ### Adding mail template: `addTemplate`
 
@@ -315,18 +316,20 @@ Format: `addTemplate s/SUBJECT b/BODY`
 
 Examples:
 
-* `addTemplate s/Repair Completed b/Your product has been completely repaired.` adds a new Template with subject
-  "Repair Completed" and body "Your product has been completely repaired.". 
-* `addTemplate s/Repair Issue b/Your product has faced an issue which requires your attention.` adds a new 
-  Template with subject "Repair Issue" and body "Your product has faced an issue which requires your attention.".
+* `addTemplate s/Issue Has Occurred b/Attention:\nYour product has encountered an issue` adds a new Template with 
+  subject "Issue Has Occurred" and body "Attention:\nYour product has encountered an issue". 
+* `addTemplate s/Your order is confirmed b/Your order is confirmed! Thank you for ordering from XXX` adds a new 
+  Template with subject "our order is confirmed" and body "Your order is confirmed! Thank you for ordering from XXX".
 
-    <img src="images/ui-add-email-template.jpg" width="600px">
+    <img src="images/ui-add-template.png" width="600px">
 
 ### Listing all templates: `listTemplate`
 
 Shows a list of all templates in the CRM.
 
 Format: `listTemplates`
+
+  <img src="images/ui-list-template.png" width="600px">
 
 ### Editing mail template: `editTemplate`
 
@@ -345,8 +348,26 @@ Edits the template at the specified `INDEX`
 
 Examples:
 
-* `listTemplate` followed by `editTemplate 2 b/Dear ma'am ...` edits the 2nd email template in 
-  the CRM, overriding the 2nd email template's body with the new input.
+* `listTemplate` followed by `editTemplate 4 b/We’re excited for you to receive your order` edits the 4th email
+  template in the CRM, overriding the 4th email template's body with the new input.
+
+    <img src="images/ui-edit-template.png" width="600px">
+
+### Finding mail template: `findTemplate`
+
+Find certain template(s) with keyword specified.
+
+Format: `findTemplate [MORE_KEYWORDS]... `
+
+* User must provide at least one keyword of a template.
+* `MORE_KEYWORDS` searches for `Subject` title
+  * Specified keywords are case-insensitive
+
+Example:
+
+* `findTemplate Order`
+
+    <img src="images/ui-find-template.png" width="600px">
 
 ### Deleting mail template: `deleteTemplate`
 
@@ -360,7 +381,9 @@ Deletes the template at the specified `INDEX`
 
 Examples:
 
-* `listTemplate` followed by `deleteTemplate 2` deletes the 2nd email template in the CRM.
+* `listTemplate` followed by `deleteTemplate 4` deletes the 4th email template in the CRM.
+
+    <img src="images/ui-delete-template.png" width="600px">
 
 ### Retrieve previous command: `history`
 
@@ -447,7 +470,8 @@ Action              | Format, Examples
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
 **Mail**            | `mail j/JOB_INDEX t/TEMPLATE_INDEX`<br>e.g., `mail j/3 t/1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
-**List Templates**  | `listTemplates`
+**List Templates**  | `listTemplate`
+**Find Templates**     |`findTemplate [MORE_KEYWORDS]... ` <br>e.g., `findTemplates complete`
 **Edit Templates**  | `editTempalte INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
