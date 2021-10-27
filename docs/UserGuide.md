@@ -177,61 +177,75 @@ Examples:
 
 Deletes the specified contact from the CRM
 
-Example: `deleteContact 4`
+Format: `deleteContact INDEX`
 
 * Deletes the contact at the specified `INDEX`
 * `INDEX` refers to the index of the contact as shown in the contact listing
 * `INDEX` must be a positive integer(1,2,3…)
 * If this contact is link to a job, it can not be deleted unless the linked job is deleted.
 
-### Editing a contact: `editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] `
+Example:
+
+`deleteIndex 4`
+
+### Editing a contact: `editContact`
 
 Edits the specified contact from the CRM
 
-Example: `editContact 1 n/Chales a/Jurong Branch` 
+Format: `editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 * At least one field of name, phone, email or address has to provide in order to
-change a contact's info.
+  change a contact's info.
 * After invoking `editContact ...` command, the job linked to this contact will also
-update.
+  update.
 
-### Finding a contact: `findContact [MORE_KEYWORDS]... `
+
+Example: `editContact 1 n/Chales a/Jurong Branch` 
+
+### Finding a contact: `findContact `
 
 Find certain contact with keyword specified.
+
+Format: `findContact [MORE_KEYWORDS]... `
+
+* User must provide at least one keyword of a contact.
 
 Example:
 
 `findContact Frisk Sans`
 
-User must provide at least one keyword of a contact.
-
-### Hiding a contact: `hideContact INDEX`
+### Hiding a contact: `hideContact`
 
 Hide certain contact with INDEX specified.
+
+Format: `hideContact INDEX`
+
+* `hideContact` will add a tag `hidden` to those being hidden.
+* Cannot invoke `hideContact` **again** to those being hidden.
 
 Example:
 
 `hideContact 1`
 
-* `hideContact` will add a tag `hidden` to those being hidden.
-* Cannot invoke `hideContact` **again** to those being hidden.
 
-### Undoing hiding a contact: `undoHideContact INDEX`
+### Undoing hiding a contact: `undoHideContact`
 
 Undo a previous `hideContact` command to certain contact with INDEX specified.
+
+Format: `UndoHideContact INDEX`
+
+* `UndoHideContact` will delete `hidden` tag to the hidden contact.
+* Cannot invoke `UndoHideContact` to visible contacts.
 
 Example:
 
 `UndoHideContact 1`
 
-* `UndoHideContact` will delete `hidden` tag to the hidden contact.
-* Cannot invoke `UndoHideContact` to visible contacts.
-
-### Listing all contacts: `listContact` or `listContact -a`
+### Listing all contacts: `listContact`
 
 Show a list of all contact info in the CRM.
 
-Example:  `listContact` or `listContact -a`
+Format: `listContact` or `listContact -a`
 
 * Normally, `listContact` will only list contacts not being hidden.
 * If `listContact -a` is invoked, all contacts including hidden ones will be listed.
