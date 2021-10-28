@@ -16,7 +16,6 @@ Class CommandBox
 Class ResultDisplay
 
 package "MainDisplay Section" #F4F6F6{
- note "All classes in MainDisplay Section\ninherit from **UiPart** class." as N1
 Class MainDisplay
 Class JobListPanel
 Class JobCard
@@ -25,7 +24,6 @@ Class MailCard
 }
 
 package "SideDisplay Section" #F4F6F6{
- note "All classes in SideDisplay Section\ninherit from **UiPart** class." as N2
 Class SideDisplay
 Class ContactListPanel
 Class ContactCard
@@ -44,6 +42,10 @@ Class StatusBarFooter
 
 Class HelpWindow
 Class ReportWindow
+
+note "All classes in these sections\ninherit from **UiPart** class." as N1
+N1 .. "SideDisplay Section"
+N1 .. "MainDisplay Section"
 }
 
 
