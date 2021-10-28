@@ -76,6 +76,7 @@ applications.
 Adds a new repair job to the CRM.
 
 Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Creates a new repair job.
 * Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
@@ -119,6 +120,7 @@ Examples:
 Edits an existing repair job to the CRM.
 
 Format: `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Edits the repair job at the specified `INDEX`
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
@@ -581,8 +583,8 @@ contains the data of your previous MyCRM home folder.
 Action              | Format, Examples
 --------------------|------------------
 **Add Job**         | `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g.,`addJob d/CPU replacement needed c/1 p/1 by/15/09/2021 fee/30.00`
-**List Job**        | `listJob`
 **Edit Job**        | `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g., `editJob 1 fee/50.00 c/2 p/3`
+**List Job**        | `listJob`
 **Find Job**        | `findJob [MORE_KEYWORDS]... ` <br> e.g., `findJob charlotte intel`
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
 **Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
