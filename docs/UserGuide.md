@@ -31,7 +31,7 @@ applications.
    * **`listContacts `** : Lists all contacts.
 
    * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
-     named `John Doe` to the MyCRM Book.
+     named `John Doe` to the CRM.
 
    * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
 
@@ -278,10 +278,11 @@ Examples:
 
 ### Adding a product: `addProduct`
 
-Add a new product to the CRM.
+Adds a new product to the CRM.
 
 Format: `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
-* Product name is a compulsory field. It must be non-empty.
+
+* `NAME` is a compulsory field. It must be non-empty.
 
 Examples:
 
@@ -298,13 +299,49 @@ Format: `listProduct`
 
 ### Deleting a product: `deleteProduct`
 
-Deletes the specified product from the CRM
+Deletes the specified product from the CRM.
 
 Format: `deleteProduct INDEX`
 
-* Deletes the product at the specified INDEX.
-* INDEX refers to the index of the product as shown in the product listing.
-* INDEX must be a positive integer(1,2,3…).
+* Deletes the product at the specified `INDEX`.
+* `INDEX` refers to the index of the product as shown in the product listing.
+* `INDEX` must be a positive integer(1,2,3…).
+* A product cannot be deleted if it is linked to one or more jobs.
+
+### Editing a product: `editProduct`
+
+Edits an existing product in the CRM.
+
+Format: `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
+  The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided. 
+* Existing values will be updated to input values. Input values must be non-empty.
+* Changes in product fields will be updated in job list automatically.  
+
+Example:
+
+* `editProduct 2 d/Video output interface: DisplayPort, HDMI` edits the description of the 2nd product to be
+  `Video output interface: DisplayPort, HDMI`.
+
+    <img src="images/ui-edit-product.PNG" width="600px">
+
+### Locating products by name: `findProduct`
+
+Finds products whose names contain certain keywords.
+
+Format: `findProduct [MORE_KEYWORDS]...`
+
+* The search is case-insensitive. e.g. `asus` will match `Asus`.
+* Only full words will be matched. e.g. `Asu` will not match `Asus`.
+* Products matching at least one keyword will be returned.
+
+Example:
+
+* `findProduct asus`
+  
+  <img src="images/ui-find-product.PNG" width="600px">
 
 ### Send mail: `mail`
 
@@ -458,9 +495,18 @@ Format: `clear`
 
   <img src="images/ui-clear.png" width="600px">
 
-### Customising User Interfaces `[coming in v1.3]`
+### Changing the theme of user interface `theme`
 
-_Details coming soon ..._
+Changes the theme of user interface.
+
+Format: `theme THEME_NAME`
+
+* There are 2 available Ui themes of the CRM. Their names are `dark` and `light`.
+* `THEME_NAME` is case-insensitive.
+
+Example: `theme light`
+
+  <img src="images/ui-theme.PNG" width="600px">
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -489,6 +535,8 @@ Action              | Format, Examples
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
+**Edit Product**  | `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `editProduct 2 d/Video output interface: DisplayPort, HDMI`
+**Find Product**  | `findProduct [MORE_KEYWORDS]...`<br>e.g., `findProduct asus`
 **Mail**            | `mail j/JOB_INDEX t/TEMPLATE_INDEX`<br>e.g., `mail j/3 t/1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
 **List Templates**  | `listTemplate`
@@ -497,3 +545,4 @@ Action              | Format, Examples
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
+**Change Theme**    | `theme THEME_NAME`<br>e.g., `theme light`

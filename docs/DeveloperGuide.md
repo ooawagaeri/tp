@@ -70,20 +70,26 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+![Structure of the UI Component](images/UiClassDiagram_1.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MainDisplay`, 
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures 
+the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that 
+are in the `src/main/resources/view` folder. For example, the layout of the 
+[`MainWindow`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/MainWindow.java) 
+is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Job`, `Contact`, `Product`, `Template`, `History` 
+  objects residing in the `Model`.
 
 ### Logic component
 
@@ -817,8 +823,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list products.
-2. MyCRM shows a list of products.
+1. User requests to view the list of products.
+2. MyCRM shows the list of products.
 
    Use case ends.
 
@@ -831,48 +837,46 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User <u>requests to list products (UC22)</u>.
-2. User requests to delete a specific product in the list.
-3. MyCRM deletes the product.
+1. User requests to delete a specific product in the list.
+2. MyCRM deletes the product.
     
     Use case ends.
 
 **Extensions**
 
+* 1a. The given index is invalid.
+    * 1a1. MyCRM shows an error message.
 
-* 2a. The given index is invalid.
-    * 2a1. MyCRM shows an error message.
+    Use case ends.    
+
+* 1b. The specified product is linked to one or more jobs.
+    * 1b1. MyCRM shows an error message.
     
-    Use case resumes at <u>step 2 in UC22</u>.
+    Use case ends.
 
 **Use case: UC 24: Edit a product.**
 
 **MSS**
 
-1. User <u>requests to list products (UC22)</u>.
-2. User requests to edit a specific product in the list.
-3. MyCRM edits the product and shows a message with edited information of the product.
+1. User requests to edit a specific product in the list.
+2. MyCRM edits the product and shows a message with info of edited product.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given index is invalid.
-    * 2a1. MyCRM shows an error message.
+* 1a. The given index is invalid.
+    * 1a1. MyCRM shows an error message.
 
-  Use case resumes at <u>step 2 in UC22</u>.
-
-
-* 2b. User requests to edit the name of the product.
-    * 2b1. The product name already exists
-    * 2b2. MyCRM shows an error message.
-
-  Use case resumes at <u>step 2 in UC22</u>.
-
-
-* 2c. User requests to edit the name of the product.
-    * 2c1. The product name is unique.
+    Use case ends.
     
-    Use case resumes at step 3.
+* 1b. User requests to edit the name of the product.
+    * 1b1. The product name already exists
+    * 1b2. MyCRM shows an error message.
+
+* 1c. There is one or more empty fields in user input.
+    * 1c1. MyCRM shows an error message.
+    
+    Use case ends.
 
 **Use case: UC25 - Retrieve Previous Command**
 
@@ -891,7 +895,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. MyCRM list all history commands.
 
    Use case ends.
-   
+
+**Use case: UC 26 - Change the theme of user interface(UI)**
+
+**MSS**
+
+1. User requests to change the theme of UI.
+2. MyCRM changes the theme of Ui.
+
+    Use case ends.
+
+**Extensions**
+* 1a. User enters a theme name that does not exist in MyCRM.
+    * 1a1. MyCRM shows an error message.
+    
+    Use case ends.
+
+* 1b. User enters the name of current theme.
+    * 1a1. MyCRM keeps the current theme.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
