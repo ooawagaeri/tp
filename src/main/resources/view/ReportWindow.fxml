@@ -9,10 +9,13 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
-         title="Monthly Job Report" minWidth="450" minHeight="600" >
+         title="Monthly Job Report" minWidth="1010" minHeight="600" >
     <icons>
-        <Image url="@/images/help_icon.png" />
+        <Image url="@/images/myCrm_icon.png" />
     </icons>
     <scene>
         <Scene>
@@ -22,14 +25,25 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
 
-            <HBox fx:id="contentsDisplayPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="10">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10" />
-                </padding>
+            <VBox>
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#hide" text="Exit" />
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Print">
+                        <MenuItem mnemonicParsing="false" onAction="#handlePrint" text="Print" />
+                    </Menu>
+                </MenuBar>
 
-                <StackPane fx:id="jobDisplayPlaceholder"  HBox.hgrow="ALWAYS"/>
-                <StackPane fx:id="graphDisplayPlaceholder" HBox.hgrow="ALWAYS"/>
-            </HBox>
+                <HBox fx:id="contentsDisplayPlaceHolder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10" />
+                    </padding>
+
+                    <StackPane fx:id="jobDisplayPlaceholder"  HBox.hgrow="ALWAYS"/>
+                    <StackPane fx:id="graphDisplayPlaceholder" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
         </Scene>
     </scene>
 </fx:root>

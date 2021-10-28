@@ -119,7 +119,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public int getRevenue(LocalDate date) {
+    public double getRevenue(LocalDate date) {
         return model.getRevenue(date);
     }
 

@@ -84,4 +84,6 @@ public class JobDisplay extends UiPart<Region> {
                 .bind(topThreeProductListPanelPlaceholder.visibleProperty());
         topThreeProductListPanelPlaceholder.getChildren().add(topThreeProductListPanel.getRoot());
     }
+
+
 }
