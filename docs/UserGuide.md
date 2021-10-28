@@ -80,26 +80,39 @@ Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/C
 * Creates a new repair job.
 * Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
   respective contact and product list) to the job.
+* `RECIEVED_DATE` is set to the current date if not provided
 * Both product and contact are compulsory attributes of job. If they are not provided 
   in the form of an index in the above command, the job is not immediately added.
-  * Instead in such a case the user will be asked for info on the missing contact or product (or both).
-  * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
-  * Or the user can issue a command `select INDEX` to select an item from the displayed list.
+  * Instead, in such a case, the user will be asked for info on the missing contact or product (or both).
+  * User can choose to create a new contact/product and immediately assign it to the job currently being created 
+    via the `addContact` and `addProduct` commands.
+  * Or the user can issue a command `select INDEX` to select an item from its displayed list.
   * While the user is being asked for a contact/product only selected commands will be allowed
     (namely the list, find and add commands for either product or contact).
   * The user can choose to stop this operation and not add any new job by issuing a `abort` command.
   * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
-    user cannot instead select a product.
+    user cannot select or create a product instead.
   * Note: If the operation is stopped via the `abort` command, the job will not be added but any new products/contacts
     created through the `addContact` and `addProduct` commands will still be added.
 
 Examples:
 
-* `addJob d/CPU replacement needed c/1 p/1 by/15/09/2021`
+* To add a job with a pre-existing contact and product
+* Either the command `addJob d/Change CPU fee/$50 by/10/11/2021 c/1 p/1` can be issued OR 
+* The following sequence of commands can be issued:
+  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `select 1` (to select contact) 
+  * `select 1` (to select product)
 
-* Then the addJob command is complete and the user sees the following screen:
+      <img src="images/ui-addJob-success1.png" width="600px">
+  
+* To add a job with new a contact and product
+* Issue the following sequence of commands:
+  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com` 
+  * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
 
-    <img src="images/ui-addJob-success.png" width="600px">
+     <img src="images/ui-addJob-success2.png" width="600px">
 
 ### Editing a job: `editJob`
 
@@ -111,17 +124,38 @@ Format: `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEV
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 * It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob c/ p/` is valid.
-    * In such a case the user will be asked for info which product or contact (or both) they now want to assign to the job.
-    * User can choose to assign a new contact/product via the `addContact` and `addProduct` commands.
+    * In such a case the user will be asked for info which product or contact (or both) 
+      they now want to assign to the job.
+    * User can choose to create new contact/product and immediately assign it via 
+      the `addContact` and `addProduct` commands.
     * Or the user can issue a command `select INDEX` to select an item from the displayed list.
     * While the user is being asked for a contact/product only selected commands will be allowed
       (namely the list, find and add commands for either product or contact).
     * The user can choose to stop this operation and not edit the job by issuing a `abort` command.
     * Note: The user is asked for the contact and product one after the other. i.e If asked for the contact first
-      user cannot instead select a product.
+      user cannot select or create a product instead.
     * Note: If the operation is stopped via the `abort` command, the job will not be edited at all.
-      However any new products/contacts created through the `addContact` and `addProduct` commands will still be added.
+      However, any new products/contacts created through the `addContact` and `addProduct` commands will still be added.
 
+Examples:
+
+* To edit a job and reassign to it other pre-existing contact and product
+* Either the command `editJob 1 c/3 p/2` can be issued OR
+* The following sequence of commands can be issued:
+  * `editJob 1 c/ p/`
+  * `select 3` (to select contact)
+  * `select 2` (to select product)
+
+      <img src="images/ui-editJob-success1.png" width="600px">
+
+* To add a job with new a contact and product
+* Issue the following sequence of commands:
+  * `editJob 1 c/ p/`
+  * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com`
+  * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
+
+     <img src="images/ui-editJob-success2.png" width="600px">
+  
 ### Listing all jobs: `listJob`
 
 Shows a list of all repair jobs that have yet to be completed in the CRM.
@@ -135,13 +169,23 @@ Format: `listJob [-a] [-c]`
 
 Marks a repair job as complete
 
-Format: `completeJob INDEX`
+Format: `completeJob INDEX [COMPLETION_DATE]`
 
 * Marks the repair job at the specified `INDEX` as complete
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
+* `COMPLETION_DATE` is set to the current date if it is not provided
 
-Format: `listJob`
+### Revert the completion status of a previously complete job: `undoCompleteJob`
+
+Marks a previously completed job as incomplete
+
+Format: `undoJobComplete INDEX`
+
+* Marks the repair job at the specified `INDEX` as complete
+* `INDEX` must refer to a job that works on a previously completed command. It will not work on a currently pending job.
+* `INDEX` refers to the index of the repair job as shown in the repair job listing
+* `INDEX` must be a positive integer(1,2,3…)
 
 ### Deleting a job: `deleteJob`
 
@@ -293,6 +337,18 @@ Examples:
 Shows a list of all products in the CRM.
 
 Format: `listProduct`
+
+### Finding a product: `findProduct`
+
+Find products that whose name matches the keywords specified.
+
+Format: `findProduct [MORE_KEYWORDS]... `
+
+* User must provide at least one keyword of a product.
+
+Example: 
+
+`findProduct Intel`
 
 ### Deleting a product: `deleteProduct`
 
@@ -474,8 +530,11 @@ contains the data of your previous MyCRM home folder.
 
 Action              | Format, Examples
 --------------------|------------------
-**Add Job**         | `addJob d/DESCRIPTION c/CONTACT_INDEX p/PRODUCT_INDEX by/DELIVERY_DATE` <br>e.g., `addJob d/CPU replacement needed c/1 p/1 by/15/09/2021`
+**Add Job**         | `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g.,`addJob d/CPU replacement needed c/1 p/1 by/15/09/2021 fee/30.00`
 **List Job**        | `listJob`
+**Edit Job**        | `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g., `editJob 1 fee/50.00 c/2 p/3`
+**Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
+**Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
 **Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
@@ -486,6 +545,7 @@ Action              | Format, Examples
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
+**Find Product**     |`findProduct [MORE_KEYWORDS]... ` <br>e.g., `findProduct Intel`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
 **Mail**            | `mail j/JOB_INDEX t/TEMPLATE_INDEX`<br>e.g., `mail j/3 t/1`
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
