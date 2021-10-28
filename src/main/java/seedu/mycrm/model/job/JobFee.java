@@ -4,11 +4,14 @@ package seedu.mycrm.model.job;
  * Represents the fee that will be charged to the client for the repair.
  */
 public class JobFee {
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Fee should be amount in dollars, followed by "
-            + "amount in cents, separated by a dot ($ sign is optional). "
-            + "Lowest denomination supported is 1 cent "
-            + "E.g $5.30 ";
+            "Fee should be a positive amount in dollars\n"
+             + "Lowest denomination supported is 1 cent, and values with more precision will be truncated.\n"
+             + "Amounts equal to or greater than 10000000 are not permitted.\n"
+             + "E.g $5.30 ($ sign is optional).\n";
+
+    private static int MAX_VALUE = 10000000;
 
     private int cents;
 
@@ -32,8 +35,8 @@ public class JobFee {
             if (test.startsWith("$")) {
                 test = test.substring(1);
             }
-            Float.parseFloat(test);
-            return true;
+            int value = parse(test);
+            return value > 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -42,7 +45,7 @@ public class JobFee {
     /**
      * Parses the given string for the job fee into amount in cents.
      */
-    public static int parse(String fee) {
+    public static int parse(String fee) throws NumberFormatException {
         if (fee.startsWith("$")) {
             fee = fee.substring(1);
         }
@@ -52,10 +55,19 @@ public class JobFee {
         if (fee.contains(".")) {
             String[] amounts = fee.split("\\.");
             dollars = Integer.parseInt(amounts[0]);
-            cents = Integer.parseInt(amounts[1]);
+            if(amounts[1] != null) {
+                if(amounts[1].length() > 2){
+                    cents = Integer.parseInt(amounts[1].substring(0,2));
+                } else {
+                    cents = Integer.parseInt(amounts[1]);
+                }
+            }
 
         } else {
             dollars = Integer.parseInt(fee);
+            if(dollars >= MAX_VALUE || dollars < 0 || cents < 0) {
+                throw new NumberFormatException();
+            }
         }
 
         int amount = dollars * 100 + cents;
