@@ -598,7 +598,6 @@ Action              | Format, Examples
 **Delete Contact**  | `deleteContact INDEX` <br>e.g., `deleteContact 4`
 **Add Product**     | `addProduct n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 **List Product**    | `listProduct`
-**Find Product**     |`findProduct [MORE_KEYWORDS]... ` <br>e.g., `findProduct Intel`
 **Delete Product**  | `deleteProduct INDEX`<br>e.g., `deleteProduct 4`
 **Edit Product**  | `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`<br>e.g., `editProduct 2 d/Video output interface: DisplayPort, HDMI`
 **Find Product**  | `findProduct [MORE_KEYWORDS]...`<br>e.g., `findProduct asus`
