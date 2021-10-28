@@ -1,0 +1,113 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Interface Ui <<Interface>>
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+
+Class ThemeManager
+
+Class CommandBox
+Class ResultDisplay
+
+package "MainDisplay Section" #F4F6F6{
+ note "All classes in MainDisplay Section\ninherit from **UiPart** class." as N1
+Class MainDisplay
+Class JobListPanel
+Class JobCard
+Class MailListPanel
+Class MailCard
+}
+
+package "SideDisplay Section" #F4F6F6{
+ note "All classes in SideDisplay Section\ninherit from **UiPart** class." as N2
+Class SideDisplay
+Class ContactListPanel
+Class ContactCard
+
+Class ProductListPanel
+Class ProductCard
+
+Class TemplateListPanel
+Class TemplateCard
+
+Class HistoryListPanel
+Class HistoryCard
+}
+
+Class StatusBarFooter
+
+Class HelpWindow
+Class ReportWindow
+}
+
+
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+Model -[hidden]up- "MainDisplay"
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+CommandBox -[hidden]down- ResultDisplay
+
+UiManager .left.|> Ui
+UiManager -down-> "1" MainWindow
+MainWindow -left-> "1" ThemeManager
+MainWindow *-down->  "1" CommandBox
+MainWindow *-down-> "1" ResultDisplay
+MainWindow *-down-> "1" MainDisplay
+MainWindow *-down-> "1" SideDisplay
+MainWindow *-down-> "1" StatusBarFooter
+MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" ReportWindow
+
+MainWindow -left-|> UiPart
+
+UiManager -right-> Logic
+MainWindow -right-> Logic
+
+' Main display package
+MainDisplay *-down-> "1" JobListPanel
+MainDisplay *-down-> "1" MailListPanel
+JobListPanel -down-> "*" JobCard
+MailListPanel -down-> "*" MailCard
+JobCard .down.> Model
+MailCard .down.> Model
+
+' Side display package
+SideDisplay *-down-> "1" ContactListPanel
+SideDisplay *-down-> "1" ProductListPanel
+SideDisplay *-down-> "1" TemplateListPanel
+SideDisplay *-down-> "1" HistoryListPanel
+ContactListPanel -down-> "*" ContactCard
+ProductListPanel -down-> "*" ProductCard
+TemplateListPanel -down-> "*" TemplateCard
+HistoryListPanel -down-> "*" HistoryCard
+ContactCard .down.> Model
+ProductCard .down.> Model
+TemplateCard .down.> Model
+HistoryCard .down.> Model
+
+' Inherit UiPart
+CommandBox --|> UiPart
+ResultDisplay --|> UiPart
+ReportWindow --|> UiPart
+StatusBarFooter --|> UiPart
+HelpWindow --|> UiPart
+ReportWindow --|> UiPart
+
+MainWindow -[hidden]-|> UiPart
+@enduml

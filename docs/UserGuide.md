@@ -470,13 +470,13 @@ Format: `clear`
 
   <img src="images/ui-clear.png" width="600px">
 
-### Changing theme `theme`
+### Changing the theme of user interface `theme`
 
-Changes the theme of Ui.
+Changes the theme of user interface.
 
 Format: `theme THEME_NAME`
 
-* There are 2 available Ui themes of the CRM. Name of the themes are `dark` and `light`.
+* There are 2 available Ui themes of the CRM. Their names are `dark` and `light`.
 * `THEME_NAME` is case-insensitive.
 
 Example: `theme light`
