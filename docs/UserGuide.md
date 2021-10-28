@@ -292,8 +292,8 @@ Format: `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
   The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided. 
-* Existing values will be updated to input values. Input values cannnot be empty.
-* If the product to edit is linked to job, changes in product fields will be updated in job list automatically.  
+* Existing values will be updated to input values. Input values must be non-empty.
+* Changes in product fields will be updated in job list automatically.  
 
 Example:
 
@@ -481,7 +481,7 @@ Format: `theme THEME_NAME`
 
 Example: `theme light`
 
-  <img src="images/ui-theme.png" width="600px">
+  <img src="images/ui-theme.PNG" width="600px">
 
 --------------------------------------------------------------------------------------------------------------------
 
