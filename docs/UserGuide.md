@@ -417,6 +417,8 @@ Shows a message explaining how to access the help page and a hyperlink to it.
 
 Format: `help`
 
+  <img src="images/ui-help.png" width="600px">
+
 ### Exiting the program : `exit`
 
 Ends MyCRM and exits the programme.
@@ -429,20 +431,9 @@ Clears current data in the CRM. Empties CRM data.
 
 Format: `clear`
 
-
-### Pinning Jobs `[coming in v1.3]`
-
-_Details coming soon ..._
+  <img src="images/ui-clear.png" width="600px">
 
 ### Customising User Interfaces `[coming in v1.3]`
-
-_Details coming soon ..._
-
-### Hiding Contacts `[coming in v1.3]`
-
-_Details coming soon ..._
-
-### Hiding Jobs `[coming in v1.3]`
 
 _Details coming soon ..._
 
