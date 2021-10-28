@@ -11,7 +11,7 @@ public class JobFee {
              + "Amounts equal to or greater than 10000000 are not permitted.\n"
              + "E.g $5.30 ($ sign is optional).\n";
 
-    private static int MAX_VALUE = 10000000;
+    private static final int MAX_VALUE = 10000000;
 
     private int cents;
 
@@ -55,9 +55,9 @@ public class JobFee {
         if (fee.contains(".")) {
             String[] amounts = fee.split("\\.");
             dollars = Integer.parseInt(amounts[0]);
-            if(amounts[1] != null) {
-                if(amounts[1].length() > 2){
-                    cents = Integer.parseInt(amounts[1].substring(0,2));
+            if (amounts[1] != null) {
+                if (amounts[1].length() > 2) {
+                    cents = Integer.parseInt(amounts[1].substring(0, 2));
                 } else {
                     cents = Integer.parseInt(amounts[1]);
                 }
@@ -65,7 +65,7 @@ public class JobFee {
 
         } else {
             dollars = Integer.parseInt(fee);
-            if(dollars >= MAX_VALUE || dollars < 0 || cents < 0) {
+            if (dollars >= MAX_VALUE || dollars < 0 || cents < 0) {
                 throw new NumberFormatException();
             }
         }

@@ -104,7 +104,7 @@ Examples:
   * `select 1` (to select contact) 
   * `select 1` (to select product)
 
-      <img src="images/ui-addJob-success1.png" width="600px">
+      <img src="images/ui-addJob-success1.jpg" width="600px">
   
 * To add a job with new a contact and product
 * Issue the following sequence of commands:
@@ -112,7 +112,7 @@ Examples:
   * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com` 
   * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
 
-     <img src="images/ui-addJob-success2.png" width="600px">
+     <img src="images/ui-addJob-success2.jpg" width="600px">
 
 ### Editing a job: `editJob`
 
@@ -146,7 +146,7 @@ Examples:
   * `select 3` (to select contact)
   * `select 2` (to select product)
 
-      <img src="images/ui-editJob-success1.png" width="600px">
+      <img src="images/ui-editJob-success1.jpg" width="600px">
 
 * To add a job with new a contact and product
 * Issue the following sequence of commands:
@@ -154,7 +154,7 @@ Examples:
   * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com`
   * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
 
-     <img src="images/ui-editJob-success2.png" width="600px">
+     <img src="images/ui-editJob-success2.jpg" width="600px">
   
 ### Listing all jobs: `listJob`
 
@@ -164,6 +164,22 @@ Format: `listJob [-a] [-c]`
 
 * To show a list of all jobs, regardless of completion status the command `listJob -a` can be issued
 * To show a list of all completed jobs the command `listJob -c` can be issued
+
+### Find Job: `findJob`
+
+Find jobs whose description, contact or product contain certain keywords.
+
+Format: `findJob [MORE_KEYWORDS]...`
+
+* The search is case-insensitive. e.g. `intel` will match `Intel`.
+* Only full words will be matched. e.g. `Inte` will not match `Intel`.
+* Jobs matching at least one keyword will be returned.
+
+Example:
+
+* `findJob charlotte intel`
+
+  <img src="images/ui-find-job.jpg" width="600px">
 
 ### Marking job as complete: `completeJob`
 
@@ -318,8 +334,6 @@ Examples:
   <img src="images/ui-list-all-contacts.png" width="600px">
 
 
-
-
 ### Adding a product: `addProduct`
 
 Adds a new product to the CRM.
@@ -340,18 +354,6 @@ Examples:
 Shows a list of all products in the CRM.
 
 Format: `listProduct`
-
-### Finding a product: `findProduct`
-
-Find products that whose name matches the keywords specified.
-
-Format: `findProduct [MORE_KEYWORDS]... `
-
-* User must provide at least one keyword of a product.
-
-Example: 
-
-`findProduct Intel`
 
 ### Deleting a product: `deleteProduct`
 
@@ -581,6 +583,7 @@ Action              | Format, Examples
 **Add Job**         | `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g.,`addJob d/CPU replacement needed c/1 p/1 by/15/09/2021 fee/30.00`
 **List Job**        | `listJob`
 **Edit Job**        | `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g., `editJob 1 fee/50.00 c/2 p/3`
+**Find Job**        | `findJob [MORE_KEYWORDS]... ` <br> e.g., `findJob charlotte intel`
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
 **Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
