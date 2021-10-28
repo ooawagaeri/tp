@@ -119,9 +119,9 @@ public class JobCard extends UiPart<Region> {
     private void setClientInfo(Contact client) {
         if (client != null) {
             clientInfoHeader.setText("Client Info: ");
-            phone.setText("Phone: " + client.getPhone().value);
-            address.setText("Address: " + client.getAddress().value);
-            email.setText("Email: " + client.getEmail().value);
+            phone.setText("Phone: " + client.getPhone().toString());
+            address.setText("Address: " + client.getAddress().toString());
+            email.setText("Email: " + client.getEmail().toString());
             client.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

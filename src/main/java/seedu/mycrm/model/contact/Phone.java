@@ -80,7 +80,7 @@ public class Phone implements ContactComponent<Phone> {
 
     @Override
     public String toString() {
-        return value;
+        return isEmpty() ? "" : value;
     }
 
     @Override
