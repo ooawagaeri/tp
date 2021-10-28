@@ -211,7 +211,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int getRevenue(LocalDate date) {
+    public double getRevenue(LocalDate date) {
         return myCrm.getRevenue(date);
     }
 
