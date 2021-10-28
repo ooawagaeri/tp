@@ -131,7 +131,7 @@ Format: `listJob [-a] [-c]`
 * To show a list of all jobs, regardless of completion status the command `listJob -a` can be issued
 * To show a list of all completed jobs the command `listJob -c` can be issued
 
-### Mark job as complete: `completeJob`
+### Marking job as complete: `completeJob`
 
 Marks a repair job as complete
 
@@ -298,9 +298,11 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 Examples:
 
 * `listJobs` and `listTemplates` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
-  email template
+  email template and `mailto:` hyperlink.
 
     <img src="images/ui-mail.png" width="600px">
+  
+    <img src="images/ui-mail-application.png" width="600px">
 
 ### Adding mail template: `addTemplate`
 
