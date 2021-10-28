@@ -60,7 +60,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of history commands */
     ObservableList<History> getFilteredHistoryList();
 
-    int getRevenue(LocalDate date);
+    double getRevenue(LocalDate date);
 
     /**
      * Returns the user prefs' myCrm file path.

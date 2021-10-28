@@ -63,6 +63,13 @@ public class JobFee {
     }
 
     /**
+     * Returns JobFee in term of dollar
+     */
+    public double getDollar() {
+        return (double) cents / 100.00;
+    }
+
+    /**
      * Adds two job fees together.
      */
     public static JobFee add(JobFee fee1, JobFee fee2) {

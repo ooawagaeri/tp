@@ -100,16 +100,16 @@ public class UniqueJobList implements Iterable<Job> {
         internalList.setAll(jobs);
     }
 
-    public int getMonthlyRevenue(LocalDate date) {
+    public double getMonthlyRevenue(LocalDate date) {
         requireNonNull(date);
         ObservableList<Job> monthlyJob = getMonthlyJob(date);
-        int revenue = 0;
+        double revenue = 0.0;
 
 
         if (monthlyJob.size() > 0) {
             for (Job j : monthlyJob) {
                 if (j.getFee() != null) {
-                    revenue += j.getFee().getCents();
+                    revenue += j.getFee().getDollar();
                 }
             }
         }

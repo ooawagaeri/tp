@@ -234,7 +234,7 @@ class AddContactCommandTest {
         }
 
         @Override
-        public int getRevenue(LocalDate date) {
+        public double getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
 
