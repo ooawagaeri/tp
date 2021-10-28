@@ -202,7 +202,9 @@ Format: `editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS]`
   update.
 
 
-Example: `editContact 1 a/Jurong West Street 42` 
+Example: 
+
+`editContact 1 a/Jurong West Street 42` 
 
   <img src="images/ui-edit-contact.png" width="600px">
 
@@ -265,7 +267,7 @@ Examples:
 
 * `listContact`
 
-  <img src="images/ui-list-not-hidden-contact.png" width="600px">
+  <img src="images/ui-list-not-hidden-contacts.png" width="600px">
 
 * `listContact -a`
 
