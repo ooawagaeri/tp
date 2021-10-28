@@ -171,7 +171,7 @@ Examples:
 * `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 * `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
   
-    <img src="images/ui-add-contact.png" width="600px">
+  <img src="images/ui-add-contact.png" width="600px">
 
 ### Deleting a contact: `deleteContact`
 
@@ -186,7 +186,9 @@ Format: `deleteContact INDEX`
 
 Example:
 
-`deleteIndex 4`
+`deleteContact 3`
+
+  <img src="images/ui-delete-contact.png" width="600px">
 
 ### Editing a contact: `editContact`
 
@@ -200,7 +202,9 @@ Format: `editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS]`
   update.
 
 
-Example: `editContact 1 n/Chales a/Jurong Branch` 
+Example: `editContact 1 a/Jurong West Street 42` 
+
+  <img src="images/ui-edit-contact.png" width="600px">
 
 ### Finding a contact: `findContact `
 
@@ -213,6 +217,9 @@ Format: `findContact [MORE_KEYWORDS]... `
 Example:
 
 `findContact Frisk Sans`
+
+  <img src="images/ui-find-contact.png" width="600px">
+
 
 ### Hiding a contact: `hideContact`
 
@@ -227,6 +234,7 @@ Example:
 
 `hideContact 1`
 
+  <img src="images/ui-hide-contact.png" width="600px">
 
 ### Undoing hiding a contact: `undoHideContact`
 
@@ -241,6 +249,9 @@ Example:
 
 `UndoHideContact 1`
 
+  <img src="images/ui-undo-hide-contact.png" width="600px">
+
+
 ### Listing all contacts: `listContact`
 
 Show a list of all contact info in the CRM.
@@ -249,6 +260,18 @@ Format: `listContact` or `listContact -a`
 
 * Normally, `listContact` will only list contacts not being hidden.
 * If `listContact -a` is invoked, all contacts including hidden ones will be listed.
+
+Examples:
+
+* `listContact`
+
+  <img src="images/ui-list-not-hidden-contact.png" width="600px">
+
+* `listContact -a`
+
+  <img src="images/ui-list-all-contacts.png" width="600px">
+
+
 
 
 ### Adding a product: `addProduct`

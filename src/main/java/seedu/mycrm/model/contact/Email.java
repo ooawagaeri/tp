@@ -100,7 +100,7 @@ public class Email implements ContactComponent<Email> {
 
     @Override
     public String toString() {
-        return value;
+        return isEmpty() ? "" : value;
     }
 
     @Override
