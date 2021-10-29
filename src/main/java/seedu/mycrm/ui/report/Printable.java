@@ -1,7 +1,7 @@
 package seedu.mycrm.ui.report;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import seedu.mycrm.logic.Logic;
@@ -15,6 +15,15 @@ public class Printable extends UiPart<VBox> {
     private static final String FXML = "Printable.fxml";
 
     @FXML
+    private Label completedJobListTitle;
+
+    @FXML
+    private Label inProgressJobListTitle;
+
+    @FXML
+    private Label topThreeProductListTitle;
+
+    @FXML
     private TextArea completedJobList;
 
     @FXML
@@ -23,8 +32,6 @@ public class Printable extends UiPart<VBox> {
     @FXML
     private TextArea topThreeProductList;
 
-    @FXML
-    private BarChart<String, Number> barChart;
 
     public Printable() {
         super(FXML);
@@ -43,7 +50,7 @@ public class Printable extends UiPart<VBox> {
                     + j.toString() + "\n" + getJobInfo(j) + "\n\n");
             id++;
         }
-        completedJobList.setWrapText(true);
+        completedJobListTitle.setText("Completed Jobs:");
 
         id = 1;
         inProgressJobList.setText("");
@@ -52,7 +59,7 @@ public class Printable extends UiPart<VBox> {
                     + j.toString() + "\n" + getJobInfo(j) + "\n\n");
             id++;
         }
-        inProgressJobList.setWrapText(true);
+        inProgressJobListTitle.setText("In-Progress Jobs:");
 
         id = 1;
         topThreeProductList.setText("");
@@ -61,33 +68,29 @@ public class Printable extends UiPart<VBox> {
                     + p.toString() + "\n" + getProductInfo(p) + "\n\n");
             id++;
         }
-        topThreeProductList.setWrapText(true);
+        topThreeProductListTitle.setText("Top Three Products:");
 
     }
 
     private String getJobInfo(Job j) {
-        String repairFee = "    Repair Fee:" + j.getFee();
-        String jobReceivedDate = "    Repair Job Received On: " + j.getReceivedDate().toString();
-        String expectedDelivery = "    Expected Delivery" + j.getDeliveryDate().toString();
+        String repairFee = "Repair Fee:" + j.getFee();
+        String jobReceivedDate = "Repair Job Received On: " + j.getReceivedDate().toString();
+        String expectedDelivery = " Expected Delivery" + j.getDeliveryDate().toString();
 
-
-        String jobInfo = repairFee + "\n"
+        return repairFee + "\n"
                 + jobReceivedDate + "\n"
                 + expectedDelivery;
-
-        return jobInfo;
 
     }
 
     private String getProductInfo(Product product) {
-        String type = "    Type: " + product.getType().toString();
-        String manufacturer = "    Manufacturer: " + product.getManufacturer().toString();
-        String description = "    Description: " + product.getDescription().toString();
+        String type = "Type: " + product.getType().toString();
+        String manufacturer = "Manufacturer: " + product.getManufacturer().toString();
+        String description = "Description: " + product.getDescription().toString();
 
-        String productInfo = type + "\n"
+        return type + "\n"
                 + manufacturer + "\n"
                 + description;
 
-        return productInfo;
     }
 }
