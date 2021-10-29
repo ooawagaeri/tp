@@ -294,6 +294,7 @@ Format: `hideContact INDEX`
 
 * `hideContact` will add a tag `hidden` to those being hidden.
 * Cannot invoke `hideContact` **again** to those being hidden.
+* So far hiding a specific contact will not affect job card.
 
 Example:
 
