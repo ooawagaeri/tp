@@ -568,6 +568,24 @@ Example: `theme light`
 
   <img src="images/ui-theme.PNG" width="600px">
 
+### Printing monthly report `printReport`
+
+Prints a report of all jobs within current month.
+
+Format: `printReport`
+
+  <img src="images/ui-print-monthly.png" width="600px">
+
+### Export monthly report
+
+Exports a report of all jobs within current month to printer.
+
+Format: Click on "Print"
+
+  <img src="images/ui-page-setup.png" width="200px">
+
+  <img src="images/ui-printer.png" width="300px">
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -610,3 +628,6 @@ Action              | Format, Examples
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
 **Change Theme**    | `theme THEME_NAME`<br>e.g., `theme light`
+**Print Monthly Report**    | `printReport`
+
+
