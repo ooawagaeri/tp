@@ -1,5 +1,7 @@
 package seedu.mycrm.logic;
 
+import static seedu.mycrm.logic.commands.jobs.AddJobCommand.MESSAGE_DUPLICATE_JOB;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -159,8 +161,9 @@ public class StateManager {
      * @param job Job to be added to MyCRM.
      * @return Result of the execution of the addJob command.
      */
-    public CommandResult handleAddJob(Job job) {
+    public CommandResult handleAddJob(Job job) throws CommandException {
         this.job = job;
+
 
         if (job.hasProduct() && job.hasClient()) {
             model.addJob(job);
@@ -175,7 +178,11 @@ public class StateManager {
             stateQueue.add(State.NEW_JOB_PRODUCT);
         }
 
-        return constructCommandResult(null, "");
+        try {
+            return constructCommandResult(null, "");
+        } catch (CommandException e) {
+            throw new CommandException(getErrorMessage() + e.getMessage());
+        }
     }
 
 
@@ -190,7 +197,7 @@ public class StateManager {
      * @return
      */
     public CommandResult handleEditJob(Job jobToEdit, Job editedJob,
-            boolean shouldEditContact, boolean shouldEditProduct, CommandResult commandResult) {
+            boolean shouldEditContact, boolean shouldEditProduct, CommandResult commandResult) throws CommandException {
 
         this.job = editedJob;
         this.jobToEdit = jobToEdit;
@@ -209,7 +216,11 @@ public class StateManager {
             stateQueue.add(State.EDIT_JOB_PRODUCT);
         }
 
-        return constructCommandResult(null, "");
+        try {
+            return constructCommandResult(null, "");
+        } catch (CommandException e) {
+            throw new CommandException(getErrorMessage() + e.getMessage());
+        }
     }
 
     /**
@@ -220,10 +231,15 @@ public class StateManager {
      * @param commandResult Result of the original addProduct command.
      * @return Modified result of the addProduct command based on current state.
      */
-    public CommandResult handleProduct(Product product, CommandResult commandResult) {
+    public CommandResult handleProduct(Product product, CommandResult commandResult) throws CommandException {
         if (currentState == State.NEW_JOB_PRODUCT || currentState == State.EDIT_JOB_PRODUCT) {
             job.setProduct(product);
-            return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), product));
+            try {
+                return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), product));
+            } catch (CommandException e) {
+                throw new CommandException(getErrorMessage() + e.getMessage());
+            }
+
 
         } else {
             return commandResult;
@@ -237,10 +253,14 @@ public class StateManager {
      * @param commandResult Result of the original addContact command.
      * @return Modified result of the addContact command based on current state.
      */
-    public CommandResult handleContact(Contact contact, CommandResult commandResult) {
+    public CommandResult handleContact(Contact contact, CommandResult commandResult) throws CommandException {
         if (currentState == State.NEW_JOB_CONTACT || currentState == State.EDIT_JOB_CONTACT) {
             job.setClient(contact);
-            return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), contact));
+            try {
+                return constructCommandResult(commandResult, String.format(currentState.getSuccessMessage(), contact));
+            } catch (CommandException e) {
+                throw new CommandException(getErrorMessage() + e.getMessage());
+            }
         } else {
             return commandResult;
         }
@@ -357,7 +377,7 @@ public class StateManager {
         return userFeedback;
     }
 
-    private CommandResult constructCommandResult(CommandResult commandResult, String message) {
+    private CommandResult constructCommandResult(CommandResult commandResult, String message) throws CommandException {
         State nextState = stateQueue.poll();
 
         String userFeedback;
@@ -369,6 +389,9 @@ public class StateManager {
         }
 
         if (isJobBeingAdded() && nextState == null) {
+            if (model.hasJob(job)) {
+                throw new CommandException(MESSAGE_DUPLICATE_JOB);
+            }
             model.addJob(job);
             userFeedback += String.format(AddJobCommand.MESSAGE_SUCCESS, job);
             clearState();
