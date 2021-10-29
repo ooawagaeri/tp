@@ -397,6 +397,9 @@ public class StateManager {
             clearState();
             return new CommandResult(userFeedback, CommandType.JOBS);
         } else if (isJobBeingEdited() && nextState == null) {
+            if (model.hasJob(job)) {
+                throw new CommandException(MESSAGE_DUPLICATE_JOB);
+            }
             model.setJob(jobToEdit, job);
             userFeedback += String.format(EditJobCommand.MESSAGE_EDIT_JOB_SUCCESS, job);
             clearState();
