@@ -196,6 +196,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void handleExport() {
+        reportWindow.fillInnerParts();
+        reportWindow.handlePrint();
+    }
+
     /**
      * Changes Ui to dark theme.
      */
@@ -254,6 +259,10 @@ public class MainWindow extends UiPart<Stage> {
 
             case REPORT:
                 handlePrintReport();
+                break;
+
+            case EXPORT:
+                handleExport();
                 break;
 
             case COMMON:

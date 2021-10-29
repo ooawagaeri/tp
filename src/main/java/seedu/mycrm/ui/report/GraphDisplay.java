@@ -83,7 +83,6 @@ public class GraphDisplay extends UiPart<Region> {
 
         for (int i = 0; i < 4; i++) {
             lastFourMonthRevenue[i] = logic.getRevenue(now.minusYears(year).minusMonths(3 - i));
-            System.out.println(lastFourMonthRevenue[i]);
         }
 
         return lastFourMonthRevenue;

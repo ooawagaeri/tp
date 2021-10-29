@@ -116,7 +116,6 @@ public class ReportWindow extends UiPart<Stage> {
      */
     @FXML
     public void handlePrint() {
-
         print(getPrintable());
     }
 
@@ -147,7 +146,6 @@ public class ReportWindow extends UiPart<Stage> {
         requireNonNull(job);
 
         if (job != null) {
-            job.showPageSetupDialog(getRoot().getOwner());
             job.showPrintDialog(getRoot().getOwner());
             boolean success = job.printPage(region);
             if (success) {
