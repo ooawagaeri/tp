@@ -377,7 +377,7 @@ public class StateManager {
         return userFeedback;
     }
 
-    private CommandResult constructCommandResult(CommandResult commandResult, String message) throws CommandException{
+    private CommandResult constructCommandResult(CommandResult commandResult, String message) throws CommandException {
         State nextState = stateQueue.poll();
 
         String userFeedback;
