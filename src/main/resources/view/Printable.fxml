@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.scene.layout.StackPane?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox prefHeight="470.0" prefWidth="595.0">
+                <children>
+                    <TextArea fx:id="completedJobList" prefHeight="200.0" prefWidth="200.0" />
+                    <TextArea fx:id="inProgressJobList" prefHeight="200.0" prefWidth="200.0" />
+                    <TextArea fx:id="topThreeProductList" prefHeight="200.0" prefWidth="200.0" />
+                </children>
+            </HBox>
+    </children>
+</VBox>

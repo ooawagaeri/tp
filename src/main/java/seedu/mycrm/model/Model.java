@@ -196,7 +196,7 @@ public interface Model {
      */
     void clearHistory();
 
-    int getRevenue(LocalDate date);
+    double getRevenue(LocalDate date);
 
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();

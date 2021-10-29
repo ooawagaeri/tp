@@ -307,7 +307,7 @@ public class MyCrm implements ReadOnlyMyCrm {
         jobs.remove(key);
     }
 
-    public int getRevenue(LocalDate date) {
+    public double getRevenue(LocalDate date) {
         return jobs.getMonthlyRevenue(date);
     }
 

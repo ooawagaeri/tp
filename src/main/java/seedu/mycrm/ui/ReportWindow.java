@@ -1,14 +1,24 @@
 package seedu.mycrm.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.chart.BarChart;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.mycrm.commons.core.LogsCenter;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.ui.report.GraphDisplay;
 import seedu.mycrm.ui.report.JobDisplay;
+import seedu.mycrm.ui.report.Printable;
 
 public class ReportWindow extends UiPart<Stage> {
 
@@ -21,6 +31,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     private JobDisplay jobDisplay;
     private GraphDisplay graphDisplay;
+    private Printable printable;
 
     @FXML
     private StackPane jobDisplayPlaceholder;
@@ -58,6 +69,9 @@ public class ReportWindow extends UiPart<Stage> {
         graphDisplay = new GraphDisplay();
         graphDisplay.init(logic);
         graphDisplayPlaceholder.getChildren().add(graphDisplay.getRoot());
+
+        printable = new Printable();
+        printable.init(logic);
     }
 
     /**
@@ -79,6 +93,7 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Hides the report window.
      */
+    @FXML
     public void hide() {
         getRoot().hide();
     }
@@ -90,6 +105,50 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Handle the printing request from user.
+     */
+    @FXML
+    public void handlePrint() {
 
+        print(getPrintable());
+    }
+
+    private VBox getPrintable() {
+        VBox toPrint = new VBox();
+        BarChart<String, Number> barChart = graphDisplay.clone(logic);
+
+        barChart.setMinSize(372, 350);
+
+        toPrint.getChildren().addAll(barChart, printable.getRoot());
+
+        return toPrint;
+    }
+
+    private void print(VBox region) {
+        requireNonNull(region);
+
+        Printer printer = Printer.getDefaultPrinter();
+        requireNonNull(printer);
+
+        PageLayout pagelayout = printer.createPageLayout(Paper.A4,
+                PageOrientation.PORTRAIT,
+                Printer.MarginType.HARDWARE_MINIMUM);
+
+        region.setPrefSize(pagelayout.getPrintableWidth() - 110, pagelayout.getPrintableHeight());
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        requireNonNull(job);
+
+        if (job != null) {
+            job.showPageSetupDialog(getRoot().getOwner());
+            job.showPrintDialog(getRoot().getOwner());
+            boolean success = job.printPage(region);
+            if (success) {
+                job.endJob();
+            }
+        }
+
+    }
 
 }
