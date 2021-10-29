@@ -72,7 +72,7 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram_1.png)
+[![Structure of the UI Component](images/UiClassDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MainDisplay`, 
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures 
@@ -882,11 +882,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to edit a specific product in the list.
-2. MyCRM edits the product and shows a message with info of edited product.
+2. MyCRM edits the product and shows a success message with info of edited product.
 
    Use case ends.
 
 **Extensions**
+
 * 1a. The given index is invalid.
     * 1a1. MyCRM shows an error message.
 
@@ -895,8 +896,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1b. User requests to edit the name of the product.
     * 1b1. The product name already exists
     * 1b2. MyCRM shows an error message.
+    
+    Use case ends.
 
-* 1c. There is one or more empty fields in user input.
+* 1c. All fields that user provides are empty.
     * 1c1. MyCRM shows an error message.
     
     Use case ends.
