@@ -201,7 +201,8 @@ Marks a previously completed job as incomplete
 Format: `undoJobComplete INDEX`
 
 * Marks the repair job at the specified `INDEX` as complete
-* `INDEX` must refer to a job that works on a previously completed command. It will not work on a currently pending job.
+* User should call `listJob -c` to view all completed jobs before calling this command
+* `INDEX` must refer to a completed job. It will not work on a currently pending job
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 
