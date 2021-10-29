@@ -374,11 +374,13 @@ Edits an existing product in the CRM.
 
 Format: `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
-  The index must be a positive integer 1, 2, 3, …​
+* Edits the product at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed product list.
+* `INDEX` must be a positive integer(1,2,3…).
 * At least one of the optional fields must be provided. 
-* Existing values will be updated to input values. Input values must be non-empty.
-* Changes in product fields will be updated in job list automatically.  
+* No change is made if a field is empty. e.g. 
+  `editCommand 1 m/Asus t/` will not change the product's `Type` field.
+* Changes in product fields will be updated in job list *automatically*.  
 
 Example:
 
