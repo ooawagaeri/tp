@@ -110,7 +110,6 @@ public class ReportWindow extends UiPart<Stage> {
      */
     @FXML
     public void handlePrint() {
-
         print(getPrintable());
     }
 
