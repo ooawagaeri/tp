@@ -627,6 +627,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: UC13 - Undo hiding a client contact**
+
+**MSS**
+
+1. User requests to undo hiding a hidden contact.
+2. MyCRM shows a list of contacts.
+3. User requests to undo hiding the specific contact in the list.
+4. MyCRM undo the hidden tag for this contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
 **Use case: UC13 - Sending an email**
 
 **Precondition:** Operating system has a default email application 

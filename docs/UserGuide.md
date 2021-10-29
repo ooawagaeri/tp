@@ -306,6 +306,7 @@ Undo a previous `hideContact` command to certain contact with INDEX specified.
 
 Format: `UndoHideContact INDEX`
 
+* `listContact -a` must be called in order to see hidden contacts.
 * `UndoHideContact` will delete `hidden` tag to the hidden contact.
 * Cannot invoke `UndoHideContact` to visible contacts.
 
