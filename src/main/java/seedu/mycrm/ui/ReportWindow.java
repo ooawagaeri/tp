@@ -64,10 +64,16 @@ public class ReportWindow extends UiPart<Stage> {
     void fillInnerParts() {
         jobDisplay = new JobDisplay();
         jobDisplay.init(logic);
+        if (jobDisplayPlaceholder.getChildren().size() > 0) {
+            jobDisplayPlaceholder.getChildren().remove(0);
+        }
         jobDisplayPlaceholder.getChildren().add(jobDisplay.getRoot());
 
         graphDisplay = new GraphDisplay();
         graphDisplay.init(logic);
+        if (graphDisplayPlaceholder.getChildren().size() > 0) {
+            graphDisplayPlaceholder.getChildren().remove(0);
+        }
         graphDisplayPlaceholder.getChildren().add(graphDisplay.getRoot());
 
         printable = new Printable();

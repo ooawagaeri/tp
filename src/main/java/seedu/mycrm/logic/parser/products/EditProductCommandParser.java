@@ -56,19 +56,11 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         return new EditProductCommand(index, descriptor);
     }
 
-    private void editName() throws ParseException {
+    private void editName() {
         Optional<String> nameContainer = map.getValue(PREFIX_PRODUCT_NAME);
-        if (nameContainer.isEmpty()) {
-            // name is not changed
-            return;
-        }
-
-        String nameString = nameContainer.get();
-        if (nameString.length() == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditProductCommand.MESSAGE_USAGE));
-        } else {
-            descriptor.setProductName(ProductName.getName(nameString));
+        if (nameContainer.orElse("").length() > 0) {
+            // nameContainer contains a non-empty string
+            descriptor.setProductName(ProductName.getName(nameContainer));
         }
     }
 

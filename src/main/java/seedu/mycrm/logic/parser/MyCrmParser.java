@@ -14,6 +14,7 @@ import seedu.mycrm.logic.commands.ExportReportCommand;
 import seedu.mycrm.logic.commands.HelpCommand;
 import seedu.mycrm.logic.commands.PrintReportCommand;
 import seedu.mycrm.logic.commands.SelectCommand;
+import seedu.mycrm.logic.commands.ThemeCommand;
 import seedu.mycrm.logic.commands.contacts.AddContactCommand;
 import seedu.mycrm.logic.commands.contacts.DeleteContactCommand;
 import seedu.mycrm.logic.commands.contacts.EditContactCommand;
@@ -33,6 +34,7 @@ import seedu.mycrm.logic.commands.jobs.UndoCompleteJobCommand;
 import seedu.mycrm.logic.commands.mails.AddTemplateCommand;
 import seedu.mycrm.logic.commands.mails.DeleteTemplateCommand;
 import seedu.mycrm.logic.commands.mails.EditTemplateCommand;
+import seedu.mycrm.logic.commands.mails.FindTemplateCommand;
 import seedu.mycrm.logic.commands.mails.ListTemplateCommand;
 import seedu.mycrm.logic.commands.mails.MailCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
@@ -58,6 +60,7 @@ import seedu.mycrm.logic.parser.jobs.UndoCompleteJobCommandParser;
 import seedu.mycrm.logic.parser.mails.AddTemplateCommandParser;
 import seedu.mycrm.logic.parser.mails.DeleteTemplateCommandParser;
 import seedu.mycrm.logic.parser.mails.EditTemplateCommandParser;
+import seedu.mycrm.logic.parser.mails.FindTemplateCommandParser;
 import seedu.mycrm.logic.parser.mails.MailCommandParser;
 import seedu.mycrm.logic.parser.products.AddProductCommandParser;
 import seedu.mycrm.logic.parser.products.DeleteProductCommandParser;
@@ -146,6 +149,9 @@ public class MyCrmParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
+
         case AddProductCommand.COMMAND_WORD:
             return new AddProductCommandParser().parse(arguments);
 
@@ -172,6 +178,9 @@ public class MyCrmParser {
 
         case DeleteTemplateCommand.COMMAND_WORD:
             return new DeleteTemplateCommandParser().parse(arguments);
+
+        case FindTemplateCommand.COMMAND_WORD:
+            return new FindTemplateCommandParser().parse(arguments);
 
         case MailCommand.COMMAND_WORD:
             return new MailCommandParser().parse(arguments);

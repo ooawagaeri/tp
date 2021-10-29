@@ -84,7 +84,7 @@ public class Address implements ContactComponent<Address> {
 
     @Override
     public String toString() {
-        return value;
+        return isEmpty() ? "" : value;
     }
 
     @Override

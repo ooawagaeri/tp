@@ -70,20 +70,26 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+[![Structure of the UI Component](images/UiClassDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MainDisplay`, 
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures 
+the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that 
+are in the `src/main/resources/view` folder. For example, the layout of the 
+[`MainWindow`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/MainWindow.java) 
+is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Job`, `Contact`, `Product`, `Template`, `History` 
+  objects residing in the `Model`.
 
 ### Logic component
 
@@ -621,7 +627,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: UC13 - Undo hiding a client contact**
+
+**MSS**
+
+1. User requests to undo hiding a hidden contact.
+2. MyCRM shows a list of contacts.
+3. User requests to undo hiding the specific contact in the list.
+4. MyCRM undo the hidden tag for this contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
 **Use case: UC13 - Sending an email**
+
+**Precondition:** Operating system has a default email application 
 
 **MSS**
 
@@ -673,9 +704,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 1b. The given body is empty.
+* 1b. The given subject is invalid format.
 
     * 1b1. MyCRM shows an error message.
+
+      Use case resumes at step 1.
+
+* 1c. The given body is empty.
+
+    * 1c1. MyCRM shows an error message.
 
       Use case resumes at step 1.
 
@@ -688,7 +725,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Deleting an email template**
+**Use case: UC16 - Editing an email template**
+
+**MSS**
+
+1. User request to edit an email template.
+2. MyCRM shows a list of email template.
+3. User requests to edit a specific template's subject or body (or both) in the list.
+4. MyCRM modifies the template with new subject or body (or both).
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given subject is empty
+
+    * 3b1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The given subject is invalid format.
+
+    * 3c1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+* 3d. The given body is empty.
+
+    * 3d1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC17 - Deleting an email template**
 
 **MSS**
 
@@ -711,7 +789,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC17 - Viewing user guide**
+**Use case: UC18 - Viewing user guide**
 
 **MSS**
 
@@ -720,7 +798,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC18 - Exiting the program**
+**Use case: UC19 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -731,36 +809,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC19 - Loading from JSON file**
-
-**MSS**
-
-1. User request to load data from a specific JSON file.
-2. MyCRM loads data from JSON file data into job, contact, product list.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The JSON file does not exist.
-
-    * 1a1. MyCRM shows an error message.
-
-      Use case ends.
-
-* 1b. The JSON file's content fails to parse.
-
-    * 1b1. MyCRM shows an error message.
-
-      Use case ends.
-
-**Use case: UC20 - Purging MyCRM data**
+**Use case: UC20 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
 **MSS**
 
-1. User request to purge data.
+1. User request to clear data.
 2. MyCRM removes data from job, contact, product list.
 
    Use case ends.
@@ -791,8 +846,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list products.
-2. MyCRM shows a list of products.
+1. User requests to view the list of products.
+2. MyCRM shows the list of products.
 
    Use case ends.
 
@@ -805,48 +860,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User <u>requests to list products (UC22)</u>.
-2. User requests to delete a specific product in the list.
-3. MyCRM deletes the product.
+1. User requests to delete a specific product in the list.
+2. MyCRM deletes the product.
     
     Use case ends.
 
 **Extensions**
 
+* 1a. The given index is invalid.
+    * 1a1. MyCRM shows an error message.
 
-* 2a. The given index is invalid.
-    * 2a1. MyCRM shows an error message.
+    Use case ends.    
+
+* 1b. The specified product is linked to one or more jobs.
+    * 1b1. MyCRM shows an error message.
     
-    Use case resumes at <u>step 2 in UC22</u>.
+    Use case ends.
 
 **Use case: UC 24: Edit a product.**
 
 **MSS**
 
-1. User <u>requests to list products (UC22)</u>.
-2. User requests to edit a specific product in the list.
-3. MyCRM edits the product and shows a message with edited information of the product.
+1. User requests to edit a specific product in the list.
+2. MyCRM edits the product and shows a success message with info of edited product.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given index is invalid.
-    * 2a1. MyCRM shows an error message.
 
-  Use case resumes at <u>step 2 in UC22</u>.
+* 1a. The given index is invalid.
+    * 1a1. MyCRM shows an error message.
 
-
-* 2b. User requests to edit the name of the product.
-    * 2b1. The product name already exists
-    * 2b2. MyCRM shows an error message.
-
-  Use case resumes at <u>step 2 in UC22</u>.
-
-
-* 2c. User requests to edit the name of the product.
-    * 2c1. The product name is unique.
+    Use case ends.
     
-    Use case resumes at step 3.
+* 1b. User requests to edit the name of the product.
+    * 1b1. The product name already exists
+    * 1b2. MyCRM shows an error message.
+    
+    Use case ends.
+
+* 1c. All fields that user provides are empty.
+    * 1c1. MyCRM shows an error message.
+    
+    Use case ends.
 
 **Use case: UC25 - Retrieve Previous Command**
 
@@ -865,7 +921,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. MyCRM list all history commands.
 
    Use case ends.
-   
+
+**Use case: UC 26 - Change the theme of user interface(UI)**
+
+**MSS**
+
+1. User requests to change the theme of UI.
+2. MyCRM changes the theme of Ui.
+
+    Use case ends.
+
+**Extensions**
+* 1a. User enters a theme name that does not exist in MyCRM.
+    * 1a1. MyCRM shows an error message.
+    
+    Use case ends.
+
+* 1b. User enters the name of current theme.
+    * 1a1. MyCRM keeps the current theme.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 

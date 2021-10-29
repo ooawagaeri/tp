@@ -21,10 +21,11 @@ public class UndoHideContactCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo Hiding the details of the contact identified "
             + "by the index number used in the displayed contact list.\n"
             + "Existing contact info will be hidden.\n"
+            + "User must call listContact -a in order to see hidden contacts.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_UNDO_HIDE_CONTACT_SUCCESS = "Unhidden Contact: %1$s";
+    public static final String MESSAGE_UNDO_HIDE_CONTACT_SUCCESS = "Undo hiding Contact: %1$s";
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
