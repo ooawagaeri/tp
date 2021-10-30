@@ -28,9 +28,9 @@ applications.
 5. Type the command in the command box and press Enter to execute it.<br>
    Some example commands you can try:
 
-   * **`listContacts `** : Lists all contacts.
+   * **`listContact `** : Lists all contacts.
 
-   * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
+   * **`addContact `**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
      named `John Doe` to the CRM.
 
    * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
@@ -59,11 +59,11 @@ applications.
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME c/PHONE_NUMBER`, `c/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence
   of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+  e.g. if you specify `c/12341234 c/56785678`, only `c/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit`
   ) will be ignored.<br>
@@ -306,15 +306,15 @@ Example:
 
 Undo a previous `hideContact` command to certain contact with INDEX specified.
 
-Format: `UndoHideContact INDEX`
+Format: `undoHideContact INDEX`
 
 * `listContact -a` must be called in order to see hidden contacts.
-* `UndoHideContact` will delete `hidden` tag to the hidden contact.
-* Cannot invoke `UndoHideContact` to visible contacts.
+* `undoHideContact` will delete `hidden` tag to the hidden contact.
+* Cannot invoke `undoHideContact` to visible contacts.
 
 Example:
 
-`UndoHideContact 1`
+`undoHideContact 1`
 
   <img src="images/ui-undo-hide-contact.png" width="600px">
 
@@ -614,7 +614,7 @@ Action              | Format, Examples
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
 **Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
-**List Contact**    | `listContact`
+**List Contact**    | `listContact` `listContact -a`
 **Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`
 **Hide Contact**     |`hideContact INDEX ` <br>e.g., `hideContact 1`
 **Undo Hide Contact**     |`undoHideContact INDEX... ` <br>e.g., `undoHideContact 1`
