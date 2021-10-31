@@ -223,9 +223,11 @@ Add a new contact info of a client into the CRM.
 Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 * Creates a new contact info of a client.
-* In order to protect client's privacy, we allow client to conceal certain 
-  part of their info, but at least one of their phone, email, address 
-  should be given in order to get in touch.
+* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist.
+  
+  i.e. `addContact n/CLIENT_NAME` is not allowed. 
+  
+  `addContact n/CLIENT_NAME e/EMAIL`, `addContact n/CLIENT_NAME c/CONTACT_NUMBER` commands like these are valid.
 * Contact number, Address, Email are optional, but must have one of them to
   make it realistic to get access to the client.
 
