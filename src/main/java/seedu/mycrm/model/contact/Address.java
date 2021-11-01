@@ -50,7 +50,7 @@ public class Address implements ContactComponent<Address> {
         }
     }
 
-    public static Address getPhone(Optional<String> address) throws ParseException {
+    public static Address getAddress(Optional<String> address) throws ParseException {
         requireNonNull(address);
 
         if (address.orElse("").length() == 0) {
