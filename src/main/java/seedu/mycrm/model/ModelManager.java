@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Template> filteredTemplates;
     private final FilteredList<Mail> filteredMails;
     private final FilteredList<Job> filteredJobs;
+    private final FilteredList<Job> filteredIncompleteJob;
     private final FilteredList<Job> filteredAllJobs;
     private final FilteredList<Job> filteredMonthlyCompletedJobs;
     private final FilteredList<Product> filteredProducts;
@@ -54,6 +55,7 @@ public class ModelManager implements Model {
         filteredTemplates = new FilteredList<>(this.myCrm.getTemplateList());
         filteredMails = new FilteredList<>(this.myCrm.getMailList());
         filteredJobs = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+        filteredIncompleteJob = new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         filteredAllJobs = new FilteredList<>(this.myCrm.getJobList());
         filteredMonthlyCompletedJobs =
                 new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
@@ -302,6 +304,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Job> getFilteredAllJobList() {
         return filteredAllJobs;
+    }
+
+    @Override
+    public ObservableList<Job> getFilteredIncompleteJobList() {
+        return filteredIncompleteJob;
     }
 
     @Override

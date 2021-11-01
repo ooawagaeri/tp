@@ -521,9 +521,9 @@ Examples:
 
 Retrieves the previously entered command
 
-Format: `Press Up arrow key`/ `history`
+Format: ‘Press Up arrow key’ / `history`
 
-* `Press Up arrow key` on the keyboard to gain the most recent command in the CRM.
+* ‘Press Up arrow key’ on the keyboard to gain the most recent command in the CRM.
 * `history` will list all history commands in the CRM
 
 Examples:
@@ -585,7 +585,7 @@ Format: `printReport`
 
 Exports a report of all jobs within current month to printer.
 
-Format: Click on "Print"
+Format: Click on "Print" / `exportReport`
 
   <img src="images/ui-page-setup.png" width="200px">
 
