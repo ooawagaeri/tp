@@ -80,13 +80,13 @@ class JsonAdaptedContact {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
-
+        final Name modelName = Name.getName(name);
 
         if (phone != null && !Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone;
+
         if (phone != null) {
             modelPhone = new Phone(phone);
         } else {

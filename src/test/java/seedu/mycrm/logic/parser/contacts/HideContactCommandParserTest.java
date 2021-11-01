@@ -19,7 +19,7 @@ public class HideContactCommandParserTest {
     }
 
     @Test
-    public void parse_NullArgs_throwsParseException() {
+    public void parse_nullArgs_throwsParseException() {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 HideContactCommand.MESSAGE_USAGE));
     }

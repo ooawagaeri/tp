@@ -41,7 +41,7 @@ public class Phone implements ContactComponent<Phone> {
         requireNonNull(phone);
 
         if (phone.length() == 0) {
-            return EMPTY_PHONE;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parsePhone(phone);
         }
@@ -51,7 +51,7 @@ public class Phone implements ContactComponent<Phone> {
         requireNonNull(phone);
 
         if (phone.orElse("").length() == 0) {
-            return EMPTY_PHONE;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parsePhone(phone.get());
         }
@@ -70,7 +70,7 @@ public class Phone implements ContactComponent<Phone> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_PHONE;
+        return value == null;
     }
 
     @Override

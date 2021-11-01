@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalContacts.getOneTypicalMyCrm;
+import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
@@ -51,7 +51,8 @@ public class DeleteContactCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        Contact contactToDelete = modelOneTypicalContact.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contactToDelete = modelOneTypicalContact.getFilteredContactList()
+                .get(INDEX_FIRST_CONTACT.getZeroBased());
         DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);

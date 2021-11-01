@@ -66,7 +66,7 @@ public class Name implements ContactComponent<Name> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_NAME;
+        return fullName == null;
     }
 
     @Override

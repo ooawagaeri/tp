@@ -68,7 +68,7 @@ public class Email implements ContactComponent<Email> {
         requireNonNull(email);
 
         if (email.length() == 0) {
-            return EMPTY_EMAIL;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parseEmail(email);
         }
@@ -78,7 +78,7 @@ public class Email implements ContactComponent<Email> {
         requireNonNull(email);
 
         if (email.orElse("").length() == 0) {
-            return EMPTY_EMAIL;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parseEmail(email.get());
         }
@@ -90,7 +90,7 @@ public class Email implements ContactComponent<Email> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_EMAIL;
+        return value == null;
     }
 
     @Override

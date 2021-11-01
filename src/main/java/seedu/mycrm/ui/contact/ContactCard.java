@@ -55,7 +55,7 @@ public class ContactCard extends UiPart<Region> {
 
     private void setContactInfo(Contact contact, int displayedIndex) {
         id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
+        name.setText(contact.getName().toString());
         phone.setText("Phone: " + contact.getPhone().toString());
         address.setText("Address: " + contact.getAddress().toString());
         email.setText("Email: " + contact.getEmail().toString());

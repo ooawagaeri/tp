@@ -44,7 +44,7 @@ public class Address implements ContactComponent<Address> {
         requireNonNull(address);
 
         if (address.length() == 0) {
-            return EMPTY_ADDRESS;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parseAddress(address);
         }
@@ -54,7 +54,7 @@ public class Address implements ContactComponent<Address> {
         requireNonNull(address);
 
         if (address.orElse("").length() == 0) {
-            return EMPTY_ADDRESS;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parseAddress(address.get());
         }
@@ -67,7 +67,7 @@ public class Address implements ContactComponent<Address> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_ADDRESS;
+        return value == null;
     }
 
     @Override

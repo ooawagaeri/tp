@@ -25,6 +25,7 @@ import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
 
 public class AddContactCommandParser implements Parser<AddContactCommand> {
+    private static final String EMPTY_PREFIX = "EMPTY";
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddContactCommand}
      * and returns a {@code AddContactCommand} object for execution.
@@ -56,18 +57,18 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
 
         Optional<String> phoneWrapper = argMultimap.getValue(PREFIX_PHONE);
         Phone phone;
-        phone = phoneWrapper.orElse("").equals("")
+        phone = phoneWrapper.orElse(EMPTY_PREFIX).equals(EMPTY_PREFIX)
                 ? Phone.getEmptyPhone()
                 : Phone.getPhone(phoneWrapper.get());
 
         Optional<String> emailWrapper = argMultimap.getValue(PREFIX_EMAIL);
-        Email email = emailWrapper.orElse("").equals("")
+        Email email = emailWrapper.orElse(EMPTY_PREFIX).equals(EMPTY_PREFIX)
                 ? Email.getEmptyEmail()
                 : Email.getEmail(emailWrapper.get());
 
 
         Optional<String> addressWrapper = argMultimap.getValue(PREFIX_ADDRESS);
-        Address address = addressWrapper.orElse("").equals("")
+        Address address = addressWrapper.orElse(EMPTY_PREFIX).equals(EMPTY_PREFIX)
                 ? Address.getEmptyAddress()
                 : Address.getAddress(addressWrapper.get());
 
