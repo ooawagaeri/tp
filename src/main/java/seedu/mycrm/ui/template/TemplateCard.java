@@ -32,8 +32,8 @@ public class TemplateCard extends UiPart<Region> {
         super(FXML);
         this.template = template;
         id.setText(displayedIndex + ". ");
-        subject.setText(template.getSubject().subject);
-        body.setText(template.getBody().body);
+        subject.setText(template.getSubject().toString());
+        body.setText(template.getMailReadyBody());
     }
 
     @Override

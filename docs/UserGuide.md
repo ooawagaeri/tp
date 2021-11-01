@@ -8,6 +8,11 @@ been optimised for use via a Command Line Interface (CLI)** while maintaining th
 (GUI). If you type quickly, MyCRM can complete customer relationship management tasks faster than traditional GUI
 applications.
 
+**Target Audience:** Tech savvy computer repair shop technician. Owns a business repairing computers and laptops, 
+actively servicing multiple clients and answering their queries. Services a wide range of models and deals with both 
+hardware and software issues. Also has multiple repair-phases which have to be updated to clients.  
+
+
 * Table of Contents
 {:toc}
 
@@ -33,7 +38,7 @@ applications.
    * **`addContact `**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
      named `John Doe` to the CRM.
 
-   * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
+   * **`deleteContact `**`4` : Deletes the 4th contact shown in the current list.
 
    * **`clear`** : Deletes all contacts.
 
@@ -223,9 +228,11 @@ Add a new contact info of a client into the CRM.
 Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 * Creates a new contact info of a client.
-* In order to protect client's privacy, we allow client to conceal certain 
-  part of their info, but at least one of their phone, email, address 
-  should be given in order to get in touch.
+* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist.
+  
+  i.e. `addContact n/CLIENT_NAME` is not allowed. 
+  
+  `addContact n/CLIENT_NAME e/EMAIL`, `addContact n/CLIENT_NAME c/CONTACT_NUMBER` commands like these are valid.
 * Contact number, Address, Email are optional, but must have one of them to
   make it realistic to get access to the client.
 
@@ -424,7 +431,7 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
 Examples:
 
-* `listJobs` and `listTemplates` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
+* `listJobs` and `listTemplate` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template and `mailto:` hyperlink.
 
     <img src="images/ui-mail.png" width="600px">
@@ -458,7 +465,7 @@ Examples:
 
 Shows a list of all templates in the CRM.
 
-Format: `listTemplates`
+Format: `listTemplate`
 
   <img src="images/ui-list-template.png" width="600px">
 
@@ -466,7 +473,7 @@ Format: `listTemplates`
 
 Edits the specified template from the CRM.
 
-Format: `editTempalte INDEX [s/SUBJECT] [b/BODY]`
+Format: `editTemplate INDEX [s/SUBJECT] [b/BODY]`
 
 * At least one optional edit field must be provided
 * `SUBJECT` only accepts alphanumeric values and spaces in between.
@@ -628,11 +635,9 @@ Action              | Format, Examples
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
 **List Templates**  | `listTemplate`
 **Find Templates**     |`findTemplate [MORE_KEYWORDS]... ` <br>e.g., `findTemplates complete`
-**Edit Templates**  | `editTempalte INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
+**Edit Templates**  | `editTemplate INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
 **Change Theme**    | `theme THEME_NAME`<br>e.g., `theme light`
 **Print Monthly Report**    | `printReport`
-
-

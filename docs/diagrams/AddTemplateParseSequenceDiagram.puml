@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
 participant ":AddTemplateCommandParser" as AddTemplateCommandParser LOGIC_COLOR
 participant "toAdd:AddTemplateCommand" as AddTemplateCommand LOGIC_COLOR
 end box
@@ -17,17 +17,17 @@ end box
 activate LogicManager
 
 group sd parse add template
-LogicManager -> AddressBookParser : parseCommand("addTemplate s/Completed b/Dear customer...")
-activate AddressBookParser
+LogicManager -> MyCrmParser : parseCommand("addTemplate s/Completed b/Dear customer...")
+activate MyCrmParser
 
 create AddTemplateCommandParser
-AddressBookParser -> AddTemplateCommandParser
+MyCrmParser -> AddTemplateCommandParser
 activate AddTemplateCommandParser
 
-AddTemplateCommandParser --> AddressBookParser
+AddTemplateCommandParser --> MyCrmParser
 deactivate AddTemplateCommandParser
 
-AddressBookParser -> AddTemplateCommandParser : parse("s/Completed b/Dear customer...")
+MyCrmParser -> AddTemplateCommandParser : parse("s/Completed b/Dear customer...")
 activate AddTemplateCommandParser
 
 create Subject
@@ -54,14 +54,14 @@ activate AddTemplateCommand
 AddTemplateCommand --> AddTemplateCommandParser : toAdd
 deactivate AddTemplateCommand
 
-AddTemplateCommandParser --> AddressBookParser : toAdd
+AddTemplateCommandParser --> MyCrmParser : toAdd
 deactivate AddTemplateCommandParser
 'Hidden arrow to position destroy marker below the end of the activation bar.
-AddTemplateCommandParser -[hidden]-> AddressBookParser
+AddTemplateCommandParser -[hidden]-> MyCrmParser
 destroy AddTemplateCommandParser
 
-AddressBookParser --> LogicManager : toAdd
-deactivate AddressBookParser
+MyCrmParser --> LogicManager : toAdd
+deactivate MyCrmParser
 end
 
 deactivate LogicManager
