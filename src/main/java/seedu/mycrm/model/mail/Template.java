@@ -23,6 +23,11 @@ public class Template {
         return body;
     }
 
+    public String getMailReadyBody() {
+        return body.toString().replace("\\n", "\n");
+    }
+
+
     /**
      * Returns true if both email templates have the subject header.
      * This defines a weaker notion of equality between two templates.
