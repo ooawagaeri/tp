@@ -197,6 +197,12 @@ Then create a contact using the new name, phone, email and address.
 
 ![](images/AddContactSequenceDiagram.png)
 
+### Editing a Contact
+
+### Deleting a Contact
+
+### Finding a Contact
+
 ### Hiding a Contact
 
 #### Implementation
@@ -204,6 +210,8 @@ Then create a contact using the new name, phone, email and address.
 The Hiding a Contact mechanism follows the `EditCommand` mechanism in `AddressBook`. It hides a specific contact
 which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
 Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+
+### Undoing Hiding a Contact
 
 ### Listing Contacts
 

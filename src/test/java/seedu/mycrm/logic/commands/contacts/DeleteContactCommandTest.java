@@ -6,6 +6,7 @@ import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
+import static seedu.mycrm.testutil.TypicalContacts.getOneTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
@@ -24,40 +25,56 @@ import seedu.mycrm.model.contact.Contact;
  */
 public class DeleteContactCommandTest {
 
-    private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private Model modelTypicalContact = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private Model modelOneTypicalContact = new ModelManager(getOneTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contactToDelete = modelTypicalContact.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
         DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMyCrm(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(modelTypicalContact.getMyCrm(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, modelTypicalContact, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(modelTypicalContact.getFilteredContactList().size() + 1);
         DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, modelTypicalContact, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        Contact contactToDelete = modelOneTypicalContact.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
+
+        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
+
+        ModelManager expectedModel = new ModelManager(modelOneTypicalContact.getMyCrm(), new UserPrefs());
+        expectedModel.deleteContact(contactToDelete);
+
+        showNoContact(expectedModel);
+
+        assertCommandSuccess(deleteCommand, modelOneTypicalContact, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+        showContactAtIndex(modelOneTypicalContact, INDEX_FIRST_CONTACT);
 
         Index outOfBoundIndex = INDEX_SECOND_CONTACT;
         // ensures that outOfBoundIndex is still in bounds of myCrm list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getMyCrm().getContactList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < modelTypicalContact.getMyCrm().getContactList().size());
 
         DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, modelOneTypicalContact, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test

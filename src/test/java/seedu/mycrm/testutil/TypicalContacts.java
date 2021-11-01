@@ -70,6 +70,16 @@ public class TypicalContacts {
         return ab;
     }
 
+    /**
+     * Returns an {@code MyCrm} with one the typical contacts.
+     */
+    public static MyCrm getOneTypicalMyCrm() {
+        MyCrm ab = new MyCrm();
+        Contact contact = getTypicalContacts().get(0);
+        ab.addContact(contact);
+        return ab;
+    }
+
     public static List<Contact> getTypicalContacts() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

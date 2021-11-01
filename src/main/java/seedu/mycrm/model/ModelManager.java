@@ -254,8 +254,8 @@ public class ModelManager implements Model {
     //=========== Filtered Contact List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of not hidden {@code Contact} backed by the internal list of
+     * {@code MyCrm}
      */
     @Override
     public ObservableList<Contact> getFilteredContactList() {
