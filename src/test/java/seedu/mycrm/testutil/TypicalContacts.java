@@ -65,6 +65,7 @@ public class TypicalContacts {
     public static MyCrm getTypicalMyCrm() {
         MyCrm mc = new MyCrm();
         for (Contact contact : getTypicalContacts()) {
+            contact.setNotHidden();
             mc.addContact(contact);
         }
         return mc;
@@ -76,9 +77,8 @@ public class TypicalContacts {
     public static MyCrm getTypicalHiddenMyCrm() {
         MyCrm mc = new MyCrm();
         for (Contact contact : getTypicalContacts()) {
-            Contact hiddenContact = contact;
-            hiddenContact.setHidden();
-            mc.addContact(hiddenContact);
+            contact.setHidden();
+            mc.addContact(contact);
         }
         return mc;
     }
@@ -89,6 +89,7 @@ public class TypicalContacts {
     public static MyCrm getOneTypicalMyCrm() {
         MyCrm mc = new MyCrm();
         Contact contact = getTypicalContacts().get(0);
+        contact.setNotHidden();
         mc.addContact(contact);
         return mc;
     }

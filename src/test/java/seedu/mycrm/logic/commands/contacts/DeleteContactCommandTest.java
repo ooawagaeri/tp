@@ -52,7 +52,7 @@ public class DeleteContactCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() {
         Contact contactToDelete = modelOneTypicalContact.getFilteredContactList()
-                .get(INDEX_FIRST_CONTACT.getZeroBased());
+                        .get(INDEX_FIRST_CONTACT.getZeroBased());
         DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
