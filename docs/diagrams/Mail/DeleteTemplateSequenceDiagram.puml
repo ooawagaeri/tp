@@ -1,0 +1,54 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toDelete:DeleteTemplateCommand" as DeleteTemplateCommand LOGIC_COLOR
+participant "lastShownList: List<Template>" as ListTemplate LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deleteTemplate 1")
+activate LogicManager
+
+ref over LogicManager, DeleteTemplateCommand : parse delete template
+
+LogicManager -> DeleteTemplateCommand : execute()
+
+activate DeleteTemplateCommand
+
+DeleteTemplateCommand -> Model : getFilteredTemplateList()
+activate Model
+Model --> DeleteTemplateCommand : lastShownList
+deactivate Model
+
+DeleteTemplateCommand -> ListTemplate : get(index)
+activate ListTemplate
+ListTemplate --> DeleteTemplateCommand : templateToDelete
+deactivate ListTemplate
+
+DeleteTemplateCommand -> Model : deleteTemplate(templateToDelete)
+activate Model
+Model --> DeleteTemplateCommand
+deactivate Model
+
+create CommandResult
+DeleteTemplateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteTemplateCommand
+deactivate CommandResult
+
+DeleteTemplateCommand --> LogicManager : result
+deactivate DeleteTemplateCommand
+
+DeleteTemplateCommand -[hidden]-> LogicManager
+destroy DeleteTemplateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

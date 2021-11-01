@@ -218,11 +218,11 @@ The Adding a Template mechanism is facilitated by `MyCRM`. This template created
 
 The activity diagram below illustrates how the events of `addTemplate` command behave when executed by user:
 
-![](images/AddTemplateActivityDiagram.png)
+![](images/mail/AddTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Adding a Template mechanism behaves at each step.
 
-![](images/AddTemplateParseSequenceDiagram.png)
+![](images/mail/AddTemplateParseSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for 
 `AddTemplateCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline 
@@ -233,7 +233,7 @@ Within `AddTemplateCommandParser#parse`, `ParserUtil#parseSubject` will be calle
 "Completed", `ParserUtil#parseBody` to create a body using "Dear customer..." and create a template using the new
 subject and body.
 
-![](images/AddTemplateSequenceDiagram.png)
+![](images/mail/AddTemplateSequenceDiagram.png)
 
 Additionally, before adding the new template into `Model`, `Template t` will be checked if a similar copy exist
 within `Model`. The conditions required is:
@@ -257,33 +257,87 @@ within `Model`. The conditions required is:
 
 #### Implementation
 
-The Editing a Template mechanism is facilitated by `MyCRM`. This template reads and modifies a target template object
-from `UniqueTemplateList` inside the `MyCRM` object.
+The Editing a Template mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target template 
+object from `UniqueTemplateList` inside the `MyCRM` object.
 
 #### Usage
 
 The activity diagram below illustrates how the events of `editTemplate` command behave when executed by user:
 
-![](images/EditTemplateActivityDiagram.png)
+![](images/mail/EditTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Editing a Template mechanism behaves at each step.
 
-![](images/EditTemplateParseSequenceDiagram.png)
+![](images/mail/EditTemplateParseSequenceDiagram.png)
 
 Within `EditTemplateCommandParser#parse`,
-- `Index` must be is valid (within the range of templates) and at least one field to be edited, for the mechanism to 
-  execute successfully. 
+- `Index` must be is valid (within the range of templates).
 - `EditTemplateDescriptor` will only get the values of `Subject` and `Body` if their respective prefixes are present. 
 
 `EditTemplateCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the specified template index and 
 `ArgumentMultimap#getValue` to extract both `Subject` and `Body`: "Completed" and "Order Completed!" from the 
 command string respectively.
 
-![](images/EditTemplateSequenceDiagram.png)
+![](images/mail/EditTemplateSequenceDiagram.png)
 
-### Deleting a template
+### Deleting a Template
 
-### Constructing an email
+#### Implementation
+
+The Deleting a Template mechanism is facilitated by `MyCRM`. This template removes a target template object from
+`UniqueTemplateList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `deleteTemplate` command behave when executed by user:
+
+![](images/mail/DeleteTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Deleting a Template mechanism behaves at each step.
+
+![](images/mail/DeleteTemplateParseSequenceDiagram.png)
+
+Within `DeleteTemplateCommandParser#parse`,
+- `Index` must be is valid (within the range of templates) and at least one field to be edited, for the mechanism to
+  execute successfully.
+- `ParserUtil#parseIndex` will be called to extract the index of the specified template to delete.
+
+![](images/mail/DeleteTemplateSequenceDiagram.png)
+
+### Constructing an Email
+
+#### Implementation
+
+The Constructing an Email mechanism is facilitated by `MyCRM`. This email is constructed based of the information 
+from a specified job and template from `UniqueJobList` and `UniqueTemplateList` inside the `MyCRM` object. A mailto URL 
+will be generated, sending users to their default mailing application with details of the job and template. 
+
+#### Usage
+
+The activity diagram below illustrates how the events of `mail` command behave when executed by user:
+
+![](images/mail/MailActivityDiagram.png)
+
+Given below is an example usage scenario and how the Constructing an Email mechanism behaves at each step.
+
+![](images/mail/MailParseSequenceDiagram.png)
+
+Within `MailCommandParser#parse`,
+- `JobIndex` must be is valid (within the range of job).
+- `TemplateIndex` must be is valid (within the range of templates).
+- `ParserUtil#parseIndex` will be called to extract both the index of the specified job and template to mail.
+
+![](images/mail/MailSequenceDiagram.png)
+
+An additional feature of constructing an email is the generation of a mailto URL, allowing for users to transfer 
+their job and template details to the user's default mailing application.
+
+Given below is an example of the generation of a mailto URL:
+
+![](images/mail/MailUrlSequenceDiagram.png)
+
+After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
+the URL path.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -343,7 +397,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | regular user           | hide unused job fields                                    | not be distracted by empty / irrelevant fields.                       |
 | `*`      | regular user           | hide unused contacts                                      | not be distracted by irrelevant clients.                              |
 | `*`      | regular user           | customize the app’s user interface (like font and colour) | make the interface look more stylish and pleasant for the eyes        |
-| `*`      | regular user           | pin jobs I am working on / are urgent                     | easily check and view the job’s details                               |
+| `*`      | ~~regular user~~       | ~~pin jobs I am working on / are urgent~~                 | ~~easily check and view the job’s details~~                           |
 | `* *`    | regular user           | export my monthly records and statistics                  | store my record externally for future reference                       |
 
 ### Use cases
@@ -552,7 +606,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to edit a contact.
 2. MyCRM shows a list of contacts.
 3. User requests to edit a specific contact's info with specific index and type of the field in contact.
-4. MyCRM updates this specifc contact's info.
+4. MyCRM updates this specific contact's info.
 
     Use case ends.
 
@@ -568,7 +622,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-* 3b. The given edit field type is invaild.
+* 3b. The given edit field type is invalid.
 
     * 3b1. MyCRM shows an error message.
 
@@ -753,7 +807,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Editing an email template**
+**Use case: UC16 - Listing all email template**
+
+**MSS**
+
+1. User request to find a template of specified subject keyword(s).
+2. MyCRM shows a list of filtered template for which the keywords appear in the template's subject. 
+   product.
+
+   Use case ends.
+
+
+**Use case: UC17 - Editing an email template**
 
 **MSS**
 
@@ -794,7 +859,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC17 - Deleting an email template**
+**Use case: UC18 - Deleting an email template**
 
 **MSS**
 
@@ -817,7 +882,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC18 - Viewing user guide**
+**Use case: UC19 - Viewing user guide**
 
 **MSS**
 
@@ -826,7 +891,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC19 - Exiting the program**
+**Use case: UC20 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -837,7 +902,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Clearing MyCRM data**
+**Use case: UC21 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -848,7 +913,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Add Product**
+**Use case: UC22 - Add Product**
 
 **MSS**
 
@@ -870,7 +935,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC22 - List Products**
+**Use case: UC23 - List Products**
 
 **MSS**
 
@@ -884,7 +949,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC23: Delete a product**
+**Use case: UC24: Delete a product**
 
 **MSS**
 
@@ -905,7 +970,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC 24: Edit a product.**
+**Use case: UC 25: Edit a product.**
 
 **MSS**
 
@@ -932,7 +997,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC25 - Retrieve Previous Command**
+**Use case: UC26 - Retrieve Previous Command**
 
 **MSS**
 
@@ -950,7 +1015,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC 26 - Change the theme of user interface(UI)**
+**Use case: UC 27 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -982,7 +1047,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-<!--- More to be added -->
 
 ### Glossary
 
@@ -993,6 +1057,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
 * **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
   users to send an email.
+* **URL**: A Uniform Resource Locators is a unique identifier commonly used to access a resource on the Internet.
 * **Entry**: Contact/job/product.
 
 --------------------------------------------------------------------------------------------------------------------

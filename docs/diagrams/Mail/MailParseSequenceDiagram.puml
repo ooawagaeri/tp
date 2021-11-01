@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":MailCommandParser" as MailCommandParser LOGIC_COLOR
+participant "toEdit:MailCommand" as MailCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("mail j/1 t/1")
+activate LogicManager
+
+group sd parse mail
+LogicManager -> MyCrmParser : parseCommand("mail j/1 t/1")
+activate MyCrmParser
+
+create MailCommandParser
+MyCrmParser -> MailCommandParser
+activate MailCommandParser
+
+MailCommandParser --> MyCrmParser
+deactivate MailCommandParser
+
+MyCrmParser -> MailCommandParser : parse("j/1 t/1")
+activate MailCommandParser
+
+create MailCommand
+MailCommandParser -> MailCommand : jobIndex, templateIndex
+activate MailCommand
+
+MailCommand --> MailCommandParser : toMail
+deactivate MailCommand
+
+MailCommandParser --> MyCrmParser : toMail
+deactivate MailCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+MailCommandParser -[hidden]-> MyCrmParser
+destroy MailCommandParser
+
+MyCrmParser --> LogicManager : toMail
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml
