@@ -19,6 +19,9 @@ public class JsonSerializableMyCrmTest {
     private static final Path TYPICAL_CONTACTS_FILE = TEST_DATA_FOLDER.resolve("typicalContactsMyCrm.json");
     private static final Path INVALID_CONTACTS_FILE = TEST_DATA_FOLDER.resolve("invalidContactMyCrm.json");
     private static final Path DUPLICATE_CONTACT_FILE = TEST_DATA_FOLDER.resolve("duplicateContactMyCrm.json");
+    private static final Path DUPLICATE_TEMPLATE_FILE = TEST_DATA_FOLDER.resolve("duplicateTemplateMyCrm.json");
+    private static final Path DUPLICATE_PRODUCT_FILE = TEST_DATA_FOLDER.resolve("duplicateProductMyCrm.json");
+    private static final Path DUPLICATE_JOB_FILE = TEST_DATA_FOLDER.resolve("duplicateJobMyCrm.json");
 
     @Test
     public void toModelType_typicalContactsFile_success() throws Exception {
@@ -44,4 +47,27 @@ public class JsonSerializableMyCrmTest {
                 dataFromFile::toModelType);
     }
 
+    @Test
+    public void toModelType_duplicateTemplates_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TEMPLATE_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMyCrm.MESSAGE_DUPLICATE_TEMPLATE,
+                dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_duplicateProducts_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PRODUCT_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMyCrm.MESSAGE_DUPLICATE_PRODUCT,
+                dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_duplicateJobs_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(DUPLICATE_JOB_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMyCrm.MESSAGE_DUPLICATE_JOB,
+                dataFromFile::toModelType);
+    }
 }

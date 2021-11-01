@@ -23,6 +23,10 @@ public class Template {
         return body;
     }
 
+    /**
+     * Returns augmented template body.
+     * This replaces all the '\n' tags with newline breaks.
+     */
     public String getMailReadyBody() {
         return body.toString().replace("\\n", "\n");
     }
@@ -51,13 +55,13 @@ public class Template {
             return true;
         }
 
-        if (!(other instanceof Template)) {
-            return false;
+        if (other instanceof Template) {
+            Template otherTemplate = (Template) other;
+            return otherTemplate.getSubject().equals(getSubject())
+                    && otherTemplate.getBody().equals(getBody());
         }
 
-        Template otherTemplate = (Template) other;
-        return otherTemplate.getSubject().equals(getSubject())
-                && otherTemplate.getBody().equals(getBody());
+        return false;
     }
 
     @Override

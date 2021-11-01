@@ -2,7 +2,6 @@ package seedu.mycrm.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -26,8 +25,7 @@ class JsonSerializableMyCrm {
     public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contact(s).";
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "Template list contains duplicate template(s)";
     public static final String MESSAGE_DUPLICATE_PRODUCT = "Product list contains duplicate product(s)";
-    public static final String MESSAGE_DUPLICATE_JOBS = "Job list contains duplicate job(s)";
-    public static final String MESSAGE_INVALID_JOBS = "JSON Job list contains an illegal job(s)";
+    public static final String MESSAGE_DUPLICATE_JOB = "Job list contains duplicate job(s)";
 
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
     private final List<JsonAdaptedTemplate> templates = new ArrayList<>();
@@ -92,38 +90,14 @@ class JsonSerializableMyCrm {
         }
 
         for (JsonAdaptedJob jsonAdaptedJob : jobs) {
-            Job job = jsonAdaptedJob.toModelType();
-            String clientName = jsonAdaptedJob.getClient();
-            String productName = jsonAdaptedJob.getProduct();
-
-            Optional<Contact> matchClient = myCrm.getContactList()
-                .stream()
-                .filter(contact -> clientName.equals(contact.getName().toString()))
-                .findFirst();
-
-            if (matchClient.isPresent()) {
-                job.setClient(matchClient.get());
-            } else {
-                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
-            }
-
-            Optional<Product> matchProduct = myCrm.getProductList()
-                .stream()
-                .filter(product -> productName.equals(product.getName().toString()))
-                .findFirst();
-
-            if (matchProduct.isPresent()) {
-                job.setProduct(matchProduct.get());
-            } else {
-                throw new IllegalValueException(MESSAGE_INVALID_JOBS);
-            }
-
+            Job job = jsonAdaptedJob.toModelType(myCrm);
             if (myCrm.hasJob(job)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_JOBS);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_JOB);
             }
             myCrm.addJob(job);
         }
 
         return myCrm;
     }
+
 }
