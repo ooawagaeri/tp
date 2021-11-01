@@ -211,8 +211,8 @@ Edited contact created is stored internally using `UniqueContactList` inside the
 
 #### Implementation
 
-The Adding a Template mechanism is facilitated by `AddressBook`. This template created is stored internally using
-`UniqueTemplateList` inside the `AddressBook` object. 
+The Adding a Template mechanism is facilitated by `MyCRM`. This template created is stored internally using
+`UniqueTemplateList` inside the `MyCRM` object. 
 
 #### Usage
 
@@ -240,7 +240,7 @@ within `Model`. The conditions required is:
 
 * If both templates have the DO NOT same `Subject` content i.e. there is an existing template with subject "Completed".
 
-#### Design considerations
+#### Design Considerations
 
 **Aspect: Unique Template**
 
@@ -252,6 +252,34 @@ within `Model`. The conditions required is:
   * Pros: Enables different variations of general / common email headers
   * Cons: May not be user-friendly as it may be hard to differentiate templates as some may be too similar at first 
     glance. Such as, minor typos, copy and paste with a couple of different words. Higher risk of confusion.    
+
+### Editing a Template
+
+#### Implementation
+
+The Editing a Template mechanism is facilitated by `MyCRM`. This template reads and modifies a target template object
+from `UniqueTemplateList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editTemplate` command behave when executed by user:
+
+![](images/EditTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Editing a Template mechanism behaves at each step.
+
+![](images/EditTemplateParseSequenceDiagram.png)
+
+Within `EditTemplateCommandParser#parse`,
+- `Index` must be is valid (within the range of templates) and at least one field to be edited, for the mechanism to 
+  execute successfully. 
+- `EditTemplateDescriptor` will only get the values of `Subject` and `Body` if their respective prefixes are present. 
+
+`EditTemplateCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the specified template index and 
+`ArgumentMultimap#getValue` to extract both `Subject` and `Body`: "Completed" and "Order Completed!" from the 
+command string respectively.
+
+![](images/EditTemplateSequenceDiagram.png)
 
 ### Deleting a template
 

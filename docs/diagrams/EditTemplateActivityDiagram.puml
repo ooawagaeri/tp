@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes edit template command;
+:MyCRM parses user inputs;
+if () then ([Valid inputs])
+    :Gets specified template;
+    :Creates edited template;
+    :Replaces specified template with edited template;
+    :Displays successful edited template on UI;
+else ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful edited template on UI;
+endif
+stop
+
+@enduml

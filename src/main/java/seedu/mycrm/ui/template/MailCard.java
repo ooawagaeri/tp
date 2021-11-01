@@ -39,10 +39,8 @@ public class MailCard extends UiPart<Region> {
         this.mail = mail;
         link.setText("Click here to send email");
         email.setText(mail.getJob().getClient().getEmail().value);
-        subject.setText(mail.getTemplate().getSubject().subject);
-
-        String bodyWithNewLine = mail.getTemplate().getBody().body.replace("\\n", "\n");
-        body.setText(bodyWithNewLine);
+        subject.setText(mail.getTemplate().getSubject().toString());
+        body.setText(mail.getTemplate().getMailReadyBody());
 
         link.setOnAction(e -> {
             myHostServices.showDocument(mail.constructMail());
