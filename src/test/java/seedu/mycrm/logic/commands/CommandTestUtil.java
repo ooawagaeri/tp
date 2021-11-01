@@ -199,8 +199,8 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the contact at the given {@code targetIndex} in the
-     * {@code model}'s myCrm.
+     * Updates {@code model}'s filtered unhidden contacts list to show only the contact at the given {@code targetIndex}
+     * in the {@code model}'s myCrm.
      */
     public static void showContactAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());

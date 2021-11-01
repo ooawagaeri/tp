@@ -198,7 +198,7 @@ public interface Model {
 
     double getRevenue(LocalDate date);
 
-    /** Returns an unmodifiable view of the filtered contact list */
+    /** Returns an unmodifiable view of the filtered unhidden contact list */
     ObservableList<Contact> getFilteredContactList();
 
     /** Returns an unmodifiable view of the filtered template list */
