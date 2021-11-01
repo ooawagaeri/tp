@@ -69,7 +69,11 @@ public class ContactBuilder {
      * Sets the {@code Address} of the {@code Contact} that we are building.
      */
     public ContactBuilder withAddress(String address) {
-        this.address = new Address(address);
+        if (address != null) {
+            this.address = new Address(address);
+        } else {
+            this.address = new Address();
+        }
         return this;
     }
 
@@ -77,7 +81,11 @@ public class ContactBuilder {
      * Sets the {@code Phone} of the {@code Contact} that we are building.
      */
     public ContactBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        if (phone != null) {
+            this.phone = new Phone(phone);
+        } else {
+            this.phone = new Phone();
+        }
         return this;
     }
 
@@ -85,7 +93,11 @@ public class ContactBuilder {
      * Sets the {@code Email} of the {@code Contact} that we are building.
      */
     public ContactBuilder withEmail(String email) {
-        this.email = new Email(email);
+        if (email != null) {
+            this.email = new Email(email);
+        } else {
+            this.email = new Email();
+        }
         return this;
     }
 

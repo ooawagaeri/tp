@@ -55,13 +55,13 @@ public class ContactCard extends UiPart<Region> {
 
     private void setContactInfo(Contact contact, int displayedIndex) {
         id.setText(displayedIndex + ". ");
-        name.setText(contact.getName().fullName);
-        phone.setText(contact.getPhone().value);
-        address.setText(contact.getAddress().value);
-        email.setText(contact.getEmail().value);
+        name.setText(contact.getName().toString());
+        phone.setText("Phone: " + contact.getPhone().toString());
+        address.setText("Address: " + contact.getAddress().toString());
+        email.setText("Email: " + contact.getEmail().toString());
 
         if (contact.checkIsHidden()) {
-            addContactTag();
+            addHiddenTag();
         }
 
         contact.getTags().stream()
@@ -69,7 +69,7 @@ public class ContactCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-    private void addContactTag() {
+    private void addHiddenTag() {
         isHidden.getChildren().add(new Label("Hidden"));
     }
 

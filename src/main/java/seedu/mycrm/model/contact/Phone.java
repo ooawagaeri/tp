@@ -3,8 +3,6 @@ package seedu.mycrm.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.AppUtil.checkArgument;
 
-import java.util.Optional;
-
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 /**
@@ -41,19 +39,9 @@ public class Phone implements ContactComponent<Phone> {
         requireNonNull(phone);
 
         if (phone.length() == 0) {
-            return EMPTY_PHONE;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parsePhone(phone);
-        }
-    }
-
-    public static Phone getPhone(Optional<String> phone) throws ParseException {
-        requireNonNull(phone);
-
-        if (phone.orElse("").length() == 0) {
-            return EMPTY_PHONE;
-        } else {
-            return ParserUtil.parsePhone(phone.get());
         }
     }
 
@@ -70,7 +58,7 @@ public class Phone implements ContactComponent<Phone> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_PHONE;
+        return value == null;
     }
 
     @Override
@@ -85,9 +73,21 @@ public class Phone implements ContactComponent<Phone> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
-                && value.equals(((Phone) other).value)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        if (value == null) {
+            return ((Phone) other).value == null;
+        }
+
+        if (other instanceof Phone // instanceof handles nulls
+                && value.equals(((Phone) other).value)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -8,7 +8,7 @@ import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_FIRST_TIER;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +52,7 @@ public class EditContactDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditContactDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditContactDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_FIRST_TIER).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
