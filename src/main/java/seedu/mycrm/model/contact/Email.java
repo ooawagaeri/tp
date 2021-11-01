@@ -3,8 +3,6 @@ package seedu.mycrm.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.AppUtil.checkArgument;
 
-import java.util.Optional;
-
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 /**
@@ -74,16 +72,6 @@ public class Email implements ContactComponent<Email> {
         }
     }
 
-    public static Email getEmail(Optional<String> email) throws ParseException {
-        requireNonNull(email);
-
-        if (email.orElse("").length() == 0) {
-            throw new ParseException(MESSAGE_CONSTRAINTS);
-        } else {
-            return ParserUtil.parseEmail(email.get());
-        }
-    }
-
     public static Email getEmptyEmail() {
         return EMPTY_EMAIL;
     }
@@ -105,9 +93,21 @@ public class Email implements ContactComponent<Email> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        if (value == null) {
+            return ((Email) other).value == null;
+        }
+
+        if (other instanceof Email // instanceof handles nulls
+                && value.equals(((Email) other).value)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -3,8 +3,6 @@ package seedu.mycrm.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.AppUtil.checkArgument;
 
-import java.util.Optional;
-
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 /**
@@ -49,14 +47,6 @@ public class Name implements ContactComponent<Name> {
         return ParserUtil.parseName(name);
     }
 
-    public static Name getName(Optional<String> name) throws ParseException {
-        requireNonNull(name);
-        assert name.orElse("").length() > 0;
-
-        String nameString = name.get();
-        return ParserUtil.parseName(nameString);
-    }
-
     /**
      * Returns true if a given string is a valid name.
      */
@@ -82,9 +72,21 @@ public class Name implements ContactComponent<Name> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        if (fullName == null) {
+            return ((Name) other).fullName == null;
+        }
+
+        if (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

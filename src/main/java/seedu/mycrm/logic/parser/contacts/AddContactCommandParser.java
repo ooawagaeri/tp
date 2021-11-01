@@ -72,8 +72,6 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
                 ? Address.getEmptyAddress()
                 : Address.getAddress(addressWrapper.get());
 
-        System.out.println(address.toString());
-
         if (phone.isEmpty() && email.isEmpty() && address.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddContactCommand.MESSAGE_AT_LEAST_ONE_COMPONENT));
