@@ -2,6 +2,7 @@ package seedu.mycrm.testutil;
 
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.contact.Contact;
+import seedu.mycrm.model.products.Product;
 
 /**
  * A utility class to help with building MyCrm objects.
@@ -25,6 +26,14 @@ public class MyCrmBuilder {
      */
     public MyCrmBuilder withContact(Contact contact) {
         myCrm.addContact(contact);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Product} to the {@code Product} that we are building.
+     */
+    public MyCrmBuilder withProduct(Product product) {
+        myCrm.addProduct(product);
         return this;
     }
 

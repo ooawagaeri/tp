@@ -38,13 +38,12 @@ public class MailCard extends UiPart<Region> {
         super(FXML);
         this.mail = mail;
         link.setText("Click here to send email");
-        email.setText(mail.getJob().getClient().getEmail().value);
-        subject.setText(mail.getTemplate().getSubject().toString());
-        body.setText(mail.getTemplate().getMailReadyBody());
 
-        link.setOnAction(e -> {
-            myHostServices.showDocument(mail.constructMail());
-        });
+        email.setText(mail.getMailEmail());
+        subject.setText(mail.getMailSubject());
+        body.setText(mail.getMailBody());
+
+        link.setOnAction(e -> myHostServices.showDocument(mail.constructMail()));
     }
 
     /**

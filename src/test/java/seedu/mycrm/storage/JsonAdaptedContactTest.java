@@ -1,6 +1,7 @@
 package seedu.mycrm.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.storage.JsonAdaptedContact.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalContacts.BENSON;
@@ -49,14 +50,6 @@ public class JsonAdaptedContactTest {
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedContact contact = new JsonAdaptedContact(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
-                VALID_NOT_HIDDEN);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
-    }
-
-    @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         JsonAdaptedContact contact =
                 new JsonAdaptedContact(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_HIDDEN);
@@ -89,4 +82,39 @@ public class JsonAdaptedContactTest {
         assertThrows(IllegalValueException.class, contact::toModelType);
     }
 
+    @Test
+    public void toModelType_nullName_throwsIllegalValueException() {
+        JsonAdaptedContact contact = new JsonAdaptedContact(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
+                VALID_NOT_HIDDEN);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullPhoneIsSameContact_returnContact() throws Exception {
+        JsonAdaptedContact contact = new JsonAdaptedContact(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
+                VALID_NOT_HIDDEN);
+        assertTrue(BENSON.isSameContact(contact.toModelType()));
+    }
+
+    @Test
+    public void toModelType_nullEmailIsSameContact_returnContact() throws Exception {
+        JsonAdaptedContact contact = new JsonAdaptedContact(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS,
+                VALID_NOT_HIDDEN);
+        assertTrue(BENSON.isSameContact(contact.toModelType()));
+    }
+
+    @Test
+    public void toModelType_nullAddressIsSameContact_returnContact() throws Exception {
+        JsonAdaptedContact contact = new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS,
+                VALID_NOT_HIDDEN);
+        assertTrue(BENSON.isSameContact(contact.toModelType()));
+    }
+
+    @Test
+    public void toModelType_nullTagIsSameContact_returnContact() throws Exception {
+        JsonAdaptedContact contact = new JsonAdaptedContact(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, null,
+                VALID_NOT_HIDDEN);
+        assertTrue(BENSON.isSameContact(contact.toModelType()));
+    }
 }
