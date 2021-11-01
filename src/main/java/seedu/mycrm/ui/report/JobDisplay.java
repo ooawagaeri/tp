@@ -62,7 +62,7 @@ public class JobDisplay extends UiPart<Region> {
      */
     public void init(Logic logic) {
         int numberOfCompletedJob = logic.getFilteredMonthlyCompletedJobList().size();
-        int numberOfInProgressJob = logic.getFilteredJobList().size();
+        int numberOfInProgressJob = logic.getFilteredIncompleteJobList().size();
 
         completedJobListPanel = new JobListPanel(logic.getFilteredMonthlyCompletedJobList());
         numberOfCompletedJobDisplay = new NumberCard(COMPLETED_JOB_NUMBER_MESSAGE, numberOfCompletedJob);
@@ -71,7 +71,7 @@ public class JobDisplay extends UiPart<Region> {
         completedJobListPanelPlaceholder.managedProperty().bind(completedJobListPanelPlaceholder.visibleProperty());
         completedJobListPanelPlaceholder.getChildren().add(vBox1);
 
-        inProgressJobListPanel = new JobListPanel(logic.getFilteredJobList());
+        inProgressJobListPanel = new JobListPanel(logic.getFilteredIncompleteJobList());
         numberOfInProgressJobDisplay = new NumberCard(IN_PROGRESS_JOB_NUMBER_MESSAGE, numberOfInProgressJob);
         VBox vBox2 = new VBox(numberOfInProgressJobDisplay.getRoot(), inProgressJobListPanel.getRoot());
         vBox2.setVgrow(inProgressJobListPanel.getRoot(), Priority.ALWAYS);

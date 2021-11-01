@@ -237,8 +237,13 @@ public class AddProductCommandTest {
         public double getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ObservableList<Product> getFilteredTopThreeProductList() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Job> getFilteredIncompleteJobList() {
             throw new AssertionError("This method should not be called.");
         }
 

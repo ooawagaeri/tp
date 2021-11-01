@@ -1,6 +1,9 @@
 package seedu.mycrm.testutil;
 
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_BODY_COMPLETE;
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_BODY_DONE;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_SUBJECT_COMPLETE;
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_SUBJECT_DONE;
 import static seedu.mycrm.testutil.TypicalJobs.CARL_JOB;
 
 import seedu.mycrm.model.MyCrm;
@@ -11,11 +14,17 @@ import seedu.mycrm.model.mail.Template;
 public class TypicalMails {
 
     public static final Template COMPLETED_TEMPLATE = new TemplateBuilder().withSubject(VALID_SUBJECT_COMPLETE)
-            .withBody("Dear valued customer, your order has been completed and ready for collection").build();
+            .withBody(VALID_BODY_COMPLETE).build();
+
+    public static final Template THANK_YOU_TEMPLATE = new TemplateBuilder().withSubject(VALID_SUBJECT_DONE)
+            .withBody(VALID_BODY_DONE).build();
 
     public static final Job COMPLETED_JOB = new JobBuilder().withCompletionStatus(true).build();
 
-    public static final Mail COMPLETED_MAIL = new MailBuilder().build();
+    public static final Mail COMPLETED_MAIL =
+            new MailBuilder().withJob(COMPLETED_JOB).withTemplate(COMPLETED_TEMPLATE).build();
+
+    public static final Mail THANK_YOU_MAIL = new MailBuilder().withTemplate(THANK_YOU_TEMPLATE).build();
 
     private TypicalMails() {}
 

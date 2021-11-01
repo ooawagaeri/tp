@@ -1,0 +1,72 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toMail:MailCommand" as MailCommand LOGIC_COLOR
+participant "lastJobList: List<Job>" as ListJob LOGIC_COLOR
+participant "lastTemplateList: List<Template>" as ListTemplate LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Mail" as Mail MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("mail j/1 t/1")
+activate LogicManager
+
+ref over LogicManager, MailCommand : parse mail
+
+LogicManager -> MailCommand : execute()
+
+activate MailCommand
+
+MailCommand -> Model : getFilteredJobList()
+activate Model
+Model --> MailCommand : lastJobList
+deactivate Model
+
+MailCommand -> Model : getFilteredTemplateList()
+activate Model
+Model --> MailCommand : lastTemplateList
+deactivate Model
+
+MailCommand -> ListJob : get(jobIndex)
+activate ListJob
+ListJob --> MailCommand : jobToMail
+deactivate ListJob
+
+MailCommand -> ListTemplate : get(templateIndex)
+activate ListTemplate
+ListTemplate --> MailCommand : templateToMail
+deactivate ListTemplate
+
+create Mail
+MailCommand -> Mail : jobIndex, templateIndex
+activate Mail
+Mail --> MailCommand : m
+deactivate Mail
+
+MailCommand -> Model : addMail(m)
+activate Model
+Model --> MailCommand
+deactivate Model
+
+create CommandResult
+MailCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> MailCommand
+deactivate CommandResult
+
+MailCommand --> LogicManager : result
+deactivate MailCommand
+
+MailCommand -[hidden]-> LogicManager
+destroy MailCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

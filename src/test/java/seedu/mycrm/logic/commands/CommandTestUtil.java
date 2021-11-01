@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_DESCRIPTION;
@@ -13,6 +14,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TEMPLATE_INDEX;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_DESCRIPTION;
 import static seedu.mycrm.testutil.ProductBuilder.DEFAULT_PRODUCT_ONE_MANUFACTURER;
@@ -24,7 +26,6 @@ import static seedu.mycrm.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_NAME;
 import static seedu.mycrm.testutil.ProductBuilder.DEFAULT_PRODUCT_TWO_TYPE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -92,12 +93,23 @@ public class CommandTestUtil {
     public static final String VALID_BODY_COMPLETE = "Your order has been completed and ready for collection";
 
     public static final String SUBJECT_DESC_COMPLETE = " " + PREFIX_SUBJECT + VALID_SUBJECT_COMPLETE;
-    public static final String BODY_DESC_COMPLETE = " " + PREFIX_BODY + VALID_BODY_COMPLETE;
     public static final String SUBJECT_DESC_DONE = " " + PREFIX_SUBJECT + VALID_SUBJECT_DONE;
+    public static final String BODY_DESC_COMPLETE = " " + PREFIX_BODY + VALID_BODY_COMPLETE;
     public static final String BODY_DESC_DONE = " " + PREFIX_BODY + VALID_BODY_DONE;
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "W#lcome";
     public static final String INVALID_BODY_DESC = " " + PREFIX_BODY + " ";
     public static final int HEAD_SUBJECT_SIZE = 2;
+
+    public static final String VALID_JOB_INDEX_1 = "1";
+    public static final String VALID_JOB_INDEX_2 = "2";
+    public static final String VALID_TEMPLATE_INDEX_1 = "1";
+    public static final String VALID_TEMPLATE_INDEX_2 = "2";
+    public static final String JOB_INDEX_DESC_1 = " " + PREFIX_JOB_INDEX + VALID_JOB_INDEX_1;
+    public static final String JOB_INDEX_DESC_2 = " " + PREFIX_JOB_INDEX + VALID_JOB_INDEX_2;
+    public static final String TEMPLATE_INDEX_DESC_1 = " " + PREFIX_TEMPLATE_INDEX + VALID_TEMPLATE_INDEX_1;
+    public static final String TEMPLATE_INDEX_DESC_2 = " " + PREFIX_TEMPLATE_INDEX + VALID_TEMPLATE_INDEX_2;
+    public static final String INVALID_JOB_INDEX_DESC = " " + PREFIX_JOB_INDEX + " w";
+    public static final String INVALID_TEMPLATE_INDEX_DESC = " " + PREFIX_TEMPLATE_INDEX + " #";
 
     public static final EditTemplateDescriptor DESC_DONE;
     public static final EditTemplateDescriptor DESC_COMPLETE;
@@ -195,7 +207,7 @@ public class CommandTestUtil {
 
         Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
         final String[] splitName = contact.getName().fullName.split("\\s+");
-        model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredContactList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
 
         assertEquals(1, model.getFilteredContactList().size());
     }
@@ -225,7 +237,7 @@ public class CommandTestUtil {
 
         Product product = model.getFilteredProductList().get(targetIndex.getZeroBased());
         final String[] splitName = product.getName().orElse("").split("\\s+");
-        model.updateFilteredProductList(new ProductNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredProductList(new ProductNameContainsKeywordsPredicate(List.of(splitName[0])));
 
         assertEquals(1, model.getFilteredProductList().size());
     }

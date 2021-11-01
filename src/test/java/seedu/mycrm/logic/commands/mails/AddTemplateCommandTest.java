@@ -253,6 +253,11 @@ class AddTemplateCommandTest {
         }
 
         @Override
+        public ObservableList<Job> getFilteredIncompleteJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Job> getFilteredAllJobList() {
             throw new AssertionError("This method should not be called.");
         }

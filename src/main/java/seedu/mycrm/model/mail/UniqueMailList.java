@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.mycrm.model.mail.exceptions.MailNotFoundException;
 
 /**
  * A list of mails that enforces uniqueness between its elements and does not allow nulls.
@@ -52,7 +53,9 @@ public class UniqueMailList implements Iterable<Mail> {
      */
     public void remove(Mail toRemove) {
         requireNonNull(toRemove);
-        internalList.remove(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new MailNotFoundException();
+        }
     }
 
     /**
