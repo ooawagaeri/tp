@@ -216,6 +216,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredJobList();
 
+    /** Returns an unmodifiable view of the filtered incomplete job list */
+    ObservableList<Job> getFilteredIncompleteJobList();
+
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getFilteredAllJobList();
 
