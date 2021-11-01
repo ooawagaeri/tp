@@ -5,11 +5,13 @@ package seedu.mycrm.commons.core;
  */
 public class Messages {
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command!";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
-    public static final String MESSAGE_INVALID_CONTACT_HIDE_REQUEST = "The contact has already been hidden!";
-    public static final String MESSAGE_INVALID_CONTACT_UNDO_HIDE_REQUEST = "The contact has not been hidden!";
+    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid!";
+    public static final String MESSAGE_INVALID_CONTACT_HIDE_REQUEST = "The contact has already been hidden! "
+            + "Please enter another contact index";
+    public static final String MESSAGE_INVALID_CONTACT_UNDO_HIDE_REQUEST = "The contact is not hidden! Please enter "
+            + "another contact index!";
     public static final String MESSAGE_INVALID_CONTACT_DELETE_REQUEST = "The contact cannot be deleted! "
             + "Because it has been linked to one or more jobs!";
     public static final String MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX = "The template index provided is invalid";

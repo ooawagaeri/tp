@@ -63,21 +63,34 @@ public class TypicalContacts {
      * Returns an {@code MyCrm} with all the typical contacts.
      */
     public static MyCrm getTypicalMyCrm() {
-        MyCrm ab = new MyCrm();
+        MyCrm mc = new MyCrm();
         for (Contact contact : getTypicalContacts()) {
-            ab.addContact(contact);
+            mc.addContact(contact);
         }
-        return ab;
+        return mc;
     }
 
     /**
-     * Returns an {@code MyCrm} with one the typical contacts.
+     * Returns an {@code MyCrm} with all the hidden typical contacts.
+     */
+    public static MyCrm getTypicalHiddenMyCrm() {
+        MyCrm mc = new MyCrm();
+        for (Contact contact : getTypicalContacts()) {
+            Contact hiddenContact = contact;
+            hiddenContact.setHidden();
+            mc.addContact(hiddenContact);
+        }
+        return mc;
+    }
+
+    /**
+     * Returns an {@code MyCrm} with one typical contact.
      */
     public static MyCrm getOneTypicalMyCrm() {
-        MyCrm ab = new MyCrm();
+        MyCrm mc = new MyCrm();
         Contact contact = getTypicalContacts().get(0);
-        ab.addContact(contact);
-        return ab;
+        mc.addContact(contact);
+        return mc;
     }
 
     public static List<Contact> getTypicalContacts() {
