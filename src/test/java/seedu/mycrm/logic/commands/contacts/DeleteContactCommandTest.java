@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.mycrm.testutil.TypicalContacts.getLinkedJobMyCrm;
 import static seedu.mycrm.testutil.TypicalContacts.getOneTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
@@ -25,8 +26,9 @@ import seedu.mycrm.model.contact.Contact;
  */
 public class DeleteContactCommandTest {
 
-    private Model modelTypicalContact = new ModelManager(getTypicalMyCrm(), new UserPrefs());
-    private Model modelOneTypicalContact = new ModelManager(getOneTypicalMyCrm(), new UserPrefs());
+    private final Model modelTypicalContact = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model modelOneTypicalContact = new ModelManager(getOneTypicalMyCrm(), new UserPrefs());
+    private final Model modelContactLinkedJob = new ModelManager(getLinkedJobMyCrm(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -67,7 +69,7 @@ public class DeleteContactCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showContactAtIndex(modelOneTypicalContact, INDEX_FIRST_CONTACT);
+        showContactAtIndex(modelTypicalContact, INDEX_FIRST_CONTACT);
 
         Index outOfBoundIndex = INDEX_SECOND_CONTACT;
         // ensures that outOfBoundIndex is still in bounds of myCrm list
@@ -75,7 +77,14 @@ public class DeleteContactCommandTest {
 
         DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, modelOneTypicalContact, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, modelTypicalContact, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidDeleteContactLinkedToJob_throwsCommandException() {
+        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_CONTACT);
+
+        assertCommandFailure(deleteCommand, modelContactLinkedJob, Messages.MESSAGE_INVALID_CONTACT_DELETE_REQUEST);
     }
 
     @Test
