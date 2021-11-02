@@ -29,7 +29,7 @@ import seedu.mycrm.testutil.ContactBuilder;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;
 
 class EditContactCommandTest {
-    private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

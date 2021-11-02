@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.contact.Contact;
+import seedu.mycrm.model.job.Job;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
@@ -55,6 +56,15 @@ public class TypicalContacts {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FIRST_TIER,
                     VALID_TAG_SECOND_TIER).build();
 
+    // Test when a contact is linked to a job, not allow to delete.
+    public static final Contact BOB_LINKED_JOB = new ContactBuilder()
+            .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+            .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FIRST_TIER,
+                    VALID_TAG_SECOND_TIER).build();
+    public static final Job COMPLETED =
+            new JobBuilder().withClient(BOB_LINKED_JOB).withCompletedDate("13/12/2021")
+                    .withCompletionStatus(true).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalContacts() {} // prevents instantiation
@@ -91,6 +101,19 @@ public class TypicalContacts {
         Contact contact = getTypicalContacts().get(0);
         contact.setNotHidden();
         mc.addContact(contact);
+        return mc;
+    }
+
+    /**
+     * Returns an {@code MyCrm} with one typical contact linked to a job.
+     */
+    public static MyCrm getLinkedJobMyCrm() {
+        MyCrm mc = new MyCrm();
+        Contact contact = BOB_LINKED_JOB;
+        Job job = COMPLETED;
+        contact.setNotHidden();
+        mc.addContact(contact);
+        mc.addJob(job);
         return mc;
     }
 
