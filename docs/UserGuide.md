@@ -38,9 +38,9 @@ hardware and software issues. Also has multiple repair-phases which have to be u
    * **`addContact `**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
      named `John Doe` to the CRM.
 
-   * **`deleteContact `**`4` : Deletes the 4th contact shown in the current list.
+   * **`deleteContact `**`1` : Deletes the 1st contact shown in the current list.
 
-   * **`clear`** : Deletes all contacts.
+   * **`clear`** : Deletes all contacts, jobs and products in MyCRM.
 
    * **`exit`** : Exits the app.
 
