@@ -2,6 +2,8 @@ package seedu.mycrm.logic.parser.jobs;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
@@ -9,6 +11,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import seedu.mycrm.commons.core.index.Index;
@@ -41,6 +44,7 @@ public class EditJobCommandParser {
         }
 
         EditJobCommand.EditJobDescriptor editJobDescriptor = new EditJobCommand.EditJobDescriptor();
+
         if (argMultimap.getValue(PREFIX_JOB_DESCRIPTION).isPresent()) {
             editJobDescriptor.setJobDescription(
                 ParserUtil.parseJobDescription(argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get()));
@@ -58,29 +62,36 @@ public class EditJobCommandParser {
         }
 
         if (argMultimap.getValue(PREFIX_CONTACT_INDEX).isPresent()) {
-            try {
-                editJobDescriptor.setClientIndex(
-                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get()));
-            } catch (ParseException e) {
-                editJobDescriptor.setEditContact(true);
-            }
+            parseIndex(argMultimap, PREFIX_CONTACT_INDEX, MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
+                editJobDescriptor::setEditContact, editJobDescriptor::setClientIndex);
         }
 
         if (argMultimap.getValue(PREFIX_PRODUCT_INDEX).isPresent()) {
-            try {
-                editJobDescriptor.setProductIndex(
-                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get()));
-            } catch (ParseException e) {
-                editJobDescriptor.setEditProduct(true);
-            }
+            parseIndex(argMultimap, PREFIX_PRODUCT_INDEX, MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX,
+                editJobDescriptor::setEditProduct, editJobDescriptor::setProductIndex);
         }
-
 
         if (!editJobDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditJobCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditJobCommand(index, editJobDescriptor);
+    }
+
+    private void parseIndex(ArgumentMultimap argMultimap, Prefix indexPrefix, String errorMessage,
+            Consumer<Boolean> setEditState, Consumer<Index> setIndex) throws ParseException {
+
+        String indexString = argMultimap.getValue(indexPrefix).get();
+        if (indexString.isEmpty()) {
+            setEditState.accept(true);
+            return;
+        }
+
+        try {
+            setIndex.accept(ParserUtil.parseIndex(indexString));
+        } catch (ParseException e) {
+            throw new ParseException(String.format("%s : %s", errorMessage, e.getMessage()));
+        }
     }
 
     /**
@@ -90,4 +101,6 @@ public class EditJobCommandParser {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
+
 }
