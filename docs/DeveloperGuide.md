@@ -255,6 +255,9 @@ Within `DeleteContactCommandParser#parse`,
 
 #### Implementation
 
+The **Finding a Contact** mechanism is facilitated by `MyCRM`. This mechanism finds specific list of contact
+object from `UniqueContactList` inside the `MyCRM` object with certain keywords provided.
+
 #### Usage
 
 The activity diagram below illustrates how the events of `findContact` command behave when executed by a user:
@@ -266,7 +269,7 @@ Given below is an example usage scenario and how the **Finding a Contact** mecha
 ![](images/contact/FindContactParseSequenceDiagram.png)
 
 
-Within `HideContactCommandParser#parse`,
+Within `FindContactCommandParser#parse`,
 - `Keywords` must be presented. (At least one trim of String)
 
 `FindcontactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
@@ -279,8 +282,7 @@ in order for MyCRM to find corresponding contacts with these keywords as predica
 #### Implementation
 
 The **Hiding a Contact** mechanism is facilitated by the `MyCRM`. It hides a specific contact
-which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
-Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`.
 
 #### Usage
 
@@ -294,7 +296,6 @@ Given below is an example usage scenario and how the **Hiding a Contact** mechan
 
 Within `HideContactCommandParser#parse`,
 - `Index` must be is valid (within the range of contactList).
-- The contact specified to be deleted must have no jobs linked, otherwise error message will be displayed in UI panel.
 
 `HideContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to hide it.
 
@@ -302,27 +303,57 @@ Within `HideContactCommandParser#parse`,
 
 ### Undoing Hiding a Contact
 
-Implementation and usage details are similar to [Hiding a Contact](#hiding-a-contact) design
-pattern. Please refer to `hideContact` command implementation details.
+#### Implementation
+
+The **Undoing Hiding a Contact** mechanism is facilitated by the `MyCRM`. It will unhide a hidden contact in list. Users are
+required to type in command `listContact -a` in order to see **hidden** contacts.
+
+Implementation and usage details for **Undoing Hiding a Contact** are similar to [Hiding a Contact](#hiding-a-contact) design
+pattern. Can refer to `hideContact` command implementation details.
+#### Usage
+
+The activity diagram below illustrates how the events of `undoHideContact` command behave when executed by a user:
+
+![](images/contact/UndoHideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/UndoHideContactParserSequenceDiagram.png)
+
+Within `UndoHideContactCommandParser#parse`,
+- `listContact -a` must first be typed in to see hidden contacts.
+- `Index` must be is valid (within the range of contactList).
+
+`UndoHideContactCommandParser#parse` will call `ParserUtil#parseIndex`
+
+![](images/contact/UndoHideContactSequenceDiagram.png)
 
 ### Listing Contacts
 
 #### Implementation
 
+The **Listing a Contact** mechanism is facilitated by `MyCRM`. This mechanism lists all unhidden Contact
+object from `UniqueContactList` inside the `MyCRM` object by default. If `listContact -a` is invoked,
+`MyCRM` will list all contacts including not hidden ones.
+
 #### Usage
 
 The activity diagram below illustrates how the events of `listContact` command behave when executed by a user:
 
-![]()
+![](images/contact/ListContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Listing a Contact** mechanism behaves at each step.
 
-![]()
+![](images/contact/ListContactParserSequenceDiagram.png)
 
 Within `ListContactCommandParser#parse`,
+- `Keywords` is optional but if provided, it can only be **"-a"**.
+- If correct keyword is presented, contact list will show all contacts including hidden contacts.
+If not, by default `listContact` will only show not hidden contacts in contact list.
 
+`ListcontactCommandParser#parse` will call `String#trim` to get specific keyword.
 
-![]()
+![](images/contact/ListContactSequenceDiagram.png)
 
 ### Adding a Template
 

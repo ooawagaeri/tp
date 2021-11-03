@@ -28,7 +28,8 @@ public class FindContactCommandParser implements Parser<FindContactCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        NameContainsKeywordsPredicate keywordsPredicate = new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+        NameContainsKeywordsPredicate keywordsPredicate = new NameContainsKeywordsPredicate(Arrays
+                .asList(nameKeywords));
 
         return new FindContactCommand(keywordsPredicate);
     }

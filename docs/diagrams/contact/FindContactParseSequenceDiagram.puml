@@ -27,7 +27,7 @@ MyCrmParser -> FindContactCommandParser : parse("findContact Frisks")
 activate FindContactCommandParser
 
 create NameContainsKeywordsPredicate
-FindContactCommandParser -> NameContainsKeywordsPredicate
+FindContactCommandParser -> NameContainsKeywordsPredicate: "Frisks"
 activate NameContainsKeywordsPredicate
 NameContainsKeywordsPredicate --> FindContactCommandParser : keywordsPredicate
 deactivate NameContainsKeywordsPredicate
