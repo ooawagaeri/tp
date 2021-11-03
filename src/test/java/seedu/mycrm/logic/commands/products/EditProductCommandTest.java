@@ -30,7 +30,7 @@ import seedu.mycrm.model.products.Product;
 import seedu.mycrm.testutil.EditProductDescriptorBuilder;
 import seedu.mycrm.testutil.ProductBuilder;
 
-public class EditCommandTest {
+public class EditProductCommandTest {
 
     private Model model;
 

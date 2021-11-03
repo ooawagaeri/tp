@@ -13,7 +13,7 @@ import seedu.mycrm.model.UserPrefs;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.testutil.TypicalJobs;
 
-public class AddJobIntegrationTest {
+public class AddJobCommandIntegrationTest {
     private Model model;
 
     @BeforeEach
