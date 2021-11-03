@@ -172,7 +172,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The Adding a Contact mechanism is facilitated by `AddressBook`. This Contact created is stored internally using 
+The adding a contact mechanism is facilitated by `MyCRM`. This Contact created is stored internally using 
 `UniqueContactList` inside the `MyCrm` object.  
 Additionally, `addContact` allows to have only partially info of a client with consideration of privacy. Commands
 such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
@@ -181,27 +181,58 @@ such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
 
 The activity diagram below illustrates how the events of `addContact` command behave when executed by a user: 
 
-![](images/AddContactActivityDiagram.png)
+![](images/contact/AddContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the Adding a Contact mechanism behaves at each step.
+Given below is an example usage scenario and how the adding a contact mechanism behaves at each step.
 
-![](images/AddContactParseSequenceDiagram.png)
+![](images/contact/AddContactParseSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `AddContactCommandParser` should end at the destroy 
-marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-Within AddContactCommandParser#parse, ParserUtil#parseName will be called to create a name using 
-"Sans", ParserUtil#parsePhone to create a phone using "83921823", ParserUtil#parseEmail to 
-create an email using "Sans@gmail.com", ParserUtil#parseAddress to create an address using "Maxwell...".  
+Within `AddContactCommandParser#parse`, `ParserUtil#parseName` will be called to create a name using 
+"Sans", `ParserUtil#parsePhone` to create a phone using "83921823", `ParserUtil#parseEmail` to 
+create an email using "Sans@gmail.com", `ParserUtil#parseAddress` to create an address using "Maxwell...".  
 Then create a contact using the new name, phone, email and address.
 
-![](images/AddContactSequenceDiagram.png)
+Note that `Phone`, `Email`, `Address`, are optional, but at least one of these 3 fields
+must exist.
+
+![](images/contact/AddContactSequenceDiagram.png)
 
 ### Editing a Contact
 
+#### Implementation
+
+The Editing a Contact mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editContact` command behave when executed by a user:
+
+![](images/contact/EditContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the adding a contact mechanism behaves at each step.
+
+![](images/contact/EditContactParseSequenceDiagram.png)
+
+Within `EditContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- `EditContactDescriptor` will only get the values of `Name`, `Phone`, `Email`, `Address`, and `Tags` 
+if their respective prefixes are present.
+- `isHidden` is will not be handled by `EditContactDescrptior`, it will be updated in `createEditedContact`.
+
+`EditContactCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the target contact's index and
+`ArgumentMultimap#getValue` to extract `Name`, `Phone`, `Email`, `Address`: "Frisks", "88888888", "Frisks@gmail.com"
+and "Jurong West" from the command string respectively.
+
+![](images/contact/EditContactSequenceDiagram.png)
+
 ### Deleting a Contact
 
+#### Implementation
+
 ### Finding a Contact
+
+#### Implementation
 
 ### Hiding a Contact
 
@@ -213,7 +244,12 @@ Edited contact created is stored internally using `UniqueContactList` inside the
 
 ### Undoing Hiding a Contact
 
+Implementation and usage details are similar to [Hiding a Contact](#hiding-a-contact) design
+pattern. Please refer to `hideContact` command implementation details.
+
 ### Listing Contacts
+
+#### Implementation
 
 ### Adding a Template
 
