@@ -70,9 +70,9 @@ hardware and software issues. Also has multiple repair-phases which have to be u
   of the parameter will be taken.<br>
   e.g. if you specify `c/12341234 c/56785678`, only `c/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit`
+* Extraneous parameters for commands that do not take in parameters (such as `listJob`, `listProduct`, and `exit`
   ) will be ignored.<br>
-  e.g. if the command specifies `listJobs 123`, it will be interpreted as `listJobs`.
+  e.g. if the command specifies `listJob 123`, it will be interpreted as `listJob`.
 
 </div>
 
@@ -84,9 +84,12 @@ Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/C
 Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Creates a new repair job.
-* Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
-  respective contact and product list) to the job.
-* `RECIEVED_DATE` is set to the current date if not provided
+* Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the respective contact 
+  and product list) to the job.
+* `DELIVERY_DATE` refers to the date by which the repair expected to be completed and delivered back to the client.
+* `FEE` refers to the repair fee charged to the client.
+* `RECIEVED_DATE` refers to the date the repair job request was received from the client. If not provided, it is by default,
+  set to the date the job is created in MyCRM.
 * Both product and contact are compulsory attributes of job. If they are not provided 
   in the form of an index in the above command, the job is not immediately added.
   * Instead, in such a case, the user will be asked for info on the missing contact or product (or both).
@@ -106,15 +109,15 @@ Examples:
 * To add a job with a pre-existing contact and product
 * Either the command `addJob d/Change CPU fee/$50 by/10/11/2021 c/1 p/1` can be issued OR 
 * The following sequence of commands can be issued:
-  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `addJob d/Change CPU fee/$50 by/10/11/2021` 
   * `select 1` (to select contact) 
   * `select 1` (to select product)
 
       <img src="images/ui-addJob-success1.jpg" width="600px">
   
-* To add a job with new a contact and product
+* To add a job with a new contact and product
 * Issue the following sequence of commands:
-  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `addJob d/Change CPU fee/$50 by/10/11/2021` 
   * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com` 
   * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
 
@@ -130,7 +133,7 @@ Format of special subcommands: `select INDEX` and `abort` (details on subcommand
 * Edits the repair job at the specified `INDEX`
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
-* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob c/ p/` is valid.
+* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob INDEX c/ p/` is valid.
     * In such a case the user will be asked for info which product or contact (or both) 
       they now want to assign to the job.
     * User can choose to create new contact/product and immediately assign it via 
@@ -195,6 +198,8 @@ Marks a repair job as complete
 Format: `completeJob INDEX [COMPLETION_DATE]`
 
 * Marks the repair job at the specified `INDEX` as complete
+* By default `listJob` only shows jobs that are yet to be completed. As such marking the job as complete will cause 
+  it to disappear from the current job list. User can issue the command `listJob -c` to view the list of completed jobs.
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 * `COMPLETION_DATE` is set to the current date if it is not provided
@@ -203,7 +208,7 @@ Format: `completeJob INDEX [COMPLETION_DATE]`
 
 Marks a previously completed job as incomplete
 
-Format: `undoJobComplete INDEX`
+Format: `undoCompleteJob INDEX`
 
 * Marks the repair job at the specified `INDEX` as complete
 * User should call `listJob -c` to view all completed jobs before calling this command
@@ -431,7 +436,7 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 
 Examples:
 
-* `listJobs` and `listTemplate` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
+* `listJob` and `listTemplate` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template and `mailto:` hyperlink.
 
     <img src="images/ui-mail.png" width="600px">
