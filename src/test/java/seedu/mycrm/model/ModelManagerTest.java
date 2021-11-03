@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalContacts.ALICE;
