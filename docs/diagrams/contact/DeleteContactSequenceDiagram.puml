@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "contactToDelete:DeleteContactCommand" as DeleteContactCommand LOGIC_COLOR
+participant "lastShownList: List<Contact>" as ListContact LOGIC_COLOR
+participant "**<<class>>**\nContact" as Contact LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deleteContact 1")
+activate LogicManager
+
+ref over LogicManager, DeleteContactCommand : parse delete contact
+
+LogicManager -> DeleteContactCommand : execute()
+
+activate DeleteContactCommand
+
+DeleteContactCommand -> Model : getFilteredContactList()
+activate Model
+Model --> DeleteContactCommand : lastShownList
+deactivate Model
+
+DeleteContactCommand -> ListContact : get(index)
+activate ListContact
+ListContact --> DeleteContactCommand : contactToDelete
+deactivate ListContact
+
+DeleteContactCommand -> Model : deleteContact(contactToDelete)
+activate Model
+Model --> DeleteContactCommand
+deactivate Model
+
+DeleteContactCommand -> Model : updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS)
+activate Model
+Model --> DeleteContactCommand
+deactivate Model
+
+create CommandResult
+DeleteContactCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteContactCommand
+deactivate CommandResult
+
+DeleteContactCommand --> LogicManager : result
+deactivate DeleteContactCommand
+
+DeleteContactCommand -[hidden]-> LogicManager
+destroy DeleteContactCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

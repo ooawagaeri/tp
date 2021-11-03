@@ -172,7 +172,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The adding a contact mechanism is facilitated by `MyCRM`. This Contact created is stored internally using 
+The **Adding a Contact** mechanism is facilitated by `MyCRM`. This Contact created is stored internally using 
 `UniqueContactList` inside the `MyCrm` object.  
 Additionally, `addContact` allows to have only partially info of a client with consideration of privacy. Commands
 such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
@@ -183,7 +183,7 @@ The activity diagram below illustrates how the events of `addContact` command be
 
 ![](images/contact/AddContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the adding a contact mechanism behaves at each step.
+Given below is an example usage scenario and how the **Adding a Contact** mechanism behaves at each step.
 
 ![](images/contact/AddContactParseSequenceDiagram.png)
 
@@ -201,7 +201,7 @@ must exist.
 
 #### Implementation
 
-The Editing a Contact mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target contact
+The **Editing a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target contact
 object from `UniqueContactList` inside the `MyCRM` object.
 
 #### Usage
@@ -210,7 +210,7 @@ The activity diagram below illustrates how the events of `editContact` command b
 
 ![](images/contact/EditContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the adding a contact mechanism behaves at each step.
+Given below is an example usage scenario and how the **Editing a Contact** mechanism behaves at each step.
 
 ![](images/contact/EditContactParseSequenceDiagram.png)
 
@@ -230,17 +230,75 @@ and "Jurong West" from the command string respectively.
 
 #### Implementation
 
+The **Deleting a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and deletes a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `deleteContact` command behave when executed by a user:
+
+![](images/contact/DeleteContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Deleting a Contact** mechanism behaves at each step.
+
+![](images/contact/DeleteContactParseSequenceDiagram.png)
+
+Within `DeleteContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- The contact specified to be deleted must have no jobs linked, otherwise error message will be displayed in UI panel.
+
+`DeleteContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to delete it.
+
+![](images/contact/DeleteContactSequenceDiagram.png)
+
 ### Finding a Contact
 
 #### Implementation
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findContact` command behave when executed by a user:
+
+![](images/contact/FindContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Finding a Contact** mechanism behaves at each step.
+
+![](images/contact/FindContactParseSequenceDiagram.png)
+
+
+Within `HideContactCommandParser#parse`,
+- `Keywords` must be presented. (At least one trim of String)
+
+`FindcontactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding contacts with these keywords as predicate.
+
+![](images/contact/FindContactSequenceDiagram.png)
 
 ### Hiding a Contact
 
 #### Implementation
 
-The Hiding a Contact mechanism follows the `EditCommand` mechanism in `AddressBook`. It hides a specific contact
+The **Hiding a Contact** mechanism is facilitated by the `MyCRM`. It hides a specific contact
 which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
 Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+
+#### Usage
+
+The activity diagram below illustrates how the events of `hideContact` command behave when executed by a user:
+
+![](images/contact/HideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/HideContactParserSequenceDiagram.png)
+
+Within `HideContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- The contact specified to be deleted must have no jobs linked, otherwise error message will be displayed in UI panel.
+
+`HideContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to hide it.
+
+![](images/contact/HideContactSequenceDiagram.png)
 
 ### Undoing Hiding a Contact
 
@@ -250,6 +308,21 @@ pattern. Please refer to `hideContact` command implementation details.
 ### Listing Contacts
 
 #### Implementation
+
+#### Usage
+
+The activity diagram below illustrates how the events of `listContact` command behave when executed by a user:
+
+![]()
+
+Given below is an example usage scenario and how the **Listing a Contact** mechanism behaves at each step.
+
+![]()
+
+Within `ListContactCommandParser#parse`,
+
+
+![]()
 
 ### Adding a Template
 

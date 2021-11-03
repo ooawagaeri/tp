@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "contactToEdit:EditContactCommand" as EditContactCommand LOGIC_COLOR
 participant "lastShownList: List<Contact>" as ListContact LOGIC_COLOR
-participant ":Contact" as Contact LOGIC_COLOR
+participant "**<<class>>**\nContact" as Contact LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -38,6 +38,21 @@ Contact --> EditContactCommand : editedContact
 deactivate Contact
 
 EditContactCommand -> Model : setContact(contactToEdit, editedContact)
+activate Model
+Model --> EditContactCommand
+deactivate Model
+
+EditContactCommand -> Model : updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS)
+activate Model
+Model --> EditContactCommand
+deactivate Model
+
+EditContactCommand -> Model : getLatestJobPredicate()
+activate Model
+Model --> EditContactCommand : latestJobPredicate
+deactivate Model
+
+EditContactCommand -> Model : updateFilteredJobList(latestJobPredicate)
 activate Model
 Model --> EditContactCommand
 deactivate Model
