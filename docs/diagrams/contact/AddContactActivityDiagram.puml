@@ -1,7 +1,7 @@
 @startuml
 start
 :User executes add contact command;
-:myCRM parses user inputs;
+:MyCRM parses user inputs;
 while () is ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful add contact Message on UI;

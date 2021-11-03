@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":HideContactCommandParser" as HideContactCommandParser LOGIC_COLOR
+participant "contactToHide:HideContactCommand" as HideContactCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("hideContact 1")
+activate LogicManager
+
+group sd parse hide contact
+LogicManager -> MyCrmParser : parseCommand("hideContact 1")
+activate MyCrmParser
+
+create HideContactCommandParser
+MyCrmParser -> HideContactCommandParser
+activate HideContactCommandParser
+
+HideContactCommandParser --> MyCrmParser
+deactivate HideContactCommandParser
+
+MyCrmParser -> HideContactCommandParser : parse("1")
+activate HideContactCommandParser
+
+create HideContactCommand
+HideContactCommandParser -> HideContactCommand : 1
+activate HideContactCommand
+
+HideContactCommand --> HideContactCommandParser : contactToHide
+deactivate HideContactCommand
+
+HideContactCommandParser --> MyCrmParser : contactToHide
+deactivate HideContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+HideContactCommandParser -[hidden]-> MyCrmParser
+destroy HideContactCommandParser
+
+MyCrmParser --> LogicManager : contactToHide
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

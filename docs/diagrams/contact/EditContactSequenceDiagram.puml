@@ -1,0 +1,75 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "contactToEdit:EditContactCommand" as EditContactCommand LOGIC_COLOR
+participant "lastShownList: List<Contact>" as ListContact LOGIC_COLOR
+participant "**<<class>>**\nContact" as Contact LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editContact 1 n/Frisks c/88888888 e/Frisks@gmail.com a/Jurong West")
+activate LogicManager
+
+ref over LogicManager, EditContactCommand : parse edit contact
+
+LogicManager -> EditContactCommand : execute()
+
+activate EditContactCommand
+
+EditContactCommand -> Model : getFilteredContactList()
+activate Model
+Model --> EditContactCommand : lastShownList
+deactivate Model
+
+EditContactCommand -> ListContact : get(index)
+activate ListContact
+ListContact --> EditContactCommand : contactToEdit
+deactivate ListContact
+
+EditContactCommand -> Contact : createEditedContact(contactToEdit, editContactDescriptor)
+activate Contact
+Contact --> EditContactCommand : editedContact
+deactivate Contact
+
+EditContactCommand -> Model : setContact(contactToEdit, editedContact)
+activate Model
+Model --> EditContactCommand
+deactivate Model
+
+EditContactCommand -> Model : updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS)
+activate Model
+Model --> EditContactCommand
+deactivate Model
+
+EditContactCommand -> Model : getLatestJobPredicate()
+activate Model
+Model --> EditContactCommand : latestJobPredicate
+deactivate Model
+
+EditContactCommand -> Model : updateFilteredJobList(latestJobPredicate)
+activate Model
+Model --> EditContactCommand
+deactivate Model
+
+create CommandResult
+EditContactCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditContactCommand
+deactivate CommandResult
+
+EditContactCommand --> LogicManager : result
+deactivate EditContactCommand
+
+EditContactCommand -[hidden]-> LogicManager
+destroy EditContactCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

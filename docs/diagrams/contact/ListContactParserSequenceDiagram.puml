@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":ListContactCommandParser" as ListContactCommandParser LOGIC_COLOR
+participant ":ListContactCommand" as ListContactCommand LOGIC_COLOR
+participant "listPredicate:Predicate<Contact>" as PredicateContact LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("listContact -a")
+activate LogicManager
+
+group sd parse list contact
+LogicManager -> MyCrmParser : parseCommand("listContact -a")
+activate MyCrmParser
+
+create ListContactCommandParser
+MyCrmParser -> ListContactCommandParser
+activate ListContactCommandParser
+
+ListContactCommandParser --> MyCrmParser
+deactivate ListContactCommandParser
+
+MyCrmParser -> ListContactCommandParser : parse("listContact -a")
+activate ListContactCommandParser
+
+create PredicateContact
+ListContactCommandParser -> PredicateContact : "-a"
+activate PredicateContact
+PredicateContact --> ListContactCommandParser : listPredicate
+deactivate PredicateContact
+
+create ListContactCommand
+ListContactCommandParser -> ListContactCommand : listPredicate
+activate ListContactCommand
+
+ListContactCommand --> ListContactCommandParser
+deactivate ListContactCommand
+
+ListContactCommandParser --> MyCrmParser
+deactivate ListContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+ListContactCommandParser -[hidden]-> MyCrmParser
+destroy ListContactCommandParser
+
+
+MyCrmParser --> LogicManager :
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

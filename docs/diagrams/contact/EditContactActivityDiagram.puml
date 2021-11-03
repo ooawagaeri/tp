@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes edit contact command;
+:MyCRM parses user inputs;
+while () is ([InValid Input])
+    :Throws ParseException;
+    :Displays unsuccessful edit contact Message on UI;
+endwhile ([Valid Input])
+:Gets contact to be edited with index provided;
+:Creates edited contact;
+:Replaces specific contact with edited contact;
+:Displays successful editing contact message on UI;
+stop
+@enduml
