@@ -2,10 +2,10 @@
 start
 :User executes delete contact command;
 :MyCRM parses user inputs;
-while () is ([InValid Input])
+if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful delete contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
 :Gets contact to be deleted with index provided;
 if () then ([Contact not linked to any jobs])
 :Delete the specific contact from MyCRM;
@@ -13,6 +13,7 @@ if () then ([Contact not linked to any jobs])
 else ([Contact linked to a job]))
 :Throws CommandException;
 :Displays unsuccessful deleting contact Message on UI;
+endif
 endif
 stop
 @enduml

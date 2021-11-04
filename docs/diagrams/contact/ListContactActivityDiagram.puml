@@ -2,10 +2,10 @@
 start
 :User executes list contact command;
 :MyCRM parses user inputs;
-while () is ([InValid Input])
+if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful list contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
 :Gets keyword for predicate of listContact;
 if () then ([predicate "-a"])
 :Shows all contacts in the list including hidden ones ;
@@ -13,5 +13,6 @@ else ([no predicate])
 :Shows not hidden contacts in the list;
 endif;
 :Displays successful listing contact message on UI;
+endif
 stop
 @enduml
