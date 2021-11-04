@@ -35,7 +35,6 @@ public class ModelManager implements Model {
     private final FilteredList<Job> filteredAllJobs;
     private final FilteredList<Job> filteredMonthlyCompletedJobs;
     private final FilteredList<Product> filteredProducts;
-    private final FilteredList<Product> filteredTopThreeProducts;
     private final FilteredList<History> filteredHistories;
 
     private Predicate<Job> latestJobPredicate;
@@ -60,7 +59,6 @@ public class ModelManager implements Model {
         filteredMonthlyCompletedJobs =
                 new FilteredList<>(this.myCrm.getJobList(), PREDICATE_SHOW_ALL_MONTHLY_COMPLETED_JOBS);
         filteredProducts = new FilteredList<>(this.myCrm.getProductList());
-        filteredTopThreeProducts = new FilteredList<>(this.myCrm.getTopThreeProductList());
         filteredHistories = new FilteredList<>(this.myCrm.getHistoryList());
     }
 
@@ -293,7 +291,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Product> getFilteredTopThreeProductList() {
-        return filteredTopThreeProducts;
+        return new FilteredList<>(this.myCrm.getTopThreeProductList());
     }
 
     @Override

@@ -129,7 +129,7 @@ public class UniqueJobList implements Iterable<Job> {
      * Returns the most three common {@code Product} received this month.
      */
     public ObservableList<Product> getUnmodifiableTopThreeProductList() {
-        return FXCollections.unmodifiableObservableList(this.getTopThreeProduct());
+        return FXCollections.unmodifiableObservableList(getTopThreeProduct());
     }
 
     @Override
@@ -178,6 +178,7 @@ public class UniqueJobList implements Iterable<Job> {
         Map<Product, Integer> monthlyProducts = new HashMap<>();
 
         for (Job j: internalList) {
+
             if (j.isReceivedThisMonth(LocalDate.now()) && j.getProduct() != null) {
                 Product product = j.getProduct();
                 Integer val = monthlyProducts.get(product);
