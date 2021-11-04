@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.mycrm.model.MyCrm;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 public class TypicalProducts {
     public static final Product ASUS_GPU = new ProductBuilder(ProductBuilder.DefaultProductIndex.ONE).build();

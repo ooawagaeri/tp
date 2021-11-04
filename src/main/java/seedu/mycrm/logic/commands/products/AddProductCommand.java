@@ -8,7 +8,7 @@ import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Adds a product to MyCRM.
@@ -33,7 +33,7 @@ public class AddProductCommand extends Command {
     private final Product toAdd;
 
     /**
-     * Creates an AddProductCommand.
+     * Creates an AddProductCommand to add the specified {@code product}.
      */
     public AddProductCommand(Product product) {
         requireNonNull(product);
@@ -44,6 +44,7 @@ public class AddProductCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
+        requireNonNull(stateManager);
 
         if (model.hasProduct(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);

@@ -17,7 +17,7 @@ import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
 import seedu.mycrm.model.UserPrefs;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

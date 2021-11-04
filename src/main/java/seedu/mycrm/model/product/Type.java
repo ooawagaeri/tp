@@ -1,10 +1,14 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-public class Type implements ProductComponent<Type> {
+/**
+ * Represents a Product's type.
+ * Guarantees: immutable.
+ */
+public class Type implements ProductComponent {
     private static final Type EMPTY_TYPE = new Type();
     private final String name;
 
@@ -16,6 +20,7 @@ public class Type implements ProductComponent<Type> {
         this.name = type;
     }
 
+    /** Returns a Type object with the specified {@code name} of the type. */
     public static Type getType(String name) {
         requireNonNull(name);
 
@@ -26,16 +31,18 @@ public class Type implements ProductComponent<Type> {
         }
     }
 
-    public static Type getType(Optional<String> name) {
-        requireNonNull(name);
+    /** Returns a Type object with name of the type wrapped in {@code nameWrapper}. */
+    public static Type getType(Optional<String> nameWrapper) {
+        requireNonNull(nameWrapper);
 
-        if (name.orElse("").length() == 0) {
+        if (nameWrapper.orElse("").length() == 0) {
             return EMPTY_TYPE;
         } else {
-            return new Type(name.get());
+            return new Type(nameWrapper.get());
         }
     }
 
+    /** Returns an empty Type object. */
     public static Type getEmptyType() {
         return EMPTY_TYPE;
     }

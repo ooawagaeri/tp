@@ -22,7 +22,7 @@ public class ThemeCommand extends Command {
     private final String themeName;
 
     /**
-     * Constructs a {@code ThemeCommand}.
+     * Creates a ThemeCommand.
      */
     public ThemeCommand(String themeName) {
         requireNonNull(themeName);

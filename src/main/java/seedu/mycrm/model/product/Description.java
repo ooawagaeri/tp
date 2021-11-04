@@ -1,10 +1,14 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-public class Description implements ProductComponent<Description> {
+/**
+ * Represents a Product's description.
+ * Guarantees: immutable.
+ */
+public class Description implements ProductComponent {
     private static final Description EMPTY_DESCRIPTION = new Description();
     private final String contents;
 
@@ -16,26 +20,29 @@ public class Description implements ProductComponent<Description> {
         this.contents = contents;
     }
 
-    public static Description getDescription(String contents) {
-        requireNonNull(contents);
+    /** Returns a Description object with the specified {@code content}. */
+    public static Description getDescription(String content) {
+        requireNonNull(content);
 
-        if (contents.length() == 0) {
+        if (content.length() == 0) {
             return EMPTY_DESCRIPTION;
         } else {
-            return new Description(contents);
+            return new Description(content);
         }
     }
 
-    public static Description getDescription(Optional<String> contents) {
-        requireNonNull(contents);
+    /** Returns a Description object with content wrapped in {@code contentWrapper}. */
+    public static Description getDescription(Optional<String> contentWrapper) {
+        requireNonNull(contentWrapper);
 
-        if (contents.orElse("").length() == 0) {
+        if (contentWrapper.orElse("").length() == 0) {
             return EMPTY_DESCRIPTION;
         } else {
-            return new Description(contents.get());
+            return new Description(contentWrapper.get());
         }
     }
 
+    /** Returns an empty Description object. */
     public static Description getEmptyDescription() {
         return EMPTY_DESCRIPTION;
     }

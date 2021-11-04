@@ -17,7 +17,7 @@ public class GuiSettings implements Serializable {
     private final double windowHeight;
     private final Point windowCoordinates;
 
-    // Url of theme stylesheet
+    /** Url of theme stylesheet. */
     private final String themeUrl;
 
     /**

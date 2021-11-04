@@ -1,4 +1,4 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,14 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.mycrm.model.products.exceptions.DuplicateProductException;
-import seedu.mycrm.model.products.exceptions.ProductNotFoundException;
+import seedu.mycrm.model.product.exceptions.DuplicateProductException;
+import seedu.mycrm.model.product.exceptions.ProductNotFoundException;
 
 /**
  * A list of products that enforces uniqueness between its elements and does not allow nulls.
  * A product is considered unique by comparing using {@code Product#isSameProduct(Product)}.
  * As such, adding and updating of products uses Product#isSameProduct(Product) for equality
- * so as to ensure that the Product being added or updated is unique in terms of identity in the UniqueProductList.
+ * so as to ensure that the Product being added or updated is unique in terms of identity in
+ * the UniqueProductList.
  * However, the removal of a product uses Product#equals(Object) so
  * as to ensure that the product with exactly the same fields will be removed.
  *

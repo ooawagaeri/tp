@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.ui.UiPart;
 
 

@@ -19,21 +19,22 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Description;
-import seedu.mycrm.model.products.Manufacturer;
-import seedu.mycrm.model.products.Product;
-import seedu.mycrm.model.products.ProductComponent;
-import seedu.mycrm.model.products.ProductName;
-import seedu.mycrm.model.products.Type;
+import seedu.mycrm.model.product.Description;
+import seedu.mycrm.model.product.Manufacturer;
+import seedu.mycrm.model.product.Product;
+import seedu.mycrm.model.product.ProductComponent;
+import seedu.mycrm.model.product.ProductName;
+import seedu.mycrm.model.product.Type;
 
+/** Edits an existing product in the CRM. */
 public class EditProductCommand extends Command {
 
     public static final String COMMAND_WORD = "editProduct";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the product identified "
             + "by the index number used in the displayed product list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Index number must be a positive integer.\n"
+            + "Parameters: INDEX "
             + "[" + PREFIX_PRODUCT_NAME + "NAME] "
             + "[" + PREFIX_PRODUCT_TYPE + "TYPE] "
             + "[" + PREFIX_PRODUCT_MANUFACTURER + "MANUFACTURER] "
@@ -52,7 +53,7 @@ public class EditProductCommand extends Command {
     private final EditProductDescriptor descriptor;
 
     /**
-     * Creates a {@code EditProductCommand}.
+     * Creates an EditProductCommand.
      */
     public EditProductCommand(Index index, EditProductDescriptor descriptor) {
         requireAllNonNull(index, descriptor);
@@ -63,7 +64,7 @@ public class EditProductCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
 
         if (index.getOneBased() > model.getFilteredProductList().size()) {
             throw new CommandException(MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
@@ -72,11 +73,12 @@ public class EditProductCommand extends Command {
         Product toEdit = model.getFilteredProductList().get(index.getZeroBased());
         Product edited = createEditedProduct(toEdit, descriptor);
 
-        if (!edited.isSameProduct(toEdit) && model.hasProduct(edited)) {
+        boolean hasDuplicateProduct = !edited.isSameProduct(toEdit) && model.hasProduct(edited);
+        if (hasDuplicateProduct) {
             throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
         }
 
-        // update product
+        // update product in product list
         model.setProduct(toEdit, edited);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ALL_PRODUCTS);
 
@@ -92,9 +94,9 @@ public class EditProductCommand extends Command {
                     j.setProduct(edited);
                     model.setJob(j, j);
                 });
+
         // restore the user's job predicate
         model.updateFilteredJobList(latestJobPredicate);
-
 
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, edited), COMMAND_TYPE);
     }
@@ -107,7 +109,7 @@ public class EditProductCommand extends Command {
     private static Product createEditedProduct(Product toEdit, EditProductDescriptor descriptor) {
         requireNonNull(toEdit);
 
-        ProductName name = descriptor.pName.isEmpty() ? toEdit.getName() : descriptor.pName;
+        ProductName name = descriptor.productName.isEmpty() ? toEdit.getName() : descriptor.productName;
         Type type = descriptor.type.isEmpty() ? toEdit.getType() : descriptor.type;
         Manufacturer manufacturer = descriptor.manufacturer.isEmpty() ? toEdit.getManufacturer()
                 : descriptor.manufacturer;
@@ -133,46 +135,51 @@ public class EditProductCommand extends Command {
         return false;
     }
 
+    /**
+     * Stores the details to edit the product with. Each non-empty field value will replace the
+     * corresponding field value of the product.
+     */
     public static class EditProductDescriptor {
-        private ProductName pName;
+        private ProductName productName;
         private Type type;
         private Manufacturer manufacturer;
         private Description description;
 
         /**
-         * Initialize all fields to empty fields.
+         * Creates an EditProductDescriptor with all fields initialized to empty values.
          */
         public EditProductDescriptor() {
-            pName = ProductName.getEmptyName();
+            productName = ProductName.getEmptyName();
             type = Type.getEmptyType();
             manufacturer = Manufacturer.getEmptyManufacturer();
             description = Description.getEmptyDescription();
         }
 
         /**
-         * Copy constructor.
+         * Creates an EditProductDescriptor with the same fields as {@code toCopy}.
          */
         public EditProductDescriptor(EditProductDescriptor toCopy) {
-            setProductName(toCopy.pName);
+            setProductName(toCopy.productName);
             setType(toCopy.type);
             setManufacturer(toCopy.manufacturer);
             setDescription(toCopy.description);
         }
 
+        /** Returns true if at least one field is edited. */
         public boolean isAnyFieldEdited() {
-            return isAnyNonEmpty(pName, type, manufacturer, description);
+            return isAnyNonEmpty(productName, type, manufacturer, description);
         }
 
-        private boolean isAnyNonEmpty(ProductComponent<?>... components) {
+        private boolean isAnyNonEmpty(ProductComponent... components) {
             return Arrays.stream(components).anyMatch(component -> !component.isEmpty());
         }
 
         public void setProductName(ProductName name) {
-            this.pName = name;
+            this.productName = name;
         }
 
         public ProductName getName() {
-            return this.pName;
+            return this.productName;
         }
 
         public void setType(Type type) {
@@ -210,7 +217,7 @@ public class EditProductCommand extends Command {
             }
             if (o instanceof EditProductDescriptor) {
                 EditProductDescriptor descriptor = (EditProductDescriptor) o;
-                return descriptor.pName.equals(this.pName)
+                return descriptor.productName.equals(this.productName)
                         && descriptor.type.equals(this.type)
                         && descriptor.manufacturer.equals(this.manufacturer)
                         && descriptor.description.equals(this.description);

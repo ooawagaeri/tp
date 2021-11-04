@@ -1,12 +1,15 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-public class ProductName implements ProductComponent<ProductName> {
+/**
+ * Represents a Product's name.
+ * Guarantees: immutable.
+ */
+public class ProductName implements ProductComponent {
     private static final ProductName EMPTY_NAME = new ProductName();
-
     private String name;
 
     private ProductName() {
@@ -15,7 +18,7 @@ public class ProductName implements ProductComponent<ProductName> {
 
     /**
      * Constructs a product name instance.
-     * @param name Name of the product. It cannot be null or empty string.
+     * @param name Name of the product. It must be a non-empty string.
      */
     public ProductName(String name) {
         requireNonNull(name);
@@ -24,16 +27,27 @@ public class ProductName implements ProductComponent<ProductName> {
         this.name = name;
     }
 
-    public static ProductName getEmptyName() {
-        return EMPTY_NAME;
-    }
-
+    /**
+     * Returns a ProductName object with the specified {@code name}.
+     *
+     * @param name Name of the product. It must be a non-empty string.
+     */
     public static ProductName getName(String name) {
         return new ProductName(name);
     }
 
-    public static ProductName getName(Optional<String> name) {
-        return new ProductName(name.orElse(""));
+    /**
+     * Returns a Description object with content wrapped in {@code contentWrapper}.
+     *
+     * @param nameWrapper Wrapper of the product name. It must contains a non-empty String.
+     */
+    public static ProductName getName(Optional<String> nameWrapper) {
+        return new ProductName(nameWrapper.orElse(""));
+    }
+
+    /** Returns an empty ProductName object. */
+    public static ProductName getEmptyName() {
+        return EMPTY_NAME;
     }
 
     @Override

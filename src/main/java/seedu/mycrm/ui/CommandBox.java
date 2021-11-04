@@ -81,7 +81,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Retrieve the recent entered command using arrow keys
+     * Retrieves the recent entered command using arrow keys.
      */
     private void retrieveHistoryCommand() {
         commandTextField.setOnKeyPressed(
