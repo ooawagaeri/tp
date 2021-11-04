@@ -6,7 +6,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_MANUFACTURER;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
 
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 public class ProductUtil {
 

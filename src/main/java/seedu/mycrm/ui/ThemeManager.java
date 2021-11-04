@@ -11,14 +11,13 @@ import seedu.mycrm.commons.core.GuiSettings;
 import seedu.mycrm.commons.core.LogsCenter;
 
 /**
- * Manage theme of MyCrm.
+ * Manages the theme of MyCrm.
  */
 public class ThemeManager {
     // Theme names
     public static final String THEME_DARK = "dark";
     public static final String THEME_LIGHT = "light";
 
-    // List of theme names
     private static final ArrayList<String> themeNames = new ArrayList<>(List.of(THEME_DARK, THEME_LIGHT));
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -33,8 +32,6 @@ public class ThemeManager {
     private final ObservableList<String> styleSheets;
 
     // Url of current theme stylesheet
-    // If no theme is stored in user pref since last time and
-    //     * user did not make any changes to theme in this use.
     private String themeUrl;
 
     public ThemeManager(ObservableList<String> styleSheets) {
@@ -42,10 +39,11 @@ public class ThemeManager {
     }
 
     /**
-     * Returns true if there is a theme with provided name.
+     * Returns true if a theme with provided name exists.
      */
     public static boolean hasTheme(String themeName) {
         requireNonNull(themeName);
+
         return themeNames.contains(themeName);
     }
 

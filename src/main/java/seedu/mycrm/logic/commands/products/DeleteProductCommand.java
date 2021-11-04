@@ -15,8 +15,9 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
+/** Deletes the specified product from the CRM. */
 public class DeleteProductCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteProduct";
@@ -60,6 +61,7 @@ public class DeleteProductCommand extends Command {
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_JOBS);
         boolean isLinkedToJob = model.getFilteredJobList().stream()
                 .anyMatch(j -> j.getProduct() != null && j.getProduct().isSameProduct(productToDelete));
+
         // restore the user's job predicate
         model.updateFilteredJobList(latestJobPredicate);
 

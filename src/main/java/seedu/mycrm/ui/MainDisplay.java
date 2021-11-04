@@ -1,6 +1,6 @@
 package seedu.mycrm.ui;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
@@ -13,15 +13,13 @@ import seedu.mycrm.ui.job.JobListPanel;
 import seedu.mycrm.ui.template.MailListPanel;
 
 /**
- * After creating an instance of SideDisplay, should instantly call method fillInnerParts(Logic).
+ * The UI component that is responsible for displaying job list and mail list. <br>
+ * After creating an instance of MainDisplay, method {@code init(Logic, HostServices)} should be instantly invoked.
  */
 public class MainDisplay extends UiPart<Region> {
     private static final String FXML = "MainDisplay.fxml";
     private static final String HEADER_JOBS = "Jobs";
     private static final String HEADER_MAIL = "Mail";
-
-    private MailListPanel mailListPanel;
-    private JobListPanel jobListPanel;
 
     @FXML
     private VBox mainDisplayBox;
@@ -40,17 +38,16 @@ public class MainDisplay extends UiPart<Region> {
     }
 
     /**
-     * Initialize inner parts.
+     * Initializes inner parts of main display.
      */
     public void init(Logic logic, HostServices hostServices) {
-        requireNonNull(logic);
-        requireNonNull(hostServices);
+        requireAllNonNull(logic, hostServices);
 
-        mailListPanel = new MailListPanel(logic.getFilteredMailList(), hostServices);
+        MailListPanel mailListPanel = new MailListPanel(logic.getFilteredMailList(), hostServices);
         mailListPanelPlaceholder.managedProperty().bind(mailListPanelPlaceholder.visibleProperty());
         mailListPanelPlaceholder.getChildren().add(mailListPanel.getRoot());
 
-        jobListPanel = new JobListPanel(logic.getFilteredJobList());
+        JobListPanel jobListPanel = new JobListPanel(logic.getFilteredJobList());
         jobListPanelPlaceholder.managedProperty().bind(jobListPanelPlaceholder.visibleProperty());
         jobListPanelPlaceholder.getChildren().add(jobListPanel.getRoot());
 
@@ -59,7 +56,7 @@ public class MainDisplay extends UiPart<Region> {
     }
 
     /**
-     * Display job list.
+     * Displays job list and updates header label.
      */
     public void showJobList() {
         mailListPanelPlaceholder.setVisible(false);
@@ -68,7 +65,7 @@ public class MainDisplay extends UiPart<Region> {
     }
 
     /**
-     * Display mail list.
+     * Displays mail list and updates header label.
      */
     public void showMailList() {
         jobListPanelPlaceholder.setVisible(false);
@@ -77,7 +74,7 @@ public class MainDisplay extends UiPart<Region> {
     }
 
     private void changeHeaderText(String text) {
-        requireNonNull(text);
+        assert text != null;
 
         header.setText(text);
     }

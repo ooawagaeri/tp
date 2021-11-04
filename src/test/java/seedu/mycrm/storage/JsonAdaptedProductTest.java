@@ -8,10 +8,10 @@ import static seedu.mycrm.testutil.TypicalProducts.INTEL_CPU;
 import org.junit.jupiter.api.Test;
 
 import seedu.mycrm.commons.exceptions.IllegalValueException;
-import seedu.mycrm.model.products.Description;
-import seedu.mycrm.model.products.Manufacturer;
-import seedu.mycrm.model.products.ProductName;
-import seedu.mycrm.model.products.Type;
+import seedu.mycrm.model.product.Description;
+import seedu.mycrm.model.product.Manufacturer;
+import seedu.mycrm.model.product.ProductName;
+import seedu.mycrm.model.product.Type;
 
 public class JsonAdaptedProductTest {
     private static final String INVALID_PRODUCT_NAME = "";

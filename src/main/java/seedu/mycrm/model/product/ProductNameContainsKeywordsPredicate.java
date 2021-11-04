@@ -1,13 +1,17 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.mycrm.commons.util.StringUtil;
 
+/**
+ * Tests whether a {@code Product}'s {@code ProductName} matches any of the keywords.
+ */
 public class ProductNameContainsKeywordsPredicate implements Predicate<Product> {
     private final List<String> keywords;
 
+    /** Creates a ProductNameContainsKeywordsPredicate with the specified {@code keywords} */
     public ProductNameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }

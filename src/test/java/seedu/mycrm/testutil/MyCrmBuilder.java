@@ -2,7 +2,7 @@ package seedu.mycrm.testutil;
 
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.contact.Contact;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * A utility class to help with building MyCrm objects.

@@ -1,10 +1,14 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-public class Manufacturer implements ProductComponent<Manufacturer> {
+/**
+ * Represents a Product's description.
+ * Guarantees: immutable.
+ */
+public class Manufacturer implements ProductComponent {
     private static final Manufacturer EMPTY_MANUFACTURER = new Manufacturer();
     private final String name;
 
@@ -16,6 +20,7 @@ public class Manufacturer implements ProductComponent<Manufacturer> {
         this.name = name;
     }
 
+    /** Returns a Manufacturer object with the specified {@code name}. */
     public static Manufacturer getManufacturer(String name) {
         requireNonNull(name);
 
@@ -26,16 +31,18 @@ public class Manufacturer implements ProductComponent<Manufacturer> {
         }
     }
 
-    public static Manufacturer getManufacturer(Optional<String> name) {
-        requireNonNull(name);
+    /** Returns a Description object with content wrapped in {@code nameWrapper}. */
+    public static Manufacturer getManufacturer(Optional<String> nameWrapper) {
+        requireNonNull(nameWrapper);
 
-        if (name.orElse("").length() == 0) {
+        if (nameWrapper.orElse("").length() == 0) {
             return EMPTY_MANUFACTURER;
         } else {
-            return new Manufacturer(name.get());
+            return new Manufacturer(nameWrapper.get());
         }
     }
 
+    /** Returns an empty Manufacturer object. */
     public static Manufacturer getEmptyManufacturer() {
         return EMPTY_MANUFACTURER;
     }
@@ -47,6 +54,7 @@ public class Manufacturer implements ProductComponent<Manufacturer> {
 
     @Override
     public String orElse(String alternativeString) {
+        requireNonNull(alternativeString);
         return this.isEmpty() ? alternativeString : this.name;
     }
 

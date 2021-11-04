@@ -25,5 +25,5 @@ public class Messages {
     public static final String MESSAGE_JOBS_LISTED_OVERVIEW = "%1$d jobs listed!";
     public static final String MESSAGE_PRODUCTS_LISTED_OVERVIEW = "%1$d products listed!";
     public static final String MESSAGE_TEMPLATES_LISTED_OVERVIEW = "%1$d templates listed!";
-    public static final String MESSAGE_REMOVE_LINKED_PRODUCT = "The product is linked to one or more job";
+    public static final String MESSAGE_REMOVE_LINKED_PRODUCT = "The product is linked to one or more job.";
 }

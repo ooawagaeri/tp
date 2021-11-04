@@ -1,6 +1,7 @@
 package seedu.mycrm.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -40,9 +41,9 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
         assert commandType == CommandType.THEME;
-        requireNonNull(themeName);
+        requireAllNonNull(feedbackToUser, themeName);
 
-        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.feedbackToUser = feedbackToUser;
         this.commandType = commandType;
         this.themeName = themeName;
     }
@@ -56,7 +57,7 @@ public class CommandResult {
     }
 
     /**
-     * Returns name of desired theme if the instance is created by {@code ThemeCommand}.
+     * Returns the name of desired theme.
      */
     public String getThemeName() {
         return this.themeName;
@@ -76,12 +77,11 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && commandType == otherCommandResult.commandType
-                && (themeName == null || themeName.equals(otherCommandResult.themeName));
+                && Objects.equals(this.getThemeName(), otherCommandResult.themeName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, commandType);
+        return Objects.hash(feedbackToUser, commandType, themeName);
     }
-
 }

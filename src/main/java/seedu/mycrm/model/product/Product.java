@@ -1,9 +1,12 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a product in MyCRM.
+ * Guarantees: immutable.
  */
 public class Product {
     private final ProductName productName;
@@ -12,11 +15,15 @@ public class Product {
     private final Description description;
 
     /**
-     * Create a product.
-     * @param productName Name of the product.
+     * Creates a product with specified fields.
+     *
+     * @param productName Name of the product. It must not be empty.
+     * @param type Type of the product.
+     * @param manufacturer Manufacturer of the product.
+     * @param description Description of the product.
      */
     public Product(ProductName productName, Type type, Manufacturer manufacturer, Description description) {
-        requireNonNull(productName);
+        requireAllNonNull(productName, type, manufacturer, description);
         assert !productName.isEmpty() : "Product name is empty.";
 
         this.productName = productName;
@@ -29,6 +36,7 @@ public class Product {
         return this.productName;
     }
 
+    /** Returns true if type field of the product is not empty. */
     public boolean hasType() {
         return !this.type.isEmpty();
     }
@@ -37,6 +45,7 @@ public class Product {
         return this.type;
     }
 
+    /** Returns true if manufacturer field of the product is not empty. */
     public boolean hasManufacturer() {
         return !this.manufacturer.isEmpty();
     }
@@ -45,6 +54,7 @@ public class Product {
         return this.manufacturer;
     }
 
+    /** Returns true if description field of the product is not empty. */
     public boolean hasDescription() {
         return !this.description.isEmpty();
     }
@@ -55,7 +65,7 @@ public class Product {
 
     /**
      * Returns true if both products have the same name.
-     * This defines a weaker notion of equality between two contacts.
+     * This defines a weaker notion of equality between two products.
      */
     public boolean isSameProduct(Product otherProduct) {
         if (otherProduct == this) {
@@ -95,6 +105,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return this.productName.hashCode();
+        return Objects.hash(productName, type, manufacturer, description);
     }
 }

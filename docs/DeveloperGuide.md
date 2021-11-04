@@ -549,7 +549,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | regular user           | hide unused job fields                                    | not be distracted by empty / irrelevant fields.                       |
 | `*`      | regular user           | hide unused contacts                                      | not be distracted by irrelevant clients.                              |
 | `*`      | regular user           | customize the app’s user interface (like font and colour) | make the interface look more stylish and pleasant for the eyes        |
-| `*`      | ~~regular user~~       | ~~pin jobs I am working on / are urgent~~                 | ~~easily check and view the job’s details~~                           |
 | `* *`    | regular user           | export my monthly records and statistics                  | store my record externally for future reference                       |
 
 ### Use cases
@@ -631,37 +630,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
 
-**Use case: UC04 - Pin a repair job**
-
-**MSS**
-
-1. User requests to pin a repair job so that its always visible at the top.
-2. MyCRM shows a list of repair jobs.
-3. User selects a repair job from the list which they want to pin.
-4. MyCRM pins the repair job.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. User selects invalid repair job not in the list.
-
-    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
-    * 3a2. User re-selects a repair job they want to pin.
-
-      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
-
-* 3b. User selects a repair job that is already pinned.
-
-    * 3a1. MyCRM shows an error message and tells user repair job is already pinned.
-
-      Use case ends.
-
-**Use case: UC05 - Mark a repair job as completed**
+**Use case: UC04 - Mark a repair job as completed**
 
 **MSS**
 
@@ -691,7 +660,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC06 - List repair jobs**
+**Use case: UC05 - List repair jobs**
 
 **MSS**
 
@@ -706,7 +675,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC07 - Find a repair job**
+**Use case: UC06 - Find a repair job**
 
 **MSS**
 
@@ -722,7 +691,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC08 - Adding a client contact**
+**Use case: UC07 - Adding a client contact**
 
 **MSS**
 
@@ -751,7 +720,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 1.
   
-**Use case: UC09 - Editing a client contact**
+**Use case: UC08 - Editing a client contact**
 
 **MSS**
 
@@ -780,7 +749,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-**Use case: UC10 - Deleting a client contact**
+**Use case: UC09 - Deleting a client contact**
 
 **MSS**
 
@@ -803,7 +772,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC11 - Linking a client contact to a job**
+**Use case: UC10 - Linking a client contact to a job**
 
 **MSS**
 
@@ -838,7 +807,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4
 
-**Use case: UC12 - Hiding a client contact**
+**Use case: UC11 - Hiding a client contact**
 
 **MSS**
 
@@ -861,7 +830,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC13 - Undo hiding a client contact**
+**Use case: UC12 - Undo hiding a client contact**
 
 **MSS**
 
