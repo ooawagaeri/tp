@@ -51,17 +51,10 @@ public class Template {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (other instanceof Template) {
-            Template otherTemplate = (Template) other;
-            return otherTemplate.getSubject().equals(getSubject())
-                    && otherTemplate.getBody().equals(getBody());
-        }
-
-        return false;
+        return other == this
+                || (other instanceof Template
+                && subject.equals(((Template) other).subject)
+                && body.equals(((Template) other).body));
     }
 
     @Override

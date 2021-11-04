@@ -1,11 +1,11 @@
 @startuml
 !include ../style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":Mail" as Mail LOGIC_COLOR
-participant "thisJob:Job" as Job LOGIC_COLOR
-participant "thisTemplate:Template" as Template LOGIC_COLOR
-participant "**<<class>>**\nMail" as MailClass LOGIC_COLOR
+box Model MODEL_COLOR_T1
+participant ":Mail" as Mail MODEL_COLOR
+participant "thisJob:Job" as Job MODEL_COLOR
+participant "thisTemplate:Template" as Template MODEL_COLOR
+participant "**<<class>>**\nMail" as MailClass MODEL_COLOR
 end box
 [-> Mail : constructMail()
 activate Mail
@@ -35,6 +35,6 @@ activate MailClass
 MailClass --> Mail : encodedBody
 deactivate MailClass
 
-[<--Mail : String.format("mailto:%s?subject=%s&body=%s", email, subject, body)
+[<--Mail : "mailto:%s?subject=%s&body=%s", email, encodedSubject, encodedBody
 deactivate Mail
 @enduml

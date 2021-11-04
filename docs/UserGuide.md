@@ -433,15 +433,16 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 * `JOB_INDEX` must be a positive integer (1,2,3…).
 * `TEMPLATE_INDEX` refers to the index of the template as shown in the template listing.
 * `TEMPLATE_INDEX` must be a positive integer (1,2,3…).
+* `Job` selected must have an email address, non-empty.
 
 Examples:
 
 * `listJob` and `listTemplate` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template and `mailto:` hyperlink.
 
-    <img src="images/ui-mail.png" width="600px">
+    <img src="images/mail/ui-mail.png" width="600px">
   
-    <img src="images/ui-mail-application.png" width="600px">
+    <img src="images/mail/ui-mail-application.png" width="600px">
 
 ### Adding mail template: `addTemplate`
 
@@ -464,7 +465,7 @@ Examples:
 * `addTemplate s/Your order is confirmed b/Your order is confirmed! Thank you for ordering from XXX` adds a new 
   Template with subject "our order is confirmed" and body "Your order is confirmed! Thank you for ordering from XXX".
 
-    <img src="images/ui-add-template.png" width="600px">
+    <img src="images/mail/ui-add-template.png" width="600px">
 
 ### Listing all templates: `listTemplate`
 
@@ -472,7 +473,7 @@ Shows a list of all templates in the CRM.
 
 Format: `listTemplate`
 
-  <img src="images/ui-list-template.png" width="600px">
+  <img src="images/mail/ui-list-template.png" width="600px">
 
 ### Editing mail template: `editTemplate`
 
@@ -494,7 +495,7 @@ Examples:
 * `listTemplate` followed by `editTemplate 4 b/We’re excited for you to receive your order` edits the 4th email
   template in the CRM, overriding the 4th email template's body with the new input.
 
-    <img src="images/ui-edit-template.png" width="600px">
+    <img src="images/mail/ui-edit-template.png" width="600px">
 
 ### Finding mail template: `findTemplate`
 
@@ -511,7 +512,7 @@ Example:
 
 * `findTemplate Order`
 
-    <img src="images/ui-find-template.png" width="600px">
+    <img src="images/mail/ui-find-template.png" width="600px">
 
 ### Deleting mail template: `deleteTemplate`
 
@@ -527,7 +528,7 @@ Examples:
 
 * `listTemplate` followed by `deleteTemplate 4` deletes the 4th email template in the CRM.
 
-    <img src="images/ui-delete-template.png" width="600px">
+    <img src="images/mail/ui-delete-template.png" width="600px">
 
 ### Retrieve previous command: `history`
 
