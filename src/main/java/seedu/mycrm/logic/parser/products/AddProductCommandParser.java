@@ -41,19 +41,13 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         }
 
         Optional<String> typeWrapper = argMap.getValue(PREFIX_PRODUCT_TYPE);
-        Type type = typeWrapper.orElse("").equals("")
-                ? Type.getEmptyType()
-                : Type.getType(typeWrapper.get());
+        Type type = Type.getType(typeWrapper);
 
         Optional<String> manufacturerWrapper = argMap.getValue(PREFIX_PRODUCT_MANUFACTURER);
-        Manufacturer manufacturer = manufacturerWrapper.orElse("").equals("")
-                ? Manufacturer.getEmptyManufacturer()
-                : Manufacturer.getManufacturer(manufacturerWrapper.get());
+        Manufacturer manufacturer = Manufacturer.getManufacturer(manufacturerWrapper);
 
         Optional<String> descriptionWrapper = argMap.getValue(PREFIX_PRODUCT_DESCRIPTION);
-        Description description = descriptionWrapper.orElse("").equals("")
-                ? Description.getEmptyDescription()
-                : Description.getDescription(descriptionWrapper.get());
+        Description description = Description.getDescription(descriptionWrapper);
 
         return new AddProductCommand(new Product(pName, type, manufacturer, description));
     }
