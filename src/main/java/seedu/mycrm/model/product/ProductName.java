@@ -57,6 +57,7 @@ public class ProductName implements ProductComponent {
 
     @Override
     public String orElse(String alternativeString) {
+        requireNonNull(alternativeString);
         return this.isEmpty() ? alternativeString : this.name;
     }
 

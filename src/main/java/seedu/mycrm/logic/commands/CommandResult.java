@@ -77,14 +77,11 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && commandType == otherCommandResult.commandType
-                && (themeName == null || themeName.equals(otherCommandResult.themeName));
+                && Objects.equals(this.getThemeName(), otherCommandResult.themeName);
     }
 
     @Override
     public int hashCode() {
-        return themeName == null
-            ? Objects.hash(feedbackToUser, commandType)
-            : Objects.hash(feedbackToUser, commandType, themeName);
+        return Objects.hash(feedbackToUser, commandType, themeName);
     }
-
 }

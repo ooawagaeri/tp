@@ -26,7 +26,7 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(0.5f));
 
         // different feedbackToUser value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("different")));
+        assertFalse(commandResult.equals(new CommandResult("different", CommandType.THEME, "dark")));
 
         // different command type value -> returns false
         assertFalse(new CommandResult("_feedback_", CommandType.HELP).equals(
@@ -44,9 +44,13 @@ public class CommandResultTest {
         assertEquals(commandResult.hashCode(), new CommandResult("feedback", CommandType.JOBS).hashCode());
 
         // different feedbackToUser value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("different", CommandType.COMMON).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("different", CommandType.JOBS).hashCode());
 
-        // different showHelp value -> returns different hashcode
+        // different command type -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandType.HELP).hashCode());
+
+        // different theme name -> returns different hashcode
+        assertNotEquals(new CommandResult("Change", CommandType.THEME, "light").hashCode(),
+                new CommandResult("Change", CommandType.THEME, "ligh").hashCode());
     }
 }

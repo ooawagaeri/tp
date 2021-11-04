@@ -17,8 +17,6 @@ public class AddProductCommand extends Command {
 
     public static final String COMMAND_WORD = "addProduct";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Kyaaa Skadi:3";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a new product to the CRM."
             + "\nParameters: n/NAME [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]"
             + "\nNote: Product name cannot be empty."

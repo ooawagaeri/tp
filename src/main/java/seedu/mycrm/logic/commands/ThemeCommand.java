@@ -43,11 +43,6 @@ public class ThemeCommand extends Command {
     }
 
     @Override
-    public String toString() {
-        return "ThemeCommand: change to " + themeName;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;

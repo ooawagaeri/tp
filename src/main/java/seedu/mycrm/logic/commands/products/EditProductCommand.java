@@ -217,10 +217,10 @@ public class EditProductCommand extends Command {
             }
             if (o instanceof EditProductDescriptor) {
                 EditProductDescriptor descriptor = (EditProductDescriptor) o;
-                return descriptor.productName.equals(this.productName)
-                        && descriptor.type.equals(this.type)
-                        && descriptor.manufacturer.equals(this.manufacturer)
-                        && descriptor.description.equals(this.description);
+                return descriptor.productName.equals(this.getName())
+                        && descriptor.type.equals(this.getType())
+                        && descriptor.manufacturer.equals(this.getManufacturer())
+                        && descriptor.description.equals(this.getDescription());
             }
             return false;
         }
