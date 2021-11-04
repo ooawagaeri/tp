@@ -12,7 +12,7 @@ import seedu.mycrm.model.mail.SubjectContainsKeywordsPredicate;
 
 /**
  * Finds and lists all templates in myCrm whose subject contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Keyword matching is case-insensitive.
  */
 public class FindTemplateCommand extends Command {
 
@@ -46,8 +46,8 @@ public class FindTemplateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FindTemplateCommand // instanceof handles nulls
-                && predicate.equals(((FindTemplateCommand) other).predicate)); // state check
+        return other == this
+                || (other instanceof FindTemplateCommand
+                && predicate.equals(((FindTemplateCommand) other).predicate));
     }
 }

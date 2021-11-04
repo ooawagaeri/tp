@@ -14,6 +14,7 @@ public class Body {
     /**
      * The first character of the template must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * This regex ensures that any character is accepted.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
@@ -22,7 +23,7 @@ public class Body {
     /**
      * Constructs an {@code Body}.
      *
-     * @param body A valid body.
+     * @param body valid body.
      */
     public Body(String body) {
         requireNonNull(body);
@@ -32,6 +33,8 @@ public class Body {
 
     /**
      * Returns true if a given string is a valid body.
+     *
+     * @param test target body to test
      */
     public static boolean isValidBody(String test) {
         return test.matches(VALIDATION_REGEX);

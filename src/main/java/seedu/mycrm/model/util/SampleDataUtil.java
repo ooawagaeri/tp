@@ -80,7 +80,7 @@ public class SampleDataUtil {
     public static Template[] getSampleTemplates() {
         return new Template[] {
             new Template(new Subject("Completed"), new Body("You order has been completed")),
-            new Template(new Subject("Done"), new Body("You order has been marked as completed")),
+            new Template(new Subject("Done"), new Body("You order has been marked as done!\\nCongratz!")),
         };
     }
 

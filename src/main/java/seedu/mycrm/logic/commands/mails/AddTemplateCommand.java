@@ -61,8 +61,8 @@ public class AddTemplateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddTemplateCommand // instanceof handles nulls
+        return other == this
+                || (other instanceof AddTemplateCommand
                 && toAdd.equals(((AddTemplateCommand) other).toAdd));
     }
 }

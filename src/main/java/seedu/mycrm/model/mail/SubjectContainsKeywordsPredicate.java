@@ -23,9 +23,9 @@ public class SubjectContainsKeywordsPredicate implements Predicate<Template> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SubjectContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((SubjectContainsKeywordsPredicate) other).keywords)); // state check
+        return other == this
+                || (other instanceof SubjectContainsKeywordsPredicate
+                && keywords.equals(((SubjectContainsKeywordsPredicate) other).keywords));
     }
 
 }
