@@ -1,0 +1,40 @@
+@startuml
+!include ../style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Mail" as Mail MODEL_COLOR
+participant "thisJob:Job" as Job MODEL_COLOR
+participant "thisTemplate:Template" as Template MODEL_COLOR
+participant "**<<class>>**\nMail" as MailClass MODEL_COLOR
+end box
+[-> Mail : constructMail()
+activate Mail
+
+Mail -> Job : getClientEmail()
+activate Job
+Job --> Mail : email
+deactivate Job
+
+Mail -> Template : getSubject()
+activate Template
+Template --> Mail : subject
+deactivate Template
+
+Mail -> Template : getBody()
+activate Template
+Template --> Mail : body
+deactivate Template
+
+Mail -> MailClass : urlEncode(subject)
+activate MailClass
+MailClass --> Mail : encodedSubject
+deactivate MailClass
+
+Mail -> MailClass : urlEncode(body)
+activate MailClass
+MailClass --> Mail : encodedBody
+deactivate MailClass
+
+[<--Mail : "mailto:%s?subject=%s&body=%s", email, encodedSubject, encodedBody
+deactivate Mail
+@enduml

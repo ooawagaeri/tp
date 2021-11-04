@@ -2,8 +2,9 @@ package seedu.mycrm.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalContacts.ALICE;
 import static seedu.mycrm.testutil.TypicalContacts.BENSON;
@@ -124,31 +125,32 @@ public class ModelManagerTest {
         // same values -> returns true
         modelManager = new ModelManager(myCrm, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(myCrm, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotEquals(null, modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, modelManager);
 
         // different myCrm -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMyCrm, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(differentMyCrm, userPrefs));
 
         // different filteredList -> returns false
+        assert ALICE.getName().fullName != null;
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(myCrm, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(myCrm, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        modelManager.updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setMyCrmFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(myCrm, differentUserPrefs)));
+        assertNotEquals(modelManager, new ModelManager(myCrm, differentUserPrefs));
     }
 }

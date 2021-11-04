@@ -31,10 +31,20 @@ public class ListContactCommand extends Command {
 
     private final Predicate<Contact> listPredicate;
 
+    /**
+     * Constructor for listContactCommand.
+     * If no predicate given, by default listContactCommand will list all commands.
+     */
     public ListContactCommand() {
         this.listPredicate = PREDICATE_SHOW_ALL_CONTACTS;
     }
 
+    /**
+     * Constructor for listContactCommand.
+     * List all contacts in the list with given predicate.
+     *
+     * @param listPredicate
+     */
     public ListContactCommand(Predicate<Contact> listPredicate) {
         this.listPredicate = listPredicate;
     }

@@ -2,6 +2,7 @@ package seedu.mycrm.logic.commands.contacts;
 
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.mycrm.model.Model.PREDICATE_SHOW_NOT_HIDDEN_CONTACTS;
 import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
@@ -27,13 +28,26 @@ public class ListContactCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    public void execute_listAllContactsIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS_ALL, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_listAllContactsIsFiltered_showsSameList() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
         assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS_ALL, expectedModel);
+    }
+
+    @Test
+    public void execute_listNotHiddenContactsIsNotFiltered_showsSameList() {
+        assertCommandSuccess(new ListContactCommand(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS),
+                model, ListContactCommand.MESSAGE_SUCCESS_NOT_HIDDEN, expectedModel);
+    }
+
+    @Test
+    public void execute_listNotHiddenContactsIsFiltered_showsSameList() {
+        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+        assertCommandSuccess(new ListContactCommand(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS),
+                model, ListContactCommand.MESSAGE_SUCCESS_NOT_HIDDEN, expectedModel);
     }
 }

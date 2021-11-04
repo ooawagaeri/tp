@@ -162,7 +162,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 * [Adding a contact](#adding-a-contact)
+* [Editing a contact](#editing-a-contact)
+* [Deleting a contact](#deleting-a-contact)
+* [Finding a contact](#finding-a-contact)
 * [Hiding a contact](#hiding-a-contact)
+* [Undoing Hiding a contact](#undoing-hiding-a-contact)
 * [Listing contacts](#listing-contacts)
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)
@@ -172,7 +176,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The Adding a Contact mechanism is facilitated by `AddressBook`. This Contact created is stored internally using 
+The **Adding a Contact** mechanism is facilitated by `MyCRM`. This Contact created is stored internally using 
 `UniqueContactList` inside the `MyCrm` object.  
 Additionally, `addContact` allows to have only partially info of a client with consideration of privacy. Commands
 such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
@@ -181,48 +185,196 @@ such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
 
 The activity diagram below illustrates how the events of `addContact` command behave when executed by a user: 
 
-![](images/AddContactActivityDiagram.png)
+![](images/contact/AddContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the Adding a Contact mechanism behaves at each step.
+Given below is an example usage scenario and how the **Adding a Contact** mechanism behaves at each step.
 
-![](images/AddContactParseSequenceDiagram.png)
+![](images/contact/AddContactParseSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `AddContactCommandParser` should end at the destroy 
-marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-Within AddContactCommandParser#parse, ParserUtil#parseName will be called to create a name using 
-"Sans", ParserUtil#parsePhone to create a phone using "83921823", ParserUtil#parseEmail to 
-create an email using "Sans@gmail.com", ParserUtil#parseAddress to create an address using "Maxwell...".  
+Within `AddContactCommandParser#parse`, `ParserUtil#parseName` will be called to create a name using 
+"Sans", `ParserUtil#parsePhone` to create a phone using "83921823", `ParserUtil#parseEmail` to 
+create an email using "Sans@gmail.com", `ParserUtil#parseAddress` to create an address using "Maxwell...".  
 Then create a contact using the new name, phone, email and address.
 
-![](images/AddContactSequenceDiagram.png)
+Note that `Phone`, `Email`, `Address`, are optional, but at least one of these 3 fields
+must exist.
+
+![](images/contact/AddContactSequenceDiagram.png)
+
+### Editing a Contact
+
+#### Implementation
+
+The **Editing a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editContact` command behave when executed by a user:
+
+![](images/contact/EditContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Editing a Contact** mechanism behaves at each step.
+
+![](images/contact/EditContactParseSequenceDiagram.png)
+
+Within `EditContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- `EditContactDescriptor` will only get the values of `Name`, `Phone`, `Email`, `Address`, and `Tags` 
+if their respective prefixes are present.
+- `isHidden` is will not be handled by `EditContactDescrptior`, it will be updated in `createEditedContact`.
+
+`EditContactCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the target contact's index and
+`ArgumentMultimap#getValue` to extract `Name`, `Phone`, `Email`, `Address`: "Frisks", "88888888", "Frisks@gmail.com"
+and "Jurong West" from the command string respectively.
+
+![](images/contact/EditContactSequenceDiagram.png)
+
+### Deleting a Contact
+
+#### Implementation
+
+The **Deleting a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and deletes a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `deleteContact` command behave when executed by a user:
+
+![](images/contact/DeleteContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Deleting a Contact** mechanism behaves at each step.
+
+![](images/contact/DeleteContactParseSequenceDiagram.png)
+
+Within `DeleteContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- The contact specified to be deleted must have no jobs linked, otherwise error message will be displayed in UI panel.
+
+`DeleteContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to delete it.
+
+![](images/contact/DeleteContactSequenceDiagram.png)
+
+### Finding a Contact
+
+#### Implementation
+
+The **Finding a Contact** mechanism is facilitated by `MyCRM`. This mechanism finds specific list of contact
+object from `UniqueContactList` inside the `MyCRM` object with certain keywords provided.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findContact` command behave when executed by a user:
+
+![](images/contact/FindContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Finding a Contact** mechanism behaves at each step.
+
+![](images/contact/FindContactParseSequenceDiagram.png)
+
+
+Within `FindContactCommandParser#parse`,
+- `Keywords` must be presented. (At least one trim of String)
+
+`FindcontactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding contacts with these keywords as predicate.
+
+![](images/contact/FindContactSequenceDiagram.png)
 
 ### Hiding a Contact
 
 #### Implementation
 
-The Hiding a Contact mechanism follows the `EditCommand` mechanism in `AddressBook`. It hides a specific contact
-which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
-Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+The **Hiding a Contact** mechanism is facilitated by the `MyCRM`. It hides a specific contact
+which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `hideContact` command behave when executed by a user:
+
+![](images/contact/HideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/HideContactParserSequenceDiagram.png)
+
+Within `HideContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+
+`HideContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to hide it.
+
+![](images/contact/HideContactSequenceDiagram.png)
+
+### Undoing Hiding a Contact
+
+#### Implementation
+
+The **Undoing Hiding a Contact** mechanism is facilitated by the `MyCRM`. It will unhide a hidden contact in list. Users are
+required to type in command `listContact -a` in order to see **hidden** contacts.
+
+Implementation and usage details for **Undoing Hiding a Contact** are similar to [Hiding a Contact](#hiding-a-contact) design
+pattern. Can refer to `hideContact` command implementation details.
+#### Usage
+
+The activity diagram below illustrates how the events of `undoHideContact` command behave when executed by a user:
+
+![](images/contact/UndoHideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/UndoHideContactParserSequenceDiagram.png)
+
+Within `UndoHideContactCommandParser#parse`,
+- `listContact -a` must first be typed in to see hidden contacts.
+- `Index` must be is valid (within the range of contactList).
+
+`UndoHideContactCommandParser#parse` will call `ParserUtil#parseIndex`
+
+![](images/contact/UndoHideContactSequenceDiagram.png)
 
 ### Listing Contacts
+
+#### Implementation
+
+The **Listing a Contact** mechanism is facilitated by `MyCRM`. This mechanism lists all unhidden Contact
+object from `UniqueContactList` inside the `MyCRM` object by default. If `listContact -a` is invoked,
+`MyCRM` will list all contacts including not hidden ones.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `listContact` command behave when executed by a user:
+
+![](images/contact/ListContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Listing a Contact** mechanism behaves at each step.
+
+![](images/contact/ListContactParserSequenceDiagram.png)
+
+Within `ListContactCommandParser#parse`,
+- `Keywords` is optional but if provided, it can only be **"-a"**.
+- If correct keyword is presented, contact list will show all contacts including hidden contacts.
+If not, by default `listContact` will only show not hidden contacts in contact list.
+
+`ListcontactCommandParser#parse` will call `String#trim` to get specific keyword.
+
+![](images/contact/ListContactSequenceDiagram.png)
 
 ### Adding a Template
 
 #### Implementation
 
-The Adding a Template mechanism is facilitated by `AddressBook`. This template created is stored internally using
-`UniqueTemplateList` inside the `AddressBook` object. 
+The Adding a Template mechanism is facilitated by `MyCRM`. This template created is stored internally using
+`UniqueTemplateList` inside the `MyCRM` object. 
 
 #### Usage
 
 The activity diagram below illustrates how the events of `addTemplate` command behave when executed by user:
 
-![](images/AddTemplateActivityDiagram.png)
+![](images/mail/AddTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Adding a Template mechanism behaves at each step.
 
-![](images/AddTemplateParseSequenceDiagram.png)
+![](images/mail/AddTemplateParseSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for 
 `AddTemplateCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline 
@@ -233,14 +385,14 @@ Within `AddTemplateCommandParser#parse`, `ParserUtil#parseSubject` will be calle
 "Completed", `ParserUtil#parseBody` to create a body using "Dear customer..." and create a template using the new
 subject and body.
 
-![](images/AddTemplateSequenceDiagram.png)
+![](images/mail/AddTemplateSequenceDiagram.png)
 
 Additionally, before adding the new template into `Model`, `Template t` will be checked if a similar copy exist
 within `Model`. The conditions required is:
 
 * If both templates have the DO NOT same `Subject` content i.e. there is an existing template with subject "Completed".
 
-#### Design considerations
+#### Design Considerations
 
 **Aspect: Unique Template**
 
@@ -253,9 +405,91 @@ within `Model`. The conditions required is:
   * Cons: May not be user-friendly as it may be hard to differentiate templates as some may be too similar at first 
     glance. Such as, minor typos, copy and paste with a couple of different words. Higher risk of confusion.    
 
-### Deleting a template
+### Editing a Template
 
-### Constructing an email
+#### Implementation
+
+The Editing a Template mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target template 
+object from `UniqueTemplateList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editTemplate` command behave when executed by user:
+
+![](images/mail/EditTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Editing a Template mechanism behaves at each step.
+
+![](images/mail/EditTemplateParseSequenceDiagram.png)
+
+Within `EditTemplateCommandParser#parse`,
+- `Index` must be is valid (within the range of templates).
+- `EditTemplateDescriptor` will only get the values of `Subject` and `Body` if their respective prefixes are present. 
+
+`EditTemplateCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the specified template index and 
+`ArgumentMultimap#getValue` to extract both `Subject` and `Body`: "Completed" and "Order Completed!" from the 
+command string respectively.
+
+![](images/mail/EditTemplateSequenceDiagram.png)
+
+### Deleting a Template
+
+#### Implementation
+
+The Deleting a Template mechanism is facilitated by `MyCRM`. This template removes a target template object from
+`UniqueTemplateList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `deleteTemplate` command behave when executed by user:
+
+![](images/mail/DeleteTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Deleting a Template mechanism behaves at each step.
+
+![](images/mail/DeleteTemplateParseSequenceDiagram.png)
+
+Within `DeleteTemplateCommandParser#parse`,
+- `Index` must be is valid (within the range of templates) and at least one field to be edited, for the mechanism to
+  execute successfully.
+- `ParserUtil#parseIndex` will be called to extract the index of the specified template to delete.
+
+![](images/mail/DeleteTemplateSequenceDiagram.png)
+
+### Constructing an Email
+
+#### Implementation
+
+The Constructing an Email mechanism is facilitated by `MyCRM`. This email is constructed based of the information 
+from a specified job and template from `UniqueJobList` and `UniqueTemplateList` inside the `MyCRM` object. A mailto URL 
+will be generated, sending users to their default mailing application with details of the job and template. 
+
+#### Usage
+
+The activity diagram below illustrates how the events of `mail` command behave when executed by user:
+
+![](images/mail/MailActivityDiagram.png)
+
+Given below is an example usage scenario and how the Constructing an Email mechanism behaves at each step.
+
+![](images/mail/MailParseSequenceDiagram.png)
+
+Within `MailCommandParser#parse`,
+- `JobIndex` must be is valid (within the range of job).
+- `TemplateIndex` must be is valid (within the range of templates).
+- `ParserUtil#parseIndex` will be called to extract both the index of the specified job and template to mail.
+
+![](images/mail/MailSequenceDiagram.png)
+
+An additional feature of constructing an email is the generation of a mailto URL, allowing for users to transfer 
+their job and template details to the user's default mailing application.
+
+Given below is an example of the generation of a mailto URL:
+
+![](images/mail/MailUrlSequenceDiagram.png)
+
+After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
+the URL path.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -493,7 +727,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to edit a contact.
 2. MyCRM shows a list of contacts.
 3. User requests to edit a specific contact's info with specific index and type of the field in contact.
-4. MyCRM updates this specifc contact's info.
+4. MyCRM updates this specific contact's info.
 
     Use case ends.
 
@@ -509,7 +743,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-* 3b. The given edit field type is invaild.
+* 3b. The given edit field type is invalid.
 
     * 3b1. MyCRM shows an error message.
 
@@ -645,6 +879,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
+
+* 3b. The job at given index does not have an email.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
   
 * 4a. The list of templates is empty.
 
@@ -694,7 +934,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Editing an email template**
+**Use case: UC16 - Listing all email template**
+
+**MSS**
+
+1. User request to find a template of specified subject keyword(s).
+2. MyCRM shows a list of filtered template for which the keywords appear in the template's subject. 
+   product.
+
+   Use case ends.
+
+
+**Use case: UC17 - Editing an email template**
 
 **MSS**
 
@@ -735,7 +986,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC17 - Deleting an email template**
+**Use case: UC18 - Deleting an email template**
 
 **MSS**
 
@@ -758,7 +1009,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC18 - Viewing user guide**
+**Use case: UC19 - Viewing user guide**
 
 **MSS**
 
@@ -767,7 +1018,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC19 - Exiting the program**
+**Use case: UC20 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -778,7 +1029,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Clearing MyCRM data**
+**Use case: UC21 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -789,7 +1040,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Add Product**
+**Use case: UC22 - Add Product**
 
 **MSS**
 
@@ -811,7 +1062,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC22 - List Products**
+**Use case: UC23 - List Products**
 
 **MSS**
 
@@ -825,7 +1076,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC23: Delete a product**
+**Use case: UC24: Delete a product**
 
 **MSS**
 
@@ -846,7 +1097,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC24: Edit a product.**
+**Use case: UC 25: Edit a product.**
 
 **MSS**
 
@@ -873,7 +1124,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC25 - Retrieve Previous Command**
+**Use case: UC26 - Retrieve Previous Command**
 
 **MSS**
 
@@ -891,7 +1142,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC 26 - Change the theme of user interface(UI)**
+**Use case: UC 27 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -923,7 +1174,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-<!--- More to be added -->
 
 ### Glossary
 
@@ -934,6 +1184,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **JSON**: Javascript Standard Object Notation, which is a form of syntax used for storing data.
 * **mailto**: A Uniform Resource Identifier scheme for email addresses, produces hyperlinks on websites that allow
   users to send an email.
+* **URL**: A Uniform Resource Locators is a unique identifier commonly used to access a resource on the Internet.
 * **Entry**: Contact/job/product.
 
 --------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,16 @@
+{
+  "contacts": [ ],
+  "templates": [ ],
+  "products": [ {
+    "productName" : "Intel i5-10400F",
+    "type" : "CPU 1",
+    "manufacturer" : "Intel 1",
+    "description" : "2.90GHz 2"
+  }, {
+    "productName" : "Intel i5-10400F",
+    "type" : "CPU 2",
+    "manufacturer" : "Intel 1",
+    "description" : "2.90GHz 2"
+  } ],
+  "jobs" : [ ]
+}

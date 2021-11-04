@@ -1,0 +1,65 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":EditContactCommandParser" as EditContactCommandParser LOGIC_COLOR
+participant "contactToEdit:EditContactCommand" as EditContactCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "editContactDescriptor:EditContactDescriptor" as EditContactDescriptor MODEL_COLOR
+end box
+[-> LogicManager : execute("editContact 1 n/Frisks c/88888888 e/Frisks@gmail.com a/Jurong West")
+activate LogicManager
+
+group sd parse edit contact
+LogicManager -> MyCrmParser : parseCommand("editContact 1 n/Frisks c/88888888 e/Frisks@gmail.com a/Jurong West")
+activate MyCrmParser
+
+create EditContactCommandParser
+MyCrmParser -> EditContactCommandParser
+activate EditContactCommandParser
+
+EditContactCommandParser --> MyCrmParser
+deactivate EditContactCommandParser
+
+MyCrmParser -> EditContactCommandParser : parse("1 n/Frisks c/88888888 e/Frisks@gmail.com a/Jurong West")
+activate EditContactCommandParser
+
+create EditContactDescriptor
+EditContactCommandParser -> EditContactDescriptor
+activate EditContactDescriptor
+EditContactDescriptor --> EditContactCommandParser : editContactDescriptor
+deactivate EditContactDescriptor
+
+EditContactCommandParser -> EditContactDescriptor : setName("Frisks")
+
+EditContactCommandParser -> EditContactDescriptor : setPhone("88888888")
+
+EditContactCommandParser -> EditContactDescriptor : setEmail("Frisks@gmail.com")
+
+EditContactCommandParser -> EditContactDescriptor : setAddress("Jurong West")
+
+
+create EditContactCommand
+EditContactCommandParser -> EditContactCommand : 1, editContactDescriptor
+activate EditContactCommand
+
+EditContactCommand --> EditContactCommandParser : contactToEdit
+deactivate EditContactCommand
+
+EditContactCommandParser --> MyCrmParser : contactToEdit
+deactivate EditContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+EditContactCommandParser -[hidden]-> MyCrmParser
+destroy EditContactCommandParser
+
+MyCrmParser --> LogicManager : contactToEdit
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

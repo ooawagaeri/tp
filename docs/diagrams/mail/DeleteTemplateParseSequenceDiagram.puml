@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":DeleteTemplateCommandParser" as DeleteTemplateCommandParser LOGIC_COLOR
+participant "toDelete:DeleteTemplateCommand" as DeleteTemplateCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("deleteTemplate 1")
+activate LogicManager
+
+group sd parse delete template
+LogicManager -> MyCrmParser : parseCommand("deleteTemplate 1")
+activate MyCrmParser
+
+create DeleteTemplateCommandParser
+MyCrmParser -> DeleteTemplateCommandParser
+activate DeleteTemplateCommandParser
+
+DeleteTemplateCommandParser --> MyCrmParser
+deactivate DeleteTemplateCommandParser
+
+MyCrmParser -> DeleteTemplateCommandParser : parse("1")
+activate DeleteTemplateCommandParser
+
+create DeleteTemplateCommand
+DeleteTemplateCommandParser -> DeleteTemplateCommand : 1
+activate DeleteTemplateCommand
+
+DeleteTemplateCommand --> DeleteTemplateCommandParser : toDelete
+deactivate DeleteTemplateCommand
+
+DeleteTemplateCommandParser --> MyCrmParser : toDelete
+deactivate DeleteTemplateCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+DeleteTemplateCommandParser -[hidden]-> MyCrmParser
+destroy DeleteTemplateCommandParser
+
+MyCrmParser --> LogicManager : toDelete
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

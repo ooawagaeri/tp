@@ -15,7 +15,8 @@ public class TypicalJobs {
     public static final Job COMPLETED =
             new JobBuilder().withCompletedDate("13/12/2021").withCompletionStatus(true).build();
 
-    public static final Job INCOMPLETE = new JobBuilder().withCompletionStatus(false).build();
+    public static final Job INCOMPLETED =
+            new JobBuilder().build();
 
     public static final Job BENSON_JOB = new JobBuilder().withClient(BENSON).build();
 

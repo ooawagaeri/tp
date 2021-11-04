@@ -20,6 +20,9 @@ public class Mail {
     public Mail(Job job, Template template) {
         requireNonNull(job);
         requireNonNull(template);
+
+        assert (!job.getClientEmail().equals(""));
+
         this.job = job;
         this.template = template;
     }
@@ -27,9 +30,29 @@ public class Mail {
     public Job getJob() {
         return job;
     }
-
     public Template getTemplate() {
         return template;
+    }
+
+    /**
+     * Returns job client email
+     */
+    public String getMailEmail() {
+        return job.getClient().getEmail().value;
+    }
+
+    /**
+     * Returns template subject header
+     */
+    public String getMailSubject() {
+        return template.getSubject().toString();
+    }
+
+    /**
+     * Returns template body text
+     */
+    public String getMailBody() {
+        return template.getMailReadyBody();
     }
 
     /**
@@ -51,18 +74,11 @@ public class Mail {
      * This defines a stronger notion of equality between two mails.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Mail)) {
-            return false;
-        }
-
-        Mail otherMail = (Mail) o;
-        return otherMail.getJob().equals(getJob())
-                && otherMail.getTemplate().equals(getTemplate());
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof Mail
+                && job.equals(((Mail) other).job)
+                && template.equals(((Mail) other).template));
     }
 
     @Override

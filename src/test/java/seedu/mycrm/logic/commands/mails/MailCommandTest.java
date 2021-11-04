@@ -10,6 +10,8 @@ import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_JOB;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_TEMPLATE;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_SECOND_TEMPLATE;
 import static seedu.mycrm.testutil.TypicalMails.COMPLETED_JOB;
+import static seedu.mycrm.testutil.TypicalMails.NO_EMAIL_CONTACT;
+import static seedu.mycrm.testutil.TypicalMails.NO_EMAIL_JOB;
 import static seedu.mycrm.testutil.TypicalMails.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalTemplates.COMPLETED;
 
@@ -28,6 +30,7 @@ import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.CommandResult;
+import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
 import seedu.mycrm.model.MyCrm;
@@ -51,7 +54,7 @@ class MailCommandTest {
     }
 
     @Test
-    public void execute_mailAcceptedByModelManager_addSuccessful() throws Exception {
+    public void execute_mailAcceptedByModelManager_addSuccessful() {
         Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
         Job jobToMail = model.getFilteredJobList().get(INDEX_FIRST_JOB.getZeroBased());
@@ -69,7 +72,7 @@ class MailCommandTest {
     }
 
     @Test
-    public void execute_mailAcceptedByModelStub_addSuccessful() throws Exception {
+    public void execute_mailAcceptedByModelStub_addSuccessful() throws CommandException {
         MailCommandTest.ModelStubAcceptingMailAdded modelStub =
                 new MailCommandTest.ModelStubAcceptingMailAdded();
         modelStub.addJob(COMPLETED_JOB);
@@ -85,6 +88,17 @@ class MailCommandTest {
         assertEquals(List.of(validMail), modelStub.mailsAdded);
     }
 
+    @Test
+    public void execute_noEmailClient_throwsCommandException() {
+        MailCommandTest.ModelStubAcceptingMailAdded modelStub =
+                new MailCommandTest.ModelStubAcceptingMailAdded();
+        modelStub.addJob(NO_EMAIL_JOB);
+        modelStub.addContact(NO_EMAIL_CONTACT);
+        modelStub.addTemplate(COMPLETED);
+
+        MailCommand mailNoEmailCommand = new MailCommand(INDEX_FIRST_JOB, INDEX_FIRST_TEMPLATE);
+        assertCommandFailure(mailNoEmailCommand, modelStub, Messages.MESSAGE_INVALID_JOB_NO_EMAIL);
+    }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -275,8 +289,14 @@ class MailCommandTest {
         public double getRevenue(LocalDate date) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ObservableList<Product> getFilteredTopThreeProductList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Job> getFilteredIncompleteJobList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -363,6 +383,7 @@ class MailCommandTest {
         final ArrayList<Mail> mailsAdded = new ArrayList<>();
         final ArrayList<Template> templatesAdded = new ArrayList<>();
         final ArrayList<Job> jobsAdded = new ArrayList<>();
+        final ArrayList<Contact> contactsAdded = new ArrayList<>();
 
         @Override
         public void addMail(Mail mail) {
@@ -383,6 +404,12 @@ class MailCommandTest {
         }
 
         @Override
+        public void addContact(Contact contact) {
+            requireNonNull(contact);
+            contactsAdded.add(contact);
+        }
+
+        @Override
         public ObservableList<Template> getFilteredTemplateList() {
             return FXCollections.observableList(templatesAdded);
         }
@@ -390,6 +417,11 @@ class MailCommandTest {
         @Override
         public ObservableList<Job> getFilteredJobList() {
             return FXCollections.observableList(jobsAdded);
+        }
+
+        @Override
+        public ObservableList<Contact> getFilteredContactList() {
+            return FXCollections.observableList(contactsAdded);
         }
 
         @Override

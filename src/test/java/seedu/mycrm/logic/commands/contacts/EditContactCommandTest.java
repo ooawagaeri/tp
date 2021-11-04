@@ -6,7 +6,7 @@ import static seedu.mycrm.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.mycrm.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_FIRST_TIER;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
@@ -29,7 +29,7 @@ import seedu.mycrm.testutil.ContactBuilder;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;
 
 class EditContactCommandTest {
-    private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -52,10 +52,10 @@ class EditContactCommandTest {
 
         ContactBuilder contactInList = new ContactBuilder(lastContact);
         Contact editedContact = contactInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_FIRST_TIER).build();
 
         EditContactCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
-                .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_FIRST_TIER).build();
         EditContactCommand editCommand = new EditContactCommand(indexLastContact, descriptor);
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);

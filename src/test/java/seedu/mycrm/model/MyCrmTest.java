@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.mycrm.logic.commands.CommandTestUtil.VALID_TAG_FIRST_TIER;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalContacts.ALICE;
 import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
@@ -53,7 +53,7 @@ public class MyCrmTest {
     @Test
     public void resetData_withDuplicateContacts_throwsDuplicateContactException() {
         // Two contacts with the same identity fields
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FIRST_TIER)
                 .build();
         List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
         MyCrmStub newData = new MyCrmStub(newContacts);
@@ -80,7 +80,7 @@ public class MyCrmTest {
     @Test
     public void hasContact_contactWithSameIdentityFieldsInMyCrm_returnsTrue() {
         myCrm.addContact(ALICE);
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FIRST_TIER)
                 .build();
         assertTrue(myCrm.hasContact(editedAlice));
     }

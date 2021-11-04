@@ -24,6 +24,15 @@ public class Template {
     }
 
     /**
+     * Returns augmented template body.
+     * This replaces all the '\n' tags with newline breaks.
+     */
+    public String getMailReadyBody() {
+        return body.toString().replace("\\n", "\n");
+    }
+
+
+    /**
      * Returns true if both email templates have the subject header.
      * This defines a weaker notion of equality between two templates.
      */
@@ -42,17 +51,10 @@ public class Template {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Template)) {
-            return false;
-        }
-
-        Template otherTemplate = (Template) other;
-        return otherTemplate.getSubject().equals(getSubject())
-                && otherTemplate.getBody().equals(getBody());
+        return other == this
+                || (other instanceof Template
+                && subject.equals(((Template) other).subject)
+                && body.equals(((Template) other).body));
     }
 
     @Override

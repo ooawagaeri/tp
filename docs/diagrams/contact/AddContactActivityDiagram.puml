@@ -1,11 +1,11 @@
 @startuml
 start
 :User executes add contact command;
-:myCRM parses user inputs;
-while () is ([InValid Input])
+:MyCRM parses user inputs;
+if() then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful add contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
     fork
     :Creates new **Name**;
     fork again
@@ -21,5 +21,6 @@ endwhile ([Valid Input])
     :Creates new contact;
     :Stores contact into MyCRM;
     :Displays successful add contact Message on UI;
+endif;
 stop
 @enduml

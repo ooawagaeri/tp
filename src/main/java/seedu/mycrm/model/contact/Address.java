@@ -3,8 +3,6 @@ package seedu.mycrm.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.util.AppUtil.checkArgument;
 
-import java.util.Optional;
-
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 /**
@@ -44,22 +42,11 @@ public class Address implements ContactComponent<Address> {
         requireNonNull(address);
 
         if (address.length() == 0) {
-            return EMPTY_ADDRESS;
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         } else {
             return ParserUtil.parseAddress(address);
         }
     }
-
-    public static Address getPhone(Optional<String> address) throws ParseException {
-        requireNonNull(address);
-
-        if (address.orElse("").length() == 0) {
-            return EMPTY_ADDRESS;
-        } else {
-            return ParserUtil.parseAddress(address.get());
-        }
-    }
-
 
     public static Address getEmptyAddress() {
         return EMPTY_ADDRESS;
@@ -67,7 +54,7 @@ public class Address implements ContactComponent<Address> {
 
     @Override
     public boolean isEmpty() {
-        return this == EMPTY_ADDRESS;
+        return value == null;
     }
 
     @Override
@@ -89,9 +76,21 @@ public class Address implements ContactComponent<Address> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        if (value == null) {
+            return ((Address) other).value == null;
+        }
+
+        if (other instanceof Address // instanceof handles nulls
+                && value.equals(((Address) other).value)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

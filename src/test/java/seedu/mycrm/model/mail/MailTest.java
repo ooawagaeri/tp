@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.testutil.Assert.assertThrows;
 import static seedu.mycrm.testutil.TypicalJobs.BENSON_JOB;
-import static seedu.mycrm.testutil.TypicalJobs.INCOMPLETE;
 import static seedu.mycrm.testutil.TypicalMails.COMPLETED_JOB;
 import static seedu.mycrm.testutil.TypicalMails.COMPLETED_MAIL;
+import static seedu.mycrm.testutil.TypicalMails.COMPLETED_TEMPLATE;
 import static seedu.mycrm.testutil.TypicalTemplates.COMPLETED;
 import static seedu.mycrm.testutil.TypicalTemplates.DONE;
 import static seedu.mycrm.testutil.TypicalTemplates.THANK_YOU;
@@ -40,12 +40,8 @@ public class MailTest {
         // null -> returns false
         assertFalse(COMPLETED_MAIL.isSameMail(null));
 
-        // same template, same job but different status, all other attributes same -> returns false
-        Mail editedCompleted = new MailBuilder(COMPLETED_MAIL).withJob(INCOMPLETE).build();
-        assertTrue(COMPLETED_MAIL.isSameMail(editedCompleted));
-
         // different template, all other attributes same -> returns false
-        editedCompleted = new MailBuilder(COMPLETED_MAIL).withJob(BENSON_JOB).build();
+        Mail editedCompleted = new MailBuilder(COMPLETED_MAIL).withJob(BENSON_JOB).build();
         assertFalse(COMPLETED_MAIL.isSameMail(editedCompleted));
 
         // different template, all other attributes same -> returns false
@@ -105,5 +101,29 @@ public class MailTest {
         String expectedSubject = "Your%20Order%20is%20Completed";
 
         assertEquals(Mail.urlEncode(subject), expectedSubject);
+    }
+
+    @Test
+    public void isSameEmail() {
+        String email = COMPLETED_MAIL.getMailEmail();
+        String expectedEmail = COMPLETED_JOB.getClientEmail();
+
+        assertEquals(email, expectedEmail);
+    }
+
+    @Test
+    public void isSameSubject() {
+        String subject = COMPLETED_MAIL.getMailSubject();
+        String expectedSubject = COMPLETED_TEMPLATE.getSubject().toString();
+
+        assertEquals(subject, expectedSubject);
+    }
+
+    @Test
+    public void isSameBody() {
+        String body = COMPLETED_MAIL.getMailBody();
+        String expectedBody = COMPLETED_TEMPLATE.getBody().toString();
+
+        assertEquals(body, expectedBody);
     }
 }

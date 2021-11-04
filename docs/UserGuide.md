@@ -8,6 +8,11 @@ been optimised for use via a Command Line Interface (CLI)** while maintaining th
 (GUI). If you type quickly, MyCRM can complete customer relationship management tasks faster than traditional GUI
 applications.
 
+**Target Audience:** Tech savvy computer repair shop technician. Owns a business repairing computers and laptops, 
+actively servicing multiple clients and answering their queries. Services a wide range of models and deals with both 
+hardware and software issues. Also has multiple repair-phases which have to be updated to clients.  
+
+
 * Table of Contents
 {:toc}
 
@@ -28,14 +33,14 @@ applications.
 5. Type the command in the command box and press Enter to execute it.<br>
    Some example commands you can try:
 
-   * **`listContacts `** : Lists all contacts.
+   * **`listContact `** : Lists all contacts.
 
-   * **`addContact `**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
+   * **`addContact `**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact
      named `John Doe` to the CRM.
 
-   * **`deleteContact `**`3` : Deletes the 3rd contact shown in the current list.
+   * **`deleteContact `**`1` : Deletes the 1st contact shown in the current list.
 
-   * **`clear`** : Deletes all contacts.
+   * **`clear`** : Deletes all contacts, jobs and products in MyCRM.
 
    * **`exit`** : Exits the app.
 
@@ -59,15 +64,15 @@ applications.
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME c/PHONE_NUMBER`, `c/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence
   of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+  e.g. if you specify `c/12341234 c/56785678`, only `c/56785678` will be taken.
 
-* Extraneous parameters for commands that do not take in parameters (such as `listJobs`, `listProducts `, and `exit`
+* Extraneous parameters for commands that do not take in parameters (such as `listJob`, `listProduct`, and `exit`
   ) will be ignored.<br>
-  e.g. if the command specifies `listJobs 123`, it will be interpreted as `listJobs`.
+  e.g. if the command specifies `listJob 123`, it will be interpreted as `listJob`.
 
 </div>
 
@@ -79,9 +84,12 @@ Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/C
 Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Creates a new repair job.
-* Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the res
-  respective contact and product list) to the job.
-* `RECIEVED_DATE` is set to the current date if not provided
+* Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the respective contact 
+  and product list) to the job.
+* `DELIVERY_DATE` refers to the date by which the repair expected to be completed and delivered back to the client.
+* `FEE` refers to the repair fee charged to the client.
+* `RECIEVED_DATE` refers to the date the repair job request was received from the client. If not provided, it is by default,
+  set to the date the job is created in MyCRM.
 * Both product and contact are compulsory attributes of job. If they are not provided 
   in the form of an index in the above command, the job is not immediately added.
   * Instead, in such a case, the user will be asked for info on the missing contact or product (or both).
@@ -101,15 +109,15 @@ Examples:
 * To add a job with a pre-existing contact and product
 * Either the command `addJob d/Change CPU fee/$50 by/10/11/2021 c/1 p/1` can be issued OR 
 * The following sequence of commands can be issued:
-  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `addJob d/Change CPU fee/$50 by/10/11/2021` 
   * `select 1` (to select contact) 
   * `select 1` (to select product)
 
       <img src="images/ui-addJob-success1.jpg" width="600px">
   
-* To add a job with new a contact and product
+* To add a job with a new contact and product
 * Issue the following sequence of commands:
-  * `addJob d/Change CPU fee/$50 by/5/11/2021` 
+  * `addJob d/Change CPU fee/$50 by/10/11/2021` 
   * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com` 
   * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
 
@@ -125,7 +133,7 @@ Format of special subcommands: `select INDEX` and `abort` (details on subcommand
 * Edits the repair job at the specified `INDEX`
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
-* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob c/ p/` is valid.
+* It is possible to not indicate the `CONTACT_INDEX` or `PRODUCT_INDEX`. i.e A command like `editJob INDEX c/ p/` is valid.
     * In such a case the user will be asked for info which product or contact (or both) 
       they now want to assign to the job.
     * User can choose to create new contact/product and immediately assign it via 
@@ -190,6 +198,8 @@ Marks a repair job as complete
 Format: `completeJob INDEX [COMPLETION_DATE]`
 
 * Marks the repair job at the specified `INDEX` as complete
+* By default `listJob` only shows jobs that are yet to be completed. As such marking the job as complete will cause 
+  it to disappear from the current job list. User can issue the command `listJob -c` to view the list of completed jobs.
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 * `COMPLETION_DATE` is set to the current date if it is not provided
@@ -198,7 +208,7 @@ Format: `completeJob INDEX [COMPLETION_DATE]`
 
 Marks a previously completed job as incomplete
 
-Format: `undoJobComplete INDEX`
+Format: `undoCompleteJob INDEX`
 
 * Marks the repair job at the specified `INDEX` as complete
 * User should call `listJob -c` to view all completed jobs before calling this command
@@ -223,9 +233,11 @@ Add a new contact info of a client into the CRM.
 Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
 
 * Creates a new contact info of a client.
-* In order to protect client's privacy, we allow client to conceal certain 
-  part of their info, but at least one of their phone, email, address 
-  should be given in order to get in touch.
+* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist.
+  
+  i.e. `addContact n/CLIENT_NAME` is not allowed. 
+  
+  `addContact n/CLIENT_NAME e/EMAIL`, `addContact n/CLIENT_NAME c/CONTACT_NUMBER` commands like these are valid.
 * Contact number, Address, Email are optional, but must have one of them to
   make it realistic to get access to the client.
 
@@ -294,6 +306,7 @@ Format: `hideContact INDEX`
 
 * `hideContact` will add a tag `hidden` to those being hidden.
 * Cannot invoke `hideContact` **again** to those being hidden.
+* So far hiding a specific contact will not affect job card.
 
 Example:
 
@@ -305,15 +318,15 @@ Example:
 
 Undo a previous `hideContact` command to certain contact with INDEX specified.
 
-Format: `UndoHideContact INDEX`
+Format: `undoHideContact INDEX`
 
 * `listContact -a` must be called in order to see hidden contacts.
-* `UndoHideContact` will delete `hidden` tag to the hidden contact.
-* Cannot invoke `UndoHideContact` to visible contacts.
+* `undoHideContact` will delete `hidden` tag to the hidden contact.
+* Cannot invoke `undoHideContact` to visible contacts.
 
 Example:
 
-`UndoHideContact 1`
+`undoHideContact 1`
 
   <img src="images/ui-undo-hide-contact.png" width="600px">
 
@@ -420,15 +433,16 @@ Format: `mail j/JOB_INDEX t/TEMPLATE_INDEX`
 * `JOB_INDEX` must be a positive integer (1,2,3…).
 * `TEMPLATE_INDEX` refers to the index of the template as shown in the template listing.
 * `TEMPLATE_INDEX` must be a positive integer (1,2,3…).
+* `Job` selected must have an email address, non-empty.
 
 Examples:
 
-* `listJobs` and `listTemplates` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
+* `listJob` and `listTemplate` followed by` mail j/1 t/1` constructs an email to the 2nd job’s customer with the 2nd
   email template and `mailto:` hyperlink.
 
-    <img src="images/ui-mail.png" width="600px">
+    <img src="images/mail/ui-mail.png" width="600px">
   
-    <img src="images/ui-mail-application.png" width="600px">
+    <img src="images/mail/ui-mail-application.png" width="600px">
 
 ### Adding mail template: `addTemplate`
 
@@ -451,21 +465,21 @@ Examples:
 * `addTemplate s/Your order is confirmed b/Your order is confirmed! Thank you for ordering from XXX` adds a new 
   Template with subject "our order is confirmed" and body "Your order is confirmed! Thank you for ordering from XXX".
 
-    <img src="images/ui-add-template.png" width="600px">
+    <img src="images/mail/ui-add-template.png" width="600px">
 
 ### Listing all templates: `listTemplate`
 
 Shows a list of all templates in the CRM.
 
-Format: `listTemplates`
+Format: `listTemplate`
 
-  <img src="images/ui-list-template.png" width="600px">
+  <img src="images/mail/ui-list-template.png" width="600px">
 
 ### Editing mail template: `editTemplate`
 
 Edits the specified template from the CRM.
 
-Format: `editTempalte INDEX [s/SUBJECT] [b/BODY]`
+Format: `editTemplate INDEX [s/SUBJECT] [b/BODY]`
 
 * At least one optional edit field must be provided
 * `SUBJECT` only accepts alphanumeric values and spaces in between.
@@ -481,7 +495,7 @@ Examples:
 * `listTemplate` followed by `editTemplate 4 b/We’re excited for you to receive your order` edits the 4th email
   template in the CRM, overriding the 4th email template's body with the new input.
 
-    <img src="images/ui-edit-template.png" width="600px">
+    <img src="images/mail/ui-edit-template.png" width="600px">
 
 ### Finding mail template: `findTemplate`
 
@@ -498,7 +512,7 @@ Example:
 
 * `findTemplate Order`
 
-    <img src="images/ui-find-template.png" width="600px">
+    <img src="images/mail/ui-find-template.png" width="600px">
 
 ### Deleting mail template: `deleteTemplate`
 
@@ -514,15 +528,15 @@ Examples:
 
 * `listTemplate` followed by `deleteTemplate 4` deletes the 4th email template in the CRM.
 
-    <img src="images/ui-delete-template.png" width="600px">
+    <img src="images/mail/ui-delete-template.png" width="600px">
 
 ### Retrieve previous command: `history`
 
 Retrieves the previously entered command
 
-Format: `Press Up arrow key`/ `history`
+Format: Press "Up arrow key" / `history`
 
-* `Press Up arrow key` on the keyboard to gain the most recent command in the CRM.
+* ‘Press Up arrow key’ on the keyboard to gain the most recent command in the CRM.
 * `history` will list all history commands in the CRM
 
 Examples:
@@ -584,7 +598,7 @@ Format: `printReport`
 
 Exports a report of all jobs within current month to printer.
 
-Format: Click on "Print"
+Format: Click on "Print" / `exportReport`
 
   <img src="images/ui-page-setup.png" width="200px">
 
@@ -613,7 +627,7 @@ Action              | Format, Examples
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
 **Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
-**List Contact**    | `listContact`
+**List Contact**    | `listContact` `listContact -a`
 **Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`
 **Hide Contact**     |`hideContact INDEX ` <br>e.g., `hideContact 1`
 **Undo Hide Contact**     |`undoHideContact INDEX... ` <br>e.g., `undoHideContact 1`
@@ -627,11 +641,9 @@ Action              | Format, Examples
 **Add Template**    | `addTemplate s/SUBJECT b/BODY`<br>e.g., `addTemplate s/Repair In Progress b/Your product is current;y being repaired`
 **List Templates**  | `listTemplate`
 **Find Templates**     |`findTemplate [MORE_KEYWORDS]... ` <br>e.g., `findTemplates complete`
-**Edit Templates**  | `editTempalte INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
+**Edit Templates**  | `editTemplate INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
 **Retrieve Previous Command** | `history`, `Press Up arrow key`
 **Exit**            | `exit`
 **Change Theme**    | `theme THEME_NAME`<br>e.g., `theme light`
 **Print Monthly Report**    | `printReport`
-
-

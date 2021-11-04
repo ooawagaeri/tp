@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "contactToUndoHide:UndoHideContactCommand" as UndoHideContactCommand LOGIC_COLOR
+participant "lastShownList: List<Contact>" as ListContact LOGIC_COLOR
+participant "**<<class>>**\nContact" as Contact LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("undoHideContact 1")
+activate LogicManager
+
+ref over LogicManager, UndoHideContactCommand : parse undo hide contact
+
+LogicManager -> UndoHideContactCommand : execute()
+
+activate UndoHideContactCommand
+
+UndoHideContactCommand -> Model : getFilteredContactList()
+activate Model
+Model --> UndoHideContactCommand : lastShownList
+deactivate Model
+
+UndoHideContactCommand -> ListContact : get(index)
+activate ListContact
+ListContact --> UndoHideContactCommand : contactToUndoHide
+deactivate ListContact
+
+UndoHideContactCommand -> Model : UndoHideContact(contactToUndoHide)
+activate Model
+Model --> UndoHideContactCommand
+deactivate Model
+
+UndoHideContactCommand -> Model : updateFilteredContactList(PREDICATE_SHOW_NOT_HIDDEN_CONTACTS)
+activate Model
+Model --> UndoHideContactCommand
+deactivate Model
+
+create CommandResult
+UndoHideContactCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UndoHideContactCommand
+deactivate CommandResult
+
+UndoHideContactCommand --> LogicManager : result
+deactivate UndoHideContactCommand
+
+UndoHideContactCommand -[hidden]-> LogicManager
+destroy UndoHideContactCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

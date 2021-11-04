@@ -64,6 +64,11 @@ public class MailCommand extends Command {
         }
 
         Job jobToMail = lastJobList.get(jobIndex.getZeroBased());
+
+        if (jobToMail.getClientEmail().equals("")) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_NO_EMAIL);
+        }
+
         Template templateToMail = lastTemplateList.get(templateIndex.getZeroBased());
         model.addMail(new Mail(jobToMail, templateToMail));
 

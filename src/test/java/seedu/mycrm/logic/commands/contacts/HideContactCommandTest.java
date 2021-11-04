@@ -23,6 +23,7 @@ import seedu.mycrm.model.contact.Contact;
  * {@code HideCommand}.
  */
 public class HideContactCommandTest {
+    // For testing normal unhidden lists.
     private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
@@ -47,6 +48,18 @@ public class HideContactCommandTest {
     }
 
     @Test
+    public void execute_invalidHiddenUnfilteredList_throwsCommandException() {
+        Contact contactToHide = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        // set this contact hidden.
+        contactToHide.setHidden();
+        HideContactCommand hideContact = new HideContactCommand(INDEX_FIRST_CONTACT);
+
+        assertCommandFailure(hideContact, model, Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+        // modify back to not hidden to accept other test cases.
+        contactToHide.setNotHidden();
+    }
+
+    @Test
     public void execute_validIndexFilteredList_success() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
 
@@ -59,6 +72,20 @@ public class HideContactCommandTest {
         expectedModel.hideContact(contactToHide);
 
         assertCommandSuccess(hideCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidHiddenFilteredList_throwsCommandException() {
+        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+
+        Contact contactToHide = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        // set this contact hidden.
+        contactToHide.setHidden();
+        HideContactCommand hideContact = new HideContactCommand(INDEX_FIRST_CONTACT);
+
+        assertCommandFailure(hideContact, model, Messages.MESSAGE_INVALID_CONTACT_HIDE_REQUEST);
+        // modify back to not hidden to accept other test cases.
+        contactToHide.setNotHidden();
     }
 
     @Test

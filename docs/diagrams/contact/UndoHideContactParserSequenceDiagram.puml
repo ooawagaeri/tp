@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":UndoHideContactCommandParser" as UndoHideContactCommandParser LOGIC_COLOR
+participant "contactToUndoHide:UndoHideContactCommand" as UndoHideContactCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("undoHideContact 1")
+activate LogicManager
+
+group sd parse undo hide contact
+LogicManager -> MyCrmParser : parseCommand("undoHideContact 1")
+activate MyCrmParser
+
+create UndoHideContactCommandParser
+MyCrmParser -> UndoHideContactCommandParser
+activate UndoHideContactCommandParser
+
+UndoHideContactCommandParser --> MyCrmParser
+deactivate UndoHideContactCommandParser
+
+MyCrmParser -> UndoHideContactCommandParser : parse("1")
+activate UndoHideContactCommandParser
+
+create UndoHideContactCommand
+UndoHideContactCommandParser -> UndoHideContactCommand : 1
+activate UndoHideContactCommand
+
+UndoHideContactCommand --> UndoHideContactCommandParser : contactToUndoHide
+deactivate UndoHideContactCommand
+
+UndoHideContactCommandParser --> MyCrmParser : contactToUndoHide
+deactivate UndoHideContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+UndoHideContactCommandParser -[hidden]-> MyCrmParser
+destroy UndoHideContactCommandParser
+
+MyCrmParser --> LogicManager : contactToUndoHide
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

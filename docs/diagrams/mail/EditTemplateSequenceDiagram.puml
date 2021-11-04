@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toEdit:EditTemplateCommand" as EditTemplateCommand LOGIC_COLOR
+participant "lastShownList: List<Template>" as ListTemplate LOGIC_COLOR
+participant "**<<class>>**\nTemplate" as Template LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editTemplate 1 s/Completed b/Order Completed!")
+activate LogicManager
+
+ref over LogicManager, EditTemplateCommand : parse edit template
+
+LogicManager -> EditTemplateCommand : execute()
+
+activate EditTemplateCommand
+
+EditTemplateCommand -> Model : getFilteredTemplateList()
+activate Model
+Model --> EditTemplateCommand : lastShownList
+deactivate Model
+
+EditTemplateCommand -> ListTemplate : get(index)
+activate ListTemplate
+ListTemplate --> EditTemplateCommand : templateToEdit
+deactivate ListTemplate
+
+EditTemplateCommand -> Template : createEditedTemplate(templateToEdit, editTemplateDescriptor)
+activate Template
+Template --> EditTemplateCommand : editedTemplate
+deactivate Template
+
+EditTemplateCommand -> Model : setTemplate(templateToEdit, editedTemplate)
+activate Model
+Model --> EditTemplateCommand
+deactivate Model
+
+create CommandResult
+EditTemplateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditTemplateCommand
+deactivate CommandResult
+
+EditTemplateCommand --> LogicManager : result
+deactivate EditTemplateCommand
+
+EditTemplateCommand -[hidden]-> LogicManager
+destroy EditTemplateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
