@@ -20,6 +20,9 @@ public class Mail {
     public Mail(Job job, Template template) {
         requireNonNull(job);
         requireNonNull(template);
+
+        assert (!job.getClientEmail().equals(""));
+
         this.job = job;
         this.template = template;
     }
@@ -72,17 +75,10 @@ public class Mail {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (other instanceof Mail) {
-            Mail otherMail = (Mail) other;
-            return otherMail.getJob().equals(getJob())
-                    && otherMail.getTemplate().equals(getTemplate());
-        }
-
-        return false;
+        return other == this
+                || (other instanceof Mail
+                && job.equals(((Mail) other).job)
+                && template.equals(((Mail) other).template));
     }
 
     @Override

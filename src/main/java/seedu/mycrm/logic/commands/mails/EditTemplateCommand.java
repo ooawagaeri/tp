@@ -158,21 +158,10 @@ public class EditTemplateCommand extends Command {
 
         @Override
         public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditTemplateDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditTemplateDescriptor e = (EditTemplateDescriptor) other;
-
-            return getSubject().equals(e.getSubject())
-                    && getBody().equals(e.getBody());
+            return other == this
+                    || (other instanceof EditTemplateDescriptor
+                    && getSubject().equals(((EditTemplateDescriptor) other).getSubject())
+                    && getBody().equals(((EditTemplateDescriptor) other).getBody()));
         }
     }
 }

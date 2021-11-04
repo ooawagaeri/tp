@@ -906,6 +906,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
+
+* 3b. The job at given index does not have an email.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
   
 * 4a. The list of templates is empty.
 
