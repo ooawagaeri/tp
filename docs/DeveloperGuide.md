@@ -162,7 +162,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 * [Adding a contact](#adding-a-contact)
+* [Editing a contact](#editing-a-contact)
+* [Deleting a contact](#deleting-a-contact)
+* [Finding a contact](#finding-a-contact)
 * [Hiding a contact](#hiding-a-contact)
+* [Undoing Hiding a contact](#undoing-hiding-a-contact)
 * [Listing contacts](#listing-contacts)
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)

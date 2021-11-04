@@ -2,13 +2,14 @@
 start
 :User executes find contact command;
 :MyCRM parses user inputs;
-while () is ([InValid Input])
+if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful find contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
 :Gets contact names predicate with keywords provided;
 :Update contact list with new predicate:
 showing contacts whose names contain keywords;
 :Displays successful finding contact message on UI;
+endif
 stop
 @enduml
