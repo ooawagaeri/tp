@@ -1,7 +1,6 @@
 package seedu.mycrm.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
