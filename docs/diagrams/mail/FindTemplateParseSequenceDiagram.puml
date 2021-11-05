@@ -23,7 +23,7 @@ activate FindTemplateCommandParser
 FindTemplateCommandParser --> MyCrmParser
 deactivate FindTemplateCommandParser
 
-MyCrmParser -> FindTemplateCommandParser : parse("findTemplate Completed")
+MyCrmParser -> FindTemplateCommandParser : parse("Completed")
 activate FindTemplateCommandParser
 
 create SubjectContainsKeywordsPredicate
