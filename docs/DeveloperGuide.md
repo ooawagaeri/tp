@@ -798,42 +798,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC10 - Linking a client contact to a job**
 
-**MSS**
-
-1. User requests to link a contact to a job.
-2. MyCRM shows a list of contacts.
-3. User requests to use a specific contact to link a job.
-4. MyCRM shows a list of jobs.
-5. User requests to link to a specific job in the list.
-6. MyCRM links the contact to this job.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. MyCRM shows an error message.
-
-      Use case resumes at step 2.
-      
-* 4a. The list is empty.
-
-  Use case ends.
-
-* 5a. The given index is invalid.
-
-    * 5a1. MyCRM shows an error message.
-
-      Use case resumes at step 4
-
-**Use case: UC11 - Hiding a client contact**
+**Use case: UC10 - Hiding a client contact**
 
 **MSS**
 
@@ -856,7 +822,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC12 - Undo hiding a client contact**
+**Use case: UC11 - Undo hiding a client contact**
 
 **MSS**
 
@@ -879,7 +845,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC13 - Sending an email**
+**Use case: UC12 - Sending an email**
 
 **Precondition:** Operating system has a default email application 
 
@@ -922,7 +888,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
     
-**Use case: UC14 - Adding an email template**
+**Use case: UC13 - Adding an email template**
 
 **MSS**
 
@@ -951,7 +917,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: UC15 - Listing all email template**
+**Use case: UC14 - Listing all email template**
 
 **MSS**
 
@@ -960,7 +926,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Listing all email template**
+**Use case: UC15 - Listing all email template**
 
 **MSS**
 
@@ -971,7 +937,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 
-**Use case: UC17 - Editing an email template**
+**Use case: UC16 - Editing an email template**
 
 **MSS**
 
@@ -1012,7 +978,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC18 - Deleting an email template**
+**Use case: UC17 - Deleting an email template**
 
 **MSS**
 
@@ -1035,7 +1001,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC19 - Viewing user guide**
+**Use case: UC18 - Viewing user guide**
 
 **MSS**
 
@@ -1044,7 +1010,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Exiting the program**
+**Use case: UC19 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -1055,7 +1021,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Clearing MyCRM data**
+**Use case: UC20 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -1066,7 +1032,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC22 - Add Product**
+**Use case: UC21 - Add Product**
 
 **MSS**
 
@@ -1088,7 +1054,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC23 - List Products**
+**Use case: UC22 - List Products**
 
 **MSS**
 
@@ -1102,7 +1068,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC24: Delete a product**
+**Use case: UC23: Delete a product**
 
 **MSS**
 
@@ -1123,7 +1089,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC 25: Edit a product.**
+**Use case: UC 24: Edit a product.**
 
 **MSS**
 
@@ -1150,7 +1116,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC26 - Retrieve Previous Command**
+**Use case: UC25 - Retrieve Previous Command**
 
 **MSS**
 
@@ -1168,7 +1134,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC 27 - Change the theme of user interface(UI)**
+**Use case: UC26 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -1188,7 +1154,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC28 - Print out monthly job records and statistics**
+**Use case: UC27 - Print out monthly job records and statistics**
 
 **MSS**
 
