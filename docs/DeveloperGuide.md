@@ -88,7 +88,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Job`, `Contact`, `Product`, `Template`, `History` 
+* depends on some classes in the `Model` component, as it displays `Job`, `Mail`, `Contact`, `Product`, `Template`, `History` 
   objects residing in the `Model`.
 
 ### Logic component
@@ -171,6 +171,7 @@ This section describes some noteworthy details on how certain features are imple
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)
 * [Constructing an email](#constructing-an-email)
+* [Editing a product](#editing-a-product)
 
 ### Adding a Contact
 
@@ -490,6 +491,53 @@ Given below is an example of the generation of a mailto URL:
 
 After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
 the URL path.
+
+### Editing a Product
+
+#### Implementation
+
+The **Editing a Product** mechanism is facilitated by `MyCRM`. This mechanism first reads the target product object from 
+`UniqueProductList`, then creates a new product object with <u>user input fields</u> and <u>unchanged fields of target 
+product</u>. Lastly, it replaces the target product with the new one, updates its references in jobs, and updates UI.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editProduct` command behave when executed by user:
+
+![![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)](images/product/EditProductActivityDiagram.png)
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](images/product/EditProductSequenceDiagram.png)
+
+##### Parse user input
+
+Within `EditProductCommandParser#parse`,
+* EditProductCommandParser will only get the values of fields(`name`, `manufacturer`, `type`, `description`) if their 
+  respective prefixes are present.
+
+`EditTemplateCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the specified product index and 
+`ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input 
+respectively.
+
+![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](images/product/EditProductSequenceDiagram_Parse.png)
+
+##### Updates product references in jobs
+
+After target product is replaced with new product, `EditProductCommand#execute()` will traverse job list and replace
+references to target product with references to new product.
+
+To get the full job list, `EditProductCommand#execute()` will first store the *lastest predicate* of job list, set the 
+predicate to "show all jobs". After traversing the job list and updating the references, the *latest predicate* is 
+restored.
+
+![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Sync.png)](images/product/EditProductSequenceDiagram_Sync.png)
+
+**Design Consideration**: An alternative way to get full job list is to retrieve the underlying `UniqueJobList` through
+`Model`. `EditProductCommand` in the other way because directly accessing and modifying `UniqueJobList` leads to an 
+association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 

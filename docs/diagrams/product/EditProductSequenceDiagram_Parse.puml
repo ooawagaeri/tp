@@ -1,0 +1,58 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":EditProductCommandParser" as EditProductCommandParser LOGIC_COLOR
+participant ":EditProductCommand" as EditProductCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":EditProductDescriptor" as EditProductDescriptor MODEL_COLOR
+end box
+[-> LogicManager : execute("editProduct 2 n/Asus d/DisplayPort, HDMI")
+activate LogicManager
+
+group sd parse user input
+LogicManager -> MyCrmParser : parseCommand("editProduct 2 n/Asus d/DisplayPort, HDMI")
+activate MyCrmParser
+
+create EditProductCommandParser
+MyCrmParser -> EditProductCommandParser
+activate EditProductCommandParser
+
+EditProductCommandParser --> MyCrmParser
+deactivate EditProductCommandParser
+
+MyCrmParser -> EditProductCommandParser : parse("editProduct 2 n/Asus d/DisplayPort, HDMI")
+activate EditProductCommandParser
+
+create EditProductDescriptor
+EditProductCommandParser -> EditProductDescriptor
+activate EditProductDescriptor
+EditProductDescriptor --> EditProductCommandParser : editProductDescriptor
+deactivate EditProductDescriptor
+
+EditProductCommandParser -> EditProductDescriptor : setName("Asus")
+
+EditProductCommandParser -> EditProductDescriptor : setDescription("DisplayPort, HDMI")
+
+create EditProductCommand
+EditProductCommandParser -> EditProductCommand : 2, EditProductDescriptor
+activate EditProductCommand
+
+EditProductCommand --> EditProductCommandParser : productToEdit
+deactivate EditProductCommand
+
+EditProductCommandParser --> MyCrmParser : productToEdit
+deactivate EditProductCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+EditProductCommandParser -[hidden]-> MyCrmParser
+destroy EditProductCommandParser
+
+MyCrmParser --> LogicManager : productToEdit
+deactivate MyCrmParser
+end
+@enduml
