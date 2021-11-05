@@ -17,6 +17,8 @@ public class ReportWindow extends UiPart<Stage> {
     private static final String FXML = "ReportWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(ReportWindow.class);
+    private final ThemeManager themeManager;
+
 
     private Stage primaryStage;
     private Logic logic;
@@ -41,6 +43,9 @@ public class ReportWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.themeManager = new ThemeManager(primaryStage.getScene().getStylesheets());
+
+        themeManager.initTheme(logic.getGuiSettings());
 
     }
 
@@ -102,6 +107,10 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public void changeTheme(String themeName) {
+        themeManager.changeTheme(themeName);
     }
 
     /**
