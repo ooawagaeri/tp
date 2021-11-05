@@ -9,10 +9,10 @@ participant ":AddProductCommand" as AddProductCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "<<class>>\n:ProductName" as ProductName MODEL_COLOR
-participant "<<class>>\n:Type" as Type MODEL_COLOR
-participant "<<class>>\n:Manufacturer" as Manufacturer MODEL_COLOR
-participant "<<class>>\n:Description" as Description MODEL_COLOR
+participant "**<<class>>**\n:ProductName" as ProductName MODEL_COLOR
+participant "**<<class>>**\n:Type" as Type MODEL_COLOR
+participant "**<<class>>**\n:Manufacturer" as Manufacturer MODEL_COLOR
+participant "**<<class>>**\n:Description" as Description MODEL_COLOR
 participant ":Product" as Product MODEL_COLOR
 end box
 [-> LogicManager : execute("addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus")

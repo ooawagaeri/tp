@@ -538,11 +538,11 @@ Given below is an example usage scenario and how the mechanism behaves at each s
 
 **Parse user input**
 
-Within `AddProductCommandParser#parse`, the factory methods of product components (`getProductName` and 
+Within `AddProductCommandParser#parse`, the **factory methods** of product components (`getProductName` and 
 `getEmptyProductName` for product name, `getType` and `getEmptyType` for type, ...) will be invoked to create product
-component objects(name, type, manufacturer, description). 
+component objects: name, type, manufacturer, description. 
 
-**Note**: Name is compulsory for creating a product, whereas type, manufacturer and description are optional fields.
+**Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
 
 ![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](images/product/AddProductSequenceDiagram_Parse.png)
 
