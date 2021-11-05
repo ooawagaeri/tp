@@ -591,6 +591,8 @@ Prints a report of all jobs within current month.
 
 Format: `printReport`
 
+* Switches between different tabs by using 'Right/Left Arrow Key' or clicking corresponding tab.
+
   <img src="images/ui-print-monthly.png" width="600px">
 
 ### Export monthly report
