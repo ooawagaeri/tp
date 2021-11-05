@@ -11,7 +11,7 @@
     <Tab fx:id="inProgressJobTab" closable="false" text="In-Progress Job">
         <StackPane fx:id="inProgressJobListPanelPlaceholder" />
     </Tab>
-    <Tab fx:id="topThreeProductListPanel" closable="false" text="Top-Three Product">
+    <Tab fx:id="topThreeProductTab" closable="false" text="Top-Three Product">
         <StackPane fx:id="topThreeProductListPanelPlaceholder" />
     </Tab>
 </TabPane>

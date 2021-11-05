@@ -15,6 +15,8 @@ public class CommandResult {
 
     private final String themeName;
 
+    private final String commandFlag;
+
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code commandType},
      * and other fields set to their default value.
@@ -25,6 +27,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
         this.themeName = null; // theme name is set to null by default
+        this.commandFlag = null; // command flag is set to null by default
     }
 
     /**
@@ -36,15 +39,23 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} of theme command with the specified fields.
+     * Constructs a {@code CommandResult} of either theme command or print report command with the specified fields.
      */
-    public CommandResult(String feedbackToUser, CommandType commandType, String themeName) {
-        assert commandType == CommandType.THEME;
-        requireNonNull(themeName);
+    public CommandResult(String feedbackToUser, CommandType commandType, String message) {
+        assert commandType == CommandType.THEME || commandType == CommandType.REPORT;
+        requireNonNull(message);
 
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.commandType = commandType;
-        this.themeName = themeName;
+
+        if (commandType == CommandType.THEME) {
+            this.themeName = message;
+            this.commandFlag = null;
+        } else {
+            assert commandType == CommandType.REPORT;
+            this.themeName = null;
+            this.commandFlag = message;
+        }
     }
 
     public String getFeedbackToUser() {
@@ -60,6 +71,13 @@ public class CommandResult {
      */
     public String getThemeName() {
         return this.themeName;
+    }
+
+    /**
+     * Returns flag of command if the instance is created by {@code PrintReportCommand}.
+     */
+    public String getCommandFlag() {
+        return this.commandFlag;
     }
 
     @Override

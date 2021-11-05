@@ -105,7 +105,7 @@ public class ThemeManager {
      */
     protected void changeToDarkTheme() {
         logger.info("Changing to dark theme.");
-        themeName =THEME_DARK;
+        themeName = THEME_DARK;
 
         if (!styleSheets.contains(darkThemeUrl)) {
             styleSheets.removeAll(lightThemeUrl);
@@ -119,7 +119,7 @@ public class ThemeManager {
      */
     protected void changeToLightTheme() {
         logger.info("Changing to light theme.");
-        themeName =THEME_LIGHT;
+        themeName = THEME_LIGHT;
 
         if (!styleSheets.contains(lightThemeUrl)) {
             styleSheets.removeAll(darkThemeUrl);

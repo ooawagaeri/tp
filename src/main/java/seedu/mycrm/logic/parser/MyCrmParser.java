@@ -213,7 +213,7 @@ public class MyCrmParser {
             return new ClearHistoryCommand();
 
         case PrintReportCommand.COMMAND_WORD:
-            return new PrintReportCommand();
+            return new PrintReportCommandParser().parse(arguments);
 
         case ExportReportCommand.COMMAND_WORD:
             return new ExportReportCommand();
