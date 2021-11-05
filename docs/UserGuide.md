@@ -238,15 +238,14 @@ Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
   i.e. `addContact n/CLIENT_NAME` is not allowed. 
   
   `addContact n/CLIENT_NAME e/EMAIL`, `addContact n/CLIENT_NAME c/CONTACT_NUMBER` commands like these are valid.
-* Contact number, Address, Email are optional, but must have one of them to
-  make it realistic to get access to the client.
+
 
 Examples:
 
 * `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 * `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
   
-  <img src="images/ui-add-contact.png" width="600px">
+  <img src="images/contact/ui-add-contact.png" width="600px">
 
 ### Deleting a contact: `deleteContact`
 
@@ -263,7 +262,7 @@ Example:
 
 `deleteContact 3`
 
-  <img src="images/ui-delete-contact.png" width="600px">
+  <img src="images/contact/ui-delete-contact.png" width="600px">
 
 ### Editing a contact: `editContact`
 
@@ -281,7 +280,7 @@ Example:
 
 `editContact 1 a/Jurong West Street 42` 
 
-  <img src="images/ui-edit-contact.png" width="600px">
+  <img src="images/contact/ui-edit-contact.png" width="600px">
 
 ### Finding a contact: `findContact `
 
@@ -295,7 +294,7 @@ Example:
 
 `findContact Frisk Sans`
 
-  <img src="images/ui-find-contact.png" width="600px">
+  <img src="images/contact/ui-find-contact.png" width="600px">
 
 
 ### Hiding a contact: `hideContact`
@@ -312,7 +311,7 @@ Example:
 
 `hideContact 1`
 
-  <img src="images/ui-hide-contact.png" width="600px">
+  <img src="images/contact/ui-hide-contact.png" width="600px">
 
 ### Undoing hiding a contact: `undoHideContact`
 
@@ -328,7 +327,7 @@ Example:
 
 `undoHideContact 1`
 
-  <img src="images/ui-undo-hide-contact.png" width="600px">
+  <img src="images/contact/ui-undo-hide-contact.png" width="600px">
 
 
 ### Listing all contacts: `listContact`
@@ -344,11 +343,11 @@ Examples:
 
 * `listContact`
 
-  <img src="images/ui-list-not-hidden-contacts.png" width="600px">
+  <img src="images/contact/ui-list-not-hidden-contacts.png" width="600px">
 
 * `listContact -a`
 
-  <img src="images/ui-list-all-contacts.png" width="600px">
+  <img src="images/contact/ui-list-all-contacts.png" width="600px">
 
 
 ### Adding a product: `addProduct`
