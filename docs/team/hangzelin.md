@@ -69,10 +69,10 @@ Given below are my contributions to the project.
   
 
 * **Documentation**:
-  * Set up [MyCRM Product Website](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/docs/index.md).
+  * Set up [MyCRM Product Website](https://ay2122s1-cs2103-t14-3.github.io/tp/).
   * Update **README** to link to **MyCRM** project 
   * User Guide:
-    * Added documentation for contacts features:
+    * Added documentation for [contacts features](https://ay2122s1-cs2103-t14-3.github.io/tp/UserGuide.html#adding-a-contact-addcontact):
       * `addContact`: adds a new client's contact into MyCRM.
       * `editContact`: edits a current client's contact info.
       * `deleteContact`: deletes a client's contact.
@@ -80,11 +80,11 @@ Given below are my contributions to the project.
       * `listContact`: lists unhidden contacts or all contacts.
       * `hideContact`: hides a currently not being used contact info.
       * `undoHideContact`: undoes hiding a contact operation.
-    * Did cosmetic tweaks to [Quick Start](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/docs/UserGuide.md#quick-start) part command examples.
+    * Did cosmetic tweaks to [Quick Start](https://ay2122s1-cs2103-t14-3.github.io/tp/UserGuide.html#quick-start) part command examples.
   * Developer Guide:
-    * Added [implementation details](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/docs/DeveloperGuide.md#adding-a-contact) of all 
+    * Added [implementation details](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#adding-a-contact) of all 
     **contact** command features.
-    * Added [use cases](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/docs/DeveloperGuide.md#use-cases) of all **contact** command features.  
+    * Added [use cases](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#use-cases) of all **contact** command features.  
       (Please scroll down to see contact command features part.)
 
 * **Community**:
