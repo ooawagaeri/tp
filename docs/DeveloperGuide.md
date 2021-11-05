@@ -510,7 +510,7 @@ Given below is an example usage scenario and how the mechanism behaves at each s
 
 ![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](images/product/EditProductSequenceDiagram.png)
 
-##### Parse user input
+**Parse user input**
 
 Within `EditProductCommandParser#parse`,
 * EditProductCommandParser will only get the values of fields(`name`, `manufacturer`, `type`, `description`) if their 
@@ -522,7 +522,7 @@ respectively.
 
 ![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](images/product/EditProductSequenceDiagram_Parse.png)
 
-##### Updates product references in jobs
+**Updates product references in jobs**
 
 After target product is replaced with new product, `EditProductCommand#execute()` will traverse job list and replace
 references to target product with references to new product.
@@ -531,11 +531,13 @@ To get the full job list, `EditProductCommand#execute()` will first store the *l
 predicate to "show all jobs". After traversing the job list and updating the references, the *latest predicate* is 
 restored.
 
+<u>Design Consideration</u>: An alternative way to get full job list is to retrieve the underlying `UniqueJobList` through
+`Model`. `EditProductCommand` is implemented in the other way as directly accessing and modifying `UniqueJobList` leads to an
+association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
+
 ![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Sync.png)](images/product/EditProductSequenceDiagram_Sync.png)
 
-**Design Consideration**: An alternative way to get full job list is to retrieve the underlying `UniqueJobList` through
-`Model`. `EditProductCommand` in the other way because directly accessing and modifying `UniqueJobList` leads to an 
-association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
+
 
 
 

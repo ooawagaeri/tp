@@ -5,17 +5,17 @@ title Activity: edit product
 :MyCRM parses user inputs;
 if () then ([Invalid Input])
     :Throws ParseException;
-    :Displays unsuccessful edit product message;
+    :Displays error message;
 else ([Valid Input])
-if () then ([else])
-:Gets product to be edited;
-:Creates edited product;
-:Replaces specific product with edited product;
-:Updates product references in jobs;
-:Displays successful editing product message on UI;
-else ([Duplicate product or Index out of range])
+if () then ([Duplicate product or Index out of range])
     :Throws CommandException;
-    :Displays unsuccessful edit product message;
+    :Displays error message;
+else ([else])
+    :Gets product to be edited;
+    :Creates edited product;
+    :Replaces specific product with edited product;
+    :Updates product references in jobs;
+    :Displays successful message;
 endif
 endif
 stop
