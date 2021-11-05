@@ -114,12 +114,16 @@ public class Job {
         return jobStatus.isCompleted();
     }
 
-    public void markCompleted() {
+    public void markCompleted(JobDate completedDate) {
+        requireNonNull(completedDate);
+
         jobStatus.markCompleted();
+        this.completedDate = completedDate;
     }
 
     public void markIncomplete() {
         jobStatus.markIncomplete();
+        this.completedDate = null;
     }
 
     public JobDate getReceivedDate() {

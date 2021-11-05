@@ -15,6 +15,7 @@ import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.job.Job;
 
 public class ListJobCommandParser implements Parser<ListJobCommand> {
+    private static final String EMPTY_STRING = "";
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListJobCommand
@@ -23,31 +24,32 @@ public class ListJobCommandParser implements Parser<ListJobCommand> {
      */
     @Override
     public ListJobCommand parse(String args) throws ParseException {
-        Predicate<Job> listPredicate = null;
         String trimmedArgs = args.trim();
+        String[] flags = trimmedArgs.split("\\s+");
+        String flag = flags[0];
 
-        if (trimmedArgs.isEmpty()) {
-            listPredicate = PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
-            return new ListJobCommand(listPredicate);
-        }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        if (nameKeywords.length > 1) {
+        // Check if more than one flag was provided
+        if (flags.length > 1 ) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListJobCommand.MESSAGE_USAGE));
-        } else if (nameKeywords.length == 1) {
-            if (SHOW_ALL_FLAG.equals(nameKeywords[0])) {
-                System.out.println(nameKeywords[0]);
-                listPredicate = PREDICATE_SHOW_ALL_JOBS;
-            } else if (SHOW_COMPLETED_FLAG.equals(nameKeywords[0])) {
-                System.out.println(nameKeywords[0]);
-                listPredicate = PREDICATE_SHOW_ALL_COMPLETED_JOBS;
-            } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListJobCommand.MESSAGE_USAGE));
-            }
         }
-        return new ListJobCommand(listPredicate);
+
+        Predicate<Job> listJobPredicate = getListJobPredicate(flag);
+
+        return new ListJobCommand(listJobPredicate);
+    }
+
+    private Predicate<Job> getListJobPredicate(String flag) throws ParseException {
+        switch (flag) {
+        case EMPTY_STRING:
+            return PREDICATE_SHOW_ALL_INCOMPLETE_JOBS;
+        case SHOW_ALL_FLAG:
+            return PREDICATE_SHOW_ALL_JOBS;
+        case SHOW_COMPLETED_FLAG:
+            return PREDICATE_SHOW_ALL_COMPLETED_JOBS;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListJobCommand.MESSAGE_USAGE));
+        }
     }
 }

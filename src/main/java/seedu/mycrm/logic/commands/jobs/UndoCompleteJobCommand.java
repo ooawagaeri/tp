@@ -48,7 +48,7 @@ public class UndoCompleteJobCommand extends Command {
         }
 
         jobToRevertStatus.markIncomplete();
-        jobToRevertStatus.setCompletedDate(null);
+
         model.setJob(jobToRevertStatus, jobToRevertStatus);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToRevertStatus), COMMAND_TYPE);

@@ -88,7 +88,7 @@ public class EditJobCommand extends Command {
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_JOB_SUCCESS, editedJob), COMMAND_TYPE);
 
         return stateManager.handleEditJob(jobToEdit, editedJob, editJobDescriptor.shouldEditContact,
-            editJobDescriptor.shouldEditProduct, result);
+                editJobDescriptor.shouldEditProduct, result);
     }
 
     /**
@@ -274,7 +274,5 @@ public class EditJobCommand extends Command {
                 && shouldEditContact == e.shouldEditContact
                 && shouldEditProduct == e.shouldEditProduct;
         }
-
-
     }
 }
