@@ -1162,6 +1162,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+**Use case: UC28 - Print out monthly job records and statistics**
+
+**MSS**
+
+1. User requests to print out monthly job report.
+2. MyCRM shows the monthly job report in a new window.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User requests to print out monthly job report when report window is not shown.
+    * 1a1. MyCRM shows the report window.
+
+  Use case ends.
+
+* 1b. User requests to print out monthly job report when report window is shown.
+    * 1b1. MyCRM focuses on the report window.
+
+  Use case ends.
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.

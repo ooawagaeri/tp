@@ -34,6 +34,8 @@ public class ThemeManager {
     // Url of current theme stylesheet
     private String themeUrl;
 
+    private String themeName;
+
     public ThemeManager(ObservableList<String> styleSheets) {
         this.styleSheets = styleSheets;
     }
@@ -45,6 +47,10 @@ public class ThemeManager {
         requireNonNull(themeName);
 
         return themeNames.contains(themeName);
+    }
+
+    public String getThemeName() {
+        return themeName;
     }
 
     /**
@@ -97,6 +103,7 @@ public class ThemeManager {
      */
     protected void changeToDarkTheme() {
         logger.info("Changing to dark theme.");
+        themeName = THEME_DARK;
 
         if (!styleSheets.contains(darkThemeUrl)) {
             styleSheets.removeAll(lightThemeUrl);
@@ -110,6 +117,7 @@ public class ThemeManager {
      */
     protected void changeToLightTheme() {
         logger.info("Changing to light theme.");
+        themeName = THEME_LIGHT;
 
         if (!styleSheets.contains(lightThemeUrl)) {
             styleSheets.removeAll(darkThemeUrl);
