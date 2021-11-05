@@ -17,7 +17,7 @@ hardware and software issues. Also has multiple repair-phases which have to be u
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -47,7 +47,7 @@ hardware and software issues. Also has multiple repair-phases which have to be u
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -615,7 +615,7 @@ Format: Click on "Print" / `exportReport`
 contains the data of your previous MyCRM home folder.
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Command summary
 
 Action              | Format, Examples
