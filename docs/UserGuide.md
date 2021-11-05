@@ -230,10 +230,10 @@ Format: `deleteJob INDEX`
 
 Add a new contact info of a client into the CRM.
 
-Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
+Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [t/tags]`
 
 * Creates a new contact info of a client.
-* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist.
+* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist even though they are considered optional fields.
   
   i.e. `addContact n/CLIENT_NAME` is not allowed. 
   
@@ -305,6 +305,7 @@ Format: `hideContact INDEX`
 
 * `hideContact` will add a tag `hidden` to those being hidden.
 * Cannot invoke `hideContact` **again** to those being hidden.
+* Contacts hidden does not display in MyCRM unless `listContact -a` is invoked.
 * So far hiding a specific contact will not affect job card.
 
 Example:
@@ -626,7 +627,7 @@ Action              | Format, Examples
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
 **Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
-**Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+**Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [t/tag]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
 **List Contact**    | `listContact` `listContact -a`
 **Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`
