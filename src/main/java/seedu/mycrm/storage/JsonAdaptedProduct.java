@@ -52,28 +52,67 @@ class JsonAdaptedProduct {
      */
     public Product toModelType() throws IllegalValueException {
 
+        validateName();
+        final ProductName modelProductName = ProductName.getName(productName);
+
+        validateType();
+        final Type modelType = Type.getType(type);
+
+        validateManufacturer();
+        final Manufacturer modelManufacturer = Manufacturer.getManufacturer(manufacturer);
+
+        validateDescription();
+        final Description modelDescription = Description.getDescription(description);
+
+        return new Product(modelProductName, modelType, modelManufacturer, modelDescription);
+    }
+
+    /**
+     * Checks product name of {@code Job} of {@code JsonAdaptedProduct}.
+     *
+     * @throws IllegalValueException if there are product name constraints violated in the adapted job.
+     */
+    private void validateName() throws IllegalValueException {
         if (productName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ProductName.class.getSimpleName()));
         }
-        final ProductName modelProductName = ProductName.getName(productName);
+    }
+
+    /**
+     * Checks type of {@code Job} of {@code JsonAdaptedProduct}.
+     *
+     * @throws IllegalValueException if there are type constraints violated in the adapted job.
+     */
+    private void validateType() throws IllegalValueException {
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Type.class.getSimpleName()));
         }
-        final Type modelType = Type.getType(type);
+    }
+
+    /**
+     * Checks manufacturer of {@code Job} of {@code JsonAdaptedProduct}.
+     *
+     * @throws IllegalValueException if there are manufacturer constraints violated in the adapted job.
+     */
+    private void validateManufacturer() throws IllegalValueException {
         if (manufacturer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Manufacturer.class.getSimpleName()));
         }
-        final Manufacturer modelManufacturer = Manufacturer.getManufacturer(manufacturer);
+    }
+
+    /**
+     * Checks description of {@code Job} of {@code JsonAdaptedProduct}.
+     *
+     * @throws IllegalValueException if there are description constraints violated in the adapted job.
+     */
+    private void validateDescription() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        final Description modelDescription = Description.getDescription(description);
-
-        return new Product(modelProductName, modelType, modelManufacturer, modelDescription);
     }
 
 }

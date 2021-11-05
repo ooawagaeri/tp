@@ -15,7 +15,6 @@ public class Mail {
 
     /**
      * Creates a mail with the mail and template.
-     *
      */
     public Mail(Job job, Template template) {
         requireNonNull(job);
@@ -35,29 +34,31 @@ public class Mail {
     }
 
     /**
-     * Returns job client email
+     * Returns job client email.
      */
     public String getMailEmail() {
         return job.getClient().getEmail().value;
     }
 
     /**
-     * Returns template subject header
+     * Returns template subject header.
      */
     public String getMailSubject() {
         return template.getSubject().toString();
     }
 
     /**
-     * Returns template body text
+     * Returns template body text.
      */
     public String getMailBody() {
         return template.getMailReadyBody();
     }
 
     /**
-     * Returns true if both mails have the same job and template
+     * Returns true if both mails have the same job and template.
      * This defines a weaker notion of equality between two mails.
+     *
+     * @param otherMail target mail to compare.
      */
     public boolean isSameMail(Mail otherMail) {
         if (otherMail == this) {
@@ -92,9 +93,7 @@ public class Mail {
     }
 
     /**
-     * Creates a string URL mailto with job and template information.
-     *
-     * @return mailto URL
+     * Returns a string URL mailto with job and template information.
      */
     public String constructMail() {
         return String.format("mailto:%s?subject=%s&body=%s",
@@ -105,7 +104,8 @@ public class Mail {
 
     /**
      * Encodes given string into URL friendly string.
-     * Replaces ' ' and '\n' with URL variate.
+     * This replaces ' ' (blank spaces) and '\n' (newlines) with webpage and URL friendly variant.
+     * Ensures that special characters are correctly translated for external mail application.
      *
      * @param str target subject/body string
      * @return URL friendly string

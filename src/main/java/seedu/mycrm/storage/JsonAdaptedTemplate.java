@@ -42,23 +42,41 @@ class JsonAdaptedTemplate {
      */
     public Template toModelType() throws IllegalValueException {
 
+        validateSubject();
+        final Subject modelSubject = new Subject(subject);
+
+        validateBody();
+        final Body modelBody = new Body(body);
+
+        return new Template(modelSubject, modelBody);
+    }
+
+    /**
+     * Checks subject of {@code Job} of {@code JsonAdaptedTemplate}.
+     *
+     * @throws IllegalValueException if there are subject constraints violated in the adapted job.
+     */
+    private void validateSubject() throws IllegalValueException {
         if (subject == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Subject.class.getSimpleName()));
         }
         if (!Subject.isValidSubject(subject)) {
             throw new IllegalValueException(Subject.MESSAGE_CONSTRAINTS);
         }
-        final Subject modelSubject = new Subject(subject);
+    }
 
+    /**
+     * Checks body of {@code Job} of {@code JsonAdaptedTemplate}.
+     *
+     * @throws IllegalValueException if there are body constraints violated in the adapted job.
+     */
+    private void validateBody() throws IllegalValueException {
         if (body == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Body.class.getSimpleName()));
         }
         if (!Body.isValidBody(body)) {
             throw new IllegalValueException(Body.MESSAGE_CONSTRAINTS);
         }
-        final Body modelBody = new Body(body);
-
-        return new Template(modelSubject, modelBody);
     }
 
 }

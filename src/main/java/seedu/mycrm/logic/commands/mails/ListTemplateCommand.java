@@ -10,7 +10,7 @@ import seedu.mycrm.logic.commands.CommandType;
 import seedu.mycrm.model.Model;
 
 /**
- * Lists all contacts in the myCrm to the user.
+ * Lists all templates in the myCrm to the user.
  */
 public class ListTemplateCommand extends Command {
 

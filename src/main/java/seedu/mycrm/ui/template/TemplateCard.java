@@ -8,7 +8,7 @@ import seedu.mycrm.model.mail.Template;
 import seedu.mycrm.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Template}.
+ * A UI component that displays information of a {@code Template}.
  */
 public class TemplateCard extends UiPart<Region> {
 
@@ -26,7 +26,7 @@ public class TemplateCard extends UiPart<Region> {
     private Label body;
 
     /**
-     * Creates a {@code TemplateCode} with the given {@code Template} and index to display.
+     * Creates a {@code TemplateCard} with the given {@code Template} and index to display.
      */
     public TemplateCard(Template template, int displayedIndex) {
         super(FXML);
@@ -38,17 +38,14 @@ public class TemplateCard extends UiPart<Region> {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof TemplateCard)) {
             return false;
         }
 
-        // state check
         TemplateCard card = (TemplateCard) other;
         return id.getText().equals(card.id.getText())
                 && template.equals(card.template);

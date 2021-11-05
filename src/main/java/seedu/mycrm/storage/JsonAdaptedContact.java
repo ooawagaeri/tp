@@ -93,7 +93,6 @@ class JsonAdaptedContact {
             modelPhone = new Phone();
         }
 
-
         if (email != null && !Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }

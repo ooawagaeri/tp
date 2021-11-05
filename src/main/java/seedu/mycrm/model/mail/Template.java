@@ -1,5 +1,7 @@
 package seedu.mycrm.model.mail;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 public class Template {
@@ -11,6 +13,9 @@ public class Template {
      * Every field must be present.
      */
     public Template(Subject subject, Body body) {
+        requireNonNull(subject);
+        requireNonNull(body);
+
         this.subject = subject;
         this.body = body;
     }
@@ -35,6 +40,8 @@ public class Template {
     /**
      * Returns true if both email templates have the subject header.
      * This defines a weaker notion of equality between two templates.
+     *
+     * @param otherTemplate target template to compare.
      */
     public boolean isSameTemplate(Template otherTemplate) {
         if (otherTemplate == this) {
