@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.job.exceptions.DuplicateJobException;
 import seedu.mycrm.model.job.exceptions.JobNotFoundException;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * A list of jobs that enforces uniqueness between its elements and does not allow nulls.

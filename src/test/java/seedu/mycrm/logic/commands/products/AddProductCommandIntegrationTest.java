@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
 import seedu.mycrm.model.UserPrefs;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.testutil.ProductBuilder;
 
 /**

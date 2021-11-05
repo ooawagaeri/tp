@@ -13,7 +13,7 @@ import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
 import seedu.mycrm.model.job.JobFee;
 import seedu.mycrm.model.job.JobStatus;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Jackson-friendly version of {@link Job}.

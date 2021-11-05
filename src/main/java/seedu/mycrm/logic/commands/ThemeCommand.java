@@ -22,7 +22,7 @@ public class ThemeCommand extends Command {
     private final String themeName;
 
     /**
-     * Constructs a {@code ThemeCommand}.
+     * Creates a ThemeCommand.
      */
     public ThemeCommand(String themeName) {
         requireNonNull(themeName);
@@ -40,11 +40,6 @@ public class ThemeCommand extends Command {
     @Override
     public CommandType getType() {
         return COMMAND_TYPE;
-    }
-
-    @Override
-    public String toString() {
-        return "ThemeCommand: change to " + themeName;
     }
 
     @Override

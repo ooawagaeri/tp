@@ -1,4 +1,4 @@
-package seedu.mycrm.model.products;
+package seedu.mycrm.model.product;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,8 +14,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.mycrm.model.products.exceptions.DuplicateProductException;
-import seedu.mycrm.model.products.exceptions.ProductNotFoundException;
+import seedu.mycrm.model.product.exceptions.DuplicateProductException;
+import seedu.mycrm.model.product.exceptions.ProductNotFoundException;
 import seedu.mycrm.testutil.ProductBuilder;
 
 public class UniqueProductListTest {

@@ -15,15 +15,11 @@ import seedu.mycrm.ui.product.ProductListPanel;
 import seedu.mycrm.ui.template.TemplateListPanel;
 
 /**
- * After creating an instance of SideDisplay, should instantly call method fillInnerParts(Logic).
+ * The UI component that is responsible for displaying lists of contact, product, template, and history. <br>
+ * After creating an instance of SideDisplay, should instantly call method init(Logic).
  */
 public class SideDisplay extends UiPart<Region> {
     private static final String FXML = "SideDisplay.fxml";
-
-    private ContactListPanel contactListPanel;
-    private TemplateListPanel templateListPanel;
-    private ProductListPanel productListPanel;
-    private HistoryListPanel historyListPanel;
 
     @FXML
     private TabPane sideDisplayPane;
@@ -57,28 +53,28 @@ public class SideDisplay extends UiPart<Region> {
     }
 
     /**
-     * Initialize inner parts.
+     * Initializes inner parts.
      */
     public void init(Logic logic) {
-        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
+        ContactListPanel contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         contactListPanelPlaceholder.managedProperty().bind(contactListPanelPlaceholder.visibleProperty());
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        productListPanel = new ProductListPanel(logic.getFilteredProductList());
+        ProductListPanel productListPanel = new ProductListPanel(logic.getFilteredProductList());
         productListPanelPlaceholder.managedProperty().bind(productListPanelPlaceholder.visibleProperty());
         productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
 
-        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
+        TemplateListPanel templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.managedProperty().bind(templateListPanelPlaceholder.visibleProperty());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
 
-        historyListPanel = new HistoryListPanel(logic.getFilteredHistoryList());
+        HistoryListPanel historyListPanel = new HistoryListPanel(logic.getFilteredHistoryList());
         historyListPanelPlaceholder.managedProperty().bind(historyListPanelPlaceholder.visibleProperty());
         historyListPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
     }
 
     /**
-     * Switch tab based on command type.
+     * Switches tab based on command type.
      */
     public void switchTab(CommandType type) {
         switch (type) {

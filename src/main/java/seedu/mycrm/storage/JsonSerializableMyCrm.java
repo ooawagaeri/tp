@@ -14,7 +14,7 @@ import seedu.mycrm.model.ReadOnlyMyCrm;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.mail.Template;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

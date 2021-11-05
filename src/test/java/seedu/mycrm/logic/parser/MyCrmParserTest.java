@@ -32,7 +32,7 @@ import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
 import seedu.mycrm.model.job.JobContainsKeywordsPredicate;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.testutil.ContactBuilder;
 import seedu.mycrm.testutil.ContactUtil;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;

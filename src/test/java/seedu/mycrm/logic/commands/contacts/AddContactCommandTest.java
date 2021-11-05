@@ -28,7 +28,7 @@ import seedu.mycrm.model.history.History;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.model.mail.Mail;
 import seedu.mycrm.model.mail.Template;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.testutil.ContactBuilder;
 
 

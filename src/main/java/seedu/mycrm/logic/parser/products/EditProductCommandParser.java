@@ -16,23 +16,30 @@ import seedu.mycrm.logic.parser.ArgumentTokenizer;
 import seedu.mycrm.logic.parser.Parser;
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
-import seedu.mycrm.model.products.Description;
-import seedu.mycrm.model.products.Manufacturer;
-import seedu.mycrm.model.products.ProductName;
-import seedu.mycrm.model.products.Type;
+import seedu.mycrm.model.product.Description;
+import seedu.mycrm.model.product.Manufacturer;
+import seedu.mycrm.model.product.ProductName;
+import seedu.mycrm.model.product.Type;
 
+/** Parses input arguments and creates a EditProductCommand object. */
 public class EditProductCommandParser implements Parser<EditProductCommand> {
 
     private EditProductCommand.EditProductDescriptor descriptor;
 
     private ArgumentMultimap map;
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the {@code EditProductCommand}
+     * and returns a {@code EditProductCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
+     */
     @Override
     public EditProductCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         this.map = ArgumentTokenizer.tokenize(args, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_TYPE,
                 PREFIX_PRODUCT_MANUFACTURER, PREFIX_PRODUCT_DESCRIPTION);
-
         Index index;
 
         try {
@@ -43,7 +50,6 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         }
 
         descriptor = new EditProductCommand.EditProductDescriptor();
-
         editName();
         editType();
         editManufacturer();
@@ -57,31 +63,25 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
     }
 
     private void editName() {
-        Optional<String> nameContainer = map.getValue(PREFIX_PRODUCT_NAME);
-        if (nameContainer.orElse("").length() > 0) {
-            // nameContainer contains a non-empty string
-            descriptor.setProductName(ProductName.getName(nameContainer));
+        Optional<String> nameWrapper = map.getValue(PREFIX_PRODUCT_NAME);
+        if (nameWrapper.orElse("").length() > 0) {
+            // name is not empty
+            descriptor.setProductName(ProductName.getName(nameWrapper));
         }
     }
 
     private void editType() {
-        Optional<String> typeContainer = map.getValue(PREFIX_PRODUCT_TYPE);
-        if (typeContainer.isPresent()) {
-            descriptor.setType(Type.getType(typeContainer));
-        }
+        descriptor.setType(
+                Type.getType(map.getValue(PREFIX_PRODUCT_TYPE)));
     }
 
     private void editManufacturer() {
-        Optional<String> manufacturerContainer = map.getValue(PREFIX_PRODUCT_MANUFACTURER);
-        if (manufacturerContainer.isPresent()) {
-            descriptor.setManufacturer(Manufacturer.getManufacturer(manufacturerContainer));
-        }
+        descriptor.setManufacturer(
+                Manufacturer.getManufacturer(map.getValue(PREFIX_PRODUCT_MANUFACTURER)));
     }
 
     private void editDescription() {
-        Optional<String> descriptionContainer = map.getValue(PREFIX_PRODUCT_DESCRIPTION);
-        if (descriptionContainer.isPresent()) {
-            descriptor.setDescription(Description.getDescription(descriptionContainer));
-        }
+        descriptor.setDescription(
+                Description.getDescription(map.getValue(PREFIX_PRODUCT_DESCRIPTION)));
     }
 }
