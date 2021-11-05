@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":FindTemplateCommandParser" as FindTemplateCommandParser LOGIC_COLOR
+participant ":FindTemplateCommand" as FindTemplateCommand LOGIC_COLOR
+participant "subjectKeywords:SubjectContainsKeywordsPredicate" as SubjectContainsKeywordsPredicate LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("findTemplate Completed")
+activate LogicManager
+
+group sd parse find template
+LogicManager -> MyCrmParser : parseCommand("findTemplate Completed")
+activate MyCrmParser
+
+create FindTemplateCommandParser
+MyCrmParser -> FindTemplateCommandParser
+activate FindTemplateCommandParser
+
+FindTemplateCommandParser --> MyCrmParser
+deactivate FindTemplateCommandParser
+
+MyCrmParser -> FindTemplateCommandParser : parse("Completed")
+activate FindTemplateCommandParser
+
+create SubjectContainsKeywordsPredicate
+FindTemplateCommandParser -> SubjectContainsKeywordsPredicate: "Completed"
+activate SubjectContainsKeywordsPredicate
+SubjectContainsKeywordsPredicate --> FindTemplateCommandParser : subjectKeywords
+deactivate SubjectContainsKeywordsPredicate
+
+create FindTemplateCommand
+FindTemplateCommandParser -> FindTemplateCommand : subjectKeywords
+activate FindTemplateCommand
+
+FindTemplateCommand --> FindTemplateCommandParser : toFind
+deactivate FindTemplateCommand
+
+FindTemplateCommandParser --> MyCrmParser: toFind
+deactivate FindTemplateCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+FindTemplateCommandParser -[hidden]-> MyCrmParser
+destroy FindTemplateCommandParser
+
+
+MyCrmParser --> LogicManager: toFind
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

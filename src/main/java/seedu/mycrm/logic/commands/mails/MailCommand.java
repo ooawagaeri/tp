@@ -83,9 +83,9 @@ public class MailCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof MailCommand // instanceof handles nulls
-                && jobIndex.equals(((MailCommand) other).jobIndex)) // state check
-                && templateIndex.equals(((MailCommand) other).templateIndex); // state check
+        return other == this
+                || (other instanceof MailCommand
+                && jobIndex.equals(((MailCommand) other).jobIndex))
+                && templateIndex.equals(((MailCommand) other).templateIndex);
     }
 }

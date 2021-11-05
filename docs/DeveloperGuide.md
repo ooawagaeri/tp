@@ -277,7 +277,7 @@ Given below is an example usage scenario and how the **Finding a Contact** mecha
 Within `FindContactCommandParser#parse`,
 - `Keywords` must be presented. (At least one trim of String)
 
-`FindcontactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+`FindContactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
 in order for MyCRM to find corresponding contacts with these keywords as predicate.
 
 ![](images/contact/FindContactSequenceDiagram.png)
@@ -456,6 +456,32 @@ Within `DeleteTemplateCommandParser#parse`,
 - `ParserUtil#parseIndex` will be called to extract the index of the specified template to delete.
 
 ![](images/mail/DeleteTemplateSequenceDiagram.png)
+
+### Finding a Template
+
+#### Implementation
+
+The Finding a Template mechanism is facilitated by `MyCRM`. This mechanism finds specific list of template object 
+from `UniqueTemplateList` inside the `MyCRM` object with certain keywords provided.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findTemplate` command behave when executed by a user:
+
+![](images/mail/FindTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Finding a Template mechanism behaves at each step.
+
+![](images/mail/FindTemplateParseSequenceDiagram.png)
+
+Within `FindTemplateCommandParser#parse`,
+-  At least one keyword must be presented.
+-  Keyword specified must be whole word.
+
+`FindTemplateCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding templates with these keywords as predicate.
+
+![](images/mail/FindTemplateSequenceDiagram.png)
 
 ### Constructing an Email
 
@@ -822,42 +848,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC10 - Linking a client contact to a job**
 
-**MSS**
-
-1. User requests to link a contact to a job.
-2. MyCRM shows a list of contacts.
-3. User requests to use a specific contact to link a job.
-4. MyCRM shows a list of jobs.
-5. User requests to link to a specific job in the list.
-6. MyCRM links the contact to this job.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. MyCRM shows an error message.
-
-      Use case resumes at step 2.
-      
-* 4a. The list is empty.
-
-  Use case ends.
-
-* 5a. The given index is invalid.
-
-    * 5a1. MyCRM shows an error message.
-
-      Use case resumes at step 4
-
-**Use case: UC11 - Hiding a client contact**
+**Use case: UC10 - Hiding a client contact**
 
 **MSS**
 
@@ -880,7 +872,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC12 - Undo hiding a client contact**
+**Use case: UC11 - Undo hiding a client contact**
 
 **MSS**
 
@@ -903,7 +895,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC13 - Sending an email**
+**Use case: UC12 - Sending an email**
 
 **Precondition:** Operating system has a default email application 
 
@@ -946,7 +938,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
     
-**Use case: UC14 - Adding an email template**
+**Use case: UC13 - Adding an email template**
 
 **MSS**
 
@@ -975,7 +967,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: UC15 - Listing all email template**
+**Use case: UC14 - Listing all email template**
 
 **MSS**
 
@@ -984,7 +976,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Listing all email template**
+**Use case: UC15 - Listing all email template**
 
 **MSS**
 
@@ -995,7 +987,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 
-**Use case: UC17 - Editing an email template**
+**Use case: UC16 - Editing an email template**
 
 **MSS**
 
@@ -1036,7 +1028,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC18 - Deleting an email template**
+**Use case: UC17 - Deleting an email template**
 
 **MSS**
 
@@ -1059,7 +1051,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC19 - Viewing user guide**
+**Use case: UC18 - Viewing user guide**
 
 **MSS**
 
@@ -1068,7 +1060,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Exiting the program**
+**Use case: UC19 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -1079,7 +1071,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Clearing MyCRM data**
+**Use case: UC20 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -1090,7 +1082,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC22 - Add Product**
+**Use case: UC21 - Add Product**
 
 **MSS**
 
@@ -1112,7 +1104,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC23 - List Products**
+**Use case: UC22 - List Products**
 
 **MSS**
 
@@ -1126,7 +1118,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC24: Delete a product**
+**Use case: UC23: Delete a product**
 
 **MSS**
 
@@ -1147,7 +1139,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC 25: Edit a product.**
+**Use case: UC 24: Edit a product.**
 
 **MSS**
 
@@ -1174,7 +1166,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC26 - Retrieve Previous Command**
+**Use case: UC25 - Retrieve Previous Command**
 
 **MSS**
 
@@ -1192,7 +1184,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC 27 - Change the theme of user interface(UI)**
+**Use case: UC26 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -1209,6 +1201,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. User enters the name of current theme.
     * 1a1. MyCRM keeps the current theme.
+
+  Use case ends.
+
+**Use case: UC27 - Print out monthly job records and statistics**
+
+**MSS**
+
+1. User requests to print out monthly job report.
+2. MyCRM shows the monthly job report in a new window.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User requests to print out monthly job report when report window is not shown.
+    * 1a1. MyCRM shows the report window.
+
+  Use case ends.
+
+* 1b. User requests to print out monthly job report when report window is shown.
+    * 1b1. MyCRM focuses on the report window.
 
   Use case ends.
 

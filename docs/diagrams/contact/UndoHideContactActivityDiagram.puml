@@ -8,7 +8,7 @@ if () then ([InValid Input])
 else ([Valid Input])
 :Gets contact to undo hiding with index provided;
 if () then ([Contact is hidden])
-:Hide the specific contact from MyCRM;
+:Undo Hiding the specific contact from MyCRM;
 :Displays successful undoing hiding contact message on UI;
 else ([Contact is not hidden]))
 :Throws CommandException;

@@ -190,6 +190,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handlePrintReport() {
         reportWindow.fillInnerParts();
+        reportWindow.changeTheme(themeManager.getThemeName());
         if (!reportWindow.isShowing()) {
             reportWindow.show();
         } else {

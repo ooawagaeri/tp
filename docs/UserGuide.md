@@ -17,7 +17,7 @@ hardware and software issues. Also has multiple repair-phases which have to be u
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -47,7 +47,7 @@ hardware and software issues. Also has multiple repair-phases which have to be u
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -230,23 +230,22 @@ Format: `deleteJob INDEX`
 
 Add a new contact info of a client into the CRM.
 
-Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]`
+Format: `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [t/tags]`
 
 * Creates a new contact info of a client.
-* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist.
+* At least one field of `c/CONTACT_NUMBER` `e/EMAIL` `a/ADDRESS`should exist even though they are considered optional fields.
   
   i.e. `addContact n/CLIENT_NAME` is not allowed. 
   
   `addContact n/CLIENT_NAME e/EMAIL`, `addContact n/CLIENT_NAME c/CONTACT_NUMBER` commands like these are valid.
-* Contact number, Address, Email are optional, but must have one of them to
-  make it realistic to get access to the client.
+
 
 Examples:
 
 * `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 * `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
   
-  <img src="images/ui-add-contact.png" width="600px">
+  <img src="images/contact/ui-add-contact.png" width="600px">
 
 ### Deleting a contact: `deleteContact`
 
@@ -263,7 +262,7 @@ Example:
 
 `deleteContact 3`
 
-  <img src="images/ui-delete-contact.png" width="600px">
+  <img src="images/contact/ui-delete-contact.png" width="600px">
 
 ### Editing a contact: `editContact`
 
@@ -281,7 +280,7 @@ Example:
 
 `editContact 1 a/Jurong West Street 42` 
 
-  <img src="images/ui-edit-contact.png" width="600px">
+  <img src="images/contact/ui-edit-contact.png" width="600px">
 
 ### Finding a contact: `findContact `
 
@@ -295,7 +294,7 @@ Example:
 
 `findContact Frisk Sans`
 
-  <img src="images/ui-find-contact.png" width="600px">
+  <img src="images/contact/ui-find-contact.png" width="600px">
 
 
 ### Hiding a contact: `hideContact`
@@ -306,13 +305,14 @@ Format: `hideContact INDEX`
 
 * `hideContact` will add a tag `hidden` to those being hidden.
 * Cannot invoke `hideContact` **again** to those being hidden.
+* Contacts hidden does not display in MyCRM unless `listContact -a` is invoked.
 * So far hiding a specific contact will not affect job card.
 
 Example:
 
 `hideContact 1`
 
-  <img src="images/ui-hide-contact.png" width="600px">
+  <img src="images/contact/ui-hide-contact.png" width="600px">
 
 ### Undoing hiding a contact: `undoHideContact`
 
@@ -328,7 +328,7 @@ Example:
 
 `undoHideContact 1`
 
-  <img src="images/ui-undo-hide-contact.png" width="600px">
+  <img src="images/contact/ui-undo-hide-contact.png" width="600px">
 
 
 ### Listing all contacts: `listContact`
@@ -344,11 +344,11 @@ Examples:
 
 * `listContact`
 
-  <img src="images/ui-list-not-hidden-contacts.png" width="600px">
+  <img src="images/contact/ui-list-not-hidden-contacts.png" width="600px">
 
 * `listContact -a`
 
-  <img src="images/ui-list-all-contacts.png" width="600px">
+  <img src="images/contact/ui-list-all-contacts.png" width="600px">
 
 
 ### Adding a product: `addProduct`
@@ -592,6 +592,8 @@ Prints a report of all jobs within current month.
 
 Format: `printReport`
 
+* Switches between different tabs by using 'Right/Left Arrow Key' or clicking corresponding tab.
+
   <img src="images/ui-print-monthly.png" width="600px">
 
 ### Export monthly report
@@ -613,7 +615,7 @@ Format: Click on "Print" / `exportReport`
 contains the data of your previous MyCRM home folder.
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## Command summary
 
 Action              | Format, Examples
@@ -625,7 +627,7 @@ Action              | Format, Examples
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
 **Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
-**Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
+**Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [t/tag]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
 **List Contact**    | `listContact` `listContact -a`
 **Find Contact**     |`findContact [MORE_KEYWORDS]... ` <br>e.g., `findContact Sans`

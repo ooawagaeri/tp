@@ -15,6 +15,7 @@ public class Subject {
     /**
      * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * This regex ensures that only alphanumerics and spaces in between are accepted.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
@@ -23,7 +24,7 @@ public class Subject {
     /**
      * Constructs a {@code Name}.
      *
-     * @param subject A valid subject.
+     * @param subject valid subject header.
      */
     public Subject(String subject) {
         requireNonNull(subject);
@@ -33,6 +34,8 @@ public class Subject {
 
     /**
      * Returns true if a given string is a valid subject.
+     *
+     * @param test target subject to test
      */
     public static boolean isValidSubject(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -46,9 +49,9 @@ public class Subject {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Subject // instanceof handles nulls
-                && subject.equals(((Subject) other).subject)); // state check
+        return other == this
+                || (other instanceof Subject
+                && subject.equals(((Subject) other).subject));
     }
 
     @Override

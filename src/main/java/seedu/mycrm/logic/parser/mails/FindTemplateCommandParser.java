@@ -17,6 +17,7 @@ public class FindTemplateCommandParser implements Parser<FindTemplateCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindTemplateCommand
      * and returns a FindTemplateCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindTemplateCommand parse(String args) throws ParseException {

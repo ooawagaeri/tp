@@ -9,7 +9,7 @@
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="820.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+      prefHeight="820.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <StackPane fx:id="graphDisplayPlaceholder" />
         <HBox prefHeight="570.0" prefWidth="595.0">
