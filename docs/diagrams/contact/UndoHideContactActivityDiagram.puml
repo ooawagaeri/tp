@@ -2,17 +2,18 @@
 start
 :User executes undo hide contact command;
 :MyCRM parses user inputs;
-while () is ([InValid Input])
+if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful undo hide contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
 :Gets contact to undo hiding with index provided;
 if () then ([Contact is hidden])
-:Hide the specific contact from MyCRM;
+:Undo Hiding the specific contact from MyCRM;
 :Displays successful undoing hiding contact message on UI;
 else ([Contact is not hidden]))
 :Throws CommandException;
 :Displays unsuccessful undoing hiding contact message on UI;
+endif
 endif
 stop
 @enduml

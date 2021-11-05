@@ -2,22 +2,24 @@ package seedu.mycrm.logic.commands.products;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_REMOVE_LINKED_PRODUCT;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showProductAtIndex;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
+import static seedu.mycrm.testutil.TypicalProducts.getLinkedJobMyCrm;
 import static seedu.mycrm.testutil.TypicalProducts.getTypicalMyCrm;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
 import seedu.mycrm.model.UserPrefs;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -50,7 +52,7 @@ public class DeleteProductCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredProductList().size() + 1);
         DeleteProductCommand deleteCommand = new DeleteProductCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -79,7 +81,15 @@ public class DeleteProductCommandTest {
 
         DeleteProductCommand deleteCommand = new DeleteProductCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_productLinkedToJob_throwsCommandException() {
+        model = new ModelManager(getLinkedJobMyCrm(), new UserPrefs());
+        DeleteProductCommand deleteCommand = new DeleteProductCommand(INDEX_FIRST_PRODUCT);
+
+        assertCommandFailure(deleteCommand, model, MESSAGE_REMOVE_LINKED_PRODUCT);
     }
 
     @Test

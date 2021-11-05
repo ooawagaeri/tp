@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.mycrm.model.mail.exceptions.MailNotFoundException;
 
 /**
+ * Placeholder list of mails to display only the latest mail generated.
  * A list of mails that enforces uniqueness between its elements and does not allow nulls.
  * A mail is considered unique by comparing using {@code Mail#isSameMail(Mail)}. As such, adding and
  * updating of mails uses Mail#isSameMail(Mail) for equality to ensure that the mail being added
@@ -26,6 +27,8 @@ public class UniqueMailList implements Iterable<Mail> {
 
     /**
      * Returns true if the list contains an equivalent mail as the given argument.
+     *
+     * @param toCheck target mail to check.
      */
     public boolean contains(Mail toCheck) {
         requireNonNull(toCheck);
@@ -34,7 +37,9 @@ public class UniqueMailList implements Iterable<Mail> {
 
     /**
      * Adds a mail to the list.
-     * The mail must not already exist in the list.
+     * The number of mails in list cannot exceed 1.
+     *
+     * @param toAdd target mail to add.
      */
     public void add(Mail toAdd) {
         requireNonNull(toAdd);
@@ -50,6 +55,8 @@ public class UniqueMailList implements Iterable<Mail> {
     /**
      * Removes the equivalent mail from the list.
      * The mail must exist in the list.
+     *
+     * @param toRemove target mail to remove.
      */
     public void remove(Mail toRemove) {
         requireNonNull(toRemove);

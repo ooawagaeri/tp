@@ -29,6 +29,8 @@ public class UniqueTemplateList implements Iterable<Template> {
 
     /**
      * Returns true if the list contains an equivalent template as the given argument.
+     *
+     * @param toCheck target template to check.
      */
     public boolean contains(Template toCheck) {
         requireNonNull(toCheck);
@@ -38,6 +40,8 @@ public class UniqueTemplateList implements Iterable<Template> {
     /**
      * Adds a template to the list.
      * The template must not already exist in the list.
+     *
+     * @param toAdd target template to add.
      */
     public void add(Template toAdd) {
         requireNonNull(toAdd);
@@ -51,6 +55,9 @@ public class UniqueTemplateList implements Iterable<Template> {
      * Replaces the template {@code target} in the list with {@code editedTemplate}.
      * {@code target} must exist in the list.
      * The template identity of {@code editedTemplate} must not be the same as another existing template in the list.
+     *
+     * @param target target template to be overridden.
+     * @param editedTemplate edited template to replace target.
      */
     public void setTemplate(Template target, Template editedTemplate) {
         requireAllNonNull(target, editedTemplate);
@@ -70,6 +77,8 @@ public class UniqueTemplateList implements Iterable<Template> {
     /**
      * Removes the equivalent template from the list.
      * The template must exist in the list.
+     *
+     * @param toRemove target template to remove.
      */
     public void remove(Template toRemove) {
         requireNonNull(toRemove);
@@ -78,6 +87,11 @@ public class UniqueTemplateList implements Iterable<Template> {
         }
     }
 
+    /**
+     * Replaces the contents of this list with {@code replacement}.
+     *
+     * @param replacement internal list of templates to replace.
+     */
     public void setTemplates(UniqueTemplateList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -86,6 +100,8 @@ public class UniqueTemplateList implements Iterable<Template> {
     /**
      * Replaces the contents of this list with {@code templates}.
      * {@code templates} must not contain duplicate templates.
+     *
+     * @param templates list of templates to replace.
      */
     public void setTemplates(List<Template> templates) {
         requireAllNonNull(templates);
@@ -110,8 +126,8 @@ public class UniqueTemplateList implements Iterable<Template> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTemplateList // instanceof handles nulls
+        return other == this
+                || (other instanceof UniqueTemplateList
                 && internalList.equals(((UniqueTemplateList) other).internalList));
     }
 
@@ -122,6 +138,8 @@ public class UniqueTemplateList implements Iterable<Template> {
 
     /**
      * Returns true if {@code templates} contains only unique templates.
+     *
+     * @param templates list of target templates to check.
      */
     private boolean templatesAreUnique(List<Template> templates) {
         for (int i = 0; i < templates.size() - 1; i++) {

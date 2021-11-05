@@ -16,8 +16,8 @@ import seedu.mycrm.model.mail.Mail;
 import seedu.mycrm.model.mail.Template;
 import seedu.mycrm.model.mail.UniqueMailList;
 import seedu.mycrm.model.mail.UniqueTemplateList;
-import seedu.mycrm.model.products.Product;
-import seedu.mycrm.model.products.UniqueProductList;
+import seedu.mycrm.model.product.Product;
+import seedu.mycrm.model.product.UniqueProductList;
 
 /**
  * Wraps all data at the myCrm level

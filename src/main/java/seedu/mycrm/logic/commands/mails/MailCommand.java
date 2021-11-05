@@ -64,6 +64,11 @@ public class MailCommand extends Command {
         }
 
         Job jobToMail = lastJobList.get(jobIndex.getZeroBased());
+
+        if (jobToMail.getClientEmail().equals("")) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_NO_EMAIL);
+        }
+
         Template templateToMail = lastTemplateList.get(templateIndex.getZeroBased());
         model.addMail(new Mail(jobToMail, templateToMail));
 
@@ -78,9 +83,9 @@ public class MailCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof MailCommand // instanceof handles nulls
-                && jobIndex.equals(((MailCommand) other).jobIndex)) // state check
-                && templateIndex.equals(((MailCommand) other).templateIndex); // state check
+        return other == this
+                || (other instanceof MailCommand
+                && jobIndex.equals(((MailCommand) other).jobIndex))
+                && templateIndex.equals(((MailCommand) other).templateIndex);
     }
 }

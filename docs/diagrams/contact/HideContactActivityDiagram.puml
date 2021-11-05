@@ -2,10 +2,10 @@
 start
 :User executes hide contact command;
 :MyCRM parses user inputs;
-while () is ([InValid Input])
+if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful hide contact Message on UI;
-endwhile ([Valid Input])
+else ([Valid Input])
 :Gets contact to be hidden with index provided;
 if () then ([Contact is not hidden])
 :Hide the specific contact from MyCRM;
@@ -13,6 +13,7 @@ if () then ([Contact is not hidden])
 else ([Contact is hidden]))
 :Throws CommandException;
 :Displays unsuccessful hiding contact message on UI;
+endif
 endif
 stop
 @enduml

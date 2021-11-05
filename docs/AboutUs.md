@@ -35,6 +35,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
   * Merging of pull requests.
   * Ensure adherence to coding standards.
 
+<br><br>
 ### Zhang Yubin
 
 <img src="images\kimowarui.png" width="200px">

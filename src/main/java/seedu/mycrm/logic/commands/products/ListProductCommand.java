@@ -1,6 +1,6 @@
 package seedu.mycrm.logic.commands.products;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import seedu.mycrm.logic.StateManager;
@@ -22,7 +22,7 @@ public class ListProductCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
 
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 

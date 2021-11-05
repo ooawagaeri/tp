@@ -1,0 +1,43 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toFind:FindTemplateCommand" as FindTemplateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("findTemplate Completed")
+activate LogicManager
+
+ref over LogicManager, FindTemplateCommand : parse find template
+
+LogicManager -> FindTemplateCommand : execute()
+
+activate FindTemplateCommand
+
+FindTemplateCommand -> Model : updateFilteredTemplateList(subjectKeywords)
+activate Model
+Model --> FindTemplateCommand
+deactivate Model
+
+create CommandResult
+FindTemplateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindTemplateCommand
+deactivate CommandResult
+
+FindTemplateCommand --> LogicManager : result
+deactivate FindTemplateCommand
+
+FindTemplateCommand -[hidden]-> LogicManager
+destroy FindTemplateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

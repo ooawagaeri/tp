@@ -21,7 +21,9 @@ import seedu.mycrm.model.mail.Body;
 import seedu.mycrm.model.mail.Subject;
 import seedu.mycrm.model.mail.Template;
 
-
+/**
+ * Edits a template identified using it's displayed index from the myCrm.
+ */
 public class EditTemplateCommand extends Command {
 
     public static final String COMMAND_WORD = "editTemplate";
@@ -99,17 +101,14 @@ public class EditTemplateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof EditTemplateCommand)) {
             return false;
         }
 
-        // state check
         EditTemplateCommand e = (EditTemplateCommand) other;
         return index.equals(e.index)
                 && editTemplateDescriptor.equals(e.editTemplateDescriptor);
@@ -158,21 +157,10 @@ public class EditTemplateCommand extends Command {
 
         @Override
         public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditTemplateDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditTemplateDescriptor e = (EditTemplateDescriptor) other;
-
-            return getSubject().equals(e.getSubject())
-                    && getBody().equals(e.getBody());
+            return other == this
+                    || (other instanceof EditTemplateDescriptor
+                    && getSubject().equals(((EditTemplateDescriptor) other).getSubject())
+                    && getBody().equals(((EditTemplateDescriptor) other).getBody()));
         }
     }
 }
