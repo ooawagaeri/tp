@@ -1,0 +1,39 @@
+@startuml
+!include ../style.puml
+title Add product sequence diagram
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "toAdd:AddProductCommand" as AddProductCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus")
+activate LogicManager
+
+ref over LogicManager, AddProductCommand : parse user input
+
+LogicManager -> AddProductCommand : execute()
+activate AddProductCommand
+
+AddProductCommand -> Model : addProduct(toAdd)
+
+create CommandResult
+AddProductCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddProductCommand
+deactivate CommandResult
+
+AddProductCommand --> LogicManager : result
+deactivate AddProductCommand
+
+AddProductCommand -[hidden]-> LogicManager
+destroy AddProductCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

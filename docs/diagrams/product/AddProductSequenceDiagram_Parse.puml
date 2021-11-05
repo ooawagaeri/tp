@@ -1,0 +1,78 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":AddProductCommandParser" as AddProductCommandParser LOGIC_COLOR
+participant ":AddProductCommand" as AddProductCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "<<class>>\n:ProductName" as ProductName MODEL_COLOR
+participant "<<class>>\n:Type" as Type MODEL_COLOR
+participant "<<class>>\n:Manufacturer" as Manufacturer MODEL_COLOR
+participant "<<class>>\n:Description" as Description MODEL_COLOR
+participant ":Product" as Product MODEL_COLOR
+end box
+[-> LogicManager : execute("addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus")
+activate LogicManager
+
+group sd parse user input
+LogicManager -> MyCrmParser : parseCommand("addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus")
+activate MyCrmParser
+
+create AddProductCommandParser
+MyCrmParser -> AddProductCommandParser
+activate AddProductCommandParser
+
+AddProductCommandParser --> MyCrmParser
+deactivate AddProductCommandParser
+
+MyCrmParser -> AddProductCommandParser : parse("n/Asus DUAL-GTX1060-O6G t/GPU m/Asus")
+activate AddProductCommandParser
+
+AddProductCommandParser -> ProductName : getProductName("Asus DUAL-GTX1060-O6G")
+activate ProductName
+ProductName --> AddProductCommandParser : n
+deactivate ProductName
+
+AddProductCommandParser -> Type : getType("GPU")
+activate Type
+Type --> AddProductCommandParser : t
+deactivate Type
+
+AddProductCommandParser -> Manufacturer : getManufacturer("Asus")
+activate Manufacturer
+Manufacturer --> AddProductCommandParser : m
+deactivate Manufacturer
+
+AddProductCommandParser -> Description : getEmptyDescription()
+activate Description
+Description --> AddProductCommandParser : empty_d
+deactivate Description
+
+create Product
+AddProductCommandParser -> Product : n, t, m, empty_d
+activate Product
+Product --> AddProductCommandParser : p
+deactivate Product
+
+create AddProductCommand
+AddProductCommandParser -> AddProductCommand : p
+activate AddProductCommand
+AddProductCommand --> AddProductCommandParser : toAdd
+deactivate AddProductCommand
+
+AddProductCommandParser --> MyCrmParser : toAdd
+deactivate AddProductCommandParser
+'Hidden arrow to position destroy marker below the end of the activation bar.
+AddProductCommandParser -[hidden]-> MyCrmParser
+destroy AddProductCommandParser
+
+MyCrmParser --> LogicManager : toAdd
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

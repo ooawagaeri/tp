@@ -171,6 +171,7 @@ This section describes some noteworthy details on how certain features are imple
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)
 * [Constructing an email](#constructing-an-email)
+* [Adding a product](#adding-a-product)
 * [Editing a product](#editing-a-product)
 
 ### Adding a Contact
@@ -517,6 +518,33 @@ Given below is an example of the generation of a mailto URL:
 
 After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
 the URL path.
+
+### Adding a Product
+
+#### Implementation
+
+The **Adding a Product** mechanism is facilitated by `MyCRM`. This product created is stored internally using
+`UniqueProductList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `addProduct` command behave when executed by user:
+
+![![Activity diagram of add product](images/product/AddProductActivityDiagram.png)](images/product/AddProductActivityDiagram.png)
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+![![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)](images/product/AddProductSequenceDiagram.png)
+
+**Parse user input**
+
+Within `AddProductCommandParser#parse`, the factory methods of product components (`getProductName` and 
+`getEmptyProductName` for product name, `getType` and `getEmptyType` for type, ...) will be invoked to create product
+component objects(name, type, manufacturer, description). 
+
+**Note**: Name is compulsory for creating a product, whereas type, manufacturer and description are optional fields.
+
+![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](images/product/AddProductSequenceDiagram_Parse.png)
 
 ### Editing a Product
 

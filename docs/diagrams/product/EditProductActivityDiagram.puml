@@ -5,11 +5,11 @@ title Activity: edit product
 :MyCRM parses user inputs;
 if () then ([Invalid Input])
     :Throws ParseException;
-    :Displays error message;
+    :Displays unsuccessful message;
 else ([Valid Input])
 if () then ([Duplicate product or Index out of range])
     :Throws CommandException;
-    :Displays error message;
+    :Displays unsuccessful message;
 else ([else])
     :Gets product to be edited;
     :Creates edited product;
