@@ -2,7 +2,7 @@ package seedu.mycrm.logic.commands.jobs;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
@@ -28,7 +28,7 @@ public class AddJobCommand extends Command {
     public static final Object MESSAGE_USAGE = COMMAND_WORD + ": Adds a repair job to MyCRM.\n"
         + "Parameters: "
         + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION "
-        + PREFIX_DELIVERY_DATE + "DELIVERY DATE "
+        + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE "
         + PREFIX_FEE + "FEE "
         + " [" + PREFIX_RECEIVED_DATE + "RECEIVED DATE]"
         + " [" + PREFIX_CONTACT_INDEX + "CONTACT INDEX]"
@@ -37,7 +37,7 @@ public class AddJobCommand extends Command {
         + PREFIX_JOB_DESCRIPTION + "Graphics card replacement needed "
         + PREFIX_CONTACT_INDEX + "1 "
         + PREFIX_PRODUCT_INDEX + "1 "
-        + PREFIX_DELIVERY_DATE + "15/09/2021 "
+        + PREFIX_EXPECTED_COMPLETION_DATE + "15/09/2021 "
         + PREFIX_FEE + "$30.00";
 
     public static final String MESSAGE_SUCCESS = "New repair job added: %1$s\n";

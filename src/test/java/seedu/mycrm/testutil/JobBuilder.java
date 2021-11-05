@@ -18,18 +18,18 @@ public class JobBuilder {
 
     private static final String DEFAULT_JOB_DESCRIPTION = "Some description";
     private static final boolean DEFAULT_COMPLETION_STATUS = false;
-    private static final String DEFAULT_DELIVERY_DATE = "12/12/2021";
+    private static final String DEFAULT_EXPECTED_COMPLETION_DATE = "12/12/2021";
     private static final String DEFAULT_RECEIVED_DATE = "11/12/2021";
-    private static final String DEFAULT_COMPLETE_DATE = "13/12/2021";
+    private static final String DEFAULT_COMPLETION_DATE = "13/12/2021";
     private static final String DEFAULT_FEE = "$30.00";
 
     private JobDescription jobDescription;
     private Contact client;
     private Product product;
-    private JobDate deliveryDate;
+    private JobDate expectedCompletionDate;
     private JobStatus completionStatus;
     private JobDate receivedDate;
-    private JobDate completedDate;
+    private JobDate completionDate;
     private JobFee fee;
 
     /**
@@ -37,12 +37,12 @@ public class JobBuilder {
      */
     public JobBuilder() {
         jobDescription = new JobDescription(DEFAULT_JOB_DESCRIPTION);
-        deliveryDate = new JobDate(DEFAULT_DELIVERY_DATE);
+        expectedCompletionDate = new JobDate(DEFAULT_EXPECTED_COMPLETION_DATE);
         completionStatus = new JobStatus(DEFAULT_COMPLETION_STATUS);
         client = ALICE;
         product = ASUS_GPU;
         receivedDate = new JobDate(DEFAULT_RECEIVED_DATE);
-        completedDate = null;
+        completionDate = null;
         fee = new JobFee(DEFAULT_FEE);
     }
 
@@ -51,12 +51,12 @@ public class JobBuilder {
      */
     public JobBuilder(Job jobToCopy) {
         jobDescription = jobToCopy.getJobDescription();
-        deliveryDate = jobToCopy.getDeliveryDate();
+        expectedCompletionDate = jobToCopy.getExpectedCompletionDate();
         client = jobToCopy.getClient();
         product = jobToCopy.getProduct();
         completionStatus = jobToCopy.getJobStatus();
         receivedDate = jobToCopy.getReceivedDate();
-        completedDate = jobToCopy.getCompletedDate();
+        completionDate = jobToCopy.getCompletionDate();
         fee = jobToCopy.getFee();
     }
 
@@ -69,10 +69,10 @@ public class JobBuilder {
     }
 
     /**
-     * Sets the {@code deliveryDate} of the {@code Job} that we are building.
+     * Sets the {@code expectedCompletionDate} of the {@code Job} that we are building.
      */
-    public JobBuilder withDeliveryDate(String deliveryDate) {
-        this.deliveryDate = new JobDate(deliveryDate);
+    public JobBuilder withExpectedCompletionDate(String expectedCompletionDate) {
+        this.expectedCompletionDate = new JobDate(expectedCompletionDate);
         return this;
     }
 
@@ -109,17 +109,17 @@ public class JobBuilder {
     }
 
     /**
-     * Sets the {@code completedDate} of the {@code Job} that we are building.
+     * Sets the {@code completionDate} of the {@code Job} that we are building.
      */
-    public JobBuilder withCompletedDate(String completedDate) {
-        this.completedDate = new JobDate(completedDate);
+    public JobBuilder withCompletionDate(String completionDate) {
+        this.completionDate = new JobDate(completionDate);
         return this;
     }
 
     /**
      * Sets the {@code fee} of the {@code Job} that we are building.
      */
-    public JobBuilder withCompletedfee(String fee) {
+    public JobBuilder withFee(String fee) {
         this.fee = new JobFee(fee);
         return this;
     }
@@ -128,7 +128,7 @@ public class JobBuilder {
      * Constructs the job object.
      */
     public Job build() {
-        return new Job(jobDescription, client, product, deliveryDate, completionStatus,
-                receivedDate, completedDate, fee);
+        return new Job(jobDescription, client, product, expectedCompletionDate, completionStatus,
+                receivedDate, completionDate, fee);
     }
 }

@@ -44,6 +44,8 @@ public class JobCard extends UiPart<Region> {
     @FXML
     private Label title;
     @FXML
+    private Label expectedCompletionDate;
+    @FXML
     private Label completionDate;
     @FXML
     private StackPane status;
@@ -91,28 +93,23 @@ public class JobCard extends UiPart<Region> {
     private void setJobInfo(Job job, int displayedIndex) {
         id.setText(displayedIndex + ". ");
 
-        String titleText = job.getJobDescription().toString();
-        if (job.getClient() != null) {
-            titleText = titleText + " - " + job.getClient().getName().fullName;
-        }
+        String titleText = job.getJobDescription().toString()
+                + " - " + job.getClient().getName().fullName;;
+
         title.setText(titleText);
 
-        if (job.getJobStatus() != null) {
-            String jobStatus = job.getJobStatus().toString();
-            status.getChildren().add(new Label(jobStatus));
-        }
+        fee.setText("Repair Fee: " + job.getFee());
+
+        String jobStatus = job.getJobStatus().toString();
+        status.getChildren().add(new Label(jobStatus));
 
         receivedDate.setText("Repair Job Received On: " + job.getReceivedDate().toString());
-        if (job.isCompleted()) {
-            completionDate.setText("Date completed:" + job.getCompletedDate().toString());
-        } else {
-            if (job.getDeliveryDate() != null) {
-                completionDate.setText("Expected Delivery: " + job.getDeliveryDate().toString());
-            }
-        }
+        expectedCompletionDate.setText("Expected Completion: " + job.getExpectedCompletionDate().toString());
 
-        if (job.getFee() != null) {
-            fee.setText("Repair Fee: " + job.getFee());
+        if (job.isCompleted()) {
+            completionDate.setText("Completed on:" + job.getCompletionDate().toString());
+        } else {
+            completionDate.setText("Completed on: Not completed yet");
         }
     }
 

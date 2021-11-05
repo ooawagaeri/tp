@@ -18,7 +18,7 @@ public class JobDate {
     /**
      * Constructs a {@code JobDate}.
      *
-     * @param date A string representation of the delivery date.
+     * @param date A string representation of the date.
      */
     public JobDate(String date) {
         requireNonNull(date);
@@ -35,7 +35,7 @@ public class JobDate {
     }
 
     /**
-     * Returns true if the given string for the delivery date conforms to the correct format.
+     * Returns true if the given string for the date conforms to the correct format.
      */
     public static boolean isValidJobDate(String test) {
         try {

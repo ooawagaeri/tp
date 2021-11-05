@@ -196,7 +196,6 @@ public class ParserUtil {
      */
     public static JobFee parseJobFee(String fee) throws ParseException {
         requireNonNull(fee);
-        String trimmedDeliveryDate = fee.trim();
         if (!JobFee.isValidJobFee(fee)) {
             throw new ParseException(JobFee.MESSAGE_CONSTRAINTS);
         }

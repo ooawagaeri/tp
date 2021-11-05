@@ -3,7 +3,7 @@ package seedu.mycrm.logic.parser.jobs;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
@@ -35,8 +35,8 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
     public AddJobCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        Prefix[] mandatoryPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_DELIVERY_DATE };
-        Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_DELIVERY_DATE,
+        Prefix[] mandatoryPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE};
+        Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE,
                 PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
@@ -63,8 +63,8 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
         JobDescription jobDescription = ParserUtil.parseJobDescription(
                 argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get());
 
-        JobDate deliveryDate = ParserUtil.parseJobDate(
-                argMultimap.getValue(PREFIX_DELIVERY_DATE).get());
+        JobDate expectedCompletionDate = ParserUtil.parseJobDate(
+                argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get());
 
         JobFee fee = ParserUtil.parseJobFee(
                 argMultimap.getValue(PREFIX_FEE).get());
@@ -73,7 +73,7 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
                                ? ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get())
                                : JobDate.getCurrentDate();
 
-        Job job = new Job(jobDescription, deliveryDate, receivedDate, fee);
+        Job job = new Job(jobDescription, expectedCompletionDate, receivedDate, fee);
 
         return job;
     }

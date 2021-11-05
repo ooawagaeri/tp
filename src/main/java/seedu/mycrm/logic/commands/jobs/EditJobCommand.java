@@ -2,7 +2,7 @@ package seedu.mycrm.logic.commands.jobs;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
@@ -38,11 +38,12 @@ public class EditJobCommand extends Command {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION] "
         + "[" + PREFIX_FEE + "FEE] "
-        + "[" + PREFIX_DELIVERY_DATE + "DELIVERY DATE] "
+        + "[" + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE] "
         + "[" + PREFIX_RECEIVED_DATE + "RECEIVED DATE] "
         + "[" + PREFIX_CONTACT_INDEX + "CONTACT INDEX]"
         + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_JOB_DESCRIPTION + "Repair laptop screen"
         + PREFIX_JOB_DESCRIPTION + "Repair laptop screen"
         + PREFIX_FEE + "$50.00 ";
 
@@ -101,11 +102,12 @@ public class EditJobCommand extends Command {
 
         JobDescription updatedJobDescription = editJobDescriptor.getJobDescription()
                 .orElse(jobToEdit.getJobDescription());
-        JobDate updatedDeliveryDate = editJobDescriptor.getDeliveryDate().orElse(jobToEdit.getDeliveryDate());
+        JobDate updatedExpectedCompletionDate = editJobDescriptor.getExpectedCompletionDate().orElse(
+                jobToEdit.getExpectedCompletionDate());
         JobDate updatedReceivedDate = editJobDescriptor.getReceivedDate().orElse(jobToEdit.getReceivedDate());
         JobFee updatedFee = editJobDescriptor.getFee().orElse(jobToEdit.getFee());
         JobStatus jobStatus = jobToEdit.getJobStatus();
-        JobDate completedDate = jobToEdit.getCompletedDate();
+        JobDate completionDate = jobToEdit.getCompletionDate();
 
         Index clientIndex = editJobDescriptor.getClientIndex();
         Contact updatedClient = jobToEdit.getClient();
@@ -129,8 +131,8 @@ public class EditJobCommand extends Command {
             updatedProduct = lastShownProductList.get(productIndex.getZeroBased());
         }
 
-        return new Job(updatedJobDescription, updatedClient, updatedProduct, updatedDeliveryDate,
-                jobStatus, updatedReceivedDate, completedDate, updatedFee);
+        return new Job(updatedJobDescription, updatedClient, updatedProduct, updatedExpectedCompletionDate,
+                jobStatus, updatedReceivedDate, completionDate, updatedFee);
     }
 
     @Override
@@ -162,7 +164,7 @@ public class EditJobCommand extends Command {
      */
     public static class EditJobDescriptor {
         private JobDescription jobDescription;
-        private JobDate deliveryDate;
+        private JobDate expectedCompletionDate;
         private JobDate receivedDate;
         private JobFee fee;
         private Index clientIndex;
@@ -177,7 +179,7 @@ public class EditJobCommand extends Command {
          */
         public EditJobDescriptor(EditJobCommand.EditJobDescriptor toCopy) {
             setJobDescription(toCopy.jobDescription);
-            setDeliveryDate(toCopy.deliveryDate);
+            setExpectedCompletionDate(toCopy.expectedCompletionDate);
             setReceivedDate(toCopy.receivedDate);
             setFee(toCopy.fee);
             setClientIndex(toCopy.clientIndex);
@@ -190,7 +192,7 @@ public class EditJobCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(jobDescription, deliveryDate, receivedDate,
+            return CollectionUtil.isAnyNonNull(jobDescription, expectedCompletionDate, receivedDate,
                     fee, clientIndex, productIndex) || shouldEditProduct || shouldEditContact;
         }
 
@@ -202,12 +204,12 @@ public class EditJobCommand extends Command {
             return Optional.ofNullable(jobDescription);
         }
 
-        public void setDeliveryDate(JobDate deliveryDate) {
-            this.deliveryDate = deliveryDate;
+        public void setExpectedCompletionDate(JobDate expectedCompletionDate) {
+            this.expectedCompletionDate = expectedCompletionDate;
         }
 
-        public Optional<JobDate> getDeliveryDate() {
-            return Optional.ofNullable(deliveryDate);
+        public Optional<JobDate> getExpectedCompletionDate() {
+            return Optional.ofNullable(expectedCompletionDate);
         }
 
         public void setReceivedDate(JobDate receivedDate) {
@@ -266,7 +268,7 @@ public class EditJobCommand extends Command {
             EditJobCommand.EditJobDescriptor e = (EditJobCommand.EditJobDescriptor) other;
 
             return getJobDescription().equals(e.getJobDescription())
-                && getDeliveryDate().equals(e.getDeliveryDate())
+                && getExpectedCompletionDate().equals(e.getExpectedCompletionDate())
                 && getReceivedDate().equals(e.getReceivedDate())
                 && getFee().equals(e.getFee())
                 && getClientIndex().equals(e.getClientIndex())

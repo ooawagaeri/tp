@@ -17,8 +17,8 @@ public class Job {
     private Contact client;
     private Product product;
     private JobDate receivedDate;
-    private JobDate completedDate;
-    private JobDate deliveryDate;
+    private JobDate completionDate;
+    private JobDate expectedCompletionDate;
     private JobStatus jobStatus;
     private JobFee fee;
 
@@ -28,21 +28,22 @@ public class Job {
      * @param jobDescription Description of the repair job.
      * @param client The contact object that corresponds to the client making the job request.
      * @param product The product object that is to be repaired.
-     * @param deliveryDate Expected date of delivery of repaired product.
+     * @param expectedCompletionDate Expected date of completion of repaired product.
      * @param jobStatus Repair job's completion status.
      * @param receivedDate Date repair job request was received from client.
-     * @param completedDate Date repair job was completed.
+     * @param completionDate Actual Date repair job was completed.
      * @param fee Fee charged to client for completion of repair.
      */
-    public Job(JobDescription jobDescription, Contact client, Product product, JobDate deliveryDate,
-               JobStatus jobStatus, JobDate receivedDate, JobDate completedDate, JobFee fee) {
+    public Job(JobDescription jobDescription, Contact client, Product product, JobDate expectedCompletionDate,
+            JobStatus jobStatus, JobDate receivedDate, JobDate completionDate, JobFee fee) {
+
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
-        this.deliveryDate = deliveryDate;
+        this.expectedCompletionDate = expectedCompletionDate;
         this.jobStatus = jobStatus;
         this.receivedDate = receivedDate;
-        this.completedDate = completedDate;
+        this.completionDate = completionDate;
         this.fee = fee;
     }
 
@@ -50,19 +51,19 @@ public class Job {
      * Creates a new repair job.
      *
      * @param jobDescription Description of the repair job.
-     * @param deliveryDate Expected date of delivery of repaired product.
+     * @param expectedCompletionDate Expected date of completion of repaired product.
      * @param receivedDate Date repair job request was received from client.
      * @param fee Fee charged to client for completion of repair.
      */
-    public Job(JobDescription jobDescription, JobDate deliveryDate,
-               JobDate receivedDate, JobFee fee) {
+    public Job(JobDescription jobDescription, JobDate expectedCompletionDate,
+            JobDate receivedDate, JobFee fee) {
+
         this.jobDescription = jobDescription;
         this.client = null;
         this.product = null;
-        this.deliveryDate = deliveryDate;
+        this.expectedCompletionDate = expectedCompletionDate;
         this.jobStatus = new JobStatus(false);
         this.receivedDate = receivedDate;
-        this.completedDate = completedDate;
         this.fee = fee;
     }
 
@@ -94,12 +95,12 @@ public class Job {
         return product != null;
     }
 
-    public JobDate getDeliveryDate() {
-        return deliveryDate;
+    public JobDate getExpectedCompletionDate() {
+        return expectedCompletionDate;
     }
 
-    public void setDeliveryDate(JobDate deliveryDate) {
-        this.deliveryDate = deliveryDate;
+    public void setExpectedCompletionDate(JobDate expectedCompletionDate) {
+        this.expectedCompletionDate = expectedCompletionDate;
     }
 
     public JobStatus getJobStatus() {
@@ -114,16 +115,16 @@ public class Job {
         return jobStatus.isCompleted();
     }
 
-    public void markCompleted(JobDate completedDate) {
-        requireNonNull(completedDate);
+    public void markCompleted(JobDate completionDate) {
+        requireNonNull(completionDate);
 
         jobStatus.markCompleted();
-        this.completedDate = completedDate;
+        this.completionDate = completionDate;
     }
 
     public void markIncomplete() {
         jobStatus.markIncomplete();
-        this.completedDate = null;
+        this.completionDate = null;
     }
 
     public JobDate getReceivedDate() {
@@ -134,12 +135,12 @@ public class Job {
         this.receivedDate = receivedDate;
     }
 
-    public JobDate getCompletedDate() {
-        return completedDate;
+    public JobDate getCompletionDate() {
+        return completionDate;
     }
 
-    public void setCompletedDate(JobDate completedDate) {
-        this.completedDate = completedDate;
+    public void setCompletionDate(JobDate completionDate) {
+        this.completionDate = completionDate;
     }
 
     public JobFee getFee() {
@@ -164,10 +165,10 @@ public class Job {
     public boolean isCompletedThisMonth(LocalDate date) {
         requireNonNull(date);
 
-        if (this.getCompletedDate() == null) {
+        if (this.getCompletionDate() == null) {
             return false;
         } else {
-            return this.getCompletedDate().isThisMonth(date);
+            return this.getCompletionDate().isThisMonth(date);
         }
     }
 
@@ -205,16 +206,16 @@ public class Job {
                 && Objects.equals(getJobDescription(), job.getJobDescription())
                 && Objects.equals(getClient(), job.getClient())
                 && Objects.equals(getProduct(), job.getProduct())
-                && Objects.equals(getDeliveryDate(), job.getDeliveryDate())
+                && Objects.equals(getExpectedCompletionDate(), job.getExpectedCompletionDate())
                 && Objects.equals(getReceivedDate(), job.getReceivedDate())
-                && Objects.equals(getCompletedDate(), job.getCompletedDate())
+                && Objects.equals(getCompletionDate(), job.getCompletionDate())
                 && Objects.equals(getFee(), job.getFee());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getJobDescription(), getClient(), getProduct(), getDeliveryDate(),
-                getJobStatus(), getReceivedDate(), getCompletedDate(), getFee());
+        return Objects.hash(getJobDescription(), getClient(), getProduct(), getExpectedCompletionDate(),
+                getJobStatus(), getReceivedDate(), getCompletionDate(), getFee());
     }
 
     @Override

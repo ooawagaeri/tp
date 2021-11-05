@@ -80,13 +80,13 @@ hardware and software issues. Also has multiple repair-phases which have to be u
 
 Adds a new repair job to the CRM.
 
-Format: `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+Format: `addJob d/DESCRIPTION by/EXPECTED_COMPLETION_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
 Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Creates a new repair job.
 * Links the contact and product that correspond to `CONTACT_INDEX` and `PRODUCT_INDEX` (in the respective contact 
   and product list) to the job.
-* `DELIVERY_DATE` refers to the date by which the repair expected to be completed and delivered back to the client.
+* `EXPECTED_COMPLETION_DATE` refers to the date by which the repair expected to be completed.
 * `FEE` refers to the repair fee charged to the client.
 * `RECIEVED_DATE` refers to the date the repair job request was received from the client. If not provided, it is by default,
   set to the date the job is created in MyCRM.
@@ -127,7 +127,7 @@ Examples:
 
 Edits an existing repair job to the CRM.
 
-Format: `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
+Format: `editJob INDEX [d/DESCRIPTION] [by/EXPECTED_COMPLETION_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]`
 Format of special subcommands: `select INDEX` and `abort` (details on subcommand usage below)
 
 * Edits the repair job at the specified `INDEX`
@@ -617,8 +617,8 @@ contains the data of your previous MyCRM home folder.
 
 Action              | Format, Examples
 --------------------|------------------
-**Add Job**         | `addJob d/DESCRIPTION by/DELIVERY_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g.,`addJob d/CPU replacement needed c/1 p/1 by/15/09/2021 fee/30.00`
-**Edit Job**        | `editJob INDEX [d/DESCRIPTION] [by/DELIVERY_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g., `editJob 1 fee/50.00 c/2 p/3`
+**Add Job**         | `addJob d/DESCRIPTION by/EXPECTED_COMPLETION_DATE fee/FEE [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g.,`addJob d/CPU replacement needed c/1 p/1 by/15/09/2021 fee/30.00`
+**Edit Job**        | `editJob INDEX [d/DESCRIPTION] [by/EXPECTED_COMPLETION_DATE] [fee/FEE] [recv/RECIEVED_DATE] [c/CONTACT_INDEX] [p/PRODUCT_INDEX]` <br>e.g., `editJob 1 fee/50.00 c/2 p/3`
 **List Job**        | `listJob`
 **Find Job**        | `findJob [MORE_KEYWORDS]... ` <br> e.g., `findJob charlotte intel`
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`

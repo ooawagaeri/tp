@@ -5,13 +5,12 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
-import java.util.stream.Stream;
 import java.util.function.Consumer;
 
 import seedu.mycrm.commons.core.index.Index;
@@ -32,7 +31,7 @@ public class EditJobCommandParser {
     public EditJobCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_DELIVERY_DATE,
+        Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE,
                 PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
@@ -62,9 +61,9 @@ public class EditJobCommandParser {
                 ParserUtil.parseJobDescription(argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_DELIVERY_DATE).isPresent()) {
-            editJobDescriptor.setDeliveryDate(
-                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_DELIVERY_DATE).get()));
+        if (argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).isPresent()) {
+            editJobDescriptor.setExpectedCompletionDate(
+                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_RECEIVED_DATE).isPresent()) {
@@ -91,14 +90,6 @@ public class EditJobCommandParser {
         }
 
         return editJobDescriptor;
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     private void parseEntityIndex (ArgumentMultimap argMultimap, Prefix indexPrefix, String errorMessage,
