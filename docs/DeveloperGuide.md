@@ -276,7 +276,7 @@ Given below is an example usage scenario and how the **Finding a Contact** mecha
 Within `FindContactCommandParser#parse`,
 - `Keywords` must be presented. (At least one trim of String)
 
-`FindcontactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+`FindContactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
 in order for MyCRM to find corresponding contacts with these keywords as predicate.
 
 ![](images/contact/FindContactSequenceDiagram.png)
@@ -455,6 +455,32 @@ Within `DeleteTemplateCommandParser#parse`,
 - `ParserUtil#parseIndex` will be called to extract the index of the specified template to delete.
 
 ![](images/mail/DeleteTemplateSequenceDiagram.png)
+
+### Finding a Template
+
+#### Implementation
+
+The Finding a Template mechanism is facilitated by `MyCRM`. This mechanism finds specific list of template object 
+from `UniqueTemplateList` inside the `MyCRM` object with certain keywords provided.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findTemplate` command behave when executed by a user:
+
+![](images/mail/FindTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Finding a Template mechanism behaves at each step.
+
+![](images/mail/FindTemplateParseSequenceDiagram.png)
+
+Within `FindTemplateCommandParser#parse`,
+-  At least one keyword must be presented.
+-  Keyword specified must be whole word.
+
+`FindTemplateCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding templates with these keywords as predicate.
+
+![](images/mail/FindTemplateSequenceDiagram.png)
 
 ### Constructing an Email
 
