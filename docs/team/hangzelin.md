@@ -9,28 +9,25 @@ MyCRM is a desktop application for managing client contacts, repair job statuses
 
 Given below are my contributions to the project.
 
-* **Enhancements implemented**:
-  * **Enhancements to existing features**:
-    * Modified old contacts in **AddressBook** to `addContact`, `editContact`, `findContact`, `deleteContact` and `listContact` commands.
+  * **Enhancements to existing features**: Modified old contacts in **AddressBook** to `addContact`, `editContact`, `findContact`, `deleteContact` and `listContact` commands.
       * What it does: Allows users to make basic operations in **contact** part of **MyCRM**.
       * Justification: These add, edit, find etc. commands are now viewed as only a part of commands in **MyCRM** system,
       and served as commands specific towards **contact** part in **MyCRM**. Besides, a contact is no longer viewed as normal
       friends in addressBook, but a cooperation partner, so information given should be working official.  
       * Credits: These modifications follow the design pattern in **AddressBook**.
-    * Enhanced `addContact` command to support **optional** fields.
+  * **Enhancements to existing features**: Enhanced `addContact` command to support **optional** fields.
       * What it does: Allows users to enter partial information of a client.
       * Justification: A client may consider his own privacy issue, thus **MyCRM** should allow a client to conceal 
       part of his/her information.
-    * Enhanced `listContact` command to be able to list **unhidden** or **all** contacts in the list.
+  * **Enhancements to existing features**: Enhanced `listContact` command to be able to list **unhidden** or **all** contacts in the list.
       * Justification: Since there are hidden clients in the list, normal `listContact` only support viewing unhidden
       contacts in the list. Therefore, a different **listContact** command is needed if a user requires to see all contacts
       in the list.
-    * Enhanced `deleteContact` command to disable deletion of a contact if it is already linked to a job.
+  * **Enhancements to existing features**:  Enhanced `deleteContact` command to disable deletion of a contact if it is already linked to a job.
       * Justification: It is not reasonable if a user requires to delete a client in **MyCRM** when the job
       linked to this client has not been completed yet.
   <br><br>
-  * **New Features**:
-    * Added `hideContact` and `undoHideContact` command to Contact part of **MyCRM**:
+  * **New Features**: Added `hideContact` and `undoHideContact` command to Contact part of **MyCRM**:
       * What it does: Allows users to hide unused contacts in MyCRM. Users can type `undoHideContact` to set this client back 
       to **not hidden** state. A hidden contact will have a new tag **hidden**, indicating that this client is currently unused,
       and not visible in the normal contact list.
@@ -39,7 +36,7 @@ Given below are my contributions to the project.
       They can also set hidden clients back to visible easily with these two commands.
       * Highlights: This enhancement affect the visibility of contact list. It requires further changes in
       other contact commands if users want to view this contact or make operations upon it.
-    * Added `findContact` command to Job part.
+  * **New Features**: Added `findJob` command to Job part.
       * What it does: Allows users to find certain jobs via a job's description, client name, 
       product name linked to it or completion status.
       * Justification: This feature improves the MyCRM's efficiency when accessing jobs. Users can easily locate
