@@ -24,7 +24,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label" wrapText="true" />
             </HBox>
             <Label fx:id="type" styleClass="cell_small_label" text="\$type" wrapText="true"/>
             <Label fx:id="manufacturer" styleClass="cell_small_label" text="\$manufacturer" wrapText="true"/>
