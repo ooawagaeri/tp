@@ -544,7 +544,7 @@ component objects: name, type, manufacturer, description.
 
 **Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
 
-![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](images/product/AddProductSequenceDiagram_Parse.png)
+![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
 
 ### Editing a Product
 
@@ -562,7 +562,7 @@ The activity diagram below illustrates how the events of `editProduct` command b
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](images/product/EditProductSequenceDiagram.png)
+![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
 
 **Parse user input**
 
@@ -574,7 +574,7 @@ Within `EditProductCommandParser#parse`,
 `ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input 
 respectively.
 
-![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](images/product/EditProductSequenceDiagram_Parse.png)
+![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
 
 **Updates product references in jobs**
 
