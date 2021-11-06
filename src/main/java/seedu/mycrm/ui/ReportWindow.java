@@ -109,8 +109,18 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Align the Ui theme of report window with main window.
+     */
     public void changeTheme(String themeName) {
         themeManager.changeTheme(themeName);
+    }
+
+    /**
+     * Focuses on the corresponding tab of command flag.
+     */
+    public void switchTab(String flag) {
+        jobDisplay.switchTab(flag);
     }
 
     /**
