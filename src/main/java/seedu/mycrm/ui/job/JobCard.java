@@ -107,9 +107,7 @@ public class JobCard extends UiPart<Region> {
         expectedCompletionDate.setText("Expected Completion: " + job.getExpectedCompletionDate().toString());
 
         if (job.isCompleted()) {
-            completionDate.setText("Completed on:" + job.getCompletionDate().toString());
-        } else {
-            completionDate.setText("Completed on: Not completed yet");
+            completionDate.setText("Completed on: " + job.getCompletionDate().toString());
         }
     }
 

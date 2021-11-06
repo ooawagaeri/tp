@@ -57,6 +57,10 @@ public class CompleteJobCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETE_REQUEST);
         }
 
+        if(completionDate.value.isBefore(jobToMarkComplete.getReceivedDate().value)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETION_DATE);
+        }
+
         jobToMarkComplete.markCompleted(completionDate);
 
         model.setJob(jobToMarkComplete, jobToMarkComplete);

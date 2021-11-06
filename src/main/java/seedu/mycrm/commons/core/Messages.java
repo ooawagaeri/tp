@@ -18,6 +18,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX = "The product index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_DISPLAYED_INDEX = "The job index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_COMPLETE_REQUEST = "The job has already been completed!";
+    public static final String MESSAGE_INVALID_JOB_EXPECTED_COMPLETION_DATE = "Job's expected completion date cannot "
+            + "be before its received date. Please provide a valid expected completion date or change the job's received date.";
+    public static final String MESSAGE_INVALID_JOB_COMPLETION_DATE = "Job's completion date cannot be before "
+            + "its received date. Please provide a valid completion date or change the job's received date.";
     public static final String MESSAGE_INVALID_JOB_UNDO_COMPLETE_REQUEST = "The job has not been completed yet!";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_JOBS_LISTED_OVERVIEW = "%1$d jobs listed!";

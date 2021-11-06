@@ -1,6 +1,7 @@
 package seedu.mycrm.logic.commands.jobs;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_JOB_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
@@ -63,6 +64,10 @@ public class AddJobCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd.getExpectedCompletionDate().value.isBefore(toAdd.getReceivedDate().value)) {
+            throw new CommandException(MESSAGE_INVALID_JOB_EXPECTED_COMPLETION_DATE);
+        }
 
         linkContactToJob(toAdd, model.getFilteredContactList());
         linkProductToJob(toAdd, model.getFilteredProductList());

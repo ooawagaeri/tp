@@ -34,6 +34,7 @@
             <StackPane fx:id="status" alignment="CENTER_LEFT" />
             <Label fx:id="fee" styleClass="cell_small_label" />
             <Label fx:id="receivedDate" styleClass="cell_small_label" />
+            <Label fx:id="expectedCompletionDate" styleClass="cell_small_label" />
             <Label fx:id="completionDate" styleClass="cell_small_label" />
         </VBox>
     </VBox>

@@ -82,6 +82,16 @@ public class EditJobCommand extends Command {
         Job jobToEdit = lastShownJobList.get(index.getZeroBased());
         Job editedJob = createEditedJob(jobToEdit, editJobDescriptor, lastShownContactList, lastShownProductList);
 
+
+        if (editedJob.getExpectedCompletionDate().value.isBefore(editedJob.getReceivedDate().value)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_EXPECTED_COMPLETION_DATE);
+        }
+
+        if (editedJob.isCompleted() && editedJob.getCompletionDate().value.isBefore(
+                editedJob.getReceivedDate().value)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETION_DATE);
+        }
+
         if (!jobToEdit.isSameJob(editedJob) && model.hasJob(editedJob)) {
             throw new CommandException(MESSAGE_DUPLICATE_JOB);
         }
