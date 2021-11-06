@@ -188,9 +188,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handlePrintReport() {
+    private void handlePrintReport(String commandFlag) {
         reportWindow.fillInnerParts();
         reportWindow.changeTheme(themeManager.getThemeName());
+        reportWindow.switchTab(commandFlag);
         if (!reportWindow.isShowing()) {
             reportWindow.show();
         } else {
@@ -260,7 +261,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case REPORT:
-                handlePrintReport();
+                handlePrintReport(commandResult.getCommandFlag());
                 break;
 
             case EXPORT:

@@ -590,10 +590,12 @@ Example: `theme light`
 
 Prints a report of all jobs within current month.
 
-Format: `printReport`
+Format: `printReport [-i] [-p]`
 
-* Switches between different tabs by using 'Right/Left Arrow Key' or clicking corresponding tab.
-
+* To show a report window with monthly in-progress jobs list, the command `printReport -i` can be issued
+* To show a report window with monthly top-three products list, the command `printReport -p` can be issued
+* MyCRM will show a report window with monthly completed job list by default
+  
   <img src="images/ui-print-monthly.png" width="600px">
 
 ### Export monthly report
@@ -605,6 +607,10 @@ Format: Click on "Print" / `exportReport`
   <img src="images/ui-page-setup.png" width="200px">
 
   <img src="images/ui-printer.png" width="300px">
+  (for Windows OS)
+  <br><br>
+  <img src="images/ui-printer-for-macos.png" width="300px">
+  (for Mac OS)
 
 --------------------------------------------------------------------------------------------------------------------
 
