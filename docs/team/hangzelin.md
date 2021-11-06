@@ -90,3 +90,10 @@ Given below are my contributions to the project.
 * **Community**:
     * Helped changed **completion status of a job** into a new component in Job model.
       (pull requests: [\#77](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/77))
+    
+    * Reported bugs and suggestions for other teams in the class (examples:
+      [120](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/120), [121](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/121),
+      [122](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/122), [123](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/123),
+      [124](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/124), [125](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/125),
+      [126](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/126), [127](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/127),
+      [128](https://github.com/AY2122S1-CS2103-F09-4/tp/issues/128))
