@@ -1,0 +1,33 @@
+@startuml
+title Activity: add product
+start
+:User executes add product command;
+:MyCRM parses user inputs;
+if () then ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful message;
+else ([Valid inputs])
+    fork
+    :Creates new **Name**;
+    fork again
+    :(Optional)
+    Creates new Type;
+    fork again
+    : (Optional)
+    Creates new Manufacturer;
+    fork again
+    : (Optional)
+    Creates new Description;
+    end fork
+if () then ([Duplicate name])
+    :Throws CommandException;
+    :Displays unsuccessful message;
+else ([else])
+    :Creates new product;
+    :Stores product into MyCRM;
+    :Displays successful message;
+endif
+endif
+stop
+
+@enduml
