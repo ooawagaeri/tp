@@ -1262,6 +1262,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
+**Use case: UC29 - Export monthly job records and statistics**
+
+**MSS**
+
+1. User requests to export monthly job report.
+2. MyCRM show the page setup dialog and print dialog.
+
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -1750,3 +1758,88 @@ testers are expected to do more *exploratory* testing.
        <br>Expected:
         - Similar to (1)
         - Side panel will list all products.
+
+### Retrieving history command
+    
+1. Retrieving all history commands in a list.
+
+    1. Test case: `history`
+        <br>Expected:
+        - All previously entered commands are shown in side panel.
+
+2. Retrieving the most recent history command.
+
+    1. Prerequisites: At least two commands are entered i.e. `listProduct`, `anything`, etc.
+    
+    2. Test case: "Press up arrow key"
+        <br>Expected:
+        - The most recent history command will appear in command box.
+    
+    3. Test case: "Press up arrow key twice"
+        <br>Expected:
+        - The command before the last one will appear in command box.
+    
+    4. Test case: "Press up arrow key twice and then press down arrow key"
+        <br>Expected:
+        - The last entered command will appear in command box.
+
+### Printing out monthly job report
+
+1. Printing out monthly job report while report window is not shown.
+
+    1. Prerequisites: At least one contact is added to MyCRM 
+       <br>i.e. `addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell Chambers 32 Maxwell Rd`
+       <br>two jobs are added to MyCRM 
+       <br>i.e. `addJob d/Change CPU fee/$50 by/10/11/2021 c/1 p/2`, `addJob d/Change GPU fee/$55 by/11/11/2021 c/1 p/1`
+       <br>and two products are added to MyCRM.
+       <br>i.e. `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`, `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
+       <br>Then marking one job as completed
+       <br>i.e. `completeJob 1`
+       
+    2. Test case: `printReport`
+        <br>Expected:
+        - The report window will pop up.
+        - The report window will show the monthly completed jobs in a list and a bar graph indicating the monthly revenue for last four months of this year and last year. 
+    
+    3. Test case: `printReport -i`
+        <br>Expected；
+        - The report window will pop up.
+        - The report window will show the incompleted jobs received in this month and a bar graph similar to last test case.
+    
+    4. Test case: `printReport -p`
+        <br>Expected:
+        - The report window will pop up.
+        - The report window will show the top three popular product received in this month and a bar graph similar to last test case.
+
+2. Printing out monthly job report while report window is shown but minimized.
+
+    1.Prerequisites: Similar to (1) but minimize the report window.
+
+    2. Test case similar to (1)
+        <br>Expected:
+        - Similar to (1)
+        - The report window is focused.
+
+### Exporting monthly job report
+
+1. Exporting monthly job report while report window is opened.
+
+    1. Prerequisites: Open report window i.e. `printReport`.
+    
+    2. Test case: "Click on the Print button"
+        <br>Expected:
+        - MyCRM will show a page setup page and print page (on WindowsOS).
+        - MyCRM will show a print page (on MacOS).
+    
+2. Exporting monthly job report while report window is not opened.
+
+    1. Prerequisites: Not open report window beforehand.
+
+    1. Test case: `exportReport`
+        <br>Expected:
+        - Similar to (1),
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** *Print* button might not always work for MacOS users.
+
+</div>
+        
