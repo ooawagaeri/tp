@@ -1,6 +1,5 @@
 @startuml
 start
-title Activity: edit product
 :User executes edit product command;
 :MyCRM parses user inputs;
 if () then ([Invalid Input])

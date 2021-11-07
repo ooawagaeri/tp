@@ -530,11 +530,11 @@ The **Adding a Product** mechanism is facilitated by `MyCRM`. This product creat
 
 The activity diagram below illustrates how the events of `addProduct` command behave when executed by user:
 
-![![Activity diagram of add product](images/product/AddProductActivityDiagram.png)](images/product/AddProductActivityDiagram.png)
+![Activity diagram of add product](images/product/AddProductActivityDiagram.png)]
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)](images/product/AddProductSequenceDiagram.png)
+![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)]
 
 **Parse user input**
 
@@ -544,7 +544,7 @@ component objects: name, type, manufacturer, description.
 
 **Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
 
-![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
+[![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
 
 ### Editing a Product
 
@@ -558,11 +558,11 @@ product</u>. Lastly, it replaces the target product with the new one, updates it
 
 The activity diagram below illustrates how the events of `editProduct` command behave when executed by user:
 
-![![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)](images/product/EditProductActivityDiagram.png)
+![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
+[![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
 
 **Parse user input**
 
@@ -574,7 +574,7 @@ Within `EditProductCommandParser#parse`,
 `ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input 
 respectively.
 
-![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
+[![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
 
 **Updates product references in jobs**
 
@@ -589,7 +589,7 @@ restored.
 `Model`. `EditProductCommand` is implemented in the other way as directly accessing and modifying `UniqueJobList` leads to an
 association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
 
-![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Sync.png)](images/product/EditProductSequenceDiagram_Sync.png)
+![Sequence diagram of update product references](images/product/EditProductSequenceDiagram_Sync.png)
 
 
 
@@ -1302,6 +1302,13 @@ testers are expected to do more *exploratory* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
+
+1. Saving theme preferences
+
+    1. [Choose a theme](UserGuide.md#changing-the-theme-of-user-interface-theme) of GUI. Close the window.
+
+    1. Re-launch the app by double-clicking the jar file.<br>
+       Expected: The most recent theme is retained.
 
 1. _{ more test cases …​ }_
 
