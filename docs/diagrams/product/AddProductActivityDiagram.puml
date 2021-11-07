@@ -1,5 +1,4 @@
 @startuml
-title Activity: add product
 start
 :User executes add product command;
 :MyCRM parses user inputs;

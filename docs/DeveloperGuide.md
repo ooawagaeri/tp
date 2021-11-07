@@ -123,8 +123,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-
+![](images/ModelClassDiagram.png)
 
 The `Model` component,
 
@@ -532,11 +531,11 @@ The **Adding a Product** mechanism is facilitated by `MyCRM`. This product creat
 
 The activity diagram below illustrates how the events of `addProduct` command behave when executed by user:
 
-![![Activity diagram of add product](images/product/AddProductActivityDiagram.png)](images/product/AddProductActivityDiagram.png)
+![Activity diagram of add product](images/product/AddProductActivityDiagram.png)]
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)](images/product/AddProductSequenceDiagram.png)
+![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)]
 
 **Parse user input**
 
@@ -546,7 +545,7 @@ component objects: name, type, manufacturer, description.
 
 **Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
 
-![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
+[![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
 
 ### Editing a Product
 
@@ -560,11 +559,11 @@ product</u>. Lastly, it replaces the target product with the new one, updates it
 
 The activity diagram below illustrates how the events of `editProduct` command behave when executed by user:
 
-![![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)](images/product/EditProductActivityDiagram.png)
+![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
+[![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
 
 **Parse user input**
 
@@ -576,7 +575,7 @@ Within `EditProductCommandParser#parse`,
 `ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input 
 respectively.
 
-![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
+[![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
 
 **Updates product references in jobs**
 
@@ -591,7 +590,7 @@ restored.
 `Model`. `EditProductCommand` is implemented in the other way as directly accessing and modifying `UniqueJobList` leads to an
 association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
 
-![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Sync.png)](images/product/EditProductSequenceDiagram_Sync.png)
+![Sequence diagram of update product references](images/product/EditProductSequenceDiagram_Sync.png)
 
 
 
@@ -1316,6 +1315,15 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file.
       <br>Expected: The most recent window size and location is retained.
 
+1. Saving theme preferences
+
+    1. [Choose a theme](UserGuide.md#changing-the-theme-of-user-interface-theme) of GUI. Close the window.
+
+    1. Re-launch the app by double-clicking the jar file.<br>
+       Expected: The most recent theme is retained.
+
+1. _{ more test cases …​ }_
+
 ### Shutdown
 
 1. Exiting application
@@ -1566,3 +1574,179 @@ testers are expected to do more *exploratory* testing.
     6. Other incorrect test cases: Customising contact, template, product, job
         1. Similar to adding incorrect contact, template, product, job test case
            <br>Expected: The application will not load any data, empty content.
+           
+### Adding product
+
+1. Inserting a product while all products are being shown
+    
+    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
+        
+    2. Test case: `addProduct n/new product one t/GPU m/Asus`
+    <br> Expected: 
+       - New product is added to the list.
+       - Details of product shown in status message.  
+
+    3. Test case: `addProduct n/new product two`
+       <br> Expected:
+        - Similar to previous. 
+
+    4. Test case: `addProduct n/ t/CPU m/Intel`
+       <br> Expected:
+        - No product is added.
+        - Format error details is show in status message.  
+
+   5. Test case: `addProduct n/duplicate_product_name t/Motherboard m/Asus`
+      <br> Expected:
+       - No product is added.
+       - Duplicate error details is shown in status message. 
+
+2. Inserting a product while all products are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all products.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will NOT list all products. Remains at current list.
+    
+### Editing product
+
+1. Editing a product while all products are being shown
+   
+    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
+
+    2. Test case: `editProduct 2 d/Video output interface: DisplayPort, HDMI`
+       <br> Expected:
+        - Second product is updated to the list.
+        - Details of product shown in status message.
+
+    3. Test case: `editProduct 2 m/GIGABYTE`
+       <br> Expected:
+        - Similar to previous.
+
+    4. Test case: `editProduct 2 n/duplicate product name`
+       <br> Expected:
+        - No product is edited.
+        - Duplicate error details is shown in status message.
+    
+    5. Test case: `editProduct 0 m/GIGABYTE`
+       <br> Expected:
+        - No product is edited.
+        - Format error details is show in status message.  
+
+2. Editing a product while all products are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all products.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will NOT list all products. Remains at current list.
+
+### Editing product
+
+1. Editing a product while all products are being shown
+
+    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
+
+    2. Test case: `editProduct 2 d/Video output interface: DisplayPort, HDMI`
+       <br> Expected:
+        - Second product is updated to the list.
+        - Details of product shown in status message.
+
+    3. Test case: `editProduct 2 m/GIGABYTE`
+       <br> Expected:
+        - Similar to previous.
+
+    4. Test case: `editProduct 2 n/duplicate product name`
+       <br> Expected:
+        - No product is edited.
+        - Duplicate error details is shown in status message.
+
+    5. Test case: `editProduct 0 m/GIGABYTE`
+       <br> Expected:
+        - No product is edited.
+        - Format error details is show in status message.
+
+2. Editing a product while all products are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all products.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will NOT list all products. Remains at current list.
+
+### Deleting Product
+
+1. Deleting a product while all products are being shown.
+
+    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
+
+    2. Test case: `deleteProduct 1`
+       <br>Expected:
+        - First product is deleted to the list.
+        - Details of product shown in status message.
+
+    3. Test case: `deleteProduct 0`
+       <br>Expected:
+        - No product is deleted.
+        - Format error details is shown in status message.
+
+2. Deleting a product while all products are not shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all products.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will NOT list all products. Remains at current list.
+
+### Finding product
+
+1. Finding a product while all products are being shown.
+
+    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
+
+    2. Test case: `findProduct Asus`
+       <br>Expected:
+        - Matching products are shown on list.
+        - Number of product found shown in status message.
+
+    3. Test case: `findProduct Asus gpu`
+       <br>Expected:
+        - Similar to previous
+
+    3. Test case: `findProduct @`
+       <br>Expected:
+        - No matching products are shown on list.
+        - Zero products found shown in status message.
+
+2. Finding a product while all products are not shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all products.
