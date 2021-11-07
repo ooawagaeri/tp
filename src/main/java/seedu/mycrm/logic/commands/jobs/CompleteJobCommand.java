@@ -44,6 +44,7 @@ public class CompleteJobCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
+
         List<Job> lastShownList = model.getFilteredJobList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -56,14 +57,16 @@ public class CompleteJobCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETE_REQUEST);
         }
 
-        jobToMarkComplete.markCompleted();
-        if (completionDate != null) {
-            jobToMarkComplete.setCompletedDate(completionDate);
-        } else {
-            jobToMarkComplete.setCompletedDate(JobDate.getCurrentDate());
+        if (completionDate.value.isBefore(jobToMarkComplete.getReceivedDate().value)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETION_DATE);
         }
-        model.setJob(jobToMarkComplete, jobToMarkComplete);
+
+        Job copiedJob = new Job(jobToMarkComplete);
+        copiedJob.markCompleted(completionDate);
+
+        model.setJob(jobToMarkComplete, copiedJob);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToMarkComplete), COMMAND_TYPE);
     }
 

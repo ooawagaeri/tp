@@ -91,11 +91,11 @@ public class Printable extends UiPart<VBox> {
     private String getJobInfo(Job j) {
         String repairFee = "Repair Fee:" + j.getFee();
         String jobReceivedDate = "Repair Job Received On: " + j.getReceivedDate().toString();
-        String expectedDelivery = " Expected Delivery" + j.getDeliveryDate().toString();
+        String expectedCompletionDate = "Expected Completion" + j.getExpectedCompletionDate().toString();
 
         return repairFee + "\n"
                 + jobReceivedDate + "\n"
-                + expectedDelivery;
+                + expectedCompletionDate;
 
     }
 

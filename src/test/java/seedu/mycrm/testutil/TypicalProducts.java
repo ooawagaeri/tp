@@ -12,7 +12,9 @@ public class TypicalProducts {
     public static final Product INTEL_CPU = new ProductBuilder(ProductBuilder.DefaultProductIndex.TWO).build();
     public static final Product SAMSUNG_SSD = new ProductBuilder(ProductBuilder.DefaultProductIndex.THREE).build();
 
-    private static final Job asusLinkedJob = new JobBuilder(TypicalJobs.INCOMPLETED).withProduct(ASUS_GPU).build();
+    private static final Job INCOMPLETED = new JobBuilder().build();
+
+    private static final Job asusLinkedJob = new JobBuilder(INCOMPLETED).withProduct(ASUS_GPU).build();
 
     /**
      * Returns a {@code MyCrm} object with all the typical products.
