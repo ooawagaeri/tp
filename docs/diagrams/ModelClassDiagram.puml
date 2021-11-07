@@ -34,12 +34,15 @@ Class Mail
 
 Class Job
 
+package "Product" #F4F6F6{
 Class UniqueProductList
 Class Product
 Class ProductName
 Class Type
 Class Manufacturer
 Class Description
+}
+
 }
 
 Class HiddenOutside #FFFFFF
@@ -78,10 +81,7 @@ Address -[hidden]right-> Email
 Subject -[hidden]right-> Body
 ModelManager -[hidden]down-> UniquePersonList
 
-ModelManager -->"~* filtered" Person
-ModelManager -->"~* filtered" Template
-ModelManager -->"~* filtered" Mail
-
+' Product section
 UniqueProductList -[hidden]left- UniquePersonList
 ProductName -[hidden]down- Type
 Manufacturer -[hidden]down- Description
@@ -91,4 +91,10 @@ Product *--> "1" ProductName
 Product *--> "1" Type
 Product *--> "1" Description
 Product *--> "1" Manufacturer
+
+ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Template
+ModelManager -->"~* filtered" Mail
+ModelManager -->"~* filtered" Product
+
 @enduml
