@@ -609,7 +609,7 @@ Format: Click on "Print" / `exportReport`
   <img src="images/ui-printer.png" width="300px">
   (for Windows OS)
   <br><br>
-  <img src="images/ui-printer-for-macos.png" width="300px">
+  <img src="images/ui-printer-macos.png" width="300px">
   (for Mac OS)
 
 --------------------------------------------------------------------------------------------------------------------

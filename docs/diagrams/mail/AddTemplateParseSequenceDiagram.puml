@@ -13,11 +13,11 @@ participant "s:Subject" as Subject MODEL_COLOR
 participant "b:Body" as Body MODEL_COLOR
 participant "t:Template" as Template MODEL_COLOR
 end box
-[-> LogicManager : execute("addTemplate s/Completed b/Dear customer...")
+[-> LogicManager : execute("addTemplate s/Completed b/Dear...")
 activate LogicManager
 
 group sd parse add template
-LogicManager -> MyCrmParser : parseCommand("addTemplate s/Completed b/Dear customer...")
+LogicManager -> MyCrmParser : parseCommand("addTemplate s/Completed b/Dear...")
 activate MyCrmParser
 
 create AddTemplateCommandParser
@@ -27,7 +27,7 @@ activate AddTemplateCommandParser
 AddTemplateCommandParser --> MyCrmParser
 deactivate AddTemplateCommandParser
 
-MyCrmParser -> AddTemplateCommandParser : parse("s/Completed b/Dear customer...")
+MyCrmParser -> AddTemplateCommandParser : parse("s/Completed b/Dear...")
 activate AddTemplateCommandParser
 
 create Subject
@@ -37,7 +37,7 @@ Subject --> AddTemplateCommandParser : s
 deactivate Subject
 
 create Body
-AddTemplateCommandParser -> Body : "Dear customer..."
+AddTemplateCommandParser -> Body : "Dear..."
 activate Body
 Body --> AddTemplateCommandParser : b
 deactivate Body

@@ -24,12 +24,18 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip 1:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+
+:bulb: **Tip 2:** Each of the following sequence and activity diagram can be enlarged by CLICKING on the respective 
+images!
+
 </div>
 
 ### Architecture
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ArchitectureDiagram.png">
 <img src="images/ArchitectureDiagram.png" width="280" />
+</a>
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -55,7 +61,9 @@ The rest of the App consists of four components.
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ArchitectureSequenceDiagram.png">
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
+</a>
 
 Each of the four main components (also shown in the diagram above),
 
@@ -64,7 +72,9 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ComponentManagers.png">
 <img src="images/ComponentManagers.png" width="300" />
+</a>
 
 The sections below give more details of each component.
 
@@ -97,7 +107,9 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/LogicClassDiagram.png">
 <img src="images/LogicClassDiagram.png" width="550"/>
+</a>
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
@@ -107,14 +119,16 @@ How the `Logic` component works:
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+[![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ParserClasses.png">
 <img src="images/ParserClasses.png" width="600"/>
+</a>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -123,8 +137,9 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelClassDiagram.png">
 <img src="images/ModelClassDiagram.png" width="450" />
-
+</a>
 
 The `Model` component,
 
@@ -135,7 +150,9 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/BetterModelClassDiagram.png">
 <img src="images/BetterModelClassDiagram.png" width="450" />
+</a>
 
 </div>
 
@@ -144,7 +161,9 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/StorageClassDiagram.png">
 <img src="images/StorageClassDiagram.png" width="550" />
+</a>
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
@@ -367,29 +386,26 @@ If not, by default `listContact` will only show not hidden contacts in contact l
 
 #### Implementation
 
-The Adding a Template mechanism is facilitated by `MyCRM`. This template created is stored internally using
+The **Adding a Template** mechanism is facilitated by `MyCRM`. This template created is stored internally using
 `UniqueTemplateList` inside the `MyCRM` object. 
 
 #### Usage
 
 The activity diagram below illustrates how the events of `addTemplate` command behave when executed by user:
 
-![](images/mail/AddTemplateActivityDiagram.png)
+[![](images/mail/AddTemplateActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/AddTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Adding a Template mechanism behaves at each step.
 
-![](images/mail/AddTemplateParseSequenceDiagram.png)
+[![](images/mail/AddTemplateParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/AddTemplateParseSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for 
-`AddTemplateCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline 
-reaches the end of diagram.
-</div>
+**Parse user input**
 
 Within `AddTemplateCommandParser#parse`, `ParserUtil#parseSubject` will be called to create a subject using 
 "Completed", `ParserUtil#parseBody` to create a body using "Dear customer..." and create a template using the new
 subject and body.
 
-![](images/mail/AddTemplateSequenceDiagram.png)
+[![](images/mail/AddTemplateSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/AddTemplateSequenceDiagram.png)
 
 Additionally, before adding the new template into `Model`, `Template t` will be checked if a similar copy exist
 within `Model`. The conditions required is:
@@ -413,18 +429,20 @@ within `Model`. The conditions required is:
 
 #### Implementation
 
-The Editing a Template mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target template 
+The **Editing a Template** mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target template 
 object from `UniqueTemplateList` inside the `MyCRM` object.
 
 #### Usage
 
 The activity diagram below illustrates how the events of `editTemplate` command behave when executed by user:
 
-![](images/mail/EditTemplateActivityDiagram.png)
+[![](images/mail/EditTemplateActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/EditTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Editing a Template mechanism behaves at each step.
 
-![](images/mail/EditTemplateParseSequenceDiagram.png)
+[![](images/mail/EditTemplateParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/EditTemplateParseSequenceDiagram.png)
+
+**Parse user input**
 
 Within `EditTemplateCommandParser#parse`,
 - `Index` must be is valid (within the range of templates).
@@ -434,48 +452,52 @@ Within `EditTemplateCommandParser#parse`,
 `ArgumentMultimap#getValue` to extract both `Subject` and `Body`: "Completed" and "Order Completed!" from the 
 command string respectively.
 
-![](images/mail/EditTemplateSequenceDiagram.png)
+[![](images/mail/EditTemplateSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/EditTemplateSequenceDiagram.png)
 
 ### Deleting a Template
 
 #### Implementation
 
-The Deleting a Template mechanism is facilitated by `MyCRM`. This template removes a target template object from
+The **Deleting a Template** mechanism is facilitated by `MyCRM`. This template removes a target template object from
 `UniqueTemplateList` inside the `MyCRM` object.
 
 #### Usage
 
 The activity diagram below illustrates how the events of `deleteTemplate` command behave when executed by user:
 
-![](images/mail/DeleteTemplateActivityDiagram.png)
+[![](images/mail/DeleteTemplateActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/DeleteTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Deleting a Template mechanism behaves at each step.
 
-![](images/mail/DeleteTemplateParseSequenceDiagram.png)
+[![](images/mail/DeleteTemplateParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/DeleteTemplateParseSequenceDiagram.png)
+
+**Parse user input**
 
 Within `DeleteTemplateCommandParser#parse`,
 - `Index` must be is valid (within the range of templates) and at least one field to be edited, for the mechanism to
   execute successfully.
 - `ParserUtil#parseIndex` will be called to extract the index of the specified template to delete.
 
-![](images/mail/DeleteTemplateSequenceDiagram.png)
+[![](images/mail/DeleteTemplateSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/DeleteTemplateSequenceDiagram.png)
 
 ### Finding a Template
 
 #### Implementation
 
-The Finding a Template mechanism is facilitated by `MyCRM`. This mechanism finds specific list of template object 
+The **Finding a Template** mechanism is facilitated by `MyCRM`. This mechanism finds specific list of template object 
 from `UniqueTemplateList` inside the `MyCRM` object with certain keywords provided.
 
 #### Usage
 
 The activity diagram below illustrates how the events of `findTemplate` command behave when executed by a user:
 
-![](images/mail/FindTemplateActivityDiagram.png)
+[![](images/mail/FindTemplateActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/FindTemplateActivityDiagram.png)
 
 Given below is an example usage scenario and how the Finding a Template mechanism behaves at each step.
 
-![](images/mail/FindTemplateParseSequenceDiagram.png)
+[![](images/mail/FindTemplateParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/FindTemplateParseSequenceDiagram.png)
+
+**Parse user input**
 
 Within `FindTemplateCommandParser#parse`,
 -  At least one keyword must be presented.
@@ -484,42 +506,58 @@ Within `FindTemplateCommandParser#parse`,
 `FindTemplateCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
 in order for MyCRM to find corresponding templates with these keywords as predicate.
 
-![](images/mail/FindTemplateSequenceDiagram.png)
+[![](images/mail/FindTemplateSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/FindTemplateSequenceDiagram.png)
 
 ### Constructing an Email
 
 #### Implementation
 
-The Constructing an Email mechanism is facilitated by `MyCRM`. This email is constructed based of the information 
-from a specified job and template from `UniqueJobList` and `UniqueTemplateList` inside the `MyCRM` object. A mailto URL 
-will be generated, sending users to their default mailing application with details of the job and template. 
+The **Constructing an Email** mechanism is facilitated by `MyCRM`. This email is constructed based of the information 
+from <u>a specified job and template</u> from `UniqueJobList` and `UniqueTemplateList` inside the `MyCRM` object. <u>A
+mailto URL</u> will be generated, sending users to their default mailing application with details of the job and 
+template.
 
 #### Usage
 
 The activity diagram below illustrates how the events of `mail` command behave when executed by user:
 
-![](images/mail/MailActivityDiagram.png)
+[![](images/mail/MailActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/MailActivityDiagram.png)
 
 Given below is an example usage scenario and how the Constructing an Email mechanism behaves at each step.
 
-![](images/mail/MailParseSequenceDiagram.png)
+[![](images/mail/MailParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/MailParseSequenceDiagram.png)
+
+**Parse user input**
 
 Within `MailCommandParser#parse`,
 - `JobIndex` must be is valid (within the range of job).
 - `TemplateIndex` must be is valid (within the range of templates).
 - `ParserUtil#parseIndex` will be called to extract both the index of the specified job and template to mail.
 
-![](images/mail/MailSequenceDiagram.png)
+[![](images/mail/MailSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/MailSequenceDiagram.png)
 
 An additional feature of constructing an email is the generation of a mailto URL, allowing for users to transfer 
 their job and template details to the user's default mailing application.
 
-Given below is an example of the generation of a mailto URL:
+Given below is an example of the **generation of a mailto URL**:
 
-![](images/mail/MailUrlSequenceDiagram.png)
+[![](images/mail/MailUrlSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/mail/MailUrlSequenceDiagram.png)
 
-After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
-the URL path.
+After the URL is generated, the URL string is passed to a JavaFX <u>Hyperlink</u> object that when clicked, will 
+execute the URL path.
+
+#### Design Considerations
+
+**Aspect: Mailing Extension**
+
+* Current choice: mailto URL
+    * Pros: Easy to implement, is not limited to any specific email application, does not require user's email account. 
+    * Cons: Does not allow for direct (immediate) sending of mail to client email addresses.
+* Alternative: Embedding Oauth with email service
+    * Pros: Enables direct and quick sending of email directly from MyCRM application
+    * Cons: Higher complexity in implementation with JavaFX, requires internet access to save drafts of emails, 
+      requires the storage and security assurance of user sensitive data (email account information), and limited 
+      management number of email accounts i.e. swapping different email services like Gmail and Outlook
 
 ### Adding a Product
 
@@ -1081,7 +1119,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
     
-**Use case: UC18 - Finding am email template**
+**Use case: UC18 - Finding an email template**
 
 **MSS**
 
@@ -1274,7 +1312,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 7. Should work on both 32-bit and 64-bit environments.
 8. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
-
 
 ### Glossary
 

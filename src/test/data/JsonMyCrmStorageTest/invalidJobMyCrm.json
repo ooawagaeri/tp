@@ -1,0 +1,27 @@
+{
+  "contacts": [ {
+    "name" : "Charlotte Oliveiro",
+    "phone" : "93210283",
+    "email" : "charlotte@example.com",
+    "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
+    "tagged" : [ "2nd Tier" ],
+    "isHidden" : false
+  } ],
+  "templates": [ ],
+  "products": [ {
+    "productName" : "Intel i5-10400F",
+    "type" : "CPU",
+    "manufacturer" : "Intel",
+    "description" : "2.90GHz"
+  } ],
+  "jobs" : [ {
+    "jobDescription" : "Graphics card replacement needed",
+    "client" : "Charlotte Oliveiro",
+    "product" : "!!!",
+    "expectedCompletionDate" : "15/09/2021",
+    "jobStatus" : "In Progress",
+    "receivedDate" : "24/10/2021",
+    "completionDate" : null,
+    "fee" : "$30.00"
+  } ]
+}

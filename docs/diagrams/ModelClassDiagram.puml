@@ -5,16 +5,15 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMyCrm <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class MyCrm
+Class ReadOnlyMyCrm
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
-
 
 Class UniquePersonList
 Class Person
@@ -38,16 +37,16 @@ Class Job
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+MyCrm .up.|> ReadOnlyMyCrm
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
+Model .left.> ReadOnlyMyCrm
+ModelManager -left-> "1" MyCrm
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
+MyCrm *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
@@ -55,12 +54,12 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
-AddressBook *--> "1" UniqueTemplateList
+MyCrm *--> "1" UniqueTemplateList
 UniqueTemplateList --> "~* all" Template
 Template *--> "1" Subject
 Template *--> "1" Body
 
-AddressBook *--> "1" UniqueMailList
+MyCrm *--> "1" UniqueMailList
 UniqueMailList --> "1" Mail
 Mail *-right-> "1" Template
 Mail *-left-> "1" Job
