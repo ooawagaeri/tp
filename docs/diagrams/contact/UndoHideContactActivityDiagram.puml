@@ -6,6 +6,10 @@ if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful undo hide contact Message on UI;
 else ([Valid Input])
+if () then ([Invalid Index])
+    :Throws CommandException;
+    :Displays unsuccessful delete contact on UI;
+else ([Else])
 :Gets contact to undo hiding with index provided;
 if () then ([Contact is hidden])
 :Undo Hiding the specific contact from MyCRM;

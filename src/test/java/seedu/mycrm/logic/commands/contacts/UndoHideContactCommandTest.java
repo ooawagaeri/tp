@@ -6,7 +6,7 @@ import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.mycrm.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
-import static seedu.mycrm.testutil.TypicalContacts.getTypicalHiddenMyCrm;
+import static seedu.mycrm.testutil.TypicalContacts.getTypicalMyCrm;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
@@ -25,14 +25,16 @@ import seedu.mycrm.model.contact.Contact;
  */
 public class UndoHideContactCommandTest {
     // For testing normal hidden lists.
-    private final Model model = new ModelManager(getTypicalHiddenMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     /**
      * Initialization of undo hide contact test.
      */
     public UndoHideContactCommandTest() {
+        setFirstContactHidden(model);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
+
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -65,7 +67,6 @@ public class UndoHideContactCommandTest {
 
         assertCommandFailure(undoHideContact, model, Messages.MESSAGE_INVALID_CONTACT_UNDO_HIDE_REQUEST);
         // modify back to accept other tests.
-        contactToUndoHide.setHidden();
     }
 
     @Test
@@ -131,4 +132,13 @@ public class UndoHideContactCommandTest {
         // different contact -> returns false
         assertFalse(undoHideFirstCommand.equals(undoHideSecondCommand));
     }
+
+    /**
+     *  Set first contact as hidden.
+     */
+    private void setFirstContactHidden(Model model) {
+        Contact firstContactToHide = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        model.hideContact(firstContactToHide);
+    }
+
 }

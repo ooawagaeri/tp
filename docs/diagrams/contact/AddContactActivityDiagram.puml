@@ -6,6 +6,10 @@ if() then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful add contact Message on UI;
 else ([Valid Input])
+    if () then ([Duplicate contact])
+        :Throws CommandException;
+        :Displays unsuccessful adding contact on UI;
+    else ([Else])
     fork
     :Creates new **Name**;
     fork again

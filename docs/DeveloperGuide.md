@@ -37,7 +37,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -1346,7 +1346,261 @@ testers are expected to do more *exploratory* testing.
 
     3. Test case: Click "Help" > "Help F1"
        <br>Expected: Similar to previous
+
+### Adding contact
+
+1. Inserting a contact while all contacts are being shown.
+
+   1. Prerequisites: List contacts using the `listContact` command. Shows list of contacts in side panel.
+
+   2. Test case: `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com`
+      <br>Expected:
+      - New contact is added to the list.
+      - Details of contact shown in status message.
    
+   3. Test case: `addContact n/Sans c/85230240 a/Clementi Ave 1 e/Sans@gmail.com`
+      <br>Expected:
+      - New contact is added to the list.
+      - Details of contact shown in status message.
+
+   4. Test case: `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com`
+      <br>Expected:
+       - No new contact is added
+       - Command error for duplicate contact is shown in status message.
+       
+   5. Test case: `addContact n/Jay`
+      <br>Expected:
+       - Similar to previous.
+       - Command error for at least one field of phone, email and address required is shown in status message.
+
+   6. Test case: `addContact n/Jay&sda c/83336233`
+      <br>Expected:
+       - Similar to previous.
+       - Command error for name format details is shown in status message.   
+
+   7. Test case: `addContact n/Jay c/abcd`
+      <br>Expected:
+       - Similar to previous.
+       - Command error for phone format details is shown in status message.
+
+   8. Test case: `addContact n/Jay e/abcd`
+      <br>Expected:
+       - Similar to previous.
+       - Command error for email format details is shown in status message.
+
+   9. Test case: `addContact n/Jay a/`
+      <br>Expected:
+       - Similar to previous.
+       - Command error for address format details is shown in status message.    
+
+2. Inserting a contact while all contacts are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all contacts.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel remains at current list. No new contacts are added.
+
+### Editing a contact
+
+1. Editing a contact while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact` command. Shows list of contacts in side panel.
+
+    2. Test case: `editContact 1 n/Jacky e/Jacky@gmail.com`
+       <br>Expected:
+        - Contact index 1 is updated in the list.
+        - Details of contact shown in status message.
+
+    3. Test case: `editContact 2 n/Jacky`
+       <br>Expected:
+        - No contact is edited.
+        - Command error for duplicate contact is shown in status message.
+        
+    4. Test case: `editContact 1`
+        <br>Expected:
+         - Similar to previous.
+         - Command error for at least one field of name, phone, email, address or tag required is shown in status message.
+
+    5. Test case: `editContact 1 n/Jay&sda`
+       <br>Expected:
+        - Similar to previous.
+        - Command error for name format details is shown in status message.
+
+    6. Test case: `editContact 1 c/abcd`
+       <br>Expected:
+        - Similar to previous.
+        - Command error for phone format details is shown in status message.
+
+    7. Test case: `editContact 1 e/abcd`
+       <br>Expected:
+        - Similar to previous.
+        - Command error for email format details is shown in status message.
+
+    8. Test case: `editContact 1 a/`
+       <br>Expected:
+        - Similar to previous.
+        - Command error for address format details is shown in status message.
+
+2. Editing a contact while all contacts are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all contacts.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel remains at current list. No new contacts are edited.
+
+
+### Deleting a contact
+
+1. Deleting a contact while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact` command. Shows list of contacts in side panel.
+    
+    2. Prerequisites: No contacts are linked to a job.
+
+    3. Test case: `deleteContact 1`
+       <br>Expected:
+        - Contact index 1 is deleted in the list.
+        - Details of contact shown in status message.
+        
+    4. Test case: `deleteContact -1`
+        <br>Expected:
+         - Similar to previous.
+         - Command error for invalid index is shown in status message.
+
+2. Deleting a contact while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact` command. Shows list of contacts in side panel.
+
+    2. Prerequisites: All contacts are linked to a job.
+
+    3. Test case: `deleteContact 1`
+       <br>Expected:
+        - No contacts are deleted.
+        - Command error for invalid contact deletion requirement is shown in status message.
+
+    4. Test case: `deleteContact -1`
+        <br>Expected:
+         - Similar to previous.
+         - Command error for invalid index is shown in status message.
+
+3. Deleting a contact while all contacts are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+   
+    2. Prerequisites: No contacts are linked to a job.
+
+    3. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list updated contact list.
+
+    4. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel remains at current list. No contacts are deleted.
+
+
+### Finding contacts
+
+1. Finding contacts while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact` command. Shows list of contacts in side panel.
+
+    2. Test case: `findContact Jacky`
+        <br>Expected:
+         - Matching contacts are shown on list.
+         - Number of contacts found shown in status message.
+
+    3. Test case: `findContact abcd`
+       <br>Expected:
+        - No matching contacts are shown on list.
+        - Zero contacts found shown in status message.
+
+2. Finding contacts while all contacts are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list matching all contacts.
+
+### Hiding contacts
+
+1. Hiding a contact while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact` command. Shows unhidden list of contacts in side panel.
+
+    2. Test case: `hideContact 1`
+       <br>Expected:
+        - Contact 1 is hidden on list.
+        - Side panel will update list of all not hidden contacts.
+
+    3. Test case: `hideContact -1`
+       <br>Expected:
+        - No contact is hidden on list.
+        - Side panel will remain the current contact list.
+
+2. Hiding a contact while all contacts are NOT being shown.
+
+    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will update contact list.
+
+    3. Incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will remain current contact list.
+
+### Undoing hiding contacts
+
+1. Undo hiding a contact while all contacts are being shown.
+
+    1. Prerequisites: List contacts using the `listContact -a` command. Shows unhidden list of contacts in side panel.
+
+    2. Test case: `undoHideContact 1`
+       <br>Expected:
+        - Contact 1 is hidden on list.
+        - Side panel will update list of all not hidden contacts.
+
+    3. Test case: `undoHideContact -1`
+       <br>Expected:
+        - No contact is hidden on list.
+        - Side panel will remain the current contact list.
+
+### Listing contacts
+
+1. Test case: `listContact`
+   <br>Expected:
+    - Side panel will list all not hidden contacts.
+
+2. Test case: `listContact -a`
+   <br>Expected:
+    - Side panel will list all contacts.
+
+3. Test case: `listContact abcd`
+   <br>Expected:
+    - Side panel will remain current list.
+    - Command error for invalid listContact format is shown in status message.
+        
+
 ### Constructing mail
 
 1. Constructing a mail when there is at least one job and mail.

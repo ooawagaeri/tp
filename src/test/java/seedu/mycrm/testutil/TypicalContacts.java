@@ -82,18 +82,6 @@ public class TypicalContacts {
     }
 
     /**
-     * Returns an {@code MyCrm} with all the hidden typical contacts.
-     */
-    public static MyCrm getTypicalHiddenMyCrm() {
-        MyCrm mc = new MyCrm();
-        for (Contact contact : getTypicalContacts()) {
-            contact.setHidden();
-            mc.addContact(contact);
-        }
-        return mc;
-    }
-
-    /**
      * Returns an {@code MyCrm} with one typical contact.
      */
     public static MyCrm getOneTypicalMyCrm() {
