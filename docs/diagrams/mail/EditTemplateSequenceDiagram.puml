@@ -13,7 +13,7 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("editTemplate 1 s/Completed b/Order Completed!")
+[-> LogicManager : execute("editTemplate 1 s/Completed b/Order...")
 activate LogicManager
 
 ref over LogicManager, EditTemplateCommand : parse edit template

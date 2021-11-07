@@ -18,6 +18,9 @@ public class JsonSerializableMyCrmTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMyCrmTest");
     private static final Path TYPICAL_CONTACTS_FILE = TEST_DATA_FOLDER.resolve("typicalContactsMyCrm.json");
     private static final Path INVALID_CONTACTS_FILE = TEST_DATA_FOLDER.resolve("invalidContactMyCrm.json");
+    private static final Path INVALID_PRODUCTS_FILE = TEST_DATA_FOLDER.resolve("invalidProductMyCrm.json");
+    private static final Path INVALID_TEMPLATES_FILE = TEST_DATA_FOLDER.resolve("invalidTemplateMyCrm.json");
+    private static final Path INVALID_JOBS_FILE = TEST_DATA_FOLDER.resolve("invalidJobMyCrm.json");
     private static final Path DUPLICATE_CONTACT_FILE = TEST_DATA_FOLDER.resolve("duplicateContactMyCrm.json");
     private static final Path DUPLICATE_TEMPLATE_FILE = TEST_DATA_FOLDER.resolve("duplicateTemplateMyCrm.json");
     private static final Path DUPLICATE_PRODUCT_FILE = TEST_DATA_FOLDER.resolve("duplicateProductMyCrm.json");
@@ -39,6 +42,26 @@ public class JsonSerializableMyCrmTest {
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
+    @Test
+    public void toModelType_invalidProductFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(INVALID_PRODUCTS_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidTemplateFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(INVALID_TEMPLATES_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidJobFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(INVALID_JOBS_FILE,
+                JsonSerializableMyCrm.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
     @Test
     public void toModelType_duplicateContacts_throwsIllegalValueException() throws Exception {
         JsonSerializableMyCrm dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CONTACT_FILE,

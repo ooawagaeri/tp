@@ -1,0 +1,11 @@
+{
+  "contacts": [ ],
+  "templates": [ ],
+  "products": [ {
+    "productName" : null,
+    "type" : "CPU",
+    "manufacturer" : "Intel 1",
+    "description" : "2.90GHz 2"
+  } ],
+  "jobs" : [ ]
+}
