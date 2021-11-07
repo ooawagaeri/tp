@@ -47,9 +47,10 @@ public class UndoCompleteJobCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_JOB_UNDO_COMPLETE_REQUEST);
         }
 
-        jobToRevertStatus.markIncomplete();
+        Job copiedJob = new Job(jobToRevertStatus);
+        copiedJob.markIncomplete();
 
-        model.setJob(jobToRevertStatus, jobToRevertStatus);
+        model.setJob(jobToRevertStatus, copiedJob);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToRevertStatus), COMMAND_TYPE);
     }

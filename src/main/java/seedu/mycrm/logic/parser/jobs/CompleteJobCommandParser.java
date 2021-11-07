@@ -19,7 +19,7 @@ public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
     public CompleteJobCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String trimmedArgs = args.trim();
-        String[] splitArgs = trimmedArgs.split("//s+", 2);
+        String[] splitArgs = trimmedArgs.split(" ", 2);
         Index index = parseIndex(splitArgs);
         JobDate completionDate = parseCompletionDate(splitArgs);
 

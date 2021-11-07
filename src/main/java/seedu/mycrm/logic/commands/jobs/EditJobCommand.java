@@ -9,6 +9,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.mycrm.commons.core.Messages;
@@ -18,7 +19,6 @@ import seedu.mycrm.logic.StateManager;
 import seedu.mycrm.logic.commands.Command;
 import seedu.mycrm.logic.commands.CommandResult;
 import seedu.mycrm.logic.commands.CommandType;
-import seedu.mycrm.logic.commands.contacts.EditContactCommand;
 import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
@@ -158,7 +158,7 @@ public class EditJobCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditContactCommand)) {
+        if (!(other instanceof EditJobCommand)) {
             return false;
         }
 
@@ -276,13 +276,12 @@ public class EditJobCommand extends Command {
 
             // state check
             EditJobCommand.EditJobDescriptor e = (EditJobCommand.EditJobDescriptor) other;
-
             return getJobDescription().equals(e.getJobDescription())
                 && getExpectedCompletionDate().equals(e.getExpectedCompletionDate())
                 && getReceivedDate().equals(e.getReceivedDate())
                 && getFee().equals(e.getFee())
-                && getClientIndex().equals(e.getClientIndex())
-                && getProductIndex().equals(e.getProductIndex())
+                && Objects.equals(getClientIndex(), e.getClientIndex())
+                && Objects.equals(getProductIndex(), e.getProductIndex())
                 && shouldEditContact == e.shouldEditContact
                 && shouldEditProduct == e.shouldEditProduct;
         }

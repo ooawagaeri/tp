@@ -10,6 +10,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
@@ -110,6 +111,8 @@ public class AddJobCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddJobCommand // instanceof handles nulls
-            && toAdd.equals(((AddJobCommand) other).toAdd));
+            && toAdd.equals(((AddJobCommand) other).toAdd))
+            && Objects.equals(contactIndex, ((AddJobCommand) other).contactIndex)
+            && Objects.equals(productIndex, ((AddJobCommand) other).productIndex);
     }
 }

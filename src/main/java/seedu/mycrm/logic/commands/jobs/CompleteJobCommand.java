@@ -57,13 +57,14 @@ public class CompleteJobCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETE_REQUEST);
         }
 
-        if(completionDate.value.isBefore(jobToMarkComplete.getReceivedDate().value)) {
+        if (completionDate.value.isBefore(jobToMarkComplete.getReceivedDate().value)) {
             throw new CommandException(Messages.MESSAGE_INVALID_JOB_COMPLETION_DATE);
         }
 
-        jobToMarkComplete.markCompleted(completionDate);
+        Job copiedJob = new Job(jobToMarkComplete);
+        copiedJob.markCompleted(completionDate);
 
-        model.setJob(jobToMarkComplete, jobToMarkComplete);
+        model.setJob(jobToMarkComplete, copiedJob);
         model.updateFilteredJobList(Model.PREDICATE_SHOW_ALL_INCOMPLETE_JOBS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, jobToMarkComplete), COMMAND_TYPE);

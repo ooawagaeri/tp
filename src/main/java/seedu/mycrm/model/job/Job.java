@@ -67,6 +67,22 @@ public class Job {
         this.fee = fee;
     }
 
+    /**
+     * Creates a new repair job by copying the attributes of the given {@code toCopyJob}.
+     */
+    public Job(Job toCopyJob) {
+        this.jobDescription = new JobDescription(toCopyJob.getJobDescription().toString());
+        this.client = toCopyJob.getClient();
+        this.product = toCopyJob.getProduct();
+        this.expectedCompletionDate = new JobDate(toCopyJob.getExpectedCompletionDate().raw());
+        this.jobStatus = new JobStatus(toCopyJob.isCompleted());
+        this.receivedDate = new JobDate(toCopyJob.getReceivedDate().raw());
+        this.fee = new JobFee(toCopyJob.getFee().toString());
+        this.completionDate = (toCopyJob.isCompleted())
+                              ? new JobDate(toCopyJob.getCompletionDate().raw())
+                              : null;
+    }
+
     public JobDescription getJobDescription() {
         return jobDescription;
     }
@@ -115,6 +131,10 @@ public class Job {
         return jobStatus.isCompleted();
     }
 
+    /**
+     * Marks the job as completed. Sets the job status as complete and the completion date.
+     * @param completionDate Date of completion of job.
+     */
     public void markCompleted(JobDate completionDate) {
         requireNonNull(completionDate);
 
@@ -122,6 +142,10 @@ public class Job {
         this.completionDate = completionDate;
     }
 
+    /**
+     * Marks the job as incomplete.
+     * Sets the job status as incomplete and completion date as null.
+     */
     public void markIncomplete() {
         jobStatus.markIncomplete();
         this.completionDate = null;

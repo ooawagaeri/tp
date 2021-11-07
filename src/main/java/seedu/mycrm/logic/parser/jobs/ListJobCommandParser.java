@@ -29,7 +29,7 @@ public class ListJobCommandParser implements Parser<ListJobCommand> {
         String flag = flags[0];
 
         // Check if more than one flag was provided
-        if (flags.length > 1 ) {
+        if (flags.length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListJobCommand.MESSAGE_USAGE));
         }

@@ -17,11 +17,12 @@ import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.jobs.EditJobCommand;
 import seedu.mycrm.logic.parser.ArgumentMultimap;
 import seedu.mycrm.logic.parser.ArgumentTokenizer;
+import seedu.mycrm.logic.parser.Parser;
 import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.Prefix;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 
-public class EditJobCommandParser {
+public class EditJobCommandParser implements Parser<EditJobCommand> {
 
     /**
      * Parses the given {@code args} of arguments in the context of the EditJobCommand
@@ -32,7 +33,7 @@ public class EditJobCommandParser {
         requireNonNull(args);
 
         Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE,
-                PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
+            PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
 

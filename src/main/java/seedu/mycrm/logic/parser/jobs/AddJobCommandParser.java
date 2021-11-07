@@ -37,7 +37,7 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
 
         Prefix[] mandatoryPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE};
         Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE,
-                PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
+            PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
         validatePresenceOfMandatoryPrefixes(argumentMultimap, mandatoryPrefixes);
