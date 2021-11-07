@@ -66,12 +66,13 @@ public class EditJobCommandParser implements Parser<EditJobCommand> {
 
         if (argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).isPresent()) {
             editJobDescriptor.setExpectedCompletionDate(
-                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get()));
+                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get(),
+                "Expected Completion"));
         }
 
         if (argMultimap.getValue(PREFIX_RECEIVED_DATE).isPresent()) {
             editJobDescriptor.setReceivedDate(
-                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get()));
+                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get(), "Received"));
         }
 
         if (argMultimap.getValue(PREFIX_FEE).isPresent()) {

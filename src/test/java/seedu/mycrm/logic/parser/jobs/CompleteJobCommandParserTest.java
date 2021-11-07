@@ -31,6 +31,6 @@ public class CompleteJobCommandParserTest {
         assertParseFailure(parser, "-1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             CompleteJobCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, "1 30/10/21", JobDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 30/10/21", "Completion " + JobDate.MESSAGE_CONSTRAINTS);
     }
 }

@@ -179,11 +179,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static JobDate parseJobDate(String date) throws ParseException {
+    public static JobDate parseJobDate(String date, String attributeName) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!JobDate.isValidJobDate(date)) {
-            throw new ParseException(JobDate.MESSAGE_CONSTRAINTS);
+            throw new ParseException(attributeName + " " + JobDate.MESSAGE_CONSTRAINTS);
         }
         return new JobDate(trimmedDate);
     }

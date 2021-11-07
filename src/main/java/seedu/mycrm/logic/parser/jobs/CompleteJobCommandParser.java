@@ -39,7 +39,7 @@ public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
 
     private JobDate parseCompletionDate(String[] args) throws ParseException {
         JobDate completionDate = (args.length == 2)
-                                 ? ParserUtil.parseJobDate(args[1])
+                                 ? ParserUtil.parseJobDate(args[1], "Completion")
                                  : JobDate.getCurrentDate();
         return completionDate;
     }

@@ -96,12 +96,12 @@ public class AddJobCommandParserTest {
         // invalid received date format
         assertParseFailure(parser, VALID_JOB_DESCRIPTION_DESC + VALID_JOB_FEE_DESC
                 + INVALID_JOB_RECEIVED_DATE_DESC + VALID_JOB_EXPECTED_COMPLETION_DATE_DESC,
-                JobDate.MESSAGE_CONSTRAINTS);
+                "Received " + JobDate.MESSAGE_CONSTRAINTS);
 
         // invalid expected completion date format
         assertParseFailure(parser, VALID_JOB_DESCRIPTION_DESC + VALID_JOB_FEE_DESC
                 + VALID_JOB_RECEIVED_DATE_DESC + INVALID_JOB_EXPECTED_COMPLETION_DATE_DESC,
-                JobDate.MESSAGE_CONSTRAINTS);
+                "Expected Completion " + JobDate.MESSAGE_CONSTRAINTS);
 
         // invalid job fee
         assertParseFailure(parser, VALID_JOB_DESCRIPTION_DESC + INVALID_JOB_FEE_DESC

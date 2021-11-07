@@ -64,13 +64,13 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
                 argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get());
 
         JobDate expectedCompletionDate = ParserUtil.parseJobDate(
-                argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get());
+                argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get(), "Expected Completion");
 
         JobFee fee = ParserUtil.parseJobFee(
                 argMultimap.getValue(PREFIX_FEE).get());
 
         JobDate receivedDate = (argMultimap.getValue(PREFIX_RECEIVED_DATE).isPresent())
-                               ? ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get())
+                               ? ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get(), "Received")
                                : JobDate.getCurrentDate();
 
         Job job = new Job(jobDescription, expectedCompletionDate, receivedDate, fee);

@@ -243,29 +243,39 @@ public class ParserUtilTest {
     public void parseJobDate_validValue_returnsJobDate() throws Exception {
         String date = "10/12/2021";
         JobDate expectedDate = new JobDate("10/12/2021");
-        assertEquals(ParserUtil.parseJobDate(date), expectedDate);
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
 
         date = "01/12/2021";
         expectedDate = new JobDate("01/12/2021");
-        assertEquals(ParserUtil.parseJobDate(date), expectedDate);
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
 
         date = "10/01/2021";
         expectedDate = new JobDate("10/01/2021");
-        assertEquals(ParserUtil.parseJobDate(date), expectedDate);
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        // single digit day and month
+        date = "1/10/2021";
+        expectedDate = new JobDate("1/10/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        date = "01/1/2021";
+        expectedDate = new JobDate("01/1/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
     }
 
 
     @Test
     public void parseJobDate_invalidValue_throwsParseException() throws Exception {
-        // single digit day and month
-        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("1/10/2021"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/1/2021"));
+
 
         // invalid month value
-        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("01/13/2021"));
-        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("01/20/2021"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/13/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/0/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/-1/2021", ""));
 
-        //invalid day value
-        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("32/13/2021"));
+        // invalid day value
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("32/13/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("00/11/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("-1/11/2021", ""));
     }
 }

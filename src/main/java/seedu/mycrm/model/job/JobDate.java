@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class JobDate {
     public static final String MESSAGE_CONSTRAINTS = "Date should follow the format dd/MM/YYYY";
 
-    private static final DateTimeFormatter VALID_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter VALID_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     public final LocalDate value;
