@@ -38,14 +38,20 @@ Class HistoryListPanel
 Class HistoryCard
 }
 
-Class StatusBarFooter
-
-Class HelpWindow
+package "ReportWindow Section" #F4F6F6{
 Class ReportWindow
+Class GraphDisplay
+Class JobDisplay
+}
+
+Class StatusBarFooter
+Class HelpWindow
+
 
 note "All classes in these sections\ninherit from **UiPart** class." as N1
 N1 .. "SideDisplay Section"
 N1 .. "MainDisplay Section"
+N1 .. "ReportWindow Section"
 }
 
 
@@ -63,8 +69,6 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-CommandBox -[hidden]down- ResultDisplay
-
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
 MainWindow -left-> "1" ThemeManager
@@ -75,6 +79,8 @@ MainWindow *-down-> "1" SideDisplay
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
 MainWindow --> "0..1" ReportWindow
+HelpWindow -[hidden]- CommandBox
+StatusBarFooter -[hidden]- ResultDisplay
 
 MainWindow -left-|> UiPart
 
@@ -103,13 +109,17 @@ ProductCard .down.> Model
 TemplateCard .down.> Model
 HistoryCard .down.> Model
 
+' Report window package
+ReportWindow *-down-> "1" GraphDisplay
+GraphDisplay -[hidden]down- JobDisplay
+ReportWindow *-down-> "1" JobDisplay
+JobDisplay .down.> Model
+
 ' Inherit UiPart
 CommandBox --|> UiPart
 ResultDisplay --|> UiPart
-ReportWindow --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
-ReportWindow --|> UiPart
 
 MainWindow -[hidden]-|> UiPart
 @enduml

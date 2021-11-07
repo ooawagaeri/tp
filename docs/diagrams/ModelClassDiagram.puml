@@ -33,6 +33,13 @@ Class UniqueMailList
 Class Mail
 
 Class Job
+
+Class UniqueProductList
+Class Product
+Class ProductName
+Class Type
+Class Manufacturer
+Class Description
 }
 
 Class HiddenOutside #FFFFFF
@@ -74,4 +81,14 @@ ModelManager -[hidden]down-> UniquePersonList
 ModelManager -->"~* filtered" Person
 ModelManager -->"~* filtered" Template
 ModelManager -->"~* filtered" Mail
+
+UniqueProductList -[hidden]left- UniquePersonList
+ProductName -[hidden]down- Type
+Manufacturer -[hidden]down- Description
+AddressBook *--> "1" UniqueProductList
+UniqueProductList --> "~* all" Product
+Product *--> "1" ProductName
+Product *--> "1" Type
+Product *--> "1" Description
+Product *--> "1" Manufacturer
 @enduml
