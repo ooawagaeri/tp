@@ -13,7 +13,7 @@ import seedu.mycrm.model.job.JobDate;
 import seedu.mycrm.model.job.JobDescription;
 import seedu.mycrm.model.job.JobFee;
 import seedu.mycrm.model.job.JobStatus;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Jackson-friendly version of {@link Job}.
@@ -39,8 +39,7 @@ class JsonAdaptedJob {
      * Constructs a {@code JsonAdaptedJob} with the given job details.
      */
     @JsonCreator
-    public JsonAdaptedJob(@JsonProperty("jobDescription") String jobDescription,
-                          @JsonProperty("client") String client,
+    public JsonAdaptedJob(@JsonProperty("jobDescription") String jobDescription, @JsonProperty("client") String client,
                           @JsonProperty("product") String product,
                           @JsonProperty("expectedCompletionDate") String expectedCompletionDate,
                           @JsonProperty("jobStatus") String jobStatus,
@@ -80,38 +79,38 @@ class JsonAdaptedJob {
      */
     public Job toModelType(MyCrm model) throws IllegalValueException {
 
-        if (jobDescription == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    JobDescription.class.getSimpleName()));
-        }
-        if (!JobDescription.isValidJobDescription(jobDescription)) {
-            throw new IllegalValueException(JobDescription.MESSAGE_CONSTRAINTS);
-        }
+        validateJobDescription();
         final JobDescription modelJobDescription = new JobDescription(jobDescription);
 
-
-        if (expectedCompletionDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    "Expected Completion Date"));
-        }
-
-        if (!JobDate.isValidJobDate(expectedCompletionDate)) {
-            throw new IllegalValueException("Expected Completion Date: " + JobDate.MESSAGE_CONSTRAINTS);
-        }
+        validateDate(expectedCompletionDate, "Expected Completion Date");
         final JobDate modelJobExpectedCompletionDate = new JobDate(expectedCompletionDate);
 
-
-        if (receivedDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                "Received Date"));
-        }
-
-        if (!JobDate.isValidJobDate(receivedDate)) {
-            throw new IllegalValueException("Received Date: " + JobDate.MESSAGE_CONSTRAINTS);
-        }
+        validateDate(receivedDate, "Received Date");
         final JobDate modelJobReceivedDate = new JobDate(receivedDate);
 
+        validateJobFee();
+        final JobFee modelJobFee = new JobFee(fee);
 
+        final JobStatus modelJobStatus = getJobStatus();
+
+        final JobDate modelJobCompletionDate = getJobDate();
+
+        final Job modelJob = new Job(modelJobDescription, modelJobExpectedCompletionDate,
+                modelJobReceivedDate, modelJobFee);
+
+        modelJob.setJobStatus(modelJobStatus);
+        modelJob.setCompletionDate(modelJobCompletionDate);
+        linkContactProduct(modelJob, model);
+
+        return modelJob;
+    }
+
+    /**
+     * Checks job fee of {@code Job} of {@code JsonAdaptedJob}.
+     *
+     * @throws IllegalValueException if there are job fee constraints violated in the adapted job.
+     */
+    private void validateJobFee() throws IllegalValueException {
         if (fee == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 JobFee.class.getSimpleName()));
@@ -120,43 +119,77 @@ class JsonAdaptedJob {
         if (!JobFee.isValidJobFee(fee)) {
             throw new IllegalValueException(JobFee.MESSAGE_CONSTRAINTS);
         }
-        final JobFee modelJobFee = new JobFee(fee);
+    }
 
+    /**
+     * Checks date of {@code Job} of {@code JsonAdaptedJob}.
+     *
+     * @throws IllegalValueException if there are date constraints violated in the adapted job.
+     */
+    private void validateDate(String date, String type) throws IllegalValueException {
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, type));
+        }
+
+        if (!JobDate.isValidJobDate(date)) {
+            throw new IllegalValueException(type + ": " + JobDate.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Checks job description of {@code Job} of {@code JsonAdaptedJob}.
+     *
+     * @throws IllegalValueException if there are job description constraints violated in the adapted job.
+     */
+    private void validateJobDescription() throws IllegalValueException {
+        if (jobDescription == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    JobDescription.class.getSimpleName()));
+        }
+        if (!JobDescription.isValidJobDescription(jobDescription)) {
+            throw new IllegalValueException(JobDescription.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Returns job status of {@code Job} of {@code JsonAdaptedJob}.
+     *
+     * @throws IllegalValueException if there are status constraints violated in the adapted job.
+     */
+    private JobStatus getJobStatus() throws IllegalValueException {
         if (jobStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     JobStatus.class.getSimpleName()));
         }
 
-        final JobStatus modelJobStatus;
         if (jobStatus.equals("Completed")) {
-            modelJobStatus = new JobStatus(true);
+            return new JobStatus(true);
         } else if (jobStatus.equals("In Progress")) {
-            modelJobStatus = new JobStatus(false);
+            return new JobStatus(false);
         } else {
             throw new IllegalValueException(MESSAGE_INVALID_STATUS);
         }
+    }
 
-        JobDate modelJobCompletionDate = null;
-        if (completionDate != null) {
-            if (jobStatus.equals("In Progress")) {
-                throw new IllegalValueException(MESSAGE_INVALID_COMPLETION_DATE);
-            }
-
-            if (JobDate.isValidJobDate(completionDate)) {
-                modelJobCompletionDate = new JobDate(completionDate);
-            } else {
-                throw new IllegalValueException("Completion Date: " + JobDate.MESSAGE_CONSTRAINTS);
-            }
+    /**
+     * Returns completed job date of {@code Job} of {@code JsonAdaptedJob}.
+     *
+     * @throws IllegalValueException if there are job date constraints violated in the adapted job.
+     */
+    private JobDate getJobDate() throws IllegalValueException {
+        if (completionDate == null) {
+            return null;
         }
 
-        final Job modelJob = new Job(modelJobDescription, modelJobExpectedCompletionDate,
-                modelJobReceivedDate, modelJobFee);
-        modelJob.setJobStatus(modelJobStatus);
-        modelJob.setCompletionDate(modelJobCompletionDate);
+        if (jobStatus.equals("In Progress")) {
+            throw new IllegalValueException(MESSAGE_INVALID_COMPLETION_DATE);
+        }
 
-        linkContactProduct(modelJob, model);
-
-        return modelJob;
+        if (JobDate.isValidJobDate(completionDate)) {
+            return new JobDate(completionDate);
+        } else {
+            throw new IllegalValueException("Completion Date: " + JobDate.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**
@@ -164,7 +197,7 @@ class JsonAdaptedJob {
      *
      * @param job target job
      * @param model MyCrm model
-     * @throws IllegalValueException if there were any data constraints violated in the adapted job.
+     * @throws IllegalValueException if there are any data constraints violated in the adapted job.
      */
     public void linkContactProduct(Job job, MyCrm model) throws IllegalValueException {
         if (this.client == null) {

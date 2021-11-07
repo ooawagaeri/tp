@@ -42,27 +42,27 @@ public class AddContactCommand extends Command {
 
     private static final CommandType COMMAND_TYPE = CommandType.CONTACTS;
 
-    private final Contact toAdd;
+    private final Contact contactToAdd;
 
     /**
      * Creates an AddContact to add the specified {@code Contact}
      */
     public AddContactCommand(Contact contact) {
         requireNonNull(contact);
-        toAdd = contact;
+        contactToAdd = contact;
     }
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasContact(toAdd)) {
+        if (model.hasContact(contactToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
-        model.addContact(toAdd);
-        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_TYPE);
-        return stateManager.handleContact(toAdd, commandResult);
+        model.addContact(contactToAdd);
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, contactToAdd), COMMAND_TYPE);
+        return stateManager.handleContact(contactToAdd, commandResult);
     }
 
     @Override
@@ -74,6 +74,6 @@ public class AddContactCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddContactCommand // instanceof handles nulls
-                && toAdd.equals(((AddContactCommand) other).toAdd));
+                && contactToAdd.equals(((AddContactCommand) other).contactToAdd));
     }
 }

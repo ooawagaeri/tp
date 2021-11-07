@@ -23,7 +23,7 @@ public class MailListPanel extends UiPart<Region> {
     private ListView<Mail> mailListView;
 
     /**
-     * Creates a {@code TemplateListPanel} with the given {@code ObservableList}.
+     * Creates a {@code MailListPanel} with the given {@code ObservableList}.
      */
     public MailListPanel(ObservableList<Mail> mailList, HostServices hostServices) {
         super(FXML);
@@ -34,7 +34,7 @@ public class MailListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Template} using a {@code TemplateCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Mail} using a {@code MailCard}.
      */
     class MailListViewCell extends ListCell<Mail> {
         @Override

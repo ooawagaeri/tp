@@ -24,6 +24,7 @@ import seedu.mycrm.logic.commands.contacts.EditContactCommand.EditContactDescrip
 import seedu.mycrm.logic.commands.contacts.FindContactCommand;
 import seedu.mycrm.logic.commands.contacts.HideContactCommand;
 import seedu.mycrm.logic.commands.contacts.ListContactCommand;
+import seedu.mycrm.logic.commands.contacts.UndoHideContactCommand;
 import seedu.mycrm.logic.commands.jobs.FindJobCommand;
 import seedu.mycrm.logic.commands.products.AddProductCommand;
 import seedu.mycrm.logic.commands.products.DeleteProductCommand;
@@ -31,7 +32,7 @@ import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
 import seedu.mycrm.model.job.JobContainsKeywordsPredicate;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.testutil.ContactBuilder;
 import seedu.mycrm.testutil.ContactUtil;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;
@@ -77,6 +78,13 @@ public class MyCrmParserTest {
         HideContactCommand command = (HideContactCommand) parser.parseCommand(
                 HideContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
         assertEquals(new HideContactCommand(INDEX_FIRST_CONTACT), command);
+    }
+
+    @Test
+    public void parseCommand_undoHideContact() throws Exception {
+        UndoHideContactCommand command = (UndoHideContactCommand) parser.parseCommand(
+                UndoHideContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
+        assertEquals(new UndoHideContactCommand(INDEX_FIRST_CONTACT), command);
     }
 
     @Test

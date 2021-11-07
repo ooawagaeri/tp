@@ -25,6 +25,7 @@ public class AddTemplateCommandParser implements Parser<AddTemplateCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddTemplateCommand
      * and returns an AddTemplateCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTemplateCommand parse(String args) throws ParseException {

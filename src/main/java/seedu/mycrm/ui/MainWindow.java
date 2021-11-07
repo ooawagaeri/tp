@@ -131,13 +131,14 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         mainDisplay = new MainDisplay();
-        helpWindow.setGetHostController(hostServices);
         mainDisplay.init(logic, hostServices);
         mainDisplayPlaceholder.getChildren().add(mainDisplay.getRoot());
 
         sideDisplay = new SideDisplay();
         sideDisplay.init(logic);
         sideDisplayPlaceholder.getChildren().add(sideDisplay.getRoot());
+
+        helpWindow.setGetHostController(hostServices);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMyCrmFilePath());
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -187,8 +188,10 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handlePrintReport() {
+    private void handlePrintReport(String commandFlag) {
         reportWindow.fillInnerParts();
+        reportWindow.changeTheme(themeManager.getThemeName());
+        reportWindow.switchTab(commandFlag);
         if (!reportWindow.isShowing()) {
             reportWindow.show();
         } else {
@@ -258,7 +261,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case REPORT:
-                handlePrintReport();
+                handlePrintReport(commandResult.getCommandFlag());
                 break;
 
             case EXPORT:

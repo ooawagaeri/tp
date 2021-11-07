@@ -13,13 +13,14 @@ import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteTemplateCommand object
+ * Parses input arguments and creates a new MailCommand object
  */
 public class MailCommandParser implements Parser<MailCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteTemplateCommand
-     * and returns a DeleteTemplateCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MailCommand
+     * and returns a MailCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public MailCommand parse(String args) throws ParseException {

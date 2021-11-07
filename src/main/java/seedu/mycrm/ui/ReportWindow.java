@@ -1,37 +1,32 @@
 package seedu.mycrm.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
 import javafx.print.PrinterJob;
-import javafx.scene.chart.BarChart;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.mycrm.commons.core.LogsCenter;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.ui.report.GraphDisplay;
 import seedu.mycrm.ui.report.JobDisplay;
-import seedu.mycrm.ui.report.Printable;
+import seedu.mycrm.ui.report.NodePrinter;
 
 public class ReportWindow extends UiPart<Stage> {
 
     private static final String FXML = "ReportWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(ReportWindow.class);
+    private final ThemeManager themeManager;
+
 
     private Stage primaryStage;
     private Logic logic;
+    private PrinterJob job;
 
     private JobDisplay jobDisplay;
     private GraphDisplay graphDisplay;
-    private Printable printable;
+    private NodePrinter nodePrinter;
 
     @FXML
     private StackPane jobDisplayPlaceholder;
@@ -48,6 +43,9 @@ public class ReportWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.themeManager = new ThemeManager(primaryStage.getScene().getStylesheets());
+
+        themeManager.initTheme(logic.getGuiSettings());
 
     }
 
@@ -62,7 +60,8 @@ public class ReportWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        jobDisplay = new JobDisplay();
+        jobDisplay =
+                new JobDisplay();
         jobDisplay.init(logic);
         if (jobDisplayPlaceholder.getChildren().size() > 0) {
             jobDisplayPlaceholder.getChildren().remove(0);
@@ -76,8 +75,7 @@ public class ReportWindow extends UiPart<Stage> {
         }
         graphDisplayPlaceholder.getChildren().add(graphDisplay.getRoot());
 
-        printable = new Printable();
-        printable.init(logic);
+        this.nodePrinter = new NodePrinter(logic);
     }
 
     /**
@@ -112,47 +110,32 @@ public class ReportWindow extends UiPart<Stage> {
     }
 
     /**
+     * Align the Ui theme of report window with main window.
+     */
+    public void changeTheme(String themeName) {
+        themeManager.changeTheme(themeName);
+    }
+
+    /**
+     * Focuses on the corresponding tab of command flag.
+     */
+    public void switchTab(String flag) {
+        jobDisplay.switchTab(flag);
+    }
+
+    /**
      * Handle the printing request from user.
      */
     @FXML
     public void handlePrint() {
-        print(getPrintable());
-    }
+        job = PrinterJob.createPrinterJob();
 
-    private VBox getPrintable() {
-        VBox toPrint = new VBox();
-        BarChart<String, Number> barChart = graphDisplay.clone(logic);
-
-        barChart.setMinSize(372, 350);
-
-        toPrint.getChildren().addAll(barChart, printable.getRoot());
-
-        return toPrint;
-    }
-
-    private void print(VBox region) {
-        requireNonNull(region);
-
-        Printer printer = Printer.getDefaultPrinter();
-        requireNonNull(printer);
-
-        PageLayout pagelayout = printer.createPageLayout(Paper.A4,
-                PageOrientation.PORTRAIT,
-                Printer.MarginType.HARDWARE_MINIMUM);
-
-        region.setPrefSize(pagelayout.getPrintableWidth() - 110, pagelayout.getPrintableHeight());
-
-        PrinterJob job = PrinterJob.createPrinterJob();
-        requireNonNull(job);
-
-        if (job != null) {
-            job.showPrintDialog(getRoot().getOwner());
-            boolean success = job.printPage(region);
+        if (job.showPageSetupDialog(getRoot().getOwner()) && job.showPrintDialog(getRoot().getOwner())) {
+            boolean success = nodePrinter.print(job);
             if (success) {
                 job.endJob();
             }
         }
-
     }
 
 }

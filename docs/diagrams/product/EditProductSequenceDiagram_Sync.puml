@@ -1,0 +1,34 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":EditProductCommand" as EditProductCommand LOGIC_COLOR
+participant ":List<Job>" as JobList LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+activate EditProductCommand
+EditProductCommand -> Model : setProduct(productToEdit, editedProduct)
+group sd Updates product references in jobs
+
+
+EditProductCommand -> Model : getLatestJobPredicate()
+activate Model
+Model --> EditProductCommand : latestJobPredicate
+deactivate Model
+
+EditProductCommand -> Model : updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS)
+
+EditProductCommand -> Model : getFilteredJobList()
+
+loop for every job in JobList
+opt the job links to productToEdit
+EditProductCommand -> JobList : setProduct(editedProduct)
+end
+end
+
+EditProductCommand -> Model : updateFilteredJobList(latestJobPredicate)
+end
+@enduml

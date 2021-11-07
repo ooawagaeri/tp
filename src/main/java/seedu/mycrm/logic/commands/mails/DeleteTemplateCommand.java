@@ -57,8 +57,8 @@ public class DeleteTemplateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteTemplateCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTemplateCommand) other).targetIndex)); // state check
+        return other == this
+                || (other instanceof DeleteTemplateCommand
+                && targetIndex.equals(((DeleteTemplateCommand) other).targetIndex));
     }
 }

@@ -47,12 +47,12 @@ import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
 import seedu.mycrm.model.mail.SubjectContainsKeywordsPredicate;
 import seedu.mycrm.model.mail.Template;
-import seedu.mycrm.model.products.Description;
-import seedu.mycrm.model.products.Manufacturer;
-import seedu.mycrm.model.products.Product;
-import seedu.mycrm.model.products.ProductName;
-import seedu.mycrm.model.products.ProductNameContainsKeywordsPredicate;
-import seedu.mycrm.model.products.Type;
+import seedu.mycrm.model.product.Description;
+import seedu.mycrm.model.product.Manufacturer;
+import seedu.mycrm.model.product.Product;
+import seedu.mycrm.model.product.ProductName;
+import seedu.mycrm.model.product.ProductNameContainsKeywordsPredicate;
+import seedu.mycrm.model.product.Type;
 import seedu.mycrm.testutil.EditContactDescriptorBuilder;
 import seedu.mycrm.testutil.EditTemplateDescriptorBuilder;
 

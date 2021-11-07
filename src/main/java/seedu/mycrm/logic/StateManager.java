@@ -28,7 +28,7 @@ import seedu.mycrm.logic.commands.products.ListProductCommand;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Responsible for maintaining state for previous commands and
@@ -300,7 +300,7 @@ public class StateManager {
     }
 
     /**
-     * Handles the behaviour of list or find commands for product and command.
+     * Handles the behaviour of list or find commands for product command.
      * Modifies the feedBackToUser string of the command result.
      *
      * @param commandResult Original result of the execution of a list or find command.

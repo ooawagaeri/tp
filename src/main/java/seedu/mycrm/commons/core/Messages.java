@@ -15,6 +15,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_CONTACT_DELETE_REQUEST = "The contact cannot be deleted! "
             + "Because it has been linked to one or more jobs!";
     public static final String MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX = "The template index provided is invalid";
+    public static final String MESSAGE_INVALID_JOB_NO_EMAIL = "The job specified does not contain an email. Do "
+            + "contact him/her through other means!";
     public static final String MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX = "The product index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_DISPLAYED_INDEX = "The job index provided is invalid";
     public static final String MESSAGE_INVALID_JOB_COMPLETE_REQUEST = "The job has already been completed!";
@@ -28,6 +30,5 @@ public class Messages {
     public static final String MESSAGE_JOBS_LISTED_OVERVIEW = "%1$d jobs listed!";
     public static final String MESSAGE_PRODUCTS_LISTED_OVERVIEW = "%1$d products listed!";
     public static final String MESSAGE_TEMPLATES_LISTED_OVERVIEW = "%1$d templates listed!";
-    public static final String MESSAGE_REMOVE_LINKED_PRODUCT = "The product is linked to one or more job";
-
+    public static final String MESSAGE_REMOVE_LINKED_PRODUCT = "The product is linked to one or more job.";
 }

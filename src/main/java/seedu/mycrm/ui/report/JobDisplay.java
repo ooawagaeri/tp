@@ -1,5 +1,10 @@
 package seedu.mycrm.ui.report;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_COMPLETED_FLAG;
+import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_IN_PROGRESS_FLAG;
+import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_PRODUCT_FLAG;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -85,5 +90,32 @@ public class JobDisplay extends UiPart<Region> {
         topThreeProductListPanelPlaceholder.getChildren().add(topThreeProductListPanel.getRoot());
     }
 
+    /**
+     * Switch tab based on command flag.
+     */
+    public void switchTab(String commandFlag) {
+        switch (commandFlag) {
+        case SHOW_COMPLETED_FLAG:
+            switchTab(completedJobTab);
+            break;
+
+        case SHOW_IN_PROGRESS_FLAG:
+            switchTab(inProgressJobTab);
+            break;
+
+        case SHOW_PRODUCT_FLAG:
+            switchTab(topThreeProductTab);
+            break;
+
+        default:
+            assert false;
+        }
+    }
+
+    private void switchTab(Tab tab) {
+        requireNonNull(tab);
+
+        tabPane.getSelectionModel().select(tab);
+    }
 
 }

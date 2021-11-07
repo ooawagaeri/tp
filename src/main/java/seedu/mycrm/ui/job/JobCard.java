@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.mycrm.model.contact.Contact;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.ui.UiPart;
 
 /**

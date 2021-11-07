@@ -13,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.mycrm.model.job.exceptions.DuplicateJobException;
 import seedu.mycrm.model.job.exceptions.JobNotFoundException;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * A list of jobs that enforces uniqueness between its elements and does not allow nulls.
@@ -129,7 +129,7 @@ public class UniqueJobList implements Iterable<Job> {
      * Returns the most three common {@code Product} received this month.
      */
     public ObservableList<Product> getUnmodifiableTopThreeProductList() {
-        return FXCollections.unmodifiableObservableList(this.getTopThreeProduct());
+        return FXCollections.unmodifiableObservableList(getTopThreeProduct());
     }
 
     @Override
@@ -178,6 +178,7 @@ public class UniqueJobList implements Iterable<Job> {
         Map<Product, Integer> monthlyProducts = new HashMap<>();
 
         for (Job j: internalList) {
+
             if (j.isReceivedThisMonth(LocalDate.now()) && j.getProduct() != null) {
                 Product product = j.getProduct();
                 Integer val = monthlyProducts.get(product);

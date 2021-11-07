@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
@@ -16,19 +18,14 @@
         <Insets top="8" right="15" bottom="8" left="15" />
     </padding>
     <VBox id="jobInfo" alignment="CENTER_LEFT" VBox.vgrow="NEVER" spacing="3">
-        <HBox VBox.vgrow="NEVER">
+        <HBox fx:id="container" VBox.vgrow="NEVER">
             <Label fx:id="id" styleClass="cell_big_label">
                 <minWidth>
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
             </Label>
-            <Label fx:id="title" styleClass="cell_big_label">
-                <minWidth>
-                    <!-- Ensures that the label text is never truncated -->
-                    <Region fx:constant="USE_PREF_SIZE" />
-                </minWidth>
-            </Label>
+            <Label fx:id="title" styleClass="cell_big_label" prefWidth="${container.width-20}" />
         </HBox>
         <VBox VBox.vgrow="NEVER">
             <StackPane fx:id="status" alignment="CENTER_LEFT" />

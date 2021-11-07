@@ -12,6 +12,7 @@ import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import seedu.mycrm.commons.core.index.Index;
 import seedu.mycrm.logic.commands.jobs.EditJobCommand;
@@ -57,6 +58,7 @@ public class EditJobCommandParser implements Parser<EditJobCommand> {
             throws ParseException {
 
         EditJobCommand.EditJobDescriptor editJobDescriptor = new EditJobCommand.EditJobDescriptor();
+
         if (argMultimap.getValue(PREFIX_JOB_DESCRIPTION).isPresent()) {
             editJobDescriptor.setJobDescription(
                 ParserUtil.parseJobDescription(argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get()));
@@ -107,5 +109,13 @@ public class EditJobCommandParser implements Parser<EditJobCommand> {
         } catch (ParseException e) {
             throw new ParseException(String.format("%s : %s", errorMessage, e.getMessage()));
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

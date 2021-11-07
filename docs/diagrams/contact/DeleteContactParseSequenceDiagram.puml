@@ -1,0 +1,47 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":DeleteContactCommandParser" as DeleteContactCommandParser LOGIC_COLOR
+participant "contactToDelete:DeleteContactCommand" as DeleteContactCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("deleteContact 1")
+activate LogicManager
+
+group sd parse delete contact
+LogicManager -> MyCrmParser : parseCommand("deleteContact 1")
+activate MyCrmParser
+
+create DeleteContactCommandParser
+MyCrmParser -> DeleteContactCommandParser
+activate DeleteContactCommandParser
+
+DeleteContactCommandParser --> MyCrmParser
+deactivate DeleteContactCommandParser
+
+MyCrmParser -> DeleteContactCommandParser : parse("1")
+activate DeleteContactCommandParser
+
+create DeleteContactCommand
+DeleteContactCommandParser -> DeleteContactCommand : 1
+activate DeleteContactCommand
+
+DeleteContactCommand --> DeleteContactCommandParser : contactToDelete
+deactivate DeleteContactCommand
+
+DeleteContactCommandParser --> MyCrmParser : contactToDelete
+deactivate DeleteContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+DeleteContactCommandParser -[hidden]-> MyCrmParser
+destroy DeleteContactCommandParser
+
+MyCrmParser --> LogicManager : contactToDelete
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

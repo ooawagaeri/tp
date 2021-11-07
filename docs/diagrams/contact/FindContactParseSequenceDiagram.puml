@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":FindContactCommandParser" as FindContactCommandParser LOGIC_COLOR
+participant ":FindContactCommand" as FindContactCommand LOGIC_COLOR
+participant "keywordsPredicate:NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("findContact Frisks")
+activate LogicManager
+
+group sd parse find contact
+LogicManager -> MyCrmParser : parseCommand("findContact Frisks")
+activate MyCrmParser
+
+create FindContactCommandParser
+MyCrmParser -> FindContactCommandParser
+activate FindContactCommandParser
+
+FindContactCommandParser --> MyCrmParser
+deactivate FindContactCommandParser
+
+MyCrmParser -> FindContactCommandParser : parse("Frisks")
+activate FindContactCommandParser
+
+create NameContainsKeywordsPredicate
+FindContactCommandParser -> NameContainsKeywordsPredicate: "Frisks"
+activate NameContainsKeywordsPredicate
+NameContainsKeywordsPredicate --> FindContactCommandParser : keywordsPredicate
+deactivate NameContainsKeywordsPredicate
+
+create FindContactCommand
+FindContactCommandParser -> FindContactCommand : keywordsPredicate
+activate FindContactCommand
+
+FindContactCommand --> FindContactCommandParser
+deactivate FindContactCommand
+
+FindContactCommandParser --> MyCrmParser
+deactivate FindContactCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+FindContactCommandParser -[hidden]-> MyCrmParser
+destroy FindContactCommandParser
+
+
+MyCrmParser --> LogicManager :
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

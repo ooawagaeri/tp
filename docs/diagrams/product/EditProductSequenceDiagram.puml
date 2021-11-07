@@ -1,0 +1,57 @@
+@startuml
+!include ../style.puml
+title Edit product sequence diagram
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":EditProductCommand" as EditProductCommand LOGIC_COLOR
+participant ": List<Product>" as ListProduct LOGIC_COLOR
+participant "**<<class>>**\nProduct" as Product LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editProduct 2 n/Asus d/HDMI")
+activate LogicManager
+
+ref over LogicManager, EditProductCommand : parse user input
+
+LogicManager -> EditProductCommand : execute()
+
+activate EditProductCommand
+
+EditProductCommand -> Model : getFilteredProductList()
+
+EditProductCommand -> ListProduct : get(index)
+activate ListProduct
+ListProduct --> EditProductCommand : productToEdit
+deactivate ListProduct
+
+EditProductCommand -> Product : createEditedProduct(productToEdit, editProductDescriptor)
+activate Product
+Product --> EditProductCommand : editedProduct
+deactivate Product
+
+EditProductCommand -> Model : setProduct(productToEdit, editedProduct)
+
+ref over EditProductCommand, Model : Updates product references in jobs
+
+create CommandResult
+EditProductCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditProductCommand
+deactivate CommandResult
+
+EditProductCommand --> LogicManager : result
+deactivate EditProductCommand
+
+EditProductCommand -[hidden]-> LogicManager
+destroy EditProductCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

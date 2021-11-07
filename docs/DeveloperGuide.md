@@ -88,7 +88,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Job`, `Contact`, `Product`, `Template`, `History` 
+* depends on some classes in the `Model` component, as it displays `Job`, `Mail`, `Contact`, `Product`, `Template`, `History` 
   objects residing in the `Model`.
 
 ### Logic component
@@ -162,17 +162,23 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 * [Adding a contact](#adding-a-contact)
+* [Editing a contact](#editing-a-contact)
+* [Deleting a contact](#deleting-a-contact)
+* [Finding a contact](#finding-a-contact)
 * [Hiding a contact](#hiding-a-contact)
+* [Undoing Hiding a contact](#undoing-hiding-a-contact)
 * [Listing contacts](#listing-contacts)
 * [Adding a template](#adding-a-template)
 * [Deleting a template](#deleting-a-template)
 * [Constructing an email](#constructing-an-email)
+* [Adding a product](#adding-a-product)
+* [Editing a product](#editing-a-product)
 
 ### Adding a Contact
 
 #### Implementation
 
-The Adding a Contact mechanism is facilitated by `AddressBook`. This Contact created is stored internally using 
+The **Adding a Contact** mechanism is facilitated by `MyCRM`. This Contact created is stored internally using 
 `UniqueContactList` inside the `MyCrm` object.  
 Additionally, `addContact` allows to have only partially info of a client with consideration of privacy. Commands
 such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
@@ -181,39 +187,179 @@ such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
 
 The activity diagram below illustrates how the events of `addContact` command behave when executed by a user: 
 
-![](images/AddContactActivityDiagram.png)
+![](images/contact/AddContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the Adding a Contact mechanism behaves at each step.
+Given below is an example usage scenario and how the **Adding a Contact** mechanism behaves at each step.
 
-![](images/AddContactParseSequenceDiagram.png)
+![](images/contact/AddContactParseSequenceDiagram.png)
 
-:information_source: **Note:** The lifeline for `AddContactCommandParser` should end at the destroy 
-marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-Within AddContactCommandParser#parse, ParserUtil#parseName will be called to create a name using 
-"Sans", ParserUtil#parsePhone to create a phone using "83921823", ParserUtil#parseEmail to 
-create an email using "Sans@gmail.com", ParserUtil#parseAddress to create an address using "Maxwell...".  
+Within `AddContactCommandParser#parse`, `ParserUtil#parseName` will be called to create a name using 
+"Sans", `ParserUtil#parsePhone` to create a phone using "83921823", `ParserUtil#parseEmail` to 
+create an email using "Sans@gmail.com", `ParserUtil#parseAddress` to create an address using "Maxwell...".  
 Then create a contact using the new name, phone, email and address.
 
-![](images/AddContactSequenceDiagram.png)
+Note that `Phone`, `Email`, `Address`, are optional, but at least one of these 3 fields
+must exist.
+
+![](images/contact/AddContactSequenceDiagram.png)
 
 ### Editing a Contact
 
+#### Implementation
+
+The **Editing a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and modifies a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editContact` command behave when executed by a user:
+
+![](images/contact/EditContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Editing a Contact** mechanism behaves at each step.
+
+![](images/contact/EditContactParseSequenceDiagram.png)
+
+Within `EditContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- `EditContactDescriptor` will only get the values of `Name`, `Phone`, `Email`, `Address`, and `Tags` 
+if their respective prefixes are present.
+- `isHidden` is will not be handled by `EditContactDescrptior`, it will be updated in `createEditedContact`.
+
+`EditContactCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the target contact's index and
+`ArgumentMultimap#getValue` to extract `Name`, `Phone`, `Email`, `Address`: "Frisks", "88888888", "Frisks@gmail.com"
+and "Jurong West" from the command string respectively.
+
+![](images/contact/EditContactSequenceDiagram.png)
+
 ### Deleting a Contact
 
+#### Implementation
+
+The **Deleting a Contact** mechanism is facilitated by `MyCRM`. This mechanism reads and deletes a target contact
+object from `UniqueContactList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `deleteContact` command behave when executed by a user:
+
+![](images/contact/DeleteContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Deleting a Contact** mechanism behaves at each step.
+
+![](images/contact/DeleteContactParseSequenceDiagram.png)
+
+Within `DeleteContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+- The contact specified to be deleted must have no jobs linked, otherwise error message will be displayed in UI panel.
+
+`DeleteContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to delete it.
+
+![](images/contact/DeleteContactSequenceDiagram.png)
+
 ### Finding a Contact
+
+#### Implementation
+
+The **Finding a Contact** mechanism is facilitated by `MyCRM`. This mechanism finds specific list of contact
+object from `UniqueContactList` inside the `MyCRM` object with certain keywords provided.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findContact` command behave when executed by a user:
+
+![](images/contact/FindContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Finding a Contact** mechanism behaves at each step.
+
+![](images/contact/FindContactParseSequenceDiagram.png)
+
+
+Within `FindContactCommandParser#parse`,
+- `Keywords` must be presented. (At least one trim of String)
+
+`FindContactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding contacts with these keywords as predicate.
+
+![](images/contact/FindContactSequenceDiagram.png)
 
 ### Hiding a Contact
 
 #### Implementation
 
-The Hiding a Contact mechanism follows the `EditCommand` mechanism in `AddressBook`. It hides a specific contact
-which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`. The
-Edited contact created is stored internally using `UniqueContactList` inside the `MyCrm` object
+The **Hiding a Contact** mechanism is facilitated by the `MyCRM`. It hides a specific contact
+which is visible only when user types the command `listContact -a`. Hidden contact will be tagged as `Hidden`.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `hideContact` command behave when executed by a user:
+
+![](images/contact/HideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/HideContactParserSequenceDiagram.png)
+
+Within `HideContactCommandParser#parse`,
+- `Index` must be is valid (within the range of contactList).
+
+`HideContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to hide it.
+
+![](images/contact/HideContactSequenceDiagram.png)
 
 ### Undoing Hiding a Contact
 
+#### Implementation
+
+The **Undoing Hiding a Contact** mechanism is facilitated by the `MyCRM`. It will unhide a hidden contact in list. Users are
+required to type in command `listContact -a` in order to see **hidden** contacts.
+
+Implementation and usage details for **Undoing Hiding a Contact** are similar to [Hiding a Contact](#hiding-a-contact) design
+pattern. Can refer to `hideContact` command implementation details.
+#### Usage
+
+The activity diagram below illustrates how the events of `undoHideContact` command behave when executed by a user:
+
+![](images/contact/UndoHideContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+
+![](images/contact/UndoHideContactParserSequenceDiagram.png)
+
+Within `UndoHideContactCommandParser#parse`,
+- `listContact -a` must first be typed in to see hidden contacts.
+- `Index` must be is valid (within the range of contactList).
+
+`UndoHideContactCommandParser#parse` will call `ParserUtil#parseIndex`
+
+![](images/contact/UndoHideContactSequenceDiagram.png)
+
 ### Listing Contacts
+
+#### Implementation
+
+The **Listing a Contact** mechanism is facilitated by `MyCRM`. This mechanism lists all unhidden Contact
+object from `UniqueContactList` inside the `MyCRM` object by default. If `listContact -a` is invoked,
+`MyCRM` will list all contacts including not hidden ones.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `listContact` command behave when executed by a user:
+
+![](images/contact/ListContactActivityDiagram.png)
+
+Given below is an example usage scenario and how the **Listing a Contact** mechanism behaves at each step.
+
+![](images/contact/ListContactParserSequenceDiagram.png)
+
+Within `ListContactCommandParser#parse`,
+- `Keywords` is optional but if provided, it can only be **"-a"**.
+- If correct keyword is presented, contact list will show all contacts including hidden contacts.
+If not, by default `listContact` will only show not hidden contacts in contact list.
+
+`ListcontactCommandParser#parse` will call `String#trim` to get specific keyword.
+
+![](images/contact/ListContactSequenceDiagram.png)
 
 ### Adding a Template
 
@@ -312,6 +458,32 @@ Within `DeleteTemplateCommandParser#parse`,
 
 ![](images/mail/DeleteTemplateSequenceDiagram.png)
 
+### Finding a Template
+
+#### Implementation
+
+The Finding a Template mechanism is facilitated by `MyCRM`. This mechanism finds specific list of template object 
+from `UniqueTemplateList` inside the `MyCRM` object with certain keywords provided.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `findTemplate` command behave when executed by a user:
+
+![](images/mail/FindTemplateActivityDiagram.png)
+
+Given below is an example usage scenario and how the Finding a Template mechanism behaves at each step.
+
+![](images/mail/FindTemplateParseSequenceDiagram.png)
+
+Within `FindTemplateCommandParser#parse`,
+-  At least one keyword must be presented.
+-  Keyword specified must be whole word.
+
+`FindTemplateCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
+in order for MyCRM to find corresponding templates with these keywords as predicate.
+
+![](images/mail/FindTemplateSequenceDiagram.png)
+
 ### Constructing an Email
 
 #### Implementation
@@ -346,6 +518,82 @@ Given below is an example of the generation of a mailto URL:
 
 After the URL is generated, the URL string is passed to a JavaFX `Hyperlink` object that when clicked, will execute 
 the URL path.
+
+### Adding a Product
+
+#### Implementation
+
+The **Adding a Product** mechanism is facilitated by `MyCRM`. This product created is stored internally using
+`UniqueProductList` inside the `MyCRM` object.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `addProduct` command behave when executed by user:
+
+![![Activity diagram of add product](images/product/AddProductActivityDiagram.png)](images/product/AddProductActivityDiagram.png)
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+![![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)](images/product/AddProductSequenceDiagram.png)
+
+**Parse user input**
+
+Within `AddProductCommandParser#parse`, the **factory methods** of product components (`getProductName` and 
+`getEmptyProductName` for product name, `getType` and `getEmptyType` for type, ...) will be invoked to create product
+component objects: name, type, manufacturer, description. 
+
+**Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
+
+![![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
+
+### Editing a Product
+
+#### Implementation
+
+The **Editing a Product** mechanism is facilitated by `MyCRM`. This mechanism first reads the target product object from 
+`UniqueProductList`, then creates a new product object with <u>user input fields</u> and <u>unchanged fields of target 
+product</u>. Lastly, it replaces the target product with the new one, updates its references in jobs, and updates UI.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `editProduct` command behave when executed by user:
+
+![![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)](images/product/EditProductActivityDiagram.png)
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+![![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
+
+**Parse user input**
+
+Within `EditProductCommandParser#parse`,
+* EditProductCommandParser will only get the values of fields(`name`, `manufacturer`, `type`, `description`) if their 
+  respective prefixes are present.
+
+`EditTemplateCommandParser#parse` will call `ArgumentMultimap#getPreamble` to get the specified product index and 
+`ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input 
+respectively.
+
+![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
+
+**Updates product references in jobs**
+
+After target product is replaced with new product, `EditProductCommand#execute()` will traverse job list and replace
+references to target product with references to new product.
+
+To get the full job list, `EditProductCommand#execute()` will first store the *lastest predicate* of job list, set the 
+predicate to "show all jobs". After traversing the job list and updating the references, the *latest predicate* is 
+restored.
+
+<u>Design Consideration</u>: An alternative way to get full job list is to retrieve the underlying `UniqueJobList` through
+`Model`. `EditProductCommand` is implemented in the other way as directly accessing and modifying `UniqueJobList` leads to an
+association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
+
+![![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Sync.png)](images/product/EditProductSequenceDiagram_Sync.png)
+
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -405,7 +653,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | regular user           | hide unused job fields                                    | not be distracted by empty / irrelevant fields.                       |
 | `*`      | regular user           | hide unused contacts                                      | not be distracted by irrelevant clients.                              |
 | `*`      | regular user           | customize the app’s user interface (like font and colour) | make the interface look more stylish and pleasant for the eyes        |
-| `*`      | ~~regular user~~       | ~~pin jobs I am working on / are urgent~~                 | ~~easily check and view the job’s details~~                           |
 | `* *`    | regular user           | export my monthly records and statistics                  | store my record externally for future reference                       |
 
 ### Use cases
@@ -487,37 +734,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
 
-**Use case: UC04 - Pin a repair job**
-
-**MSS**
-
-1. User requests to pin a repair job so that its always visible at the top.
-2. MyCRM shows a list of repair jobs.
-3. User selects a repair job from the list which they want to pin.
-4. MyCRM pins the repair job.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. User selects invalid repair job not in the list.
-
-    * 3a1. MyCRM shows an error message and asks user to re-select a repair job.
-    * 3a2. User re-selects a repair job they want to pin.
-
-      Steps 3a1-3a2 are repeated until the user selects a valid repair job. Use case resumes at step 4.
-
-* 3b. User selects a repair job that is already pinned.
-
-    * 3a1. MyCRM shows an error message and tells user repair job is already pinned.
-
-      Use case ends.
-
-**Use case: UC05 - Mark a repair job as completed**
+**Use case: UC04 - Mark a repair job as completed**
 
 **MSS**
 
@@ -547,7 +764,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC06 - List repair jobs**
+**Use case: UC05 - List repair jobs**
 
 **MSS**
 
@@ -562,7 +779,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC07 - Find a repair job**
+**Use case: UC06 - Find a repair job**
 
 **MSS**
 
@@ -578,7 +795,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC08 - Adding a client contact**
+**Use case: UC07 - Adding a client contact**
 
 **MSS**
 
@@ -607,7 +824,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 1.
   
-**Use case: UC09 - Editing a client contact**
+**Use case: UC08 - Editing a client contact**
 
 **MSS**
 
@@ -636,7 +853,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
       
-**Use case: UC10 - Deleting a client contact**
+**Use case: UC09 - Deleting a client contact**
 
 **MSS**
 
@@ -659,42 +876,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC11 - Linking a client contact to a job**
 
-**MSS**
-
-1. User requests to link a contact to a job.
-2. MyCRM shows a list of contacts.
-3. User requests to use a specific contact to link a job.
-4. MyCRM shows a list of jobs.
-5. User requests to link to a specific job in the list.
-6. MyCRM links the contact to this job.
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. MyCRM shows an error message.
-
-      Use case resumes at step 2.
-      
-* 4a. The list is empty.
-
-  Use case ends.
-
-* 5a. The given index is invalid.
-
-    * 5a1. MyCRM shows an error message.
-
-      Use case resumes at step 4
-
-**Use case: UC12 - Hiding a client contact**
+**Use case: UC10 - Hiding a client contact**
 
 **MSS**
 
@@ -717,7 +900,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC13 - Undo hiding a client contact**
+**Use case: UC11 - Undo hiding a client contact**
 
 **MSS**
 
@@ -740,7 +923,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC13 - Sending an email**
+**Use case: UC12 - Sending an email**
 
 **Precondition:** Operating system has a default email application 
 
@@ -766,6 +949,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
+
+* 3b. The job at given index does not have an email.
+
+    * 3a1. MyCRM shows an error message.
+
+      Use case resumes at step 2.
   
 * 4a. The list of templates is empty.
 
@@ -777,7 +966,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
     
-**Use case: UC14 - Adding an email template**
+**Use case: UC13 - Adding an email template**
 
 **MSS**
 
@@ -806,7 +995,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: UC15 - Listing all email template**
+**Use case: UC14 - Listing all email template**
 
 **MSS**
 
@@ -815,7 +1004,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC16 - Listing all email template**
+**Use case: UC15 - Listing all email template**
 
 **MSS**
 
@@ -826,7 +1015,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 
-**Use case: UC17 - Editing an email template**
+**Use case: UC16 - Editing an email template**
 
 **MSS**
 
@@ -867,7 +1056,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC18 - Deleting an email template**
+**Use case: UC17 - Deleting an email template**
 
 **MSS**
 
@@ -890,7 +1079,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC19 - Viewing user guide**
+**Use case: UC18 - Viewing user guide**
 
 **MSS**
 
@@ -899,7 +1088,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Exiting the program**
+**Use case: UC19 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -910,7 +1099,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Clearing MyCRM data**
+**Use case: UC20 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -921,7 +1110,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC22 - Add Product**
+**Use case: UC21 - Add Product**
 
 **MSS**
 
@@ -943,7 +1132,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC23 - List Products**
+**Use case: UC22 - List Products**
 
 **MSS**
 
@@ -957,7 +1146,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC24: Delete a product**
+**Use case: UC23: Delete a product**
 
 **MSS**
 
@@ -978,7 +1167,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC 25: Edit a product.**
+**Use case: UC 24: Edit a product.**
 
 **MSS**
 
@@ -1005,7 +1194,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC26 - Retrieve Previous Command**
+**Use case: UC25 - Retrieve Previous Command**
 
 **MSS**
 
@@ -1023,7 +1212,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC 27 - Change the theme of user interface(UI)**
+**Use case: UC26 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -1040,6 +1229,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. User enters the name of current theme.
     * 1a1. MyCRM keeps the current theme.
+
+  Use case ends.
+
+**Use case: UC27 - Print out monthly job records and statistics**
+
+**MSS**
+
+1. User requests to print out monthly job report.
+2. MyCRM shows the monthly job report in a new window.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User requests to print out monthly job report when report window is not shown.
+    * 1a1. MyCRM shows the report window.
+
+  Use case ends.
+
+* 1b. User requests to print out monthly job report when report window is shown.
+    * 1b1. MyCRM focuses on the report window.
 
   Use case ends.
 
@@ -1093,23 +1302,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
-
-### Deleting a person
-
-1. Deleting a person while all persons are being shown
-
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 

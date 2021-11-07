@@ -20,11 +20,11 @@ import seedu.mycrm.model.job.JobStatus;
 import seedu.mycrm.model.mail.Body;
 import seedu.mycrm.model.mail.Subject;
 import seedu.mycrm.model.mail.Template;
-import seedu.mycrm.model.products.Description;
-import seedu.mycrm.model.products.Manufacturer;
-import seedu.mycrm.model.products.Product;
-import seedu.mycrm.model.products.ProductName;
-import seedu.mycrm.model.products.Type;
+import seedu.mycrm.model.product.Description;
+import seedu.mycrm.model.product.Manufacturer;
+import seedu.mycrm.model.product.Product;
+import seedu.mycrm.model.product.ProductName;
+import seedu.mycrm.model.product.Type;
 
 /**
  * Contains utility methods for populating {@code MyCrm} with sample data.
@@ -80,7 +80,7 @@ public class SampleDataUtil {
     public static Template[] getSampleTemplates() {
         return new Template[] {
             new Template(new Subject("Completed"), new Body("You order has been completed")),
-            new Template(new Subject("Done"), new Body("You order has been marked as completed")),
+            new Template(new Subject("Done"), new Body("You order has been marked as done!\\nCongratz!")),
         };
     }
 

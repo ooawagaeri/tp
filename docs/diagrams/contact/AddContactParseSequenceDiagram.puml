@@ -1,0 +1,82 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":AddContactCommandParser" as AddContactCommandParser LOGIC_COLOR
+participant "contactToAdd:AddContactCommand" as AddContactCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "n:Name" as Name MODEL_COLOR
+participant "c:Phone" as Phone MODEL_COLOR
+participant "e:Email" as Email MODEL_COLOR
+participant "a:Address" as Address MODEL_COLOR
+participant "contact:Contact" as Contact MODEL_COLOR
+end box
+[-> LogicManager : execute("addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell...")
+activate LogicManager
+
+group sd parse add contact
+LogicManager -> MyCrmParser : parseCommand("addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell...")
+activate MyCrmParser
+
+create AddContactCommandParser
+MyCrmParser -> AddContactCommandParser
+activate AddContactCommandParser
+
+AddContactCommandParser --> MyCrmParser
+deactivate AddContactCommandParser
+
+MyCrmParser -> AddContactCommandParser : parse("addContact n/Sans c/83921823 e/Sans@gmail.com a/Maxwell...")
+activate AddContactCommandParser
+
+create Name
+AddContactCommandParser -> Name : "Sans"
+activate Name
+Name --> AddContactCommandParser : n
+deactivate Name
+
+create Phone
+AddContactCommandParser -> Phone : "83921823"
+activate Phone
+Phone --> AddContactCommandParser : c
+deactivate Phone
+
+create Email
+AddContactCommandParser -> Email : "Sans@gmail.com"
+activate Email
+Email --> AddContactCommandParser : e
+deactivate Email
+
+create Address
+AddContactCommandParser -> Address : "Maxwell..."
+activate Address
+Address --> AddContactCommandParser : a
+deactivate Address
+
+create Contact
+AddContactCommandParser -> Contact : n, c, e, a
+activate Contact
+Contact --> AddContactCommandParser : contact
+deactivate Contact
+
+create AddContactCommand
+AddContactCommandParser -> AddContactCommand : contact
+activate AddContactCommand
+AddContactCommand --> AddContactCommandParser : contactToAdd
+deactivate AddContactCommand
+
+AddContactCommandParser --> MyCrmParser : contactToAdd
+deactivate AddContactCommandParser
+'Hidden arrow to position destroy marker below the end of the activation bar.
+AddContactCommandParser -[hidden]-> MyCrmParser
+destroy AddContactCommandParser
+
+MyCrmParser --> LogicManager : contactToAdd
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml

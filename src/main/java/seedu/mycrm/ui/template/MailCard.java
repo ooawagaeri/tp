@@ -10,7 +10,7 @@ import seedu.mycrm.model.mail.Mail;
 import seedu.mycrm.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Template}.
+ * A UI component that displays information of a {@code Mail}.
  */
 public class MailCard extends UiPart<Region> {
 
@@ -32,22 +32,24 @@ public class MailCard extends UiPart<Region> {
     private Label body;
 
     /**
-     * Creates a {@code TemplateCode} with the given {@code Template} and index to display.
+     * Creates a {@code MailCard} with the given {@code Mail} to display.
      */
     public MailCard(Mail mail) {
         super(FXML);
         this.mail = mail;
-        link.setText("Click here to send email");
 
         email.setText(mail.getMailEmail());
         subject.setText(mail.getMailSubject());
         body.setText(mail.getMailBody());
 
+        link.setText("Click here to send email");
         link.setOnAction(e -> myHostServices.showDocument(mail.constructMail()));
     }
 
     /**
      * Sets mail card host service for URL opening.
+     *
+     * @param hostServices application host service
      */
     public static void setGetHostController(HostServices hostServices) {
         myHostServices = hostServices;
@@ -55,17 +57,14 @@ public class MailCard extends UiPart<Region> {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof MailCard)) {
             return false;
         }
 
-        // state check
         MailCard card = (MailCard) other;
         return mail.equals(card.mail);
     }

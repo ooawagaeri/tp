@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.mycrm.model.contact.Contact;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 
 /**
  * Represents a repair job in MyCRM.

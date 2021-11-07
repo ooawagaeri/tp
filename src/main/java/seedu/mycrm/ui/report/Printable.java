@@ -3,16 +3,19 @@ package seedu.mycrm.ui.report;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.mycrm.logic.Logic;
 import seedu.mycrm.model.job.Job;
-import seedu.mycrm.model.products.Product;
+import seedu.mycrm.model.product.Product;
 import seedu.mycrm.ui.UiPart;
 
 
 public class Printable extends UiPart<VBox> {
 
     private static final String FXML = "Printable.fxml";
+
+    private GraphDisplay graphDisplay;
 
     @FXML
     private Label completedJobListTitle;
@@ -32,6 +35,9 @@ public class Printable extends UiPart<VBox> {
     @FXML
     private TextArea topThreeProductList;
 
+    @FXML
+    private StackPane graphDisplayPlaceholder;
+
 
     public Printable() {
         super(FXML);
@@ -41,6 +47,17 @@ public class Printable extends UiPart<VBox> {
      * Initialize inner parts.
      */
     public void init(Logic logic) {
+        graphDisplay = new GraphDisplay();
+        graphDisplay.init(logic);
+        if (graphDisplayPlaceholder.getChildren().size() > 0) {
+            graphDisplayPlaceholder.getChildren().remove(0);
+        }
+        graphDisplayPlaceholder.getChildren().add(graphDisplay.getRoot());
+
+        setTextArea(logic);
+    }
+
+    private void setTextArea(Logic logic) {
         int id;
 
         id = 1;
@@ -69,7 +86,6 @@ public class Printable extends UiPart<VBox> {
             id++;
         }
         topThreeProductListTitle.setText("Top Three Products:");
-
     }
 
     private String getJobInfo(Job j) {
