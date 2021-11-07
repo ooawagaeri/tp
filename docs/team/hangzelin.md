@@ -60,7 +60,7 @@ Given below are my contributions to the project.
   * General code enhancement:
     * Rename product from `addressBook` to `MyCRM`.
     * Change product icon to `MyCRM`.
-  * Managed reviewing and merging of all PRs.
+  * Managed reviewing and merging of most PRs.
   * Managed code quality review.
   * Managed releases `v1.2.1` (1 release) on GitHub
   

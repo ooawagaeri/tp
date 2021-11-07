@@ -169,7 +169,9 @@ This section describes some noteworthy details on how certain features are imple
 * [Undoing Hiding a contact](#undoing-hiding-a-contact)
 * [Listing contacts](#listing-contacts)
 * [Adding a template](#adding-a-template)
+* [Editing a template](#editing-a-template)
 * [Deleting a template](#deleting-a-template)
+* [Finding a template](#finding-a-template)
 * [Constructing an email](#constructing-an-email)
 * [Adding a product](#adding-a-product)
 * [Editing a product](#editing-a-product)
@@ -1078,8 +1080,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. MyCRM shows an error message.
 
       Use case resumes at step 2.
+    
+**Use case: UC18 - Finding am email template**
 
-**Use case: UC18 - Viewing user guide**
+**MSS**
+
+1. User wants to find an email template job and provides keywords they want to search by.
+2. MyCRM shows a list of filtered templates for which the keywords appear in the template's subject.
+
+   Use case ends.
+
+**Use case: UC19 - Viewing user guide**
 
 **MSS**
 
@@ -1088,7 +1099,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC19 - Exiting the program**
+**Use case: UC20 - Exiting the program**
 
 **Postcondition:** MyCRM application closes.
 
@@ -1099,7 +1110,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC20 - Clearing MyCRM data**
+**Use case: UC21 - Clearing MyCRM data**
 
 **Postcondition:** MyCRM data of contacts, products, and templates are empty. 
 
@@ -1110,7 +1121,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC21 - Add Product**
+**Use case: UC22 - Add Product**
 
 **MSS**
 
@@ -1132,7 +1143,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC22 - List Products**
+**Use case: UC23 - List Products**
 
 **MSS**
 
@@ -1146,7 +1157,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC23: Delete a product**
+**Use case: UC24: Delete a product**
 
 **MSS**
 
@@ -1167,7 +1178,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC 24: Edit a product.**
+**Use case: UC25: Edit a product.**
 
 **MSS**
 
@@ -1194,7 +1205,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends.
 
-**Use case: UC25 - Retrieve Previous Command**
+**Use case: UC26 - Retrieve Previous Command**
 
 **MSS**
 
@@ -1212,7 +1223,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case: UC26 - Change the theme of user interface(UI)**
+**Use case: UC27 - Change the theme of user interface(UI)**
 
 **MSS**
 
@@ -1232,7 +1243,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC27 - Print out monthly job records and statistics**
+**Use case: UC28 - Print out monthly job records and statistics**
 
 **MSS**
 
@@ -1288,27 +1299,270 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+### Launch
 
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file.
+      <br>Expected: Shows the GUI with a set of sample contacts, products, templates and job. The window size may 
+      not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+   2. Re-launch the app by double-clicking the jar file.
+      <br>Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Shutdown
+
+1. Exiting application
+
+    1. Test case: `exit`
+       <br>Expected: GUI closes and application is shutdown.
+    
+    2. Test case: Click the exit 'x' (cross) 
+       <br>Expected: Similar to previous
+
+### Requesting help
+
+1. Opening help page
+
+    1. Test case: `help`
+       <br>Expected: Shows the help GUI with user guide details.
+
+    2. Test case: Press F1
+       <br>Expected: Similar to previous
+
+    3. Test case: Click "Help" > "Help F1"
+       <br>Expected: Similar to previous
+   
+### Constructing mail
+
+1. Constructing a mail when there is at least one job and mail.
+
+    1. Prerequisites: There must be at least one job and mail in MyCRM. `addJob`, `addTemplate`
+
+    2. Test case: `mail j/1 t/1`
+       <br>Expected:
+        - New mail is added to MyCRM with first job and template.
+        - Details of mail shown in status message.
+        - Details of mail shown in main panel with mailtoURL.
+
+    3. Test case: `mail j/1`
+       <br>Expected:
+        - No mail is constructed.
+        - Format error details is shown in status message.
+
+    4. Test case: `mail t/1`
+       <br>Expected:
+        - Similar to previous
+
+    5. Test case: `mail j/0 t/0`
+       <br>Expected:
+        - Similar to previous
+        - Index error details is shown in status message.
+       
+    6. Test case: `mail j/1 t/-1`
+       <br>Expected:
+        - Similar to previous
+      
+### Adding template
+
+1. Inserting a template while all templates are being shown. 
+
+   1. Prerequisites: List all templates using the `listTemplate` command. Shows list of templates in side panel.
+
+   2. Test case: `addTemplate s/ANewTemplate b/This is a new template!`
+       <br>Expected: 
+       - New template is added to the list.
+       - Details of template shown in status message.
+       
+   3. Test case: `addTemplate s/A New Template b/This is a new template!\nRegards`
+       <br>Expected:
+       - Similar to previous
+       - New template body will represent '\n' as a newline.
+
+   4. Test case: `addTemplate s/Completed b/Your order has been completed`
+       <br>Expected:
+       - No template is added.
+       - Duplicate error details is shown in status message.
+
+   5. Test case: `addTemplate s/!Inv@lid b/Your order has been completed`
+       <br>Expected:
+       - Similar to previous
+       - Subject error details is shown in status message. 
+
+   6. Test case: `addTemplate s/Valid subject b/`
+       <br>Expected:
+       - Similar to previous
+       - Body error details is shown in status message.
+
+2. Inserting a template while all templates are NOT being shown.
+
+   1. Prerequisites: List other data types i.e. `listProduct` command. Shows list of other data in side panel.
+   
+   2. Correct test cases similar to (1)
+      <br>Expected:
+       - Similar to (1)
+       - Side panel will list all templates.
+
+   3. Other incorrect test cases similar to (1)
+      <br>Expected:
+       - Similar to (1)
+       - Side panel will NOT list all templates. Remains at current list.
+
+### Editing template
+
+1. Editing a template while all templates are being shown.
+
+   1. Prerequisites: List all templates using the `listTemplate` command. Shows list of templates in side panel.
+
+   2. Test case: `editTemplate 1 s/New Completed`
+      <br>Expected:
+       - First template is updated to the list.
+       - Details of template shown in status message.
+       
+   3. Test case: `editTemplate 1 b/New Body`
+      <br>Expected:
+      - Similar to previous.
+
+   4. Test case: `editTemplate 1 s/Brand New Completed b/Brand New Body`
+      <br>Expected:
+       - Similar to previous.
+       
+   5. Test case: `editTemplate 1 s/!Inv@lid`
+      <br>Expected:
+       - No template is edited.
+       - Subject error details is shown in status message.
+    
+   6. Test case: `editTemplate 1 b/   `
+      <br>Expected:
+       - Similar to previous
+       - Body error details is shown in status message.
+
+   7. Test case: `editTemplate 0 s/3rd New Completed b/3rd New Body`
+      <br>Expected:
+       - Similar to previous
+       - Format error details is shown in status message.
+
+2. Editing a template while all templates are not shown.
+
+    1. Prerequisites: List other data types i.e. `listProduct` command. Shows list of other data in side panel.
+   
+    2. Correct test cases similar to (1)
+      <br>Expected:
+        - Similar to (1)
+        - Side panel will list all templates.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+       - Similar to (1)
+       - Side panel will NOT list all templates. Remains at current list.
+
+### Deleting template
+
+1. Deleting a template while all templates are being shown.
+
+    1. Prerequisites: List all templates using the `listTemplate` command. Shows list of templates in side panel.
+
+    2. Test case: `deleteTemplate 1`
+       <br>Expected:
+        - First template is deleted to the list.
+        - Details of template shown in status message.
+
+    3. Test case: `deleteTemplate 0`
+       <br>Expected:
+        - Similar to previous
+        - Format error details is shown in status message.
+
+2. Deleting a template while all templates are not shown.
+
+    1. Prerequisites: List other data types i.e. `listProduct` command. Shows list of other data in side panel.
+
+    2. Correct test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all templates.
+
+    3. Other incorrect test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will NOT list all templates. Remains at current list.
+
+### Finding template
+
+1. Finding a template while all templates are being shown.
+
+    1. Prerequisites: List all templates using the `listTemplate` command. Shows list of templates in side panel.
+
+    2. Test case: `findTemplate Done`
+       <br>Expected:
+        - Matching templates are shown on list.
+        - Number of template found shown in status message.
+
+    3. Test case: `findTemplate Done New Template`
+       <br>Expected:
+        - Similar to previous
+
+   3. Test case: `findTemplate $`
+      <br>Expected:
+       - No matching templates are shown on list.
+       - Zero templates found shown in status message.
+
+2. Finding a template while all templates are not shown.
+
+    1. Prerequisites: List other data types i.e. `listProduct` command. Shows list of other data in side panel.
+
+    2. Test cases similar to (1)
+       <br>Expected:
+        - Similar to (1)
+        - Side panel will list all templates.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. To simulate a missing file, delete the myCrm.json file from the data directory.
+    2. Re-launch the app by double-clicking the jar file.
+       <br>Expected: The application will generate a new myCrm.json with sample data.
 
-1. _{ more test cases …​ }_
+2. Dealing with corrupted data files
+
+    1. To simulate a corrupted file, open the myCrm.json file from data directory.
+    2. Delete line 2 from the file.
+    3. Re-launch the app by double-clicking the jar file.
+       <br>Expected: The application will not load any data, empty content.
+
+3. Customising with JSON data file
+
+    1. Test case: Customising contact
+        1. Open the myCrm.json file from data directory.
+        2. Modify first contact name i.e.'Damith Rajapakse'
+        3. Re-launch the app by double-clicking the jar file.
+           <br>Expected: The application will load data, first contact name is modified.
+
+    2. Test case: Customising template
+        1. Similar to previous
+        2. Modify first subject i.e.'Welcome newcomer'
+           <br>Expected: The application will load data, first subject is modified.
+
+    3. Test case: Customising product
+        1. Similar to previous
+        2. Modify first product type i.e.'Computer Unit'
+           <br>Expected: The application will load data, first product type is modified.
+
+    4. Test case: Customising job
+        1. Similar to previous
+        2. Modify first job fee i.e.'$100.00'
+           <br>Expected: The application will load data, first job fee is modified.
+
+    5. Other correct test cases: Customising contact, template, product, job
+        1. Similar to adding correct contact, template, product, job test case
+           <br>Expected: The application will load data, data is modified.
+   
+    6. Other incorrect test cases: Customising contact, template, product, job
+        1. Similar to adding incorrect contact, template, product, job test case
+           <br>Expected: The application will not load any data, empty content.

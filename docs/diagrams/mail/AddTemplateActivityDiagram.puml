@@ -2,13 +2,18 @@
 start
 :User executes add template command;
 :MyCRM parses user inputs;
-if () then ([Valid inputs])
-    :Creates new template;
-    :Stores template into MyCRM;
-    :Displays successful add template on UI;
-else ([Invalid inputs])
+if () then ([Invalid inputs])
     :Throws ParseException;
     :Displays unsuccessful add template on UI;
+else ([Valid inputs])
+    if () then ([Duplicate template])
+        :Throws CommandException;
+        :Displays unsuccessful add template on UI;
+    else ([Else])
+        :Creates new template;
+        :Stores template into MyCRM;
+        :Displays successful add template on UI;
+    endif
 endif
 stop
 
