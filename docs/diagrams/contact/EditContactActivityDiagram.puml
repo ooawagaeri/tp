@@ -15,5 +15,6 @@ else ([Else])
 :Replaces specific contact with edited contact;
 :Displays successful editing contact message on UI;
 endif
+endif
 stop
 @enduml

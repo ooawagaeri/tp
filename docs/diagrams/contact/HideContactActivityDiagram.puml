@@ -19,5 +19,6 @@ else ([Contact is hidden]))
 :Displays unsuccessful hiding contact message on UI;
 endif
 endif
+endif
 stop
 @enduml

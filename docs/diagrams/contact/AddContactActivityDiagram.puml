@@ -25,6 +25,7 @@ else ([Valid Input])
     :Creates new contact;
     :Stores contact into MyCRM;
     :Displays successful add contact Message on UI;
+    endif
 endif;
 stop
 @enduml
