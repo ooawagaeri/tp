@@ -36,7 +36,7 @@ public class JobFee {
                 test = test.substring(1);
             }
             int value = parse(test);
-            return value > 0;
+            return value >= 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -54,12 +54,22 @@ public class JobFee {
 
         if (fee.contains(".")) {
             String[] amounts = fee.split("\\.");
+            validateNumeric(amounts[0]);
+            validateNumeric(amounts[1]);
             dollars = Integer.parseInt(amounts[0]);
+
             if (amounts[1] != null) {
                 if (amounts[1].length() > 2) {
+                    // To do a preliminary check if string only contains numbers
+                    cents = Integer.parseInt(amounts[1]);
+
+                    // Lowest permissible denomination is 1 cent
                     cents = Integer.parseInt(amounts[1].substring(0, 2));
                 } else {
                     cents = Integer.parseInt(amounts[1]);
+                }
+                if (dollars >= MAX_VALUE || dollars < 0 || cents < 0) {
+                    throw new NumberFormatException();
                 }
             }
 
@@ -72,6 +82,12 @@ public class JobFee {
 
         int amount = dollars * 100 + cents;
         return amount;
+    }
+
+    private static void validateNumeric(String input) throws NumberFormatException {
+        for (int i = 0; i < input.length(); i++) {
+            Integer.parseInt(input.substring(i, i + 1));
+        }
     }
 
     /**

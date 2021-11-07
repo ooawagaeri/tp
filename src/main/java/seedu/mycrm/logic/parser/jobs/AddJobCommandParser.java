@@ -3,7 +3,7 @@ package seedu.mycrm.logic.parser.jobs;
 import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
-import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_DELIVERY_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
@@ -35,45 +35,55 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
     public AddJobCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_JOB_DESCRIPTION, PREFIX_CONTACT_INDEX,
-                PREFIX_PRODUCT_INDEX, PREFIX_DELIVERY_DATE, PREFIX_RECEIVED_DATE, PREFIX_FEE);
+        Prefix[] mandatoryPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE};
+        Prefix[] allPrefixes = { PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_EXPECTED_COMPLETION_DATE,
+            PREFIX_CONTACT_INDEX, PREFIX_PRODUCT_INDEX, PREFIX_RECEIVED_DATE };
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_JOB_DESCRIPTION, PREFIX_FEE, PREFIX_DELIVERY_DATE)
-            || !argMultimap.getPreamble().isEmpty()) {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
+        validatePresenceOfMandatoryPrefixes(argumentMultimap, mandatoryPrefixes);
+        Job job = parsePrefixesToCreateJob(argumentMultimap);
+        Index contactIndex = parseIndexIfPresent(argumentMultimap, PREFIX_CONTACT_INDEX);
+        Index productIndex = parseIndexIfPresent(argumentMultimap, PREFIX_PRODUCT_INDEX);
+
+        return new AddJobCommand(job, contactIndex, productIndex);
+    }
+
+
+    private void validatePresenceOfMandatoryPrefixes(ArgumentMultimap argMultimap,
+            Prefix[] mandatoryPrefixes) throws ParseException {
+
+        if (!arePrefixesPresent(argMultimap, mandatoryPrefixes) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddJobCommand.MESSAGE_USAGE));
+                AddJobCommand.MESSAGE_USAGE));
         }
+    }
 
+
+    private Job parsePrefixesToCreateJob(ArgumentMultimap argMultimap) throws ParseException {
         JobDescription jobDescription = ParserUtil.parseJobDescription(
                 argMultimap.getValue(PREFIX_JOB_DESCRIPTION).get());
 
-        JobDate deliveryDate = ParserUtil.parseJobDate(
-                argMultimap.getValue(PREFIX_DELIVERY_DATE).get());
+        JobDate expectedCompletionDate = ParserUtil.parseJobDate(
+                argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get(), "Expected Completion");
 
         JobFee fee = ParserUtil.parseJobFee(
                 argMultimap.getValue(PREFIX_FEE).get());
 
-        JobDate receivedDate = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_RECEIVED_DATE)) {
-            receivedDate = ParserUtil.parseJobDate(
-                argMultimap.getValue(PREFIX_RECEIVED_DATE).get());
-        } else {
-            receivedDate = JobDate.getCurrentDate();
-        }
+        JobDate receivedDate = (argMultimap.getValue(PREFIX_RECEIVED_DATE).isPresent())
+                               ? ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get(), "Received")
+                               : JobDate.getCurrentDate();
 
-        Index contactIndex = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_CONTACT_INDEX)) {
-            contactIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CONTACT_INDEX).get());
-        }
+        Job job = new Job(jobDescription, expectedCompletionDate, receivedDate, fee);
 
-        Index productIndex = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_PRODUCT_INDEX)) {
-            productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT_INDEX).get());
-        }
+        return job;
+    }
 
-        Job job = new Job(jobDescription, deliveryDate, receivedDate, fee);
+    private Index parseIndexIfPresent(ArgumentMultimap argMultimap, Prefix indexPrefix) throws ParseException {
+        Index index = (argMultimap.getValue(indexPrefix).isPresent())
+                      ? ParserUtil.parseIndex(argMultimap.getValue(indexPrefix).get())
+                      : null;
 
-        return new AddJobCommand(job, contactIndex, productIndex);
+        return index;
     }
 
     /**

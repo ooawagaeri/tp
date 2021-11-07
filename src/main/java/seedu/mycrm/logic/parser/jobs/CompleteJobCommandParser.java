@@ -1,5 +1,6 @@
 package seedu.mycrm.logic.parser.jobs;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.mycrm.commons.core.index.Index;
@@ -16,21 +17,30 @@ public class CompleteJobCommandParser implements Parser<CompleteJobCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CompleteJobCommand parse(String args) throws ParseException {
-        Index index;
-        String[] splitArgs;
+        requireNonNull(args);
+        String trimmedArgs = args.trim();
+        String[] splitArgs = trimmedArgs.split(" ", 2);
+        Index index = parseIndex(splitArgs);
+        JobDate completionDate = parseCompletionDate(splitArgs);
+
+        return new CompleteJobCommand(index, completionDate);
+    }
+
+    private Index parseIndex(String[] args) throws ParseException {
         try {
-            String trimmedArgs = args.trim();
-            splitArgs = trimmedArgs.split(" ", 2);
-            index = ParserUtil.parseIndex(splitArgs[0]);
+            String indexString = args[0];
+            Index index = ParserUtil.parseIndex(indexString);
+            return index;
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteJobCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteJobCommand.MESSAGE_USAGE), pe);
         }
+    }
 
-        JobDate completionDate = null;
-        if (splitArgs.length == 2) {
-            completionDate = ParserUtil.parseJobDate(splitArgs[1]);
-        }
-        return new CompleteJobCommand(index, completionDate);
+    private JobDate parseCompletionDate(String[] args) throws ParseException {
+        JobDate completionDate = (args.length == 2)
+                                 ? ParserUtil.parseJobDate(args[1], "Completion")
+                                 : JobDate.getCurrentDate();
+        return completionDate;
     }
 }

@@ -4,14 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_BODY;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_CONTACT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_EXPECTED_COMPLETION_DATE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_FEE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_DESCRIPTION;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_JOB_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_DESCRIPTION;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_MANUFACTURER;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_PRODUCT_TYPE;
+import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_RECEIVED_DATE;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.mycrm.logic.parser.CliSyntax.PREFIX_TEMPLATE_INDEX;
@@ -141,6 +147,34 @@ public class CommandTestUtil {
 
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
             + PRODUCT_TYPE_DESC; // product name is empty
+
+    public static final String VALID_JOB_DESCRIPTION = "Repair screen";
+    public static final String VALID_JOB_FEE = "$30.00";
+    public static final String VALID_JOB_RECEIVED_DATE = "20/10/2021";
+    public static final String VALID_JOB_EXPECTED_COMPLETION_DATE = "25/10/2021";
+    public static final String VALID_INDEX = "1";
+
+    public static final String INVALID_JOB_DESCRIPTION = "   ";
+    public static final String INVALID_JOB_FEE = "$-30.00";
+    public static final String INVALID_JOB_RECEIVED_DATE = "20/10/21";
+    public static final String INVALID_JOB_EXPECTED_COMPLETION_DATE = "25/10/21";
+    public static final String INVALID_INDEX = "-1";
+
+    public static final String VALID_JOB_DESCRIPTION_DESC = " " + PREFIX_JOB_DESCRIPTION + VALID_JOB_DESCRIPTION;
+    public static final String VALID_JOB_FEE_DESC = " " + PREFIX_FEE + VALID_JOB_FEE;
+    public static final String VALID_JOB_RECEIVED_DATE_DESC = " " + PREFIX_RECEIVED_DATE + VALID_JOB_RECEIVED_DATE;
+    public static final String VALID_JOB_EXPECTED_COMPLETION_DATE_DESC = " " + PREFIX_EXPECTED_COMPLETION_DATE
+            + VALID_JOB_EXPECTED_COMPLETION_DATE;
+    public static final String VALID_JOB_CONTACT_INDEX_DESC = " " + PREFIX_CONTACT_INDEX + VALID_INDEX;
+    public static final String VALID_JOB_PRODUCT_INDEX_DESC = " " + PREFIX_PRODUCT_INDEX + VALID_INDEX;
+
+    public static final String INVALID_JOB_DESCRIPTION_DESC = " " + PREFIX_JOB_DESCRIPTION + INVALID_JOB_DESCRIPTION;
+    public static final String INVALID_JOB_FEE_DESC = " " + PREFIX_FEE + INVALID_JOB_FEE;
+    public static final String INVALID_JOB_RECEIVED_DATE_DESC = " " + PREFIX_RECEIVED_DATE + INVALID_JOB_RECEIVED_DATE;
+    public static final String INVALID_JOB_EXPECTED_COMPLETION_DATE_DESC = " " + PREFIX_EXPECTED_COMPLETION_DATE
+        + INVALID_JOB_EXPECTED_COMPLETION_DATE;
+    public static final String INVALID_JOB_CONTACT_INDEX_DESC = " " + PREFIX_CONTACT_INDEX + INVALID_INDEX;
+    public static final String INVALID_JOB_PRODUCT_INDEX_DESC = " " + PREFIX_PRODUCT_INDEX + INVALID_INDEX;
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)

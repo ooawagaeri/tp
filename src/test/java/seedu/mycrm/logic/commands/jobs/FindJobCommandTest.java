@@ -56,7 +56,7 @@ class FindJobCommandTest {
         FindJobCommand command = new FindJobCommand(predicate);
         expectedModel.updateFilteredJobList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredContactList());
+        assertEquals(Collections.emptyList(), model.getFilteredJobList());
     }
 
     @Test

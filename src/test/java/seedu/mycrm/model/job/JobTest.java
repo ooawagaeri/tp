@@ -22,7 +22,7 @@ public class JobTest {
         assertFalse(COMPLETED.isSameJob(null));
 
         // same contact, product and job description with all other attributes different -> returns true
-        Job editedCompleted = new JobBuilder(COMPLETED).withDeliveryDate("12/12/2012")
+        Job editedCompleted = new JobBuilder(COMPLETED).withExpectedCompletionDate("12/12/2012")
                 .withCompletionStatus(false).build();
         assertTrue(COMPLETED.isSameJob(editedCompleted));
 

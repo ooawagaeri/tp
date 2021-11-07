@@ -24,8 +24,8 @@ import seedu.mycrm.model.contact.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindContactCommandTest {
-    private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void equals() {

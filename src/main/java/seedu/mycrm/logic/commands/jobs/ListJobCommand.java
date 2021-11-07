@@ -23,7 +23,7 @@ public class ListJobCommand extends Command {
         + "Flags to modify list of jobs displayed (only one flag allowed at a time): \n"
         + SHOW_ALL_FLAG + ": to show all jobs\n"
         + SHOW_COMPLETED_FLAG + ": to show only completed jobs\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + "Example: " + COMMAND_WORD + " -a";
 
     public static final String MESSAGE_SUCCESS_ALL = "Listed all jobs";
     public static final String MESSAGE_SUCCESS_ONLY_COMPLETED = "Listed all completed jobs";
@@ -44,6 +44,7 @@ public class ListJobCommand extends Command {
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireNonNull(model);
+
         model.updateFilteredJobList(listPredicate);
         String userFeedback = MESSAGE_SUCCESS_ALL;
 
