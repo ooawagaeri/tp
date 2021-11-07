@@ -18,19 +18,19 @@
     "jobDescription" : "Graphics card replacement needed",
     "client" : "Charlotte Oliveiro",
     "product" : "Intel i5-10400F",
-    "deliveryDate" : "15/09/2021",
+    "expectedCompletionDate" : "15/09/2021",
     "jobStatus" : "In Progress",
     "receivedDate" : "24/10/2021",
-    "completedDate" : null,
+    "completionDate" : null,
     "fee" : "$30.00"
   }, {
     "jobDescription" : "Graphics card replacement needed",
     "client" : "Charlotte Oliveiro",
     "product" : "Intel i5-10400F",
-    "deliveryDate" : "09/09/2021",
+    "expectedCompletionDate" : "09/09/2021",
     "jobStatus" : "Completed",
     "receivedDate" : "09/10/2021",
-    "completedDate" : "09/10/2021",
+    "completionDate" : "09/10/2021",
     "fee" : "$50.00"
   } ]
 }

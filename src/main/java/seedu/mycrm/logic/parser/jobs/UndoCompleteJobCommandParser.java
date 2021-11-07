@@ -20,7 +20,7 @@ public class UndoCompleteJobCommandParser implements Parser<UndoCompleteJobComma
             return new UndoCompleteJobCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCompleteJobCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCompleteJobCommand.MESSAGE_USAGE), pe);
         }
     }
 }

@@ -62,7 +62,7 @@ public class TypicalContacts {
             .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FIRST_TIER,
                     VALID_TAG_SECOND_TIER).build();
     public static final Job COMPLETED =
-            new JobBuilder().withClient(BOB_LINKED_JOB).withCompletedDate("13/12/2021")
+            new JobBuilder().withClient(BOB_LINKED_JOB).withCompletionDate("13/12/2021")
                     .withCompletionStatus(true).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

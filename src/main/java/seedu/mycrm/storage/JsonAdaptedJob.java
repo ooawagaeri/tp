@@ -24,15 +24,15 @@ class JsonAdaptedJob {
     public static final String MESSAGE_INVALID_CLIENT = "JSON Job list contains an illegal job contact";
     public static final String MESSAGE_INVALID_PRODUCT = "JSON Job list contains an illegal job product";
     public static final String MESSAGE_INVALID_STATUS = "JSON Job list contains an illegal job status";
-    public static final String MESSAGE_INVALID_COMPLETED_DATE = "Pending job should not have a completed date";
+    public static final String MESSAGE_INVALID_COMPLETION_DATE = "Pending job should not have a completion date";
 
     private final String jobDescription;
     private final String client;
     private final String product;
-    private final String deliveryDate;
+    private final String expectedCompletionDate;
     private final String jobStatus;
     private final String receivedDate;
-    private String completedDate;
+    private String completionDate;
     private final String fee;
 
     /**
@@ -40,18 +40,19 @@ class JsonAdaptedJob {
      */
     @JsonCreator
     public JsonAdaptedJob(@JsonProperty("jobDescription") String jobDescription, @JsonProperty("client") String client,
-                          @JsonProperty("product") String product, @JsonProperty("deliveryDate") String deliveryDate,
+                          @JsonProperty("product") String product,
+                          @JsonProperty("expectedCompletionDate") String expectedCompletionDate,
                           @JsonProperty("jobStatus") String jobStatus,
                           @JsonProperty("receivedDate") String receivedDate,
-                          @JsonProperty("completedDate") String completedDate,
+                          @JsonProperty("completionDate") String completionDate,
                           @JsonProperty("fee") String fee) {
         this.jobDescription = jobDescription;
         this.client = client;
         this.product = product;
-        this.deliveryDate = deliveryDate;
+        this.expectedCompletionDate = expectedCompletionDate;
         this.jobStatus = jobStatus;
         this.receivedDate = receivedDate;
-        this.completedDate = completedDate;
+        this.completionDate = completionDate;
         this.fee = fee;
     }
 
@@ -62,12 +63,12 @@ class JsonAdaptedJob {
         jobDescription = source.getJobDescription().toString();
         client = source.getClient().getName().toString();
         product = source.getProduct().getName().toString();
-        deliveryDate = source.getDeliveryDate().raw();
+        expectedCompletionDate = source.getExpectedCompletionDate().raw();
         jobStatus = source.getJobStatus().toString();
         receivedDate = source.getReceivedDate().raw();
         fee = source.getFee().toString();
         if (source.isCompleted()) {
-            completedDate = source.getCompletedDate().raw();
+            completionDate = source.getCompletionDate().raw();
         }
     }
 
@@ -81,8 +82,8 @@ class JsonAdaptedJob {
         validateJobDescription();
         final JobDescription modelJobDescription = new JobDescription(jobDescription);
 
-        validateDate(deliveryDate, "Delivery Date");
-        final JobDate modelJobDeliveryDate = new JobDate(deliveryDate);
+        validateDate(expectedCompletionDate, "Expected Completion Date");
+        final JobDate modelJobExpectedCompletionDate = new JobDate(expectedCompletionDate);
 
         validateDate(receivedDate, "Received Date");
         final JobDate modelJobReceivedDate = new JobDate(receivedDate);
@@ -92,12 +93,13 @@ class JsonAdaptedJob {
 
         final JobStatus modelJobStatus = getJobStatus();
 
-        final JobDate modelJobCompletedDate = getJobDate();
+        final JobDate modelJobCompletionDate = getJobDate();
 
-        final Job modelJob = new Job(modelJobDescription, modelJobDeliveryDate, modelJobReceivedDate, modelJobFee);
+        final Job modelJob = new Job(modelJobDescription, modelJobExpectedCompletionDate,
+                modelJobReceivedDate, modelJobFee);
 
         modelJob.setJobStatus(modelJobStatus);
-        modelJob.setCompletedDate(modelJobCompletedDate);
+        modelJob.setCompletionDate(modelJobCompletionDate);
         linkContactProduct(modelJob, model);
 
         return modelJob;
@@ -175,18 +177,18 @@ class JsonAdaptedJob {
      * @throws IllegalValueException if there are job date constraints violated in the adapted job.
      */
     private JobDate getJobDate() throws IllegalValueException {
-        if (completedDate == null) {
+        if (completionDate == null) {
             return null;
         }
 
         if (jobStatus.equals("In Progress")) {
-            throw new IllegalValueException(MESSAGE_INVALID_COMPLETED_DATE);
+            throw new IllegalValueException(MESSAGE_INVALID_COMPLETION_DATE);
         }
 
-        if (JobDate.isValidJobDate(completedDate)) {
-            return new JobDate(completedDate);
+        if (JobDate.isValidJobDate(completionDate)) {
+            return new JobDate(completionDate);
         } else {
-            throw new IllegalValueException("Completed Date: " + JobDate.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException("Completion Date: " + JobDate.MESSAGE_CONSTRAINTS);
         }
     }
 

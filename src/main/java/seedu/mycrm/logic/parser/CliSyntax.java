@@ -23,7 +23,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_JOB_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CONTACT_INDEX = new Prefix("c/");
     public static final Prefix PREFIX_PRODUCT_INDEX = new Prefix("p/");
-    public static final Prefix PREFIX_DELIVERY_DATE = new Prefix("by/");
+    public static final Prefix PREFIX_EXPECTED_COMPLETION_DATE = new Prefix("by/");
     public static final Prefix PREFIX_RECEIVED_DATE = new Prefix("recv/");
     public static final Prefix PREFIX_FEE = new Prefix("fee/");
 

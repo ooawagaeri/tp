@@ -25,7 +25,7 @@ import seedu.mycrm.model.contact.Contact;
  */
 public class UndoHideContactCommandTest {
     // For testing normal hidden lists.
-    private Model model = new ModelManager(getTypicalHiddenMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalHiddenMyCrm(), new UserPrefs());
 
     /**
      * Initialization of undo hide contact test.

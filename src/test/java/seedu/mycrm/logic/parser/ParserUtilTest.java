@@ -19,6 +19,8 @@ import seedu.mycrm.model.contact.Email;
 import seedu.mycrm.model.contact.Name;
 import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
+import seedu.mycrm.model.job.JobDate;
+import seedu.mycrm.model.job.JobFee;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -192,5 +194,88 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseJobFee_validValue_returnsJobFee() throws Exception {
+        String fee = "$30.00";
+        JobFee expectedJobFee = new JobFee("$30.00");
+        assertEquals(ParserUtil.parseJobFee(fee), expectedJobFee);
+
+        // without dollar sign
+        fee = "30.00";
+        assertEquals(ParserUtil.parseJobFee(fee), expectedJobFee);
+
+        // just below the maximum permissible value for job fee
+        fee = "9999999";
+        expectedJobFee = new JobFee("9999999");
+        assertEquals(ParserUtil.parseJobFee(fee), expectedJobFee);
+
+        // smallest denomination is 1 cent. Any more precision should be truncated
+        fee = "9999999.999";
+        expectedJobFee = new JobFee("9999999.99");
+        assertEquals(ParserUtil.parseJobFee(fee), expectedJobFee);
+
+        fee = "0.000001";
+        expectedJobFee = new JobFee("0.00");
+        assertEquals(ParserUtil.parseJobFee(fee), expectedJobFee);
+    }
+
+
+    @Test
+    public void parseJobFee_invalidValue_throwsParseException() throws Exception {
+        //negative values
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("-30.00"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("-10000000"));
+
+        // more than or equal to max value
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("10000000"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("1000000000000"));
+
+        // weird formats
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("30.00$"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("30.$00"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobFee("10.-01"));
+    }
+
+
+    @Test
+    public void parseJobDate_validValue_returnsJobDate() throws Exception {
+        String date = "10/12/2021";
+        JobDate expectedDate = new JobDate("10/12/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        date = "01/12/2021";
+        expectedDate = new JobDate("01/12/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        date = "10/01/2021";
+        expectedDate = new JobDate("10/01/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        // single digit day and month
+        date = "1/10/2021";
+        expectedDate = new JobDate("1/10/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+
+        date = "01/1/2021";
+        expectedDate = new JobDate("01/1/2021");
+        assertEquals(ParserUtil.parseJobDate(date, ""), expectedDate);
+    }
+
+
+    @Test
+    public void parseJobDate_invalidValue_throwsParseException() throws Exception {
+
+
+        // invalid month value
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/13/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/0/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("01/-1/2021", ""));
+
+        // invalid day value
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("32/13/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("00/11/2021", ""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobDate("-1/11/2021", ""));
     }
 }
