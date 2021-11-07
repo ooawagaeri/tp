@@ -2,15 +2,20 @@
 start
 :User executes mail template command;
 :MyCRM parses user inputs;
-if () then ([Valid inputs])
-    :Gets specified job;
-    :Gets specified template;
-    :Creates mail;
-    :Generate mailto URL;
-    :Displays successful constructed mail on UI;
-else ([Invalid inputs])
+if () then ([Invalid inputs])
     :Throws ParseException;
-    :Displays unsuccessful constructed mail on UI;
+    :Displays unsuccessful construct mail on UI;
+else ([Valid inputs])
+    if () then ([Index out of range or No email])
+        :Throws CommandException;
+        :Displays unsuccessful construct mail on UI;
+    else ([Else])
+        :Gets specified job;
+        :Gets specified template;
+        :Creates mail;
+        :Generate mailto URL;
+        :Displays successful construct mail on UI;
+    endif
 endif
 stop
 

@@ -16,8 +16,9 @@ Given below are my contributions to the project.
     * What it does: Allows the user to insert new email templates.
     * Justification: This feature improves convenience, allowing which users use to prepare and reuse future email 
       templates. Thus, increasing the speed of users can construct and send out emails to customers.
-    * Highlights: This enhancement affects the mail command by storing up drafts of future emails. Moreover, 
-      templates added allow for `\n` characters, allowing for greater email template customization.
+    * Highlights:
+      * This enhancement affects the mail command by storing up drafts of future emails.
+      * Templates added allow for `\n` characters, allowing for greater email template customization.
 
 * **New Feature**: Added the ability to delete templates.
   * What it does: Allows the user to remove an existing email template.
@@ -42,19 +43,28 @@ Given below are my contributions to the project.
   * Justification: This feature allows users to quickly generate emails for customers of jobs in a single line of 
     text rather than slowly opening the mail application, creating a new email, and keying in manually the required 
     of the client, and other information.
-  * Highlights: This enhancement has the ability to extract a job's client email, template subject header and body text.
+  * Highlights:
+    * This enhancement has the ability to extract a job's client email, template subject header and body text.
   * Credit: [2ality](https://2ality.com/2010/12/simple-way-of-sending-emails-in-java.html) for reuse of urlEncode.
   
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=ooawagaeri&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&tabAuthor=ooawagaeri&tabRepo=AY2122S1-CS2103-T14-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&zA=ooawagaeri&zR=AY2122S1-CS2103-T14-3%2Ftp%5Bmaster%5D&zACS=220.43386537126995&zS=2021-09-17&zFS=&zU=2021-11-04&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false&until=2021-11-04)
 
 * **Project management**:
-    * Managed the allocation and timelines of each milestone, issue, and 
-      [project board](https://github.com/AY2122S1-CS2103-T14-3/tp/projects/1).
+    * Managed group coordination and communication on Telegram.
+    * Managed the timelines and issues of each GitHub milestone.
+    * Managed the allocation, tagging and linkage of most GitHub issues.
+    * Managed the allocation and update of GitHub [project board](https://github.com/AY2122S1-CS2103-T14-3/tp/projects/1).
+    * Managed reviewing and merging of some PRs.
+    * Manage quality control of code, documentation and diagrams.
 
 * **Enhancements to existing features**:
     * Updated the JSON Storage component for Jobs, Products and Templates (Pull requests
       [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
     * Updated the default generated JSON with MyCRM data (Pull requests
+      [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
+    * Updated the `help` command with hyperlink / clickable URL.
+      [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
+    * Added more sample data to SampleDataUtil.
       [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
     * Wrote additional tests for existing features to increase coverage from 53.92% to 57.32% (Pull requests
       [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
@@ -71,7 +81,7 @@ Given below are my contributions to the project.
           [#112](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/112).
     * Developer Guide:
         * Added documentation for the features `mail`, `addTemplate`, `deleteTemplate`, `editTemplate`,
-          `listTemplate` and `findTemplate`.
+          `listTemplate`, `findTemplate`, `help` and update "Launch and shutdown" and "Saving data".
         * Updated documentation of model components [#80](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/80).
 
 * **Community**:

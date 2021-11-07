@@ -14,12 +14,15 @@ Class JsonUserPrefsStorage
 Interface Storage <<Interface>>
 Class StorageManager
 
-package "AddressBook Storage" #F4F6F6{
-Interface AddressBookStorage <<Interface>>
-Class JsonAddressBookStorage
-Class JsonSerializableAddressBook
-Class JsonAdaptedPerson
+package "MyCrm Storage" #F4F6F6{
+Interface MyCrmStorage <<Interface>>
+Class JsonMyCrmStorage
+Class JsonSerializableMyCrm
+Class JsonAdaptedContact
 Class JsonAdaptedTag
+Class JsonAdaptedJob
+Class JsonAdaptedProduct
+Class JsonAdaptedTemplate
 }
 
 }
@@ -29,15 +32,17 @@ HiddenOutside ..> Storage
 
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
-StorageManager -up-> "1" AddressBookStorage
+StorageManager -up-> "1" MyCrmStorage
 
 Storage -left-|> UserPrefsStorage
-Storage -right-|> AddressBookStorage
+Storage -right-|> MyCrmStorage
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage
-JsonAddressBookStorage .up.|> AddressBookStorage
-JsonAddressBookStorage ..> JsonSerializableAddressBook
-JsonSerializableAddressBook --> "*" JsonAdaptedPerson
-JsonAdaptedPerson --> "*" JsonAdaptedTag
-
+JsonMyCrmStorage .up.|> MyCrmStorage
+JsonMyCrmStorage ..> JsonSerializableMyCrm
+JsonSerializableMyCrm --> "*" JsonAdaptedContact
+JsonAdaptedContact --> "*" JsonAdaptedTag
+JsonSerializableMyCrm --> "*" JsonAdaptedJob
+JsonSerializableMyCrm --> "*" JsonAdaptedProduct
+JsonSerializableMyCrm --> "*" JsonAdaptedTemplate
 @enduml

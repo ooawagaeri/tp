@@ -2,14 +2,19 @@
 start
 :User executes edit template command;
 :MyCRM parses user inputs;
-if () then ([Valid inputs])
-    :Gets specified template;
-    :Creates edited template;
-    :Replaces specified template with edited template;
-    :Displays successful edited template on UI;
-else ([Invalid inputs])
+if () then ([Invalid inputs])
     :Throws ParseException;
     :Displays unsuccessful edited template on UI;
+else ([Valid inputs])
+    if () then ([Duplicate template or Index out of range])
+        :Throws CommandException;
+        :Displays unsuccessful edit template on UI;
+    else ([Else])
+        :Gets specified template;
+        :Creates edited template;
+        :Replaces specified template with edited template;
+        :Displays successful edit template on UI;
+    endif
 endif
 stop
 
