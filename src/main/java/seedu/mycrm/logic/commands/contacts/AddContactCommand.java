@@ -15,6 +15,9 @@ import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 
+/**
+ * Inserts a contact with name, phone, email, address or tags specified into the myCrm.
+ */
 public class AddContactCommand extends Command {
 
     public static final String COMMAND_WORD = "addContact";

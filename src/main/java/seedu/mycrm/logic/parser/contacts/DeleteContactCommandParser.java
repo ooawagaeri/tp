@@ -9,13 +9,13 @@ import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteContactCommand object
  */
 public class DeleteContactCommandParser implements Parser<DeleteContactCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteContactCommand
+     * and returns a DeleteContactCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteContactCommand parse(String args) throws ParseException {
