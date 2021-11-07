@@ -22,6 +22,9 @@ import seedu.mycrm.logic.parser.ParserUtil;
 import seedu.mycrm.logic.parser.exceptions.ParseException;
 import seedu.mycrm.model.contact.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new EditContactCommand object
+ */
 public class EditContactCommandParser implements Parser<EditContactCommand> {
 
     /**

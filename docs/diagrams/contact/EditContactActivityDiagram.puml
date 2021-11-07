@@ -6,10 +6,15 @@ if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful edit contact Message on UI;
 else ([Valid Input])
+if () then ([Duplicate contact or Invalid Index])
+    :Throws CommandException;
+    :Displays unsuccessful editing contact on UI;
+else ([Else])
 :Gets contact to be edited with index provided;
 :Creates edited contact;
 :Replaces specific contact with edited contact;
 :Displays successful editing contact message on UI;
+endif
 endif
 stop
 @enduml
