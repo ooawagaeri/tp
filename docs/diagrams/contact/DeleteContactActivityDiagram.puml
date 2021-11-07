@@ -19,5 +19,6 @@ else ([Else])
     :Displays unsuccessful deleting contact Message on UI;
 endif
 endif
+endif
 stop
 @enduml
