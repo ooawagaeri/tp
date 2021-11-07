@@ -26,14 +26,14 @@ class JsonAdaptedJob {
     public static final String MESSAGE_INVALID_STATUS = "JSON Job list contains an illegal job status";
     public static final String MESSAGE_INVALID_COMPLETION_DATE = "Pending job should not have a completion date";
 
-    private String jobDescription;
-    private String client;
-    private String product;
-    private String expectedCompletionDate;
-    private String jobStatus;
-    private String receivedDate;
+    private final String jobDescription;
+    private final String client;
+    private final String product;
+    private final String expectedCompletionDate;
+    private final String jobStatus;
+    private final String receivedDate;
     private String completionDate;
-    private String fee;
+    private final String fee;
 
     /**
      * Constructs a {@code JsonAdaptedJob} with the given job details.
