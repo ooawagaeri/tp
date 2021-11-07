@@ -41,7 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images\kimowarui.png" width="200px">
 
 [[github](https://github.com/Kimowarui)]
-[[portfolio](team/zhangyubin.md)]
+[[portfolio](team/kimowarui.md)]
 
 * Role: Deliverables and Deadlines
 * Responsibilities:
