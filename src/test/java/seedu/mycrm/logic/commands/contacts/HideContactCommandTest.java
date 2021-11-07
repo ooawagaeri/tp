@@ -24,7 +24,7 @@ import seedu.mycrm.model.contact.Contact;
  */
 public class HideContactCommandTest {
     // For testing normal unhidden lists.
-    private Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

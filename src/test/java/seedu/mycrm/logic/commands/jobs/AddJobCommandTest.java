@@ -1,40 +1,31 @@
 package seedu.mycrm.logic.commands.jobs;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.testutil.TypicalContacts.ALICE;
-import static seedu.mycrm.testutil.TypicalContacts.CARL;
-import static seedu.mycrm.testutil.TypicalProducts.ASUS_GPU;
-import static seedu.mycrm.testutil.TypicalProducts.INTEL_CPU;
+import static seedu.mycrm.testutil.TypicalJobs.getTypicalMyCrm;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.mycrm.commons.core.Messages;
 import seedu.mycrm.commons.core.index.Index;
+import seedu.mycrm.logic.StateManager;
+import seedu.mycrm.logic.commands.CommandResult;
+import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.ModelManager;
 import seedu.mycrm.model.MyCrm;
 import seedu.mycrm.model.UserPrefs;
 import seedu.mycrm.model.job.Job;
 import seedu.mycrm.testutil.JobBuilder;
-import seedu.mycrm.testutil.TypicalJobs;
 
-public class AddJobCommandTest {
-    private Model model;
 
-    @BeforeEach
-    public void setUp() {
-        model = new ModelManager(TypicalJobs.getTypicalMyCrm(), new UserPrefs());
-        model.addProduct(INTEL_CPU);
-        model.addProduct(ASUS_GPU);
-        model.addContact(ALICE);
-        model.addContact(CARL);
-    }
+class AddJobCommandTest {
 
+    private final Model model = new ModelManager(getTypicalMyCrm(), new UserPrefs());
 
     @Test
-    public void execute_newJob_success() {
+    public void execute_newJob_success() throws CommandException {
         Job newJob = new JobBuilder().withJobDescription("Fix Intel CPU")
             .withFee("$1000.00")
             .withReceivedDate("01/10/2021")
@@ -44,7 +35,7 @@ public class AddJobCommandTest {
             .build();
 
         // ALICE
-        Index clientIndex = Index.fromOneBased(1);
+        Index clientIndex = Index.fromOneBased(1);;
         // INTEL_CPU
         Index productIndex = Index.fromOneBased(1);
 
@@ -54,7 +45,10 @@ public class AddJobCommandTest {
         Model expectedModel = new ModelManager(new MyCrm(model.getMyCrm()), new UserPrefs());
         expectedModel.addJob(newJob);
 
-        assertCommandSuccess(addCommand, model, expectedMsg, expectedModel);
+        CommandResult commandResult = addCommand.execute(model, new StateManager(model));
+
+        assertEquals(String.format(AddJobCommand.MESSAGE_SUCCESS, newJob), commandResult.getFeedbackToUser());
+        assertEquals(expectedModel.getFilteredJobList(), model.getFilteredJobList());
     }
 
 

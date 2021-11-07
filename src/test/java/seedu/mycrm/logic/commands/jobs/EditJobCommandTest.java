@@ -4,12 +4,9 @@ import static seedu.mycrm.commons.core.Messages.MESSAGE_INVALID_JOB_DISPLAYED_IN
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mycrm.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mycrm.testutil.TypicalContacts.ALICE;
-import static seedu.mycrm.testutil.TypicalContacts.CARL;
 import static seedu.mycrm.testutil.TypicalIndexes.INDEX_FIRST_JOB;
-import static seedu.mycrm.testutil.TypicalProducts.ASUS_GPU;
 import static seedu.mycrm.testutil.TypicalProducts.INTEL_CPU;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.mycrm.commons.core.Messages;
@@ -24,17 +21,8 @@ import seedu.mycrm.testutil.JobBuilder;
 import seedu.mycrm.testutil.TypicalJobs;
 
 public class EditJobCommandTest {
-    private Model model;
 
-    @BeforeEach
-    public void init() {
-        model = new ModelManager(TypicalJobs.getTypicalMyCrm(), new UserPrefs());
-        model.addContact(CARL);
-        model.addContact(ALICE);
-        model.addProduct(ASUS_GPU);
-        model.addProduct(INTEL_CPU);
-    }
-
+    private final Model model = new ModelManager(TypicalJobs.getTypicalMyCrm(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedFilteredList_success() {
@@ -50,7 +38,7 @@ public class EditJobCommandTest {
                 .build();
 
         // ALICE
-        Index clientIndex = Index.fromOneBased(2);
+        Index clientIndex = Index.fromOneBased(1);
         // INTEL_CPU
         Index productIndex = Index.fromOneBased(2);
 
@@ -76,7 +64,7 @@ public class EditJobCommandTest {
                 .build();
 
         // ALICE
-        Index clientIndex = Index.fromOneBased(2);
+        Index clientIndex = Index.fromOneBased(1);
         // INTEL_CPU
         Index productIndex = Index.fromOneBased(2);
 
@@ -107,7 +95,7 @@ public class EditJobCommandTest {
                 .build();
 
         // ALICE
-        Index clientIndex = Index.fromOneBased(2);
+        Index clientIndex = Index.fromOneBased(1);
         // INTEL_CPU
         Index productIndex = Index.fromOneBased(2);
 
@@ -130,9 +118,9 @@ public class EditJobCommandTest {
         Job editedJob = new JobBuilder(jobToEdit).build();
 
         // ALICE
-        Index clientIndex = Index.fromOneBased(2);
+        Index clientIndex = Index.fromOneBased(1);
         // ASUS_GPU
-        Index productIndex = Index.fromOneBased(1);
+        Index productIndex = Index.fromOneBased(2);
 
         EditJobCommand.EditJobDescriptor descriptor =
             new EditJobDescriptorBuilder(editedJob, clientIndex, productIndex).build();
