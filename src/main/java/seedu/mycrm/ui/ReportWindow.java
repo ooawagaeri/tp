@@ -19,7 +19,6 @@ public class ReportWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private final ThemeManager themeManager;
 
-
     private Stage primaryStage;
     private Logic logic;
     private PrinterJob job;
@@ -27,6 +26,8 @@ public class ReportWindow extends UiPart<Stage> {
     private JobDisplay jobDisplay;
     private GraphDisplay graphDisplay;
     private NodePrinter nodePrinter;
+
+    private String latestFlag;
 
     @FXML
     private StackPane jobDisplayPlaceholder;
@@ -78,6 +79,13 @@ public class ReportWindow extends UiPart<Stage> {
         this.nodePrinter = new NodePrinter(logic);
     }
 
+    void updateInnerParts() {
+        fillInnerParts();
+        if (latestFlag != null) {
+            switchTab(latestFlag);
+        }
+    }
+
     /**
      * Shows the report window.
      */
@@ -121,6 +129,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void switchTab(String flag) {
         jobDisplay.switchTab(flag);
+        latestFlag = flag;
     }
 
     /**
