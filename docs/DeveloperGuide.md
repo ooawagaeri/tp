@@ -237,11 +237,11 @@ such as `AddContact n/xxx e/xxx` `addContact n/xxx c/xxx` are all acceptable.
 
 The activity diagram below illustrates how the events of `addContact` command behave when executed by a user:
 
-![](images/contact/AddContactActivityDiagram.png)
+[![](images/contact/AddContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/AddContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Adding a Contact** mechanism behaves at each step.
 
-![](images/contact/AddContactParseSequenceDiagram.png)
+[![](images/contact/AddContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/AddContactParseSequenceDiagram.png)
 
 Within `AddContactCommandParser#parse`, `ParserUtil#parseName` will be called to create a name using
 "Sans", `ParserUtil#parsePhone` to create a phone using "83921823", `ParserUtil#parseEmail` to
@@ -251,7 +251,7 @@ Then create a contact using the new name, phone, email and address.
 Note that `Phone`, `Email`, `Address`, are optional, but at least one of these 3 fields
 must exist.
 
-![](images/contact/AddContactSequenceDiagram.png)
+[![](images/contact/AddContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/AddContactSequenceDiagram.png)
 
 Note: Please refer to [StateManager](#statemanager) for more details on why the command result of the AddContactCommand is intercepted.
 
@@ -266,11 +266,11 @@ object from `UniqueContactList` inside the `MyCRM` object.
 
 The activity diagram below illustrates how the events of `editContact` command behave when executed by a user:
 
-![](images/contact/EditContactActivityDiagram.png)
+[![](images/contact/EditContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/EditContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Editing a Contact** mechanism behaves at each step.
 
-![](images/contact/EditContactParseSequenceDiagram.png)
+[![](images/contact/EditContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/EditContactParseSequenceDiagram.png)
 
 Within `EditContactCommandParser#parse`,
 - `Index` must be is valid (within the range of contactList).
@@ -282,7 +282,7 @@ if their respective prefixes are present.
 `ArgumentMultimap#getValue` to extract `Name`, `Phone`, `Email`, `Address`: "Frisks", "88888888", "Frisks@gmail.com"
 and "Jurong West" from the command string respectively.
 
-![](images/contact/EditContactSequenceDiagram.png)
+[![](images/contact/EditContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/EditContactSequenceDiagram.png)
 
 ### Deleting a Contact
 
@@ -295,11 +295,11 @@ object from `UniqueContactList` inside the `MyCRM` object.
 
 The activity diagram below illustrates how the events of `deleteContact` command behave when executed by a user:
 
-![](images/contact/DeleteContactActivityDiagram.png)
+[![](images/contact/DeleteContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/DeleteContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Deleting a Contact** mechanism behaves at each step.
 
-![](images/contact/DeleteContactParseSequenceDiagram.png)
+[![](images/contact/DeleteContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/DeleteContactParseSequenceDiagram.png)
 
 Within `DeleteContactCommandParser#parse`,
 - `Index` must be is valid (within the range of contactList).
@@ -307,7 +307,7 @@ Within `DeleteContactCommandParser#parse`,
 
 `DeleteContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to delete it.
 
-![](images/contact/DeleteContactSequenceDiagram.png)
+[![](images/contact/DeleteContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/DeleteContactSequenceDiagram.png)
 
 ### Finding a Contact
 
@@ -320,11 +320,11 @@ object from `UniqueContactList` inside the `MyCRM` object with certain keywords 
 
 The activity diagram below illustrates how the events of `findContact` command behave when executed by a user:
 
-![](images/contact/FindContactActivityDiagram.png)
+[![](images/contact/FindContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/FindContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Finding a Contact** mechanism behaves at each step.
 
-![](images/contact/FindContactParseSequenceDiagram.png)
+[![](images/contact/FindContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/FindContactParseSequenceDiagram.png)
 
 
 Within `FindContactCommandParser#parse`,
@@ -333,7 +333,7 @@ Within `FindContactCommandParser#parse`,
 `FindContactCommandParser#parse` will call `String#trim` and `String#split` to get list of keywords
 in order for MyCRM to find corresponding contacts with these keywords as predicate.
 
-![](images/contact/FindContactSequenceDiagram.png)
+[![](images/contact/FindContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/FindContactSequenceDiagram.png)
 
 ### Hiding a Contact
 
@@ -346,18 +346,18 @@ which is visible only when user types the command `listContact -a`. Hidden conta
 
 The activity diagram below illustrates how the events of `hideContact` command behave when executed by a user:
 
-![](images/contact/HideContactActivityDiagram.png)
+[![](images/contact/HideContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/HideContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
 
-![](images/contact/HideContactParserSequenceDiagram.png)
+[![](images/contact/HideContactParserSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/HideContactParseSequenceDiagram.png)
 
 Within `HideContactCommandParser#parse`,
 - `Index` must be is valid (within the range of contactList).
 
 `HideContactCommandParser#parse` will call `ParserUtil#parseIndex` to get the target contact's index to hide it.
 
-![](images/contact/HideContactSequenceDiagram.png)
+[![](images/contact/HideContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/HideContactSequenceDiagram.png)
 
 ### Undoing Hiding a Contact
 
@@ -372,11 +372,11 @@ pattern. Can refer to `hideContact` command implementation details.
 
 The activity diagram below illustrates how the events of `undoHideContact` command behave when executed by a user:
 
-![](images/contact/UndoHideContactActivityDiagram.png)
+[![](images/contact/UndoHideContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/UndoHideContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+Given below is an example usage scenario and how the **Undoing Hiding a Contact** mechanism behaves at each step.
 
-![](images/contact/UndoHideContactParserSequenceDiagram.png)
+[![](images/contact/UndoHideContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/UndoHideContactParseSequenceDiagram.png)
 
 Within `UndoHideContactCommandParser#parse`,
 - `listContact -a` must first be typed in to see hidden contacts.
@@ -384,7 +384,7 @@ Within `UndoHideContactCommandParser#parse`,
 
 `UndoHideContactCommandParser#parse` will call `ParserUtil#parseIndex`
 
-![](images/contact/UndoHideContactSequenceDiagram.png)
+[![](images/contact/UndoHideContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/UndoHideContactSequenceDiagram.png)
 
 ### Listing Contacts
 
@@ -398,11 +398,11 @@ object from `UniqueContactList` inside the `MyCRM` object by default. If `listCo
 
 The activity diagram below illustrates how the events of `listContact` command behave when executed by a user:
 
-![](images/contact/ListContactActivityDiagram.png)
+[![](images/contact/ListContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/ListContactActivityDiagram.png)
 
 Given below is an example usage scenario and how the **Listing a Contact** mechanism behaves at each step.
 
-![](images/contact/ListContactParserSequenceDiagram.png)
+[![](images/contact/ListContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/ListContactParseSequenceDiagram.png)
 
 Within `ListContactCommandParser#parse`,
 - `Keywords` is optional but if provided, it can only be **"-a"**.
@@ -411,7 +411,7 @@ If not, by default `listContact` will only show not hidden contacts in contact l
 
 `ListcontactCommandParser#parse` will call `String#trim` to get specific keyword.
 
-![](images/contact/ListContactSequenceDiagram.png)
+[![](images/contact/ListContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/ListContactSequenceDiagram.png)
 
 ### Adding a Template
 

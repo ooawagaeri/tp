@@ -18,11 +18,11 @@ else ([Valid Input])
     : (Optional)
     Creates new **Address**;
     end fork
-    if () then ([Duplicate contact])
-            :Throws CommandException;
-            :Displays unsuccessful adding contact on UI;
-        else ([Else])
     :Creates new contact;
+    if () then ([Duplicate contact])
+      :Throws CommandException;
+      :Displays unsuccessful adding contact on UI;
+    else ([Else])
     :Stores contact into MyCRM;
     :Displays successful add contact Message on UI;
     endif
