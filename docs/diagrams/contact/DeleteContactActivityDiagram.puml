@@ -4,11 +4,11 @@ start
 :MyCRM parses user inputs;
 if () then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful delete contact Message on UI;
+    :Displays unsuccessful deleting contact message on UI;
 else ([Valid Input])
 if () then ([Invalid Index])
     :Throws CommandException;
-    :Displays unsuccessful deleting contact on UI;
+    :Displays unsuccessful deleting contact message on UI;
 else ([Else])
     :Gets contact to be deleted with index provided;
     if () then ([Contact not linked to any jobs])
@@ -16,7 +16,7 @@ else ([Else])
     :Displays successful deleting contact message on UI;
     else ([Contact linked to a job]))
     :Throws CommandException;
-    :Displays unsuccessful deleting contact Message on UI;
+    :Displays unsuccessful deleting contact message on UI;
 endif
 endif
 endif

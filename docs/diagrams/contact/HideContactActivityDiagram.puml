@@ -4,7 +4,7 @@ start
 :MyCRM parses user inputs;
 if () then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful hide contact Message on UI;
+    :Displays unsuccessful hiding contact message on UI;
 else ([Valid Input])
 if () then ([Invalid Index])
     :Throws CommandException;
@@ -14,7 +14,7 @@ else ([Else])
 if () then ([Contact is not hidden])
 :Hide the specific contact from MyCRM;
 :Displays successful hiding contact message on UI;
-else ([Contact is hidden]))
+else ([Contact is hidden])
 :Throws CommandException;
 :Displays unsuccessful hiding contact message on UI;
 endif
