@@ -2097,6 +2097,196 @@ testers are expected to do more *exploratory* testing.
         - Similar to (1)
         - Side panel will list all products.
 
+### Adding job
+
+1. Inserting a new job while all in-progress jobs are being shown.
+
+   1. Prerequisites: List all in-progress jobs using the `listJob` command. Shows list of in-progress jobs in the main panel.
+      At least 1 contact and product must be present for below test cases.
+
+   3. Test case: `addJob d/CPU replacement needed fee/$30.00 recv/08/11/2021 by/03/01/2022 c/1 p/1`
+      <br>Expected:
+       - New job is added to the job list. Job should be linked to first contact displayed currently in the 
+         contact list and first product currently displayed in the product list.
+       - Details of job added shown in status message.
+
+   4. Test case: `addJob d/CPU fix needed fee/$30.00 by/03/01/2022 c/1 p/1`
+      <br>Expected:
+       - New job is added to the job list. Job should be linked to first contact currently displayed in the
+         contact list and first product currently displayed in the product list.
+       - Details of job added shown in status message.
+       - Since received date wasn't provided it should be automatically set to the current date.
+
+   5. Test case: `addJob d/CPU fix needed fee/$30.00 by/03/01/2022 c/1 p/1`
+      <br>Expected:
+       - No new job is added (provided the previous test case was run first)
+       - Error for duplicate job is shown in status message.
+
+   6. Test case: `addJob d/CPU replacement fee/$30.00`
+      <br>Expected:
+       - No new job is added
+       - Invalid command format error shown 
+
+   7. Test case: `addJob d/CPU replacement by/03/01/2021`
+      <br>Expected:
+       - No new job is added
+       - Invalid command format error shown
+
+   8. Test case: `addJob fee/$30.00 by/03/01/2022`
+      <br>Expected:
+       - No new job is added
+       - Invalid command format error shown
+
+   9. Test case: 
+      Input these 3 commands one after another:
+      - `addJob d/Upgrade CPU fee/$100.00 by/05/01/2022`
+      - `select 1`
+      - `select 1`
+      <br>Expected:
+      - New job is added to the job list. Job should be linked to first contact currently displayed in the
+        contact list and first product currently displayed in the product list.
+      - Details of job added shown in status message.
+      
+2. Inserting a job while all completed jobs are being shown.
+
+   1. Prerequisites: List all completed jobs using the `listJob -c` command. Shows list of completed jobs in the main panel.
+
+   2. Test Case : `addJob d/CPU not working fee/$30.00 recv/08/11/2021 by/03/01/2022 c/1 p/1`
+      <br>Expected:
+      - Main panel will switch to show all in-progress jobs.
+      - New in-progress job is added to the job list. Job should be linked to first contact currently displayed in the
+        contact list and first product currently displayed in the product list.
+      - Details of job added shown in status message
+
+### Editing a job
+
+1. Editing an in-progress job.
+
+   1. Prerequisites: List all in-progress jobs using the `listJob` command. Shows list of in-progress jobs in the main panel.
+      Must have at least 1 in-progress job in the list for below test cases to work.
+
+   2. Test case: `editJob 1 fee/$1000.00`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list, should have its fee updated accordingly.
+       - Details of job edited shown in status message.
+
+   3. Test case: `editJob 1 d/CPU Slow`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list, should have its description updated accordingly.
+       - Details of job edited shown in status message.
+
+   4. Test case: `editJob 1`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list, should not be edited.
+       - Error shown saying at least one field to edit must be provided.
+
+2. Editing a completed job
+
+   1. Prerequisites: List all completed jobs using the `listJob -c` command. Shows list of completed jobs in the main panel.
+      Must have at least 1 completed job in the list for below test cases to work.
+
+   2. Test case: `editJob 1 d/Completed repair for CPU`
+      <br>Expected:
+      - Job at index 1 in the currently displayed job list, should have its description updated accordingly.
+      - Details of job edited shown in status message.
+      
+### Deleting a job
+
+1. Deleting an in-progress job
+
+   1. Prerequisites: List all in-progress jobs using the `listJob` command. Shows list of in-progress jobs in the main panel.
+      Must have at least 1 in-progress job in the list for below test cases to work.
+
+   2. Test case: `deleteJob 1`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list is deleted.
+       - Details of deleted job shown in status message.
+
+   3. Test case: `deleteJob -1`
+      <br>Expected:
+       - No jobs are deleted.
+       - Invalid command format error shown.
+
+2. Deleting a completed job.
+
+   1. Prerequisites: List all completed jobs using the `listJob -c` command. Shows list of completed jobs in the main panel.
+      Must have at least 1 completed job in the list for below test cases to work.
+  
+   2. Test case: `deleteJob 1`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list is deleted.
+       - Details of deleted job shown in status message.
+       - Job list should continue to show list of all completed jobs. (Or an empty list if the only completed job was deleted)
+       
+### Finding jobs
+
+1. Finding jobs
+
+  2. Test case: `findJob CPU`
+     <br>Expected:
+    - Matching jobs (both in-progress and completed) are shown on list.
+    - Number of jobs found shown in status message.
+
+### Marking job as complete
+
+1. Marking an in-progress job as complete.
+
+   1. Prerequisites: Prerequisites: List all in-progress jobs using the `listJob` command. Shows list of in-progress jobs in the main panel.
+      Must have at least 1 in-progress job in the list for below test cases to work.
+
+   2. Test case: `completeJob 1 10/01/2022`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list will be marked as complete, and will disappear from the current job
+         list displaying all in-progress jobs.
+       - Details of completed job shown in status message.
+
+2. Marking a completed job as complete.
+
+   1. Prerequisites: List all completed jobs using the `listJob -c` command. Shows list of completed jobs in the main panel.
+      Must have at least 1 completed job in the list for below test cases to work.
+
+   2. Test case: `completeJob 1`
+      <br>Expected:
+     - Job at index 1 in the currently displayed job list remains unchanged.
+     - Error message informing user that the job has already been completed is shown.
+
+### Revert completion status of a previously complete job
+
+1. Revert completion status of an in-progress job.
+
+   1. Prerequisites: Prerequisites: List all in-progress jobs using the `listJob` command. Shows list of in-progress jobs in the main panel.
+      Must have at least 1 in-progress job in the list for below test cases to work.
+
+   2. Test case: `undoCompleteJob 1`
+      <br>Expected:
+       - Job at index 1 in the currently displayed job list remains unchanged.
+       - Error message informing user that the job has not been completed yet is shown.
+
+2. Revert completion status of a completed job.
+
+   1. Prerequisites: List all completed jobs using the `listJob -c` command. Shows list of completed jobs in the main panel.
+      Must have at least 1 completed job in the list for below test cases to work.
+
+   2. Test case: `undoCompleteJob 1`
+      <br>Expected:
+      - Completion status of Job at index 1 in the currently displayed job list reverted.
+      - Details of job whose completion status was reverted is shown.
+
+
+### Listing jobs
+
+1. Test case: `listJob`
+   <br>Expected:
+  - Main panel will list all in-progress jobs.
+
+2. Test case: `listJob -a`
+   <br>Expected:
+  - Main panel will list all jobs (completed and in-progress).
+
+3. Test case: `listJob -c`
+   <br>Expected:
+  - Main panel will list all completed jobs.
+
 ### Retrieving history command
     
 1. Retrieving all history commands in a list.
