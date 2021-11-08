@@ -40,6 +40,9 @@ public class NodePrinter {
         PageLayout pageLayout = job.getJobSettings().getPageLayout();
         double pageHeight = pageLayout.getPrintableHeight();
 
+        //@@author zhujik
+        //Reused from https://stackoverflow.com/questions/26785651/javafx-printing-a-node-across-multiple-pages
+        // with minor modifications
         Translate gridTransform = new Translate();
         node.getTransforms().add(gridTransform);
 
