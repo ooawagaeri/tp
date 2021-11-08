@@ -22,7 +22,7 @@ public class UndoCompleteJobCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Repair job's status reverted to incomplete: %1$s";
+    public static final String MESSAGE_SUCCESS = "Repair job's status reverted to in-progress: %1$s";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 

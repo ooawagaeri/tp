@@ -4,7 +4,7 @@ start
 :MyCRM parses user inputs;
 if () then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful edit contact Message on UI;
+    :Displays unsuccessful editing contact message on UI;
 else ([Valid Input])
 if () then ([Invalid Index])
     :Throws CommandException;

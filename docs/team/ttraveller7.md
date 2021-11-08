@@ -61,7 +61,7 @@ Given below are my contributions to the project.
     * User Guide: Added documentation for the features `addProduct`, `deleteProduct`, `listProduct`, `editProduct`,
           `findProduct`, and `theme`.
     * Developer Guide:
-        * Added use cases for the features `addProduct`, `deleteProduct`, `listProduct`, `editProduct`,
+        * Added use cases and test instructions for the features `addProduct`, `deleteProduct`, `listProduct`, `editProduct`,
           `findProduct`, and `theme`.
         * Added implementation details for the features `addProduct` and `editProduct`.
         * Updated documentation of UI components [#116](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/116).
