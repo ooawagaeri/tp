@@ -395,7 +395,10 @@ Format: `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
 * At least one of the optional fields must be provided. 
 * No change is made if a field is empty. e.g. 
   `editCommand 1 m/Asus t/` will not change the product's `Type` field.
-* Changes in product fields will be updated in job list *automatically*.  
+* Changes in product fields will be updated in job list *automatically*.
+* Changes in product fields will **NOT** be updated in "Top-Three Product" tab in monthly report window *automatically*.
+  <br>After a top-three product is edited, you need to issue a `printReport` command to update the changes in 
+  **report window**. See [print report section](#printing-monthly-report-printreport).
 
 Example:
 
