@@ -10,7 +10,7 @@ Class MyCrmParser
 Class XYZCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
-
+Class StateManager
 
 Interface Logic <<Interface>>
 Class LogicManager
@@ -27,11 +27,16 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .right.|> Logic
-LogicManager -right->"1" AddressBookParser
-AddressBookParser ..> XYZCommand : creates >
+LogicManager -right->"1" MyCrmParser
+MyCrmParser ..> XYZCommand : creates >
 
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
+
+StateManager .up.> CommandResult : produces >
+LogicManager --> StateManager
+Command .up.> StateManager : intercepts <
+StateManager .right.> Model
 
 LogicManager --> Model
 LogicManager --> Storage
@@ -43,4 +48,5 @@ note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
 Command .up.> CommandResult : produces >
+
 @enduml

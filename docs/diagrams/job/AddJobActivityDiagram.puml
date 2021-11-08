@@ -1,0 +1,49 @@
+@startuml
+sprite $rake [16x16/8] {
+0000000000000000
+0000000jj0000000
+0000000jj0000000
+0005555jj5555000
+000jjeejjeejj000
+000jj00jj00jj000
+000jj00jj00jj000
+0000000000000000
+}
+
+start
+:User executes add job command;
+:MyCRM parses user inputs;
+if () then ([Valid inputs])
+    if () then ([Contact Index was provided])
+    else ([else])
+        :Assign contact to job <$rake>;
+        if () then([operation aborted])
+            stop;
+        else ([else])
+        endif
+    endif
+
+if () then ([Product Index was provided])
+    else ([else])
+        :Assign product to job <$rake>;
+        if () then([operation aborted])
+            stop;
+        else ([else])
+        endif
+    endif
+
+    :Creates new job;
+    if () then ([Duplicate contact])
+        :Throws CommandException;
+        :Displays unsuccessful adding of job on UI;
+    else ([Else])
+        :Stores job into MyCRM;
+        :Displays successful add job on UI;
+    endif
+
+else ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful add job on UI;
+endif
+stop
+@enduml
