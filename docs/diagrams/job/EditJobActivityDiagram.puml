@@ -1,0 +1,60 @@
+@startuml
+sprite $rake [16x16/8] {
+0000000000000000
+0000000jj0000000
+0000000jj0000000
+0005555jj5555000
+000jjeejjeejj000
+000jj00jj00jj000
+000jj00jj00jj000
+0000000000000000
+}
+
+start
+:User executes edit job command;
+:MyCRM parses user inputs;
+if () then ([Valid inputs])
+    if () then ([Invalid index])
+        :Throws ParseException;
+        :Displays unsuccessful edit job on UI;
+    else ([else])
+        :Gets job to be edited with index provided;
+        if () then ([Contact should be reassigned)])
+                if () then ([else])
+                else ([Contact index not provided])
+                    :MyCRM asks user to assign contact <$rake>;
+                    if () then([operation aborted])
+                        stop;
+                    else ([else])
+                    endif
+                endif
+            else ([else])
+            endif
+            if () then ([Product should be reassigned)])
+                if () then ([else])
+                else ([Product index not provided])
+                 :MyCRM asks user to assign product <$rake>;
+                 if () then([operation aborted])
+                     stop;
+                 else ([else])
+                 endif
+                endif
+            else ([else])
+            endif
+
+            :Creates edited job;
+            if () then ([Duplicate job])
+                :Throws CommandException;
+                :Displays unsuccessful adding of job on UI;
+            else ([Else])
+                :Stores job into MyCRM;
+                :Replaces job being edited with edited job;
+                :Displays successful editing contact message on UI;
+            endif
+    endif
+else ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful edit job on UI;
+endif
+stop
+@enduml

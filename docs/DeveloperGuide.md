@@ -106,26 +106,28 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/LogicClassDiagram.png">
-<img src="images/LogicClassDiagram.png" width="550"/>
-</a>
+[![](images/LogicClassDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/LogicClassDiagram.png)
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses the `MyCrmParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. When `Logic` is called upon to execute a command, it uses the `MyCRMParser` class to parse the user command.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
+3. `StateManager` checks to see whether the parsed command can currently be executed depending on the current state of the application.
+   If it can the `Command` object is executed by the `LogicManager`.
+4. The command can communicate with the `Model` when it is executed (e.g. to add a person).
+5. The result of the command execution is encapsulated as a `CommandResult` object.
+6. For certain commands `StateManager` intercepts this `CommandResult` object. It communicates with model to perform extra operations and modifies the
+   `CommandResult` accordingly.
+7. The `CommandResult` object is returned from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("addJob c/1 p/1 d/Fix...")` API call.
 
-[![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/DeleteSequenceDiagram.png)
+[![Interactions Inside the Logic Component for the `addJob c/1 p/1 d/Fix...` Command](images/job/AddJobSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AddJobSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
+Please refer to [StateManager](#statemanager) for a more detailed explanation on its motivation and implementation.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -217,6 +219,10 @@ This section describes some noteworthy details on how certain features are imple
 * [Constructing an email](#constructing-an-email)
 * [Adding a product](#adding-a-product)
 * [Editing a product](#editing-a-product)
+* [StateManager](#statemanager)
+* [Adding a job](#adding-a-job)
+* [Editing a job](#editing-a-job)
+* [Printing a monthly job report](#printing-a-monthly-job-report)
 
 ### Adding a Contact
 
@@ -246,6 +252,8 @@ Note that `Phone`, `Email`, `Address`, are optional, but at least one of these 3
 must exist.
 
 [![](images/contact/AddContactSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/AddContactSequenceDiagram.png)
+
+Note: Please refer to [StateManager](#statemanager) for more details on why the command result of the AddContactCommand is intercepted.
 
 ### Editing a Contact
 
@@ -599,6 +607,8 @@ Given below is an example usage scenario and how the mechanism behaves at each s
 
 [![](images/product/AddProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram.png)
 
+Note: Please refer to [StateManager](#statemanager) for more details on why the command result of the AddProductCommand is intercepted.
+
 **Parse user input**
 
 Within `AddProductCommandParser#parse`, the **factory methods** of product components (`getProductName` and
@@ -653,6 +663,106 @@ restored.
 association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
 
 [![](images/product/EditProductSequenceDiagram_Sync.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Sync.png)
+
+### StateManager
+
+#### Motivation
+
+As seen from the description of the [Model Component](#model-component) the job entity holds a reference to exactly one contact and product entity.
+As such, one key consideration behind job related commands was providing an easy and flexible way for users to choose to assign either
+existing or new contact and/or products to jobs. As an example, when a user is adding a new job, the product or contact information needed might already exist in MyCRM,
+if there have been prior repairs on the same product or if it is a repeat client. In such cases the user will want to assign an existing contact and/or product to the new job.
+In other cases a new job will require creation of new contact and product entities not already present in MyCRM and subsequent assignment of these new contact and/or product entities
+to the job. The goal of `StateManager` is to handle these various scenarios amd make the process of assigning contacts and products to jobs easy for the user.
+
+#### Implementation
+
+The description of the [Logic Component](#logic-component) describes at a high level how `StateManager` controls which commands can be executed by `LogicManager`
+and how `StateManager` intercepts results of a `Command` to perform additional operations (if needed) by communicating with the `Model`.
+
+Here is a more detailed look at how `StateManager` works:
+1. Internally it has a list of possible states of the application. Based on the commands executed it remembers the current state of the application.
+   e.g. If a `addJob` command is issued without a contact index, that job will not be added to `MyCRM` immediately.
+   Instead, StateManager` will remember that a job is being added, and needs a contact assigned to it.
+2. Each state has a corresponding list of allowed commands that are permitted in that state. It prevents `LogicManager` from executing commands not permitted for the
+   current state. e.g When a contact is being assigned to a job, some commands that are allowed (non-exhaustive) are `addContact`, `listContact`, `findContact` etc...
+3. When a command is executed, the state manager might intercept its `CommandResult`, to perform additional operations and update its internal state.
+   e.g After an `addContact` command, `StateManager` will check the current state to see if a job is currently being added. If so state manager will link it to that job.
+   If the job is complete (does not require assignment of a product), it will be added to `MyCRM` and the job creation will be complete. Otherwise, `StateManager` will update
+   its internal state to remember that a job is being added, and needs a product assigned to it.
+4. The `CommandResult` is modified suitably based on additional operations performed before being returned to `LogicManager`. This is so that the user is able to see
+   appropriate feedback on what operations were completed.
+
+While the above examples were in the context of `addJob` commands, `StateManager` plays a identical role in helping with the reassignment of contact and/or product for existing jobs, via the
+`editJob` command.
+
+The two activity diagrams below illustrates the events that might occur when MyCRM prompts the user to assign a contact and/or product to a job. This can happen after the user
+has issued an `addJob` or `editJob` command without a contact or product index.
+
+[![Activity diagram of assigning contact to job](images/job/AssigningContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AssigningContactActivityDiagram.png)
+
+[![Activity diagram of assigning product to job](images/job/AssigningProductActivtyDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AssigningProductActivtyDiagram.png)
+
+Notice that the user can still choose to select an existing contact and/or product even if their index wasnt provided in the `addJob` or `editJob` command itself.
+This is made possible using a `select` command.
+
+Also notice that the user can call an `abort` command to exit from the current operation.
+`StateManager` will clear its state, and the adding or editing of the job will not go through.
+
+### Adding a Job
+
+#### Implementation
+
+The **Adding a Job** mechanism is facilitated by `MyCRM`. Similar to other entities like products or contacts, jobs created
+are stored internally using`UniqueJobList` inside the `MyCrm` object.
+
+#### Usage
+
+The activity diagram below illustrates the possible workflows when the `addJob` command is being executed by the user.
+
+[![Activity diagram of add job](images/job/AddJobActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AddJobActivityDiagram.png)
+
+Notice that in the case the contact and/or product index are not provided `StateManager` will prompt for the two entities sequentially.
+First it checks if the contact has been assigned, and then it checks if the product is assigned.
+If only one of contact or product index is missing, `StateManager` will only ask for assignment of the missing entity.
+
+In the [Logic Component](#logic-component) a high level sequence diagram is shown for when both the contact or product index are provided, and the job is added to MyCRM.
+
+The below sequence diagram shows an example usage scenario where the product index is missing.
+Notice how the job is passed to the `StateManager` but not added to the model, because the job does not have a product assigned.
+
+[![Sequence diagram of add job](images/job/AddJobSequenceDiagramShort.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AddJobSequenceDiagramShort.png)
+
+**Parsing of user input**
+
+As seen from the description of the [Model Component](#model-component) the job entity has many subcomponents such as `JobDescription`, `JobFee`,
+`JobDate`, etc... Within `AddJobCommandParser#parse`, methods from `ParserUtil` are used to create these job subcomponents, before creating the job to be added to `MyCRM`.
+
+[![Sequence diagram of parsing user input](images/job/AddJobParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/AddJobParseSequenceDiagram.png)
+
+### Editing a job
+
+#### Implementation
+The **Editing a Job** mechanism is facilitated by `MyCRM`. Similar to the other entities, this mechanism first reads the target job object from
+`UniqueJobList`, and then creates a new job object with the <u>user input fields</u> in the `editJob` command and <u>unchanged fields of target
+job</u>. Lastly, it replaces the target job with the new one and is reflected in the updated UI.
+
+#### Usage
+
+The activity diagram below illustrates the possible workflows when the `editJob` command is being executed by the user.
+
+Notice one difference between the workflow between `addJob` and `editJob`. Even though the user doesn't have to provide the contact or product index in the command itself,
+the user still has to indicate an intention to reassign the contact and/or product of the existing job. This is done by providing the contact or product prefixes in the command
+without their index, e.g `editJob INDEX c/ p/`
+
+[![Activity diagram of edit job](images/job/EditJobActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/EditJobActivityDiagram.png)
+
+The below sequence diagram shows an example usage scenario where both the contact and product indexes are present.
+
+[![Sequence diagram of edit job](images/job/EditJobSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditJobSequenceDiagram.png)
+
+The parsing for `editJob` is similar to `addJob` where methods from `ParserUtil` are used to create the sub-components,
+before creating the edited version of the job.
 
 ### Printing a monthly job report
 

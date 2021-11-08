@@ -1,0 +1,82 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":AddJobCommandParser" as AddJobCommandParser LOGIC_COLOR
+participant "ToAdd:AddJobCommand" as AddJobCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "desc:JobDescription" as JobDescription MODEL_COLOR
+participant "fee:JobFee" as JobFee MODEL_COLOR
+participant "recv:JobDate" as RECEIVED_DATE MODEL_COLOR
+participant "by:JobDate" as EXPECTED_COMPLETION MODEL_COLOR
+participant "job:Job" as Job MODEL_COLOR
+end box
+[-> LogicManager :execute("addJob d/Fix CPU fee/30.00 recv/29/10/2021 by/30/10/2021 c/1")
+activate LogicManager
+
+group sd parse add contact
+LogicManager -> MyCrmParser : parseCommand("addJob d/Fix CPU fee/30.00 recv/29/10/2021 by/30/10/2021 c/1")
+activate MyCrmParser
+
+create AddJobCommandParser
+MyCrmParser -> AddJobCommandParser
+activate AddJobCommandParser
+
+AddJobCommandParser --> MyCrmParser
+deactivate AddJobCommandParser
+
+MyCrmParser -> AddJobCommandParser : parse("addJob d/Fix CPU fee/30.00 recv/29/10/2021 by/30/10/2021 c/1")
+activate AddJobCommandParser
+
+create JobDescription
+AddJobCommandParser -> JobDescription : "Fix CPU"
+activate JobDescription
+JobDescription --> AddJobCommandParser : desc
+deactivate JobDescription
+
+create JobFee
+AddJobCommandParser -> JobFee : "30.00"
+activate JobFee
+JobFee --> AddJobCommandParser : fee
+deactivate JobFee
+
+create RECEIVED_DATE
+AddJobCommandParser -> RECEIVED_DATE : "29/10/2021"
+activate RECEIVED_DATE
+RECEIVED_DATE --> AddJobCommandParser : recv
+deactivate RECEIVED_DATE
+
+create EXPECTED_COMPLETION
+AddJobCommandParser -> EXPECTED_COMPLETION : "30/10/2021"
+activate EXPECTED_COMPLETION
+EXPECTED_COMPLETION --> AddJobCommandParser : by
+deactivate EXPECTED_COMPLETION
+
+create Job
+AddJobCommandParser -> Job : desc, fee, recv, by
+activate Job
+Job --> AddJobCommandParser : job
+deactivate Job
+
+create AddJobCommand
+AddJobCommandParser -> AddJobCommand : job, contactIndex
+activate AddJobCommand
+AddJobCommand --> AddJobCommandParser : ToAdd
+deactivate AddJobCommand
+
+AddJobCommandParser --> MyCrmParser : ToAdd
+deactivate AddJobCommandParser
+'Hidden arrow to position destroy marker below the end of the activation bar.
+AddJobCommandParser -[hidden]-> MyCrmParser
+destroy AddJobCommandParser
+
+MyCrmParser --> LogicManager : jobToAdd
+deactivate MyCrmParser
+end
+
+deactivate LogicManager
+@enduml
