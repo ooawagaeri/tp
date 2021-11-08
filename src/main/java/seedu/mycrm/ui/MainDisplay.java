@@ -14,7 +14,8 @@ import seedu.mycrm.ui.template.MailListPanel;
 
 /**
  * The UI component that is responsible for displaying job list and mail list. <br>
- * After creating an instance of MainDisplay, method {@code init(Logic, HostServices)} should be instantly invoked.
+ * After creating an instance of MainDisplay, method {@code init(Logic, HostServices)} should be invoked to initialize
+ * its inner parts.
  */
 public class MainDisplay extends UiPart<Region> {
     private static final String FXML = "MainDisplay.fxml";

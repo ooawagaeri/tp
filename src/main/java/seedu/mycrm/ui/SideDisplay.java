@@ -16,7 +16,7 @@ import seedu.mycrm.ui.template.TemplateListPanel;
 
 /**
  * The UI component that is responsible for displaying lists of contact, product, template, and history. <br>
- * After creating an instance of SideDisplay, should instantly call method init(Logic).
+ * After creating an instance of SideDisplay, method init(Logic) should be invoked to initialize its inner parts.
  */
 public class SideDisplay extends UiPart<Region> {
     private static final String FXML = "SideDisplay.fxml";

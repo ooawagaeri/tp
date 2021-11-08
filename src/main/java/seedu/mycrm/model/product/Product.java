@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * Represents a product in MyCRM.
- * Guarantees: immutable.
+ * Guarantees: immutable, all fields are non-null
  */
 public class Product {
     private final ProductName productName;

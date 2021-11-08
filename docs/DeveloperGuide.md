@@ -644,7 +644,7 @@ respectively.
 After target product is replaced with new product, `EditProductCommand#execute()` will traverse job list and replace
 references to target product with references to new product.
 
-To get the full job list, `EditProductCommand#execute()` will first store the *lastest predicate* of job list, set the
+To get the full job list, `EditProductCommand#execute()` will store the *lastest predicate* of job list and set the
 predicate to "show all jobs". After traversing the job list and updating the references, the *latest predicate* is
 restored.
 
@@ -1390,8 +1390,6 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent theme is retained.
-
-1. _{ more test cases …​ }_
 
 ### Shutdown
 

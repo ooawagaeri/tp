@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
 participant ":EditProductCommandParser" as EditProductCommandParser LOGIC_COLOR
-participant ":EditProductCommand" as EditProductCommand LOGIC_COLOR
+participant "toEdit:EditProductCommand" as EditProductCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -42,17 +42,17 @@ create EditProductCommand
 EditProductCommandParser -> EditProductCommand : 2, EditProductDescriptor
 activate EditProductCommand
 
-EditProductCommand --> EditProductCommandParser : productToEdit
+EditProductCommand --> EditProductCommandParser : toEdit
 deactivate EditProductCommand
 
-EditProductCommandParser --> MyCrmParser : productToEdit
+EditProductCommandParser --> MyCrmParser : toEdit
 deactivate EditProductCommandParser
 
 'Hidden arrow to position destroy marker below the end of the activation bar.
 EditProductCommandParser -[hidden]-> MyCrmParser
 destroy EditProductCommandParser
 
-MyCrmParser --> LogicManager : productToEdit
+MyCrmParser --> LogicManager : toEdit
 deactivate MyCrmParser
 end
 @enduml

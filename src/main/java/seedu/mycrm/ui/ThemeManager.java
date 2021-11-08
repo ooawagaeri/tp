@@ -17,7 +17,6 @@ public class ThemeManager {
     // Theme names
     public static final String THEME_DARK = "dark";
     public static final String THEME_LIGHT = "light";
-
     private static final ArrayList<String> themeNames = new ArrayList<>(List.of(THEME_DARK, THEME_LIGHT));
 
     private final Logger logger = LogsCenter.getLogger(getClass());
