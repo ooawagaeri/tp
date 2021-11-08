@@ -6,12 +6,12 @@ if () then ([Invalid Input])
     :Throws ParseException;
     :Displays unsuccessful message;
 else ([Valid Input])
+:Gets product to be edited;
+:Creates edited product;
 if () then ([Duplicate product or Index out of range])
     :Throws CommandException;
     :Displays unsuccessful message;
 else ([else])
-    :Gets product to be edited;
-    :Creates edited product;
     :Replaces specific product with edited product;
     :Updates product references in jobs;
     :Displays successful message;
