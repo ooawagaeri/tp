@@ -18,7 +18,8 @@ public class UndoCompleteJobCommand extends Command {
     public static final String COMMAND_WORD = "undoCompleteJob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + "Reverts the status of the completed job identified by the INDEX in the displayed job list to incomplete.\n"
+            + "Reverts the status of the completed job identified by the INDEX "
+            + "in the displayed job list to incomplete.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

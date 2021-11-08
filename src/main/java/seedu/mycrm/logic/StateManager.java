@@ -47,12 +47,14 @@ public class StateManager {
     private static final String EDIT_JOB_PRODUCT_MESSAGE = "Currently editing the product for job %s.\n";
 
     private static final String PROVIDE_CONTACT_INSTR = "You can either assign a new contact to the job by "
-            + "issuing a addContact command or select an existing one from the contact list by issuing a select command.\n";
+            + "issuing a addContact command or select an existing one "
+            + "from the contact list by issuing a select command.\n";
 
     private static final String CONTACT_PROVIDED_MESSAGE = "Following contact: %s will be assigned to the job.\n";
 
     private static final String PROVIDE_PRODUCT_INSTR = "You can either assign a a new product to the job by "
-            + "issuing a addProduct command or select an existing one from the contact list by issuing a select command.\n";
+            + "issuing a addProduct command or select an existing one "
+            + "from the contact list by issuing a select command.\n";
 
     private static final String PRODUCT_PROVIDED_MESSAGE = "Following product: %s will be assigned to the job.\n";
 
