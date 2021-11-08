@@ -175,6 +175,20 @@ Format: `listJob [-a] [-c]`
 * To show a list of all jobs, regardless of completion status the command `listJob -a` can be issued
 * To show a list of all completed jobs the command `listJob -c` can be issued
 
+Examples:
+
+* `listJob`
+
+  <img src="images/ui-listJob-success.jpg" width="600px">
+
+* `listJob -c`
+
+  <img src="images/ui-listJobCompleted-success.jpg" width="600px">
+
+* `listJob -a`
+
+  <img src="images/ui-listJobAll-success.jpg" width="600px">
+
 ### Find Job: `findJob`
 
 Find jobs whose description, contact or product contain certain keywords.
@@ -204,6 +218,20 @@ Format: `completeJob INDEX [COMPLETION_DATE]`
 * `INDEX` must be a positive integer(1,2,3…)
 * `COMPLETION_DATE` is set to the current date if it is not provided
 
+Example:
+
+* Given one in-progress job
+
+  <img src="images/ui-listJob-success.jpg" width="600px">
+  
+* `completeJob 1` - causes the job to disappear from the current job list
+
+  <img src="images/ui-completeJob-success.jpg" width="600px">
+  
+* If `listJob -c` is called, it can be seen that the job was successfully completed
+
+  <img src="images/ui-completeJobListJob-success.jpg" width="600px">
+
 ### Revert the completion status of a previously complete job: `undoCompleteJob`
 
 Reverts the status of a previously completed job back to in-progress.
@@ -215,6 +243,16 @@ Format: `undoCompleteJob INDEX`
 * `INDEX` must refer to a completed job. It will not work on a currently in-progress job
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
+
+Example:
+
+* Given one in-progress job
+
+  <img src="images/ui-listJobCompleted-success.jpg" width="600px">
+
+* `undoCompleteJob 1`
+
+  <img src="images/ui-undoCompleteJob-success.jpg" width="600px">
 
 ### Deleting a job: `deleteJob`
 
@@ -614,6 +652,7 @@ Format: Click on "Print" / `exportReport`
   <img src="images/ui-printer.png" width="300px">
   (for Windows OS)
   <br><br>
+  <img src="images/ui-page-setup-macos.png" width="200px">
   <img src="images/ui-printer-macos.png" width="300px">
   (for Mac OS)
 
