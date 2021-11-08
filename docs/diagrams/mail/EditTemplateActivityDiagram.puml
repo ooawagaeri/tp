@@ -6,14 +6,19 @@ if () then ([Invalid inputs])
     :Throws ParseException;
     :Displays unsuccessful edited template on UI;
 else ([Valid inputs])
-    if () then ([Duplicate template or Index out of range])
+    if () then ([Index out of range])
         :Throws CommandException;
         :Displays unsuccessful edit template on UI;
     else ([Else])
         :Gets specified template;
         :Creates edited template;
-        :Replaces specified template with edited template;
-        :Displays successful edit template on UI;
+        if () then ([Duplicate template])
+            :Throws CommandException;
+            :Displays unsuccessful edit template on UI;
+        else ([Else])
+            :Replaces specified template with edited template;
+            :Displays successful edit template on UI;
+        endif
     endif
 endif
 stop

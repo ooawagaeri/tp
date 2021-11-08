@@ -1,0 +1,100 @@
+@startuml
+!include ../style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant "ReportWindow" as ReportWindow UI_COLOR
+participant "JobDisplay" as JobDisplay UI_COLOR
+participant ":GraphDisplay" as GraphDisplay UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":PrintReportCommand" as PrintReportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand("printReport -i")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("printReport -i")
+activate LogicManager
+
+ref over LogicManager, PrintReportCommand : parse print report
+
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> CommandResult : getCommandFlag()
+activate CommandResult
+
+CommandResult --> MainWindow : flag
+deactivate CommandResult
+
+MainWindow -> ReportWindow : fillInnerParts(flag)
+activate ReportWindow
+
+ReportWindow -> JobDisplay : init()
+activate JobDisplay
+
+JobDisplay -> LogicManager : getFilteredMonthlyCompletedJobList()
+activate LogicManager
+
+LogicManager -> Model : getFilteredMonthlyCompletedJobList()
+activate Model
+
+Model --> LogicManager : completedJobList
+
+LogicManager --> JobDisplay : completedJobList
+
+JobDisplay -> LogicManager : getFilteredIncompleteJobList()
+
+LogicManager -> Model : getFilteredIncompleteJobList()
+
+Model --> LogicManager : incompletedJobList
+
+LogicManager --> JobDisplay : incompletedJobList
+
+JobDisplay -> LogicManager : getFilteredTopThreeProductList()
+
+LogicManager -> Model : getFilteredTopThreeProductList()
+
+Model --> LogicManager : requiredProductList
+
+LogicManager --> JobDisplay : requiredProductList
+
+JobDisplay --> ReportWindow
+deactivate JobDisplay
+
+ReportWindow -> GraphDisplay : init()
+activate GraphDisplay
+
+GraphDisplay -> GraphDisplay :  getLastFourMonthRevenue(now)
+activate GraphDisplay
+
+GraphDisplay -> LogicManager : getRevenue(now)
+
+LogicManager -> Model : getRevenue((now)
+
+Model --> LogicManager : revenue
+deactivate Model
+
+LogicManager --> GraphDisplay : revenue
+deactivate LogicManager
+
+GraphDisplay --> GraphDisplay
+deactivate GraphDisplay
+GraphDisplay --> ReportWindow
+deactivate GraphDisplay
+
+ReportWindow --> MainWindow
+deactivate ReportWindow
+
+[<-- MainWindow
+deactivate MainWindow
+@enduml

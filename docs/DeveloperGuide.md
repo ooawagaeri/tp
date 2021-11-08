@@ -185,7 +185,7 @@ The `Model` component,
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/StorageClassDiagram.png">
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/StorageClassDiagram.png" width="600" />
 </a>
 
 The `Storage` component,
@@ -654,8 +654,33 @@ association between `EditProductCommand` and `UniqueJobList`, which increases co
 
 [![](images/product/EditProductSequenceDiagram_Sync.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Sync.png)
 
+### Printing a monthly job report
 
+#### Implementation
 
+The **Printing a monthly job report** mechanism is facilitated by `MyCRM`. This job report is generated based of the information from
+<u>jobs completed in this month</u> and <u> received in this month</u> from `UniqueJobList` inside `MyCRM` object. A report window
+will be created with details of completed jobs, in-progress jobs, top three popular products, and a bar graph showing monthly revenue.
+
+#### Usage
+
+The activity diagram below illustrates how the events of `printReport` command behave when executed by user:
+
+![Activity diagram of print report](images/report/PrintReportActivityDiagram.png)
+
+Given below is an example usage scenario and how the mechanism behaves at each step.
+
+![Sequence diagram of print report parser](images/report/PrintReportParserSequenceDiagram.png)
+
+Within `PrintReportCommandParser#parse`,
+- `CommandFlag` is optional but if provided, it can only be either **"-i"** or **"-p"**.
+- If **"-i"** is presented, report window will show all in-progress jobs received in this month.
+- If **"-i"** is presented, report window will show the top three popular products in this month. 
+- if no flag is presented, report windwo will shou all jobs completed in this month by default.
+
+`PrintReportCommandParser#parse` will call `String#trim` to get specific command flag.
+
+![Sequence diagram of print report](images/report/PrintReportSequenceDiagram.png)
 
 
 --------------------------------------------------------------------------------------------------------------------
