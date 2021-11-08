@@ -1,0 +1,65 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":PrintReportCommandParser" as PrintReportCommandParser LOGIC_COLOR
+participant ":PrintReportCommand" as PrintReportCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("printReport -i")
+activate LogicManager
+
+group sd print report
+LogicManager -> MyCrmParser : parseCommand("printReport -i")
+activate MyCrmParser
+
+create PrintReportCommandParser
+MyCrmParser -> PrintReportCommandParser
+activate PrintReportCommandParser
+
+PrintReportCommandParser --> MyCrmParser
+deactivate PrintReportCommandParser
+
+MyCrmParser -> PrintReportCommandParser : parse("printReport -i")
+activate PrintReportCommandParser
+
+create PrintReportCommand
+PrintReportCommandParser -> PrintReportCommand : "-i"
+activate PrintReportCommand
+
+PrintReportCommand --> PrintReportCommandParser :
+deactivate PrintReportCommand
+
+PrintReportCommandParser --> MyCrmParser
+deactivate PrintReportCommandParser
+
+'Hidden arrow to position destroy marker below the end of the activation bar.
+PrintReportCommandParser -[hidden]-> MyCrmParser
+destroy PrintReportCommandParser
+
+MyCrmParser --> LogicManager :
+deactivate MyCrmParser
+
+LogicManager -> PrintReportCommand : execute()
+activate PrintReportCommand
+
+create CommandResult
+PrintReportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PrintReportCommand
+deactivate CommandResult
+
+PrintReportCommand --> LogicManager : result
+deactivate PrintReportCommand
+
+PrintReportCommand -[hidden]-> LogicManager
+destroy PrintReportCommand
+
+end
+
+deactivate LogicManager
+@enduml

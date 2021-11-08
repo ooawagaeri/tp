@@ -43,7 +43,7 @@ public class NodePrinter {
         Translate gridTransform = new Translate();
         node.getTransforms().add(gridTransform);
 
-        int rows = (int) Math.ceil(node.getBoundsInParent().getHeight() * 1.8 / pageHeight);
+        int rows = (int) Math.ceil(node.getBoundsInParent().getHeight()  / pageHeight);
 
         boolean success = true;
         for (int row = 0; row < rows; row++) {
