@@ -1,0 +1,32 @@
+@startuml
+title :Assign contact to job
+
+start
+repeat :MyCRM asks user to provide contact for the job;
+:User issues command;
+:MyCRM parses user input;
+if () then([invalid input])
+    :Throws Parse Exception;
+    :Displays unsuccessful command execution in UI;
+else ([valid input])
+    :MyCRM executes user command;
+    if () then([abort command])
+        :Operation will be aborted;
+        :Displays abortion of current operation in UI;
+        stop;
+    else ([else])
+        if () then( [existing contact selected])
+            :Existing contact will be linked to job;
+        else ([else])
+            if () then([new contact created])
+                :Newly created contact will be linked to job;
+            else ([else])
+            endif
+        endif
+    endif
+endif
+repeat while () is ([contact not assigned to job])
+->[else];
+:Displays successful linking of contact to job in UI;
+stop
+@enduml

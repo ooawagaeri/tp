@@ -5,6 +5,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "toAdd:AddProductCommand" as AddProductCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":StateManager" as StateManager LOGIC_COLOR
+participant "modifiedResult:CommandResult" as CommandResult2 LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -24,10 +26,23 @@ create CommandResult
 AddProductCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AddProductCommand
+CommandResult --> AddProductCommand : c
 deactivate CommandResult
 
-AddProductCommand --> LogicManager : result
+AddProductCommand -> StateManager : handleProduct(toAdd, c)
+activate StateManager
+
+create CommandResult2
+StateManager -> CommandResult2
+activate CommandResult2
+
+CommandResult2 --> StateManager : modifiedResult
+deactivate CommandResult2
+
+StateManager --> AddProductCommand : modifiedResult
+deactivate StateManager
+
+AddProductCommand --> LogicManager : modifiedResult
 deactivate AddProductCommand
 
 AddProductCommand -[hidden]-> LogicManager

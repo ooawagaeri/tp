@@ -1,0 +1,86 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MyCrmParser" as MyCrmParser LOGIC_COLOR
+participant ":AddJobCommandParser" as AddJobCommandParser LOGIC_COLOR
+participant "a:AddJobCommand" as AddJobCommand LOGIC_COLOR
+participant ":StateManager" as StateManager LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addJob c/1 p/1 d/Fix...")
+activate LogicManager
+
+LogicManager -> MyCrmParser : parseCommandWord("addJob c/1 p/1 d/Fix...")
+activate MyCrmParser
+MyCrmParser --> LogicManager
+deactivate MyCrmParser
+
+LogicManager -> StateManager : isCommandAllowed("addJob")
+activate StateManager
+StateManager --> LogicManager
+deactivate StateManager
+
+LogicManager -> MyCrmParser : parseCommand("addJob c/1 p/1 d/Fix...")
+activate MyCrmParser
+
+create AddJobCommandParser
+MyCrmParser -> AddJobCommandParser
+activate AddJobCommandParser
+
+AddJobCommandParser --> MyCrmParser
+deactivate AddJobCommandParser
+
+MyCrmParser -> AddJobCommandParser : parse("c/1 p/1 d/Fix...")
+activate AddJobCommandParser
+
+create AddJobCommand
+AddJobCommandParser -> AddJobCommand
+activate AddJobCommand
+
+AddJobCommand --> AddJobCommandParser : a
+deactivate AddJobCommand
+
+AddJobCommandParser --> MyCrmParser : a
+deactivate AddJobCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddJobCommandParser -[hidden]-> MyCrmParser
+destroy AddJobCommandParser
+
+MyCrmParser --> LogicManager : a
+deactivate MyCrmParser
+
+LogicManager -> AddJobCommand : execute()
+activate AddJobCommand
+
+AddJobCommand -> StateManager : handleAddJob(jobToAdd)
+activate StateManager
+
+StateManager -> Model : addJob(jobToAdd)
+activate Model
+
+Model --> StateManager
+deactivate Model
+
+create CommandResult
+StateManager -> CommandResult
+activate CommandResult
+
+CommandResult --> StateManager
+deactivate CommandResult
+
+StateManager --> AddJobCommand
+deactivate StateManager
+
+AddJobCommand --> LogicManager : result
+deactivate AddJobCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
