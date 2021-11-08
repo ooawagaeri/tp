@@ -74,7 +74,7 @@ public class SampleDataUtil {
         Product intel = new Product(ProductName.getName("Intel i5-10400F"), Type.getType("CPU"),
             Manufacturer.getManufacturer("Intel"), Description.getDescription("2.90GHz"));
 
-        Product ryzen =  new Product(ProductName.getName("Ryzen 5 5600"), Type.getType("CPU"),
+        Product ryzen = new Product(ProductName.getName("Ryzen 5 5600"), Type.getType("CPU"),
                 Manufacturer.getManufacturer("AMD"), Description.getDescription("3.00GHz"));
 
         return new Job[] {
