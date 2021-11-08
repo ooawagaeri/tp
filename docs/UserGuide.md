@@ -168,7 +168,7 @@ Examples:
   
 ### Listing all jobs: `listJob`
 
-Shows a list of all repair jobs that have yet to be completed in the CRM.
+Shows a list of all in-progress repair jobs in the CRM.
 
 Format: `listJob [-a] [-c]`
 
@@ -206,13 +206,13 @@ Format: `completeJob INDEX [COMPLETION_DATE]`
 
 ### Revert the completion status of a previously complete job: `undoCompleteJob`
 
-Marks a previously completed job as incomplete
+Reverts the status of a previously completed job back to in-progress.
 
 Format: `undoCompleteJob INDEX`
 
 * Marks the repair job at the specified `INDEX` as complete
 * User should call `listJob -c` to view all completed jobs before calling this command
-* `INDEX` must refer to a completed job. It will not work on a currently pending job
+* `INDEX` must refer to a completed job. It will not work on a currently in-progress job
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 
