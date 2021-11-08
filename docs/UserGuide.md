@@ -364,7 +364,7 @@ Examples:
 * `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus`
 * `addProduct n/Intel i5-10400F t/CPU m/Intel d/2.90GHz`
 
-    <img src="images/ui-add-product.png" width="600px">
+    <img src="images/ui-add-product.PNG" width="600px">
 
 ### Listing all products: `listProduct`
 
@@ -405,7 +405,7 @@ Example:
 * `editProduct 3 d/Video output interface: DisplayPort, HDMI` edits the description of the 2nd product to be
   `Video output interface: DisplayPort, HDMI`.
 
-    <img src="images/ui-edit-product.png" width="600px">
+    <img src="images/ui-edit-product.PNG" width="600px">
 
 ### Locating products by name: `findProduct`
 
@@ -421,7 +421,7 @@ Example:
 
 * `findProduct asus`
   
-  <img src="images/ui-find-product.png" width="600px">
+  <img src="images/ui-find-product.PNG" width="600px">
 
 ### Send mail: `mail`
 
