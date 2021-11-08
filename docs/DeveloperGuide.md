@@ -139,27 +139,27 @@ How the parsing works:
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelClassDiagram.png">
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="500" />
 </a>
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelContactClassDiagram.png">
-<img src="images/ModelContactClassDiagram.png" height="350" />
+<img src="images/ModelContactClassDiagram.png" height="250" />
 </a>
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelProductClassDiagram.png">
-<img src="images/ModelProductClassDiagram.png" height="350" />
+<img src="images/ModelProductClassDiagram.png" height="250" />
 </a>
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelTemplateClassDiagram.png">
-<img src="images/ModelTemplateClassDiagram.png" height="350" />
+<img src="images/ModelTemplateClassDiagram.png" height="250" />
 </a>
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelJobClassDiagram.png">
-<img src="images/ModelJobClassDiagram.png" height="350" />
+<img src="images/ModelJobClassDiagram.png" height="250" />
 </a>
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelMailClassDiagram.png">
-<img src="images/ModelMailClassDiagram.png" height="400" />
+<img src="images/ModelMailClassDiagram.png" height="250" />
 </a>
 
 The `Model` component,
