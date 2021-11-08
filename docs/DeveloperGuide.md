@@ -185,7 +185,7 @@ The `Model` component,
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/StorageClassDiagram.png">
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/StorageClassDiagram.png" width="600" />
 </a>
 
 The `Storage` component,
