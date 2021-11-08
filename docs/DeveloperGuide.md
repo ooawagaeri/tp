@@ -60,7 +60,7 @@ The rest of the App consists of four components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deleteContact 1`.
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ArchitectureSequenceDiagram.png">
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
