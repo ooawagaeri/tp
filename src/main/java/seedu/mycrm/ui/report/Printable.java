@@ -1,5 +1,8 @@
 package seedu.mycrm.ui.report;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -67,6 +70,7 @@ public class Printable extends UiPart<VBox> {
                     + j.toString() + "\n" + getJobInfo(j) + "\n\n");
             id++;
         }
+        enableResize(completedJobList);
         completedJobListTitle.setText("Completed Jobs:");
 
         id = 1;
@@ -76,6 +80,7 @@ public class Printable extends UiPart<VBox> {
                     + j.toString() + "\n" + getJobInfo(j) + "\n\n");
             id++;
         }
+        enableResize(inProgressJobList);
         inProgressJobListTitle.setText("In-Progress Jobs:");
 
         id = 1;
@@ -85,6 +90,7 @@ public class Printable extends UiPart<VBox> {
                     + p.toString() + "\n" + getProductInfo(p) + "\n\n");
             id++;
         }
+        enableResize(topThreeProductList);
         topThreeProductListTitle.setText("Top Three Products:");
     }
 
@@ -108,5 +114,21 @@ public class Printable extends UiPart<VBox> {
                 + manufacturer + "\n"
                 + description;
 
+    }
+
+    private void enableResize(TextArea textArea) {
+        SimpleIntegerProperty count = new SimpleIntegerProperty(20);
+        int rowHeight = 10;
+
+        textArea.prefHeightProperty().bindBidirectional(count);
+        textArea.minHeightProperty().bindBidirectional(count);
+        textArea.scrollTopProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
+                if (newVal.intValue() > rowHeight) {
+                    count.setValue(count.get() + newVal.intValue());
+                }
+            }
+        });
     }
 }
