@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant "toAdd:AddContactCommand" as AddContactCommand LOGIC_COLOR
+participant "contactToAdd:AddContactCommand" as AddContactCommand LOGIC_COLOR
 participant "c:CommandResult" as CommandResult LOGIC_COLOR
 participant ":StateManager" as StateManager LOGIC_COLOR
 participant "modifiedResult:CommandResult" as CommandResult2 LOGIC_COLOR
@@ -20,7 +20,7 @@ ref over LogicManager, AddContactCommand : parse add contact
 LogicManager -> AddContactCommand : execute()
 activate AddContactCommand
 
-AddContactCommand -> Model : addContact(toAdd)
+AddContactCommand -> Model : addContact(contactToAdd)
 activate Model
 
 Model --> AddContactCommand
@@ -33,7 +33,7 @@ activate CommandResult
 CommandResult --> AddContactCommand : c
 deactivate CommandResult
 
-AddContactCommand -> StateManager : handleContact(toAdd, c)
+AddContactCommand -> StateManager : handleContact(contactToAdd, c)
 activate StateManager
 
 create CommandResult2

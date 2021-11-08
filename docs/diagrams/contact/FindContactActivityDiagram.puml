@@ -4,7 +4,7 @@ start
 :MyCRM parses user inputs;
 if () then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful find contact Message on UI;
+    :Displays unsuccessful finding contact message on UI;
 else ([Valid Input])
 :Gets contact names predicate with keywords provided;
 :Update contact list with new predicate:

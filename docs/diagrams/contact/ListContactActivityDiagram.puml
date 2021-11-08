@@ -4,7 +4,7 @@ start
 :MyCRM parses user inputs;
 if () then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful list contact Message on UI;
+    :Displays unsuccessful listing contact message on UI;
 else ([Valid Input])
 :Gets keyword for predicate of listContact;
 if () then ([predicate "-a"])

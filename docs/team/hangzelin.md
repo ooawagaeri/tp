@@ -83,6 +83,7 @@ Given below are my contributions to the project.
     **contact** command features.
     * Added [use cases](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#use-cases) of all **contact** command features.  
       (Please scroll down to see contact command features part.)
+    * Added [Instructions for manual testing](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/docs/DeveloperGuide.md#appendix-instructions-for-manual-testing) for all **contact** command features
 
 * **Community**:
     * Helped changed **completion status of a job** into a new component in Job model.
