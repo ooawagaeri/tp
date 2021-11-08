@@ -94,7 +94,7 @@ public class JobDisplay extends UiPart<Region> {
                 .bind(topThreeProductListPanelPlaceholder.visibleProperty());
         topThreeProductListPanelPlaceholder.getChildren().add(topThreeProductListPanel.getRoot());
 
-        topThreeProductTab.setText("Top-Three Product "
+        topThreeProductTab.setText("Top-Three Products Received in "
                 + LocalDate.now().getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
     }
 
