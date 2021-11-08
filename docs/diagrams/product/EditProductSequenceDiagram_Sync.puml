@@ -21,7 +21,11 @@ deactivate Model
 
 EditProductCommand -> Model : updateFilteredJobList(PREDICATE_SHOW_ALL_JOBS)
 
+' get job list
 EditProductCommand -> Model : getFilteredJobList()
+activate Model
+Model --> EditProductCommand
+deactivate Model
 
 loop for every job in JobList
 opt the job links to productToEdit

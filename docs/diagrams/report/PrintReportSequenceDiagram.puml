@@ -42,31 +42,38 @@ activate ReportWindow
 ReportWindow -> JobDisplay : init()
 activate JobDisplay
 
+' first get
 JobDisplay -> LogicManager : getFilteredMonthlyCompletedJobList()
 activate LogicManager
-
 LogicManager -> Model : getFilteredMonthlyCompletedJobList()
 activate Model
 
 Model --> LogicManager : completedJobList
-
+deactivate Model
 LogicManager --> JobDisplay : completedJobList
+deactivate LogicManager
 
+' second get
 JobDisplay -> LogicManager : getFilteredIncompleteJobList()
-
+activate LogicManager
 LogicManager -> Model : getFilteredIncompleteJobList()
+activate Model
 
 Model --> LogicManager : incompletedJobList
-
+deactivate Model
 LogicManager --> JobDisplay : incompletedJobList
+deactivate LogicManager
 
+' third get
 JobDisplay -> LogicManager : getFilteredTopThreeProductList()
-
+activate LogicManager
 LogicManager -> Model : getFilteredTopThreeProductList()
+activate Model
 
 Model --> LogicManager : requiredProductList
-
+deactivate Model
 LogicManager --> JobDisplay : requiredProductList
+deactivate LogicManager
 
 JobDisplay --> ReportWindow
 deactivate JobDisplay
@@ -77,13 +84,14 @@ activate GraphDisplay
 GraphDisplay -> GraphDisplay :  getLastFourMonthRevenue(now)
 activate GraphDisplay
 
+' fourth get
 GraphDisplay -> LogicManager : getRevenue(now)
-
+activate LogicManager
 LogicManager -> Model : getRevenue((now)
+activate Model
 
 Model --> LogicManager : revenue
 deactivate Model
-
 LogicManager --> GraphDisplay : revenue
 deactivate LogicManager
 

@@ -1,0 +1,79 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "jobToEdit:EditJobCommand" as EditJobCommand LOGIC_COLOR
+participant "lastShownJobList: List<Job>" as ListJob LOGIC_COLOR
+participant "**<<class>>**\nJob" as Job LOGIC_COLOR
+participant ":StateManager" as StateManager LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editJob 1 c/2 p/3")
+activate LogicManager
+
+ref over LogicManager, EditJobCommand : parse edit job
+
+LogicManager -> EditJobCommand : execute()
+
+activate EditJobCommand
+
+EditJobCommand -> Model : getFilteredJobList()
+activate Model
+Model --> EditJobCommand : lastShownJobList
+deactivate Model
+
+EditJobCommand -> Model : getFilteredContactList()
+activate Model
+Model --> EditJobCommand : lastShownContactList
+deactivate Model
+
+EditJobCommand -> Model : getFilteredProductList()
+activate Model
+Model --> EditJobCommand : lastShownProductList
+deactivate Model
+
+EditJobCommand -> ListJob : get(jobIndex)
+activate ListJob
+ListJob --> EditJobCommand : jobToEdit
+deactivate ListJob
+
+EditJobCommand -> Job : createEditedJob(jobToEdit, editJobDescriptor, "lastShownContactList, lastShownProductList)
+activate Job
+Job --> EditJobCommand : editedJob
+deactivate Job
+
+EditJobCommand -> StateManager : handleEditJob(jobToEdit, editedJob, shouldEditContact, shouldEditProduct)
+activate StateManager
+
+StateManager -> Model : setJob(jobToEdit, editedJob)
+activate Model
+
+Model --> StateManager
+deactivate Model
+
+create CommandResult
+StateManager -> CommandResult
+activate CommandResult
+
+CommandResult --> StateManager
+deactivate CommandResult
+
+StateManager --> EditJobCommand
+deactivate StateManager
+
+EditJobCommand --> LogicManager : result
+deactivate EditJobCommand
+
+EditJobCommand -[hidden]-> LogicManager
+destroy EditJobCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
+
