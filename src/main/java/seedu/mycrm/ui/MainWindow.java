@@ -276,7 +276,8 @@ public class MainWindow extends UiPart<Stage> {
                 assert false;
             }
 
-            if (reportWindow.isShowing()) {
+            if (commandType != CommandType.REPORT && commandType != CommandType.EXPORT
+                    && reportWindow.isShowing()) {
                 // update report window
                 reportWindow.fillInnerParts();
                 reportWindow.changeTheme(themeManager.getThemeName());
