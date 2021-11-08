@@ -5,6 +5,10 @@ import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_COMPLETED_FLAG;
 import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_IN_PROGRESS_FLAG;
 import static seedu.mycrm.logic.commands.PrintReportCommand.SHOW_PRODUCT_FLAG;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -88,6 +92,9 @@ public class JobDisplay extends UiPart<Region> {
                 .managedProperty()
                 .bind(topThreeProductListPanelPlaceholder.visibleProperty());
         topThreeProductListPanelPlaceholder.getChildren().add(topThreeProductListPanel.getRoot());
+
+        topThreeProductTab.setText("Top-Three Product "
+                + LocalDate.now().getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
     }
 
     /**
