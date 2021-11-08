@@ -22,7 +22,11 @@ LogicManager -> EditProductCommand : execute()
 
 activate EditProductCommand
 
+' get product list
 EditProductCommand -> Model : getFilteredProductList()
+activate Model
+Model --> EditProductCommand
+deactivate Model
 
 EditProductCommand -> ListProduct : get(index)
 activate ListProduct
