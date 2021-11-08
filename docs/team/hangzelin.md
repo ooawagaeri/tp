@@ -79,8 +79,8 @@ Given below are my contributions to the project.
       * `undoHideContact`: undoes hiding a contact operation.
     * Did cosmetic tweaks to [Quick Start](https://ay2122s1-cs2103-t14-3.github.io/tp/UserGuide.html#quick-start) part command examples.
   * Developer Guide:
-    * Added [implementation details](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#adding-a-contact) of all 
-    **contact** command features.
+    * Added [implementation details](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#adding-a-contact) for all 
+    **contact** command features：`addContact`, `editContact`, `deleteContact`, `findContact`, `hideContact`, `undoHideContact` and `listContact`.
     * Added [use cases](https://ay2122s1-cs2103-t14-3.github.io/tp/DeveloperGuide.html#use-cases) for all **contact** command features:`addContact`,
     `editContact`, `deleteContact`, `findContact`, `hideContact`, `undoHideContact` and `listContact`.   
       (Please scroll down to see contact command features part.)
