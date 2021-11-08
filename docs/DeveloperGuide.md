@@ -2109,45 +2109,6 @@ testers are expected to do more *exploratory* testing.
         - Similar to (1)
         - Side panel will NOT list all products. Remains at current list.
 
-### Editing product
-
-1. Editing a product while all products are being shown
-
-    1. Prerequisites: List all products using the `listProduct` command. Shows list of products in side panel.
-
-    2. Test case: `editProduct 2 d/Video output interface: DisplayPort, HDMI`
-       <br> Expected:
-        - Second product is updated to the list.
-        - Details of product shown in status message.
-
-    3. Test case: `editProduct 2 m/GIGABYTE`
-       <br> Expected:
-        - Similar to previous.
-
-    4. Test case: `editProduct 2 n/duplicate product name`
-       <br> Expected:
-        - No product is edited.
-        - Duplicate error details is shown in status message.
-
-    5. Test case: `editProduct 0 m/GIGABYTE`
-       <br> Expected:
-        - No product is edited.
-        - Format error details is show in status message.
-
-2. Editing a product while all products are NOT being shown.
-
-    1. Prerequisites: List other data types i.e. `listTemplate` command. Shows list of other data in side panel.
-
-    2. Correct test cases similar to (1)
-       <br>Expected:
-        - Similar to (1)
-        - Side panel will list all products.
-
-    3. Other incorrect test cases similar to (1)
-       <br>Expected:
-        - Similar to (1)
-        - Side panel will NOT list all products. Remains at current list.
-
 ### Deleting Product
 
 1. Deleting a product while all products are being shown.
