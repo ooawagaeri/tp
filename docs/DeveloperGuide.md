@@ -366,7 +366,7 @@ The activity diagram below illustrates how the events of `undoHideContact` comma
 
 [![](images/contact/UndoHideContactActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/UndoHideContactActivityDiagram.png)
 
-Given below is an example usage scenario and how the **Hiding a Contact** mechanism behaves at each step.
+Given below is an example usage scenario and how the **Undoing Hiding a Contact** mechanism behaves at each step.
 
 [![](images/contact/UndoHideContactParseSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/contact/UndoHideContactParseSequenceDiagram.png)
 
