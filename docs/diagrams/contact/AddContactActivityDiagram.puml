@@ -6,10 +6,6 @@ if() then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful add contact Message on UI;
 else ([Valid Input])
-    if () then ([Duplicate contact])
-        :Throws CommandException;
-        :Displays unsuccessful adding contact on UI;
-    else ([Else])
     fork
     :Creates new **Name**;
     fork again
@@ -22,6 +18,10 @@ else ([Valid Input])
     : (Optional)
     Creates new **Address**;
     end fork
+    if () then ([Duplicate contact])
+            :Throws CommandException;
+            :Displays unsuccessful adding contact on UI;
+        else ([Else])
     :Creates new contact;
     :Stores contact into MyCRM;
     :Displays successful add contact Message on UI;
