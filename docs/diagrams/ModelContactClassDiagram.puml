@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Contact {
+Class UniqueContactList
+Class Contact
+Class Address
+Class Email
+Class Name
+Class Phone
+Class Tag
+}
+
+
+MyCrm *-left-> "1" UniqueContactList
+UniqueContactList --> "~* all" Contact
+Contact *--> "1" Name
+Contact *--> "0..1" Phone
+Contact *--> "0..1" Email
+Contact *--> "0..1" Address
+Contact *--> "*" Tag
+
+Name -[hidden]right- Address
+
+Contact -[hidden]right- ModelManager
+ModelManager -->"~* filtered" Contact
+
+Contact "1" <-up- Job
+
+@enduml

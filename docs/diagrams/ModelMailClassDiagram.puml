@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Mail {
+Class UniqueMailList
+Class Mail
+}
+
+
+MyCrm *-left-> "1" UniqueMailList
+UniqueMailList --> "~* all" Mail
+
+'Class ModelManager #FFFFFF
+Mail -[hidden]right- ModelManager
+ModelManager -->"         ~* filtered" Mail
+
+Mail --> "1" Job
+Mail --> "1" Template
+
+@enduml

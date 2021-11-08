@@ -51,7 +51,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
     * Managed group coordination and communication on Telegram.
-    * Managed the timelines and issues of each GitHub milestone.
+    * Managed the timelines and issues of most GitHub milestones.
     * Managed the allocation, tagging and linkage of most GitHub issues.
     * Managed the allocation and update of GitHub [project board](https://github.com/AY2122S1-CS2103-T14-3/tp/projects/1).
     * Managed reviewing and merging of some PRs.
@@ -82,7 +82,8 @@ Given below are my contributions to the project.
     * Developer Guide:
         * Added documentation for the features `mail`, `addTemplate`, `deleteTemplate`, `editTemplate`,
           `listTemplate`, `findTemplate`, `help` and update "Launch and shutdown" and "Saving data".
-        * Updated documentation of model components [#80](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/80).
+        * Updated documentation of model components [#192](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/192), 
+          [#80](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/80).
 
 * **Community**:
     * Reported bugs and suggestions for other teams in the class (examples:
