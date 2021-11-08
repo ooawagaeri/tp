@@ -58,16 +58,16 @@ Given below are my contributions to the project.
     * Manage quality control of code, documentation and diagrams.
 
 * **Enhancements to existing features**:
-    * Updated the JSON Storage component for Jobs, Products and Templates (Pull requests
-      [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
-    * Updated the default generated JSON with MyCRM data (Pull requests
-      [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
+    * Updated the JSON Storage component for Jobs, Products and Templates
+      (Pull requests [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
+    * Updated the default generated JSON with MyCRM data
+      (Pull requests [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
     * Updated the `help` command with hyperlink / clickable URL.
-      [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
-    * Added more sample data to SampleDataUtil.
-      [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)).
-    * Wrote additional tests for existing features to increase coverage from 53.92% to 57.32% (Pull requests
-      [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
+      (Pull requests [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)). 
+    * Added more sample data to `SampleDataUtil`.
+      (Pull requests [#197](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/197), [#87](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/87)). 
+    * Wrote additional tests for existing features to increase coverage from 53.92% to 57.32%
+      (Pull requests [#164](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/164)).
 
 * **Documentation**:
     * User Guide:
@@ -90,4 +90,4 @@ Given below are my contributions to the project.
       [211](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/211), [193](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/193),
       [214](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/214), [203](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/203),
       [210](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/210), [199](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/199),
-      [201](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/201), [216](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/216).
+      [201](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/201), [216](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/216)).

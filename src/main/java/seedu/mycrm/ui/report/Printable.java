@@ -116,6 +116,9 @@ public class Printable extends UiPart<VBox> {
 
     }
 
+    //@@author Ruturaj Patil
+    //Reused from https://stackoverflow.com/questions/15593287/binding-textarea-height-to-its-content
+    // with minor modifications
     private void enableResize(TextArea textArea) {
         SimpleIntegerProperty count = new SimpleIntegerProperty(20);
         int rowHeight = 10;

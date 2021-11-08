@@ -4,7 +4,7 @@ start
 :MyCRM parses user inputs;
 if() then ([InValid Input])
     :Throws ParseException;
-    :Displays unsuccessful add contact Message on UI;
+    :Displays unsuccessful adding contact message on UI;
 else ([Valid Input])
     fork
     :Creates new **Name**;
@@ -21,10 +21,10 @@ else ([Valid Input])
     :Creates new contact;
     if () then ([Duplicate contact])
       :Throws CommandException;
-      :Displays unsuccessful adding contact on UI;
+      :Displays unsuccessful adding contact message on UI;
     else ([Else])
     :Stores contact into MyCRM;
-    :Displays successful add contact Message on UI;
+    :Displays successful adding contact message on UI;
     endif
 endif;
 stop

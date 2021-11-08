@@ -19,7 +19,7 @@ public class ListJobCommand extends Command {
     public static final String COMMAND_WORD = "listJob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Lists all pending jobs by default\n"
+        + ": Lists all in-progress jobs by default\n"
         + "Flags to modify list of jobs displayed (only one flag allowed at a time): \n"
         + SHOW_ALL_FLAG + ": to show all jobs\n"
         + SHOW_COMPLETED_FLAG + ": to show only completed jobs\n"
@@ -27,7 +27,7 @@ public class ListJobCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_ALL = "Listed all jobs";
     public static final String MESSAGE_SUCCESS_ONLY_COMPLETED = "Listed all completed jobs";
-    public static final String MESSAGE_SUCCESS_ONLY_PENDING = "Listed all pending jobs";
+    public static final String MESSAGE_SUCCESS_ONLY_PENDING = "Listed all in-progress jobs";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 
