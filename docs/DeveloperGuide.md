@@ -27,7 +27,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip 1:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 
-:bulb: **Tip 2:** Each of the following sequence and activity diagram can be enlarged by CLICKING on the respective
+:bulb: **Tip 2:** Each of the following class, sequence and activity diagram can be enlarged by CLICKING on the respective
 images!
 
 </div>
@@ -83,7 +83,9 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103-T14-3/tp/blob/master/src/main/java/seedu/mycrm/ui/Ui.java)
 
-[![Structure of the UI Component](images/UiClassDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/UiClassDiagram.png)
+[![](images/UiClassDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/UiClassDiagram.png)
+
+<center></center>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MainDisplay`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures
@@ -591,11 +593,11 @@ The **Adding a Product** mechanism is facilitated by `MyCRM`. This product creat
 
 The activity diagram below illustrates how the events of `addProduct` command behave when executed by user:
 
-![Activity diagram of add product](images/product/AddProductActivityDiagram.png)]
+[![](images/product/AddProductActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductActivityDiagram.png))
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![Sequence diagram of add product](images/product/AddProductSequenceDiagram.png)]
+[![](images/product/AddProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram.png)
 
 **Parse user input**
 
@@ -605,7 +607,7 @@ component objects: name, type, manufacturer, description.
 
 **Note**: Name is *compulsory* for creating a product, whereas type, manufacturer and description are *optional* fields.
 
-[![Sequence diagram of parse user input](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
+[![](images/product/AddProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/AddProductSequenceDiagram_Parse.png)
 
 ### Editing a Product
 
@@ -619,11 +621,11 @@ product</u>. Lastly, it replaces the target product with the new one, updates it
 
 The activity diagram below illustrates how the events of `editProduct` command behave when executed by user:
 
-![Activity diagram of edit product](images/product/EditProductActivityDiagram.png)
+[![](images/product/EditProductActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductActivityDiagram.png)
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-[![Sequence diagram of edit product](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
+[![](images/product/EditProductSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram.png)
 
 **Parse user input**
 
@@ -635,14 +637,14 @@ Within `EditProductCommandParser#parse`,
 `ArgumentMultimap#getValue` to extract product name “Asus” and description “DisplayPort, HDMI” from user input
 respectively.
 
-[![Sequence diagram of parse user input](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
+[![](images/product/EditProductSequenceDiagram_Parse.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Parse.png)
 
 **Updates product references in jobs**
 
 After target product is replaced with new product, `EditProductCommand#execute()` will traverse job list and replace
 references to target product with references to new product.
 
-To get the full job list, `EditProductCommand#execute()` will first store the *lastest predicate* of job list, set the
+To get the full job list, `EditProductCommand#execute()` will store the *lastest predicate* of job list and set the
 predicate to "show all jobs". After traversing the job list and updating the references, the *latest predicate* is
 restored.
 
@@ -650,7 +652,7 @@ restored.
 `Model`. `EditProductCommand` is implemented in the other way as directly accessing and modifying `UniqueJobList` leads to an
 association between `EditProductCommand` and `UniqueJobList`, which increases coupling.
 
-![Sequence diagram of update product references](images/product/EditProductSequenceDiagram_Sync.png)
+[![](images/product/EditProductSequenceDiagram_Sync.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditProductSequenceDiagram_Sync.png)
 
 
 
@@ -1388,8 +1390,6 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent theme is retained.
-
-1. _{ more test cases …​ }_
 
 ### Shutdown
 
