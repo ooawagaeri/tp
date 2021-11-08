@@ -92,6 +92,9 @@ public class Mail {
         return String.format("Job: %s; Template: %s", job, template);
     }
 
+    //@@author ooawagaeri-reused
+    //Reused from https://2ality.com/2010/12/simple-way-of-sending-emails-in-java.html
+    // with minor modifications
     /**
      * Returns a string URL mailto with job and template information.
      */
@@ -115,4 +118,5 @@ public class Mail {
                 .replace("+", "%20")
                 .replace("%5Cn", "%0D%0A");
     }
+    //@@author
 }
