@@ -2330,12 +2330,10 @@ testers are expected to do more *exploratory* testing.
        
 ### Finding jobs
 
-1. Finding jobs
-
-  2. Test case: `findJob CPU`
-     <br>Expected:
-    - Matching jobs (both in-progress and completed) are shown on list.
-    - Number of jobs found shown in status message.
+1. Test case: `findJob CPU`
+   <br>Expected:
+   - Matching jobs (both in-progress and completed) are shown on list.
+   - Number of jobs found shown in status message.
 
 ### Marking job as complete
 
@@ -2346,9 +2344,9 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `completeJob 1 10/01/2022`
       <br>Expected:
-       - Job at index 1 in the currently displayed job list will be marked as complete, and will disappear from the current job
-         list displaying all in-progress jobs.
-       - Details of completed job shown in status message.
+      - Job at index 1 in the currently displayed job list will be marked as complete, and will disappear from the current job
+        list displaying all in-progress jobs.
+      - Details of completed job shown in status message.
 
 2. Marking a completed job as complete.
 
@@ -2357,8 +2355,8 @@ testers are expected to do more *exploratory* testing.
 
    2. Test case: `completeJob 1`
       <br>Expected:
-     - Job at index 1 in the currently displayed job list remains unchanged.
-     - Error message informing user that the job has already been completed is shown.
+      - Job at index 1 in the currently displayed job list remains unchanged.
+      - Error message informing user that the job has already been completed is shown.
 
 ### Revert completion status of a previously complete job
 
@@ -2387,15 +2385,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Test case: `listJob`
    <br>Expected:
-  - Main panel will list all in-progress jobs.
+   - Main panel will list all in-progress jobs.
 
 2. Test case: `listJob -a`
    <br>Expected:
-  - Main panel will list all jobs (completed and in-progress).
+   - Main panel will list all jobs (completed and in-progress).
 
 3. Test case: `listJob -c`
    <br>Expected:
-  - Main panel will list all completed jobs.
+   - Main panel will list all completed jobs.
 
 ### Retrieving history command
     
