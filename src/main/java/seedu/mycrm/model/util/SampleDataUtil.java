@@ -67,12 +67,22 @@ public class SampleDataUtil {
             new Email("charlotte@example.com"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
             getTagSet("2nd Tier"), false);
 
+        Contact roy = new Contact(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+                new Address("Blk 45 Aljunied Street 85, #11-31"),
+                getTagSet("1st Tier"), false);
+
         Product intel = new Product(ProductName.getName("Intel i5-10400F"), Type.getType("CPU"),
             Manufacturer.getManufacturer("Intel"), Description.getDescription("2.90GHz"));
 
+        Product ryzen =  new Product(ProductName.getName("Ryzen 5 5600"), Type.getType("CPU"),
+                Manufacturer.getManufacturer("AMD"), Description.getDescription("3.00GHz"));
+
         return new Job[] {
+            new Job(new JobDescription("CPU fried"), roy, ryzen,
+                    new JobDate("12/08/2021"), new JobStatus(true), new JobDate("14/02/2021"),
+                    new JobDate("29/08/2021"), new JobFee("$10.0")),
             new Job(new JobDescription("Graphics card replacement needed"), charlotte, intel,
-                    new JobDate("15/09/2021"), new JobStatus(false), new JobDate("24/10/2021"),
+                    new JobDate("15/09/2022"), new JobStatus(false), new JobDate("24/10/2021"),
                     null, new JobFee("$30.0"))
         };
     }
