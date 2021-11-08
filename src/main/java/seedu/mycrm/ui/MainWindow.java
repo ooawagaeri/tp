@@ -276,6 +276,12 @@ public class MainWindow extends UiPart<Stage> {
                 assert false;
             }
 
+            if (reportWindow.isShowing()) {
+                // update report window
+                reportWindow.fillInnerParts();
+                reportWindow.changeTheme(themeManager.getThemeName());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
