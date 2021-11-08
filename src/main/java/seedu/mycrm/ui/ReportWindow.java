@@ -47,7 +47,6 @@ public class ReportWindow extends UiPart<Stage> {
         this.themeManager = new ThemeManager(primaryStage.getScene().getStylesheets());
 
         themeManager.initTheme(logic.getGuiSettings());
-
     }
 
     /**
