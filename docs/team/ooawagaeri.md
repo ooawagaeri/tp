@@ -82,7 +82,8 @@ Given below are my contributions to the project.
     * Developer Guide:
         * Added documentation for the features `mail`, `addTemplate`, `deleteTemplate`, `editTemplate`,
           `listTemplate`, `findTemplate`, `help` and update "Launch and shutdown" and "Saving data".
-        * Updated documentation of model components [#131](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/131), [#80](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/80).
+        * Updated documentation of model components [#192](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/192), 
+          [#80](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/80).
 
 * **Community**:
     * Reported bugs and suggestions for other teams in the class (examples:
