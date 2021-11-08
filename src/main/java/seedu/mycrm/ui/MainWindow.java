@@ -279,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandType != CommandType.REPORT && commandType != CommandType.EXPORT
                     && reportWindow.isShowing()) {
                 // update report window
-                reportWindow.fillInnerParts();
+                reportWindow.updateInnerParts();
                 reportWindow.changeTheme(themeManager.getThemeName());
             }
 

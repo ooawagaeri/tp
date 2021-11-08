@@ -35,6 +35,7 @@ public class JobDisplay extends UiPart<Region> {
     private JobListPanel inProgressJobListPanel;
     private ProductListPanel topThreeProductListPanel;
 
+
     @FXML
     private TabPane tabPane;
 
@@ -124,5 +125,4 @@ public class JobDisplay extends UiPart<Region> {
 
         tabPane.getSelectionModel().select(tab);
     }
-
 }
