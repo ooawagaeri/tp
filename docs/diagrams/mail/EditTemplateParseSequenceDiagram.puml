@@ -11,11 +11,11 @@ end box
 box Model MODEL_COLOR_T1
 participant "editTemplateDescriptor:EditTemplateDescriptor" as EditTemplateDescriptor MODEL_COLOR
 end box
-[-> LogicManager : execute("editTemplate 1 s/Completed b/Order Completed!")
+[-> LogicManager : execute("editTemplate 1 s/Completed b/Order...")
 activate LogicManager
 
 group sd parse edit template
-LogicManager -> MyCrmParser : parseCommand("editTemplate 1 s/Completed b/Order Completed!")
+LogicManager -> MyCrmParser : parseCommand("editTemplate 1 s/Completed b/Order...")
 activate MyCrmParser
 
 create EditTemplateCommandParser
@@ -25,7 +25,7 @@ activate EditTemplateCommandParser
 EditTemplateCommandParser --> MyCrmParser
 deactivate EditTemplateCommandParser
 
-MyCrmParser -> EditTemplateCommandParser : parse("1 s/Completed b/Order Completed!")
+MyCrmParser -> EditTemplateCommandParser : parse("1 s/Completed b/Order...")
 activate EditTemplateCommandParser
 
 create EditTemplateDescriptor
@@ -36,7 +36,7 @@ deactivate EditTemplateDescriptor
 
 EditTemplateCommandParser -> EditTemplateDescriptor : setSubject("Completed")
 
-EditTemplateCommandParser -> EditTemplateDescriptor : setBody("Order Completed")
+EditTemplateCommandParser -> EditTemplateDescriptor : setBody("Order...)
 
 create EditTemplateCommand
 EditTemplateCommandParser -> EditTemplateCommand : 1, editTemplateDescriptor

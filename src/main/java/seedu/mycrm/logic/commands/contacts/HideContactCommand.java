@@ -15,6 +15,9 @@ import seedu.mycrm.logic.commands.exceptions.CommandException;
 import seedu.mycrm.model.Model;
 import seedu.mycrm.model.contact.Contact;
 
+/**
+ * Hides a contact identified using it's displayed index from the myCrm.
+ */
 public class HideContactCommand extends Command {
     public static final String COMMAND_WORD = "hideContact";
 

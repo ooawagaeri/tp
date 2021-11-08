@@ -1,6 +1,6 @@
 @startuml
 start
-:User executes mail template command;
+:User executes mail command;
 :MyCRM parses user inputs;
 if () then ([Invalid inputs])
     :Throws ParseException;

@@ -609,7 +609,7 @@ Format: Click on "Print" / `exportReport`
   <img src="images/ui-printer.png" width="300px">
   (for Windows OS)
   <br><br>
-  <img src="images/ui-printer-for-macos.png" width="300px">
+  <img src="images/ui-printer-macos.png" width="300px">
   (for Mac OS)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -651,7 +651,8 @@ Action              | Format, Examples
 **Find Templates**     |`findTemplate [MORE_KEYWORDS]... ` <br>e.g., `findTemplates complete`
 **Edit Templates**  | `editTemplate INDEX [s/SUBJECT] [b/SUBJECT]` <br>e.g., `editTemplate 2 s/Your immediate attention`
 **Delete Template** | `deleteTemplate INDEX`<br>e.g., `deleteTemplate 4`
-**Retrieve Previous Command** | `history`, `Press Up arrow key`
+**Retrieve Previous Command** | `history`, "Press Up arrow key"
 **Exit**            | `exit`
 **Change Theme**    | `theme THEME_NAME`<br>e.g., `theme light`
 **Print Monthly Report**    | `printReport`
+**Export Monthly Report**    | `exportReport`

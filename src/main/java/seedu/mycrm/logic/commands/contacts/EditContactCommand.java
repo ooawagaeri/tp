@@ -34,6 +34,9 @@ import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
 import seedu.mycrm.model.job.Job;
 
+/**
+ * Edits a contact identified using it's displayed index from the myCrm.
+ */
 public class EditContactCommand extends Command {
 
     public static final String COMMAND_WORD = "editContact";

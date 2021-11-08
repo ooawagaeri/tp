@@ -1,0 +1,16 @@
+{
+  "contacts": [ ],
+  "templates": [ ],
+  "products": [ {
+    "productName" : "Intel i5-10400F",
+    "type" : "CPU",
+    "manufacturer" : "Intel 1",
+    "description" : "2.90GHz 2"
+  }, {
+    "productName" : "Ryzen 5 5600",
+    "type" : "CPU",
+    "manufacturer" : null,
+    "description" : "2.90GHz 2"
+  } ],
+  "jobs" : [ ]
+}

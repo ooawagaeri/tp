@@ -1,0 +1,12 @@
+{
+  "contacts": [],
+  "templates": [ {
+    "subject" : "Completed",
+    "body" : "You order has been completed"
+  }, {
+    "subject" : "Completed!!!!",
+    "body" : "You order has been completed"
+  } ],
+  "products": [],
+  "jobs" : []
+}

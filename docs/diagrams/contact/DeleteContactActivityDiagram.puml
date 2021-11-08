@@ -6,13 +6,18 @@ if () then ([InValid Input])
     :Throws ParseException;
     :Displays unsuccessful delete contact Message on UI;
 else ([Valid Input])
-:Gets contact to be deleted with index provided;
-if () then ([Contact not linked to any jobs])
-:Delete the specific contact from MyCRM;
-:Displays successful deleting contact message on UI;
-else ([Contact linked to a job]))
-:Throws CommandException;
-:Displays unsuccessful deleting contact Message on UI;
+if () then ([Invalid Index])
+    :Throws CommandException;
+    :Displays unsuccessful deleting contact on UI;
+else ([Else])
+    :Gets contact to be deleted with index provided;
+    if () then ([Contact not linked to any jobs])
+    :Delete the specific contact from MyCRM;
+    :Displays successful deleting contact message on UI;
+    else ([Contact linked to a job]))
+    :Throws CommandException;
+    :Displays unsuccessful deleting contact Message on UI;
+endif
 endif
 endif
 stop

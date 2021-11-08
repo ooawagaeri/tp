@@ -24,6 +24,9 @@ import seedu.mycrm.model.contact.Name;
 import seedu.mycrm.model.contact.Phone;
 import seedu.mycrm.model.contact.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddContactCommand object
+ */
 public class AddContactCommandParser implements Parser<AddContactCommand> {
     private static final String EMPTY_PREFIX = "EMPTY";
     /**

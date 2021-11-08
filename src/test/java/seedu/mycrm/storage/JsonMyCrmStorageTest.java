@@ -56,8 +56,38 @@ public class JsonMyCrmStorageTest {
     }
 
     @Test
+    public void readMyCrm_invalidProductMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidProductMyCrm.json"));
+    }
+
+    @Test
+    public void readMyCrm_invalidTemplateMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidTemplateMyCrm.json"));
+    }
+
+    @Test
+    public void readMyCrm_invalidJobMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidJobMyCrm.json"));
+    }
+
+    @Test
     public void readMyCrm_invalidAndValidContactMyCrm_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readMyCrm("invalidAndValidContactMyCrm.json"));
+    }
+
+    @Test
+    public void readMyCrm_invalidAndValidProductMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidAndValidProductMyCrm.json"));
+    }
+
+    @Test
+    public void readMyCrm_invalidAndValidTemplateMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidAndValidTemplateMyCrm.json"));
+    }
+
+    @Test
+    public void readMyCrm_invalidAndValidJobMyCrm_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMyCrm("invalidAndValidJobMyCrm.json"));
     }
 
     @Test

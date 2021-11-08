@@ -44,7 +44,7 @@ ListTemplate --> MailCommand : templateToMail
 deactivate ListTemplate
 
 create Mail
-MailCommand -> Mail : jobIndex, templateIndex
+MailCommand -> Mail : jobToMail, templateToMail
 activate Mail
 Mail --> MailCommand : m
 deactivate Mail
