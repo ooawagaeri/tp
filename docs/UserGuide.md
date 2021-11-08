@@ -246,11 +246,11 @@ Format: `undoCompleteJob INDEX`
 
 Example:
 
-* Given one in-progress job
+* Given one completed job
 
   <img src="images/ui-listJobCompleted-success.jpg" width="600px">
 
-* `undoCompleteJob 1`
+* If `undoCompleteJob 1` is called, it can be seen that the job's status was reverted to in-progress
 
   <img src="images/ui-undoCompleteJob-success.jpg" width="600px">
 
