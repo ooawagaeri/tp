@@ -40,11 +40,10 @@ public class EditJobCommand extends Command {
         + "[" + PREFIX_FEE + "FEE] "
         + "[" + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE] "
         + "[" + PREFIX_RECEIVED_DATE + "RECEIVED DATE] "
-        + "[" + PREFIX_CONTACT_INDEX + "CONTACT INDEX]"
-        + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]...\n"
+        + "[" + PREFIX_CONTACT_INDEX + "CONTACT INDEX] "
+        + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_JOB_DESCRIPTION + "Repair laptop screen"
-        + PREFIX_JOB_DESCRIPTION + "Repair laptop screen"
+        + PREFIX_JOB_DESCRIPTION + "Repair laptop screen "
         + PREFIX_FEE + "$50.00 ";
 
     public static final String MESSAGE_EDIT_JOB_SUCCESS = "Repair job edited: %1$s";
