@@ -37,39 +37,40 @@ import seedu.mycrm.model.product.Product;
 public class StateManager {
 
     private static final String NEW_JOB_CONTACT_MESSAGE = "Currently adding a new job. "
-        + "Please provide a contact for the Job: %s.\n";
+            + "Please provide a contact for the Job: %s.\n";
 
     private static final String NEW_JOB_PRODUCT_MESSAGE = "Currently adding a new job. "
-        + "Please provide a product for the Job: %s.\n";
+            + "Please provide a product for the Job: %s.\n";
 
     private static final String EDIT_JOB_CONTACT_MESSAGE = "Currently editing the contact for job %s.\n";
 
     private static final String EDIT_JOB_PRODUCT_MESSAGE = "Currently editing the product for job %s.\n";
 
     private static final String PROVIDE_CONTACT_INSTR = "You can either assign a new contact to the job by "
-        + "issuing a addContact command or select an existing one from the contact list by issuing a select command.\n";
+            + "issuing a addContact command or select an existing one "
+            + "from the contact list by issuing a select command.\n";
 
     private static final String CONTACT_PROVIDED_MESSAGE = "Following contact: %s will be assigned to the job.\n";
 
     private static final String PROVIDE_PRODUCT_INSTR = "You can either assign a a new product to the job by "
-        + "issuing a addProduct command or select an existing one from the contact list by issuing a select command.\n";
+            + "issuing a addProduct command or select an existing one "
+            + "from the contact list by issuing a select command.\n";
 
     private static final String PRODUCT_PROVIDED_MESSAGE = "Following product: %s will be assigned to the job.\n";
 
     private static final String ERROR_MESSAGE = "There was an error in the command issued. "
-        + "Please try to issue the command again after correcting based on the info below.\n";
+            + "Please try to issue the command again after correcting based on the info below.\n";
 
     private static final String COMMAND_NOT_ALLOWED_MESSAGE =
-        "Command %s is now allowed right now\n"
-            + "You can issue the abort command to stop the current operation\n";
+            "Command %s is now allowed right now\n" + "You can issue the abort command to stop the current operation\n";
 
     private static final String ADD_JOB_ABORTED = "New job %s will not added to MyCRM\n"
-        + "However, any contact or product added during the operation using "
-        + "addJob or addProduct have been added to MyCRM\n";
+            + "However, any contact or product added during the operation using "
+            + "addJob or addProduct have been added to MyCRM\n";
 
     private static final String EDIT_JOB_ABORTED = "No attributes of Job: %s will be edited\n"
-        + "However, any contact or product added during the operation using "
-        + "addJob or addProduct have been added to MyCRM\n";
+            + "However, any contact or product added during the operation using "
+            + "addJob or addProduct have been added to MyCRM\n";
 
 
     private enum State {
@@ -249,6 +250,7 @@ public class StateManager {
     /**
      * Handles the behaviour of the addContact command if it is used in the context
      * of a addJob or editJob command.
+     *
      * @param contact Contact that was added.
      * @param commandResult Result of the original addContact command.
      * @return Modified result of the addContact command based on current state.

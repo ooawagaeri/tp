@@ -28,19 +28,19 @@ public class AddJobCommand extends Command {
     public static final String COMMAND_WORD = "addJob";
 
     public static final Object MESSAGE_USAGE = COMMAND_WORD + ": Adds a repair job to MyCRM.\n"
-        + "Parameters: "
-        + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION "
-        + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE "
-        + PREFIX_FEE + "FEE "
-        + " [" + PREFIX_RECEIVED_DATE + "RECEIVED DATE]"
-        + " [" + PREFIX_CONTACT_INDEX + "CONTACT INDEX] "
-        + " [" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX] \n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_JOB_DESCRIPTION + "CPU card replacement needed "
-        + PREFIX_CONTACT_INDEX + "1 "
-        + PREFIX_PRODUCT_INDEX + "1 "
-        + PREFIX_EXPECTED_COMPLETION_DATE + "10/01/2022 "
-        + PREFIX_FEE + "$30.00";
+            + "Parameters: "
+            + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION "
+            + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE "
+            + PREFIX_FEE + "FEE "
+            + " [" + PREFIX_RECEIVED_DATE + "RECEIVED DATE]"
+            + " [" + PREFIX_CONTACT_INDEX + "CONTACT INDEX] "
+            + " [" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX] \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_JOB_DESCRIPTION + "CPU card replacement needed "
+            + PREFIX_CONTACT_INDEX + "1 "
+            + PREFIX_PRODUCT_INDEX + "1 "
+            + PREFIX_EXPECTED_COMPLETION_DATE + "10/01/2022 "
+            + PREFIX_FEE + "$30.00";
 
     public static final String MESSAGE_SUCCESS = "New repair job added: %1$s\n";
 

@@ -66,13 +66,13 @@ public class EditJobCommandParser implements Parser<EditJobCommand> {
 
         if (argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).isPresent()) {
             editJobDescriptor.setExpectedCompletionDate(
-                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get(),
+                    ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_EXPECTED_COMPLETION_DATE).get(),
                 "Expected Completion"));
         }
 
         if (argMultimap.getValue(PREFIX_RECEIVED_DATE).isPresent()) {
             editJobDescriptor.setReceivedDate(
-                ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get(), "Received"));
+                    ParserUtil.parseJobDate(argMultimap.getValue(PREFIX_RECEIVED_DATE).get(), "Received"));
         }
 
         if (argMultimap.getValue(PREFIX_FEE).isPresent()) {
@@ -81,12 +81,12 @@ public class EditJobCommandParser implements Parser<EditJobCommand> {
 
         if (argMultimap.getValue(PREFIX_CONTACT_INDEX).isPresent()) {
             parseEntityIndex(argMultimap, PREFIX_CONTACT_INDEX, MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
-                editJobDescriptor::setEditContact, editJobDescriptor::setClientIndex);
+                    editJobDescriptor::setEditContact, editJobDescriptor::setClientIndex);
         }
 
         if (argMultimap.getValue(PREFIX_PRODUCT_INDEX).isPresent()) {
             parseEntityIndex(argMultimap, PREFIX_PRODUCT_INDEX, MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX,
-                editJobDescriptor::setEditProduct, editJobDescriptor::setProductIndex);
+                    editJobDescriptor::setEditProduct, editJobDescriptor::setProductIndex);
         }
 
         if (!editJobDescriptor.isAnyFieldEdited()) {

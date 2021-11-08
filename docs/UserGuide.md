@@ -119,7 +119,7 @@ Examples:
 * Issue the following sequence of commands:
   * `addJob d/Change CPU fee/$50 by/10/11/2021` 
   * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com` 
-  * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
+  * `addProduct n/Asus DUAL-GTX1060-O6G t/GPU m/Asus d/DisplayPort, HDMI`
 
      <img src="images/ui-addJob-success2.jpg" width="600px">
 
@@ -150,10 +150,10 @@ Format of special subcommands: `select INDEX` and `abort` (details on subcommand
 Examples:
 
 * To edit a job and reassign to it other pre-existing contact and product
-* Either the command `editJob 1 c/3 p/2` can be issued OR
+* Either the command `editJob 1 c/1 p/2` can be issued OR
 * The following sequence of commands can be issued:
   * `editJob 1 c/ p/`
-  * `select 3` (to select contact)
+  * `select 1` (to select contact)
   * `select 2` (to select product)
 
       <img src="images/ui-editJob-success1.jpg" width="600px">
@@ -161,14 +161,14 @@ Examples:
 * To add a job with new a contact and product
 * Issue the following sequence of commands:
   * `editJob 1 c/ p/`
-  * `addContact n/Jack Ryan c/94678954 a/Blk 65 Tampines Ave 1 e/jryan@gmail.com`
-  * `addProduct n/Ryzen 5 5600 t/CPU m/AMD d/3.00Ghz`
+  * `addContact n/James Bond c/94678007 a/Blk 61 Yishun Ave 1 e/bond@gmail.com`
+  * `addProduct n/SAMSUNG 980 PRO 1TB SSD t/Hard disk m/SAMSUNG d/SATA`
 
      <img src="images/ui-editJob-success2.jpg" width="600px">
   
 ### Listing all jobs: `listJob`
 
-Shows a list of all repair jobs that have yet to be completed in the CRM.
+Shows a list of all in-progress repair jobs in the CRM.
 
 Format: `listJob [-a] [-c]`
 
@@ -206,13 +206,13 @@ Format: `completeJob INDEX [COMPLETION_DATE]`
 
 ### Revert the completion status of a previously complete job: `undoCompleteJob`
 
-Marks a previously completed job as incomplete
+Reverts the status of a previously completed job back to in-progress.
 
 Format: `undoCompleteJob INDEX`
 
 * Marks the repair job at the specified `INDEX` as complete
 * User should call `listJob -c` to view all completed jobs before calling this command
-* `INDEX` must refer to a completed job. It will not work on a currently pending job
+* `INDEX` must refer to a completed job. It will not work on a currently in-progress job
 * `INDEX` refers to the index of the repair job as shown in the repair job listing
 * `INDEX` must be a positive integer(1,2,3…)
 
@@ -638,6 +638,8 @@ Action              | Format, Examples
 **Complete Job**    | `completeJob INDEX [COMPLETION_DATE]` <br>e.g., `completeJob 1`
 **Undo Complete Job** | `undoCompleteJob INDEX` <br>e.g., `undoCompleteJob 1`
 **Delete Job**      | `deleteJob INDEX` <br>e.g., `deleteJob 2`
+**Select**          | `select INDEX` <br> e.g.,`select 1`
+**Abort**           |  `abort` 
 **Add Contact**     | `addContact n/CLIENT_NAME [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [t/tag]` <br>e.g., `addContact n/Frisk c/93487234 e/Frisk@gmail.com a/Laptop Factory Outlet Bugis Junction`
 **Edit Contact**     |`editContact INDEX [n/NAME] [c/PHONE] [e/EMAIL] [a/ADDRESS] ` <br>e.g., `EditContact 1 n/Dante`
 **List Contact**    | `listContact` `listContact -a`

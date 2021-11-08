@@ -33,18 +33,18 @@ public class EditJobCommand extends Command {
     public static final String COMMAND_WORD = "editJob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the repair job identified "
-        + "by the index number used in the displayed job list. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION] "
-        + "[" + PREFIX_FEE + "FEE] "
-        + "[" + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE] "
-        + "[" + PREFIX_RECEIVED_DATE + "RECEIVED DATE] "
-        + "[" + PREFIX_CONTACT_INDEX + "CONTACT INDEX] "
-        + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
-        + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_JOB_DESCRIPTION + "Repair laptop screen "
-        + PREFIX_FEE + "$50.00 ";
+            + "by the index number used in the displayed job list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_JOB_DESCRIPTION + "JOB DESCRIPTION] "
+            + "[" + PREFIX_FEE + "FEE] "
+            + "[" + PREFIX_EXPECTED_COMPLETION_DATE + "EXPECTED COMPLETION DATE] "
+            + "[" + PREFIX_RECEIVED_DATE + "RECEIVED DATE] "
+            + "[" + PREFIX_CONTACT_INDEX + "CONTACT INDEX] "
+            + "[" + PREFIX_PRODUCT_INDEX + "PRODUCT INDEX]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_JOB_DESCRIPTION + "Repair laptop screen "
+            + PREFIX_FEE + "$50.00 ";
 
     public static final String MESSAGE_EDIT_JOB_SUCCESS = "Repair job edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

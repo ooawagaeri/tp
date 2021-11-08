@@ -6,7 +6,7 @@ package seedu.mycrm.model.job;
 public class JobFee {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Fee should be a positive amount in dollars\n"
+             "Fee should be a positive amount in dollars\n"
              + "Lowest denomination supported is 1 cent, and values with more precision will be truncated.\n"
              + "Amounts equal to or greater than 10000000 are not permitted.\n"
              + "E.g $5.30 ($ sign is optional).\n";

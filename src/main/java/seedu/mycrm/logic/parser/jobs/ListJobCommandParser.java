@@ -49,7 +49,7 @@ public class ListJobCommandParser implements Parser<ListJobCommand> {
             return PREDICATE_SHOW_ALL_COMPLETED_JOBS;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ListJobCommand.MESSAGE_USAGE));
+                    ListJobCommand.MESSAGE_USAGE));
         }
     }
 }
