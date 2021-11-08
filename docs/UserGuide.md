@@ -402,7 +402,7 @@ Format: `editProduct INDEX [n/NAME] [t/TYPE] [m/MANUFACTURER] [d/DESCRIPTION]`
 
 Example:
 
-* `editProduct 3 d/Video output interface: DisplayPort, HDMI` edits the description of the 2nd product to be
+* `editProduct 3 d/Video output interface: DisplayPort, HDMI` edits the description of the 3rd product to be
   `Video output interface: DisplayPort, HDMI`.
 
     <img src="images/ui-edit-product.PNG" width="600px">
