@@ -10,7 +10,8 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+*  Project template and structure, AddressBook Level 3 from [SE-EDU](https://github.com/se-edu/addressbook-level3).
+*  Reuse of code: URL encoding from [2ality](https://2ality.com/2010/12/simple-way-of-sending-emails-in-java.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -114,7 +115,7 @@ Here's a (partial) class diagram of the `Logic` component:
 </a>
 
 How the `Logic` component works:
-1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
+1. When `Logic` is called upon to execute a command, it uses the `MyCrmParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -133,30 +134,50 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 </a>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `MyCrmParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `MyCrmParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelClassDiagram.png">
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="500" />
+</a>
+
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelContactClassDiagram.png">
+<img src="images/ModelContactClassDiagram.png" height="250" />
+</a>
+
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelProductClassDiagram.png">
+<img src="images/ModelProductClassDiagram.png" height="250" />
+</a>
+
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelTemplateClassDiagram.png">
+<img src="images/ModelTemplateClassDiagram.png" height="250" />
+</a>
+
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelJobClassDiagram.png">
+<img src="images/ModelJobClassDiagram.png" height="250" />
+</a>
+
+<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/ModelMailClassDiagram.png">
+<img src="images/ModelMailClassDiagram.png" height="250" />
 </a>
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the MyCrm data i.e:
+  * all `Contact` objects (which are contained in a `UniqueContactList` object).
+  * all `Product` objects (which are contained in a `UniqueProductList` object).
+  * all `Template` objects (which are contained in a `UniqueTemplateList` object).
+  * all `Job` objects (which are contained in a `UniqueJobList` object).
+  * all `Mail` objects (which are contained in a `UniqueMailList` object).
+* stores the currently 'selected' `Contact`, `Product`, `Template`,`Job`and `Mail` objects (e.g., results of a 
+  search query)  as a separate _filtered_ list which is exposed to outsiders as an unmodifiable 
+  `ObservableList<Contact>` that can be 'observed' e.g. the UI can be bound to this list so that the UI 
+  automatically updates when the data in the list change. 
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<a href="https://ay2122s1-cs2103-t14-3.github.io/tp/images/BetterModelClassDiagram.png">
-<img src="images/BetterModelClassDiagram.png" width="450" />
-</a>
-
-</div>
 
 
 ### Storage component
@@ -168,13 +189,13 @@ The `Model` component,
 </a>
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both MyCrm data and user preference data in json format, and read them back into corresponding objects.
+* inherits from both `MyCrmStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.mycrm.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 

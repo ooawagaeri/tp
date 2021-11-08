@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Product {
+Class UniqueProductList
+Class Product
+Class ProductName
+Class Type
+Class Manufacturer
+Class Description
+}
+
+
+MyCrm *-left-> "1" UniqueProductList
+UniqueProductList --> "~* all" Product
+Product *--> "1" ProductName
+Product *--> "1" Type
+Product *--> "1" Description
+Product *--> "1" Manufacturer
+
+Product -[hidden]right- ModelManager
+ModelManager -->"~* filtered" Product
+
+Product "1" <-up- Job
+
+@enduml

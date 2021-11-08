@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Job {
+Class UniqueJobList
+Class Job
+Class JobDate
+Class JobStatus
+Class JobDescription
+Class Hidden #FFF
+}
+
+
+MyCrm *-left-> "1" UniqueJobList
+UniqueJobList --> "~* all" Job
+Job *--> JobDate
+Job *-->  JobDate
+Job *-->"1 received\n1 expected\n  0..1 completed" JobDate
+Hidden -[hidden]left- JobDate
+
+Job *--> "1" JobStatus
+Job *--> "1" JobDescription
+Job --> "  1 client" Contact
+Job --> "   1 fix" Product
+
+
+'Class ModelManager #FFFFFF
+Job -[hidden]right- ModelManager
+ModelManager -->"~* filtered" Job
+
+Job "1"  <-up- Mail
+
+@enduml
