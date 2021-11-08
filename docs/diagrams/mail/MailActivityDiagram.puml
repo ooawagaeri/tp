@@ -6,15 +6,20 @@ if () then ([Invalid inputs])
     :Throws ParseException;
     :Displays unsuccessful construct mail on UI;
 else ([Valid inputs])
-    if () then ([Index out of range or No email])
+    if () then ([Index out of range])
         :Throws CommandException;
         :Displays unsuccessful construct mail on UI;
     else ([Else])
         :Gets specified job;
-        :Gets specified template;
-        :Creates mail;
-        :Generate mailto URL;
-        :Displays successful construct mail on UI;
+        if () then ([No email])
+        :Throws CommandException;
+        :Displays unsuccessful construct mail on UI;
+        else ([Else])
+            :Gets specified template;
+            :Creates mail;
+            :Generate mailto URL;
+            :Displays successful construct mail on UI;
+        endif
     endif
 endif
 stop
