@@ -77,7 +77,7 @@ Given below are my contributions to the project.
           [#112](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/112),
           [#111](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/111),
           [#41](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/41).
-        * Did cosmetic tweaks to existing documentation of features, `exit`, `help` and `clear`:
+        * Did cosmetic tweaks to existing documentation of features `exit`, `help` and `clear`:
           [#112](https://github.com/AY2122S1-CS2103-T14-3/tp/pull/112).
     * Developer Guide:
         * Added documentation for the features `mail`, `addTemplate`, `deleteTemplate`, `editTemplate`,
