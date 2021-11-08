@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Template {
+Class UniqueTemplateList
+Class Template
+Class Subject
+Class Body
+}
+
+
+MyCrm *-left-> "1" UniqueTemplateList
+UniqueTemplateList --> "~* all" Template
+Template *--> "1" Subject
+Template *--> "1" Body
+
+
+'Class ModelManager #FFFFFF
+Template -[hidden]right- ModelManager
+ModelManager -->"~* filtered" Template
+
+Template "1" <-up- Mail
+
+@enduml

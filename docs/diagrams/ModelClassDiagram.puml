@@ -15,33 +15,13 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Class UniquePersonList
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class Tag
-
-Class UniqueTemplateList
-Class Template
-Class Subject
-Class Body
-
-Class UniqueMailList
-Class Mail
-
-Class Job
-
-package "Product" #F4F6F6{
-Class UniqueProductList
-Class Product
-Class ProductName
-Class Type
-Class Manufacturer
-Class Description
+package Entities {
+package Contact #F4F6F6{}
+package Product #F4F6F6{}
+package Template #F4F6F6{}
+package Job #F4F6F6{}
+package Mail #F4F6F6{}
 }
-
 }
 
 Class HiddenOutside #FFFFFF
@@ -56,44 +36,16 @@ ModelManager -left-> "1" MyCrm
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-MyCrm *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+MyCrm *--> Entities
+ModelManager -[hidden]-> Entities
+ModelManager --> Entities
+note top of Entities: Every package within\nEntities is associated with\nMyCrm and ModelManager
 
-MyCrm *--> "1" UniqueTemplateList
-UniqueTemplateList --> "~* all" Template
-Template *--> "1" Subject
-Template *--> "1" Body
 
-MyCrm *--> "1" UniqueMailList
-UniqueMailList --> "1" Mail
-Mail *-right-> "1" Template
-Mail *-left-> "1" Job
+Job --> "1" Product
+Job --> "1" Contact
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-Subject -[hidden]right-> Body
-ModelManager -[hidden]down-> UniquePersonList
-
-' Product section
-UniqueProductList -[hidden]left- UniquePersonList
-ProductName -[hidden]down- Type
-Manufacturer -[hidden]down- Description
-AddressBook *--> "1" UniqueProductList
-UniqueProductList --> "~* all" Product
-Product *--> "1" ProductName
-Product *--> "1" Type
-Product *--> "1" Description
-Product *--> "1" Manufacturer
-
-ModelManager -->"~* filtered" Person
-ModelManager -->"~* filtered" Template
-ModelManager -->"~* filtered" Mail
-ModelManager -->"~* filtered" Product
+Mail--> "1" Template
+Mail --> "1" Job
 
 @enduml
