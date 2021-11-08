@@ -18,11 +18,12 @@ else ([Valid inputs])
     : (Optional)
     Creates new Description;
     end fork
+:Creates new product;
 if () then ([Duplicate name])
     :Throws CommandException;
     :Displays unsuccessful message;
 else ([else])
-    :Creates new product;
+
     :Stores product into MyCRM;
     :Displays successful message;
 endif

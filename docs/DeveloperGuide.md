@@ -666,11 +666,11 @@ will be created with details of completed jobs, in-progress jobs, top three popu
 
 The activity diagram below illustrates how the events of `printReport` command behave when executed by user:
 
-![Activity diagram of print report](images/report/PrintReportActivityDiagram.png)
+[![Activity diagram of print report](images/report/PrintReportActivityDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/report/PrintReportActivityDiagram.png)
 
 Given below is an example usage scenario and how the mechanism behaves at each step.
 
-![Sequence diagram of print report parser](images/report/PrintReportParserSequenceDiagram.png)
+[![Sequence diagram of print report parser](images/report/PrintReportParserSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/report/PrintReportParserSequenceDiagram.png)
 
 Within `PrintReportCommandParser#parse`,
 - `CommandFlag` is optional but if provided, it can only be either **"-i"** or **"-p"**.
@@ -680,7 +680,7 @@ Within `PrintReportCommandParser#parse`,
 
 `PrintReportCommandParser#parse` will call `String#trim` to get specific command flag.
 
-![Sequence diagram of print report](images/report/PrintReportSequenceDiagram.png)
+[![Sequence diagram of print report](images/report/PrintReportSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/report/PrintReportSequenceDiagram.png)
 
 
 --------------------------------------------------------------------------------------------------------------------
