@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes print report command;
+:MyCRM parses user inputs;
+if () then ([Invalid inputs])
+    :Throws ParseException;
+    :Displays unsuccessful message;
+else ([Valid inputs])
+    if () then ([Report window is generated])
+        :Requests to focus on report window;
+        :Displays successful message;
+    else ([else])
+        fork
+        :Gets monthly completed jobs;
+        fork again
+        :Gets monthly in-progress jobs;
+        fork again
+        :Gets monthly top three products;
+        fork again
+        :Gets monthly revenue;
+        :Creates a bar graph of monthly revenue;
+        end fork
+        :Generates report window;
+        :Shows report window;
+        :Displays successful message;
+    endif
+endif
+stop
+
+@enduml
