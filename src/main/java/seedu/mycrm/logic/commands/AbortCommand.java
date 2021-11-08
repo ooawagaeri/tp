@@ -10,9 +10,9 @@ public class AbortCommand extends Command {
     public static final String COMMAND_WORD = "abort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Only used in conjunction with addJob or editJob when assigning product or contact to job\n"
-        + "Will abort the current operation. For addJob the new job will not be added\n"
-        + "For editJob the job will remain unedited\n";
+            + ": Only used in conjunction with addJob or editJob when assigning product or contact to job\n"
+            + "Will abort the current operation. For addJob the new job will not be added\n"
+            + "For editJob the job will remain unedited\n";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 

@@ -19,10 +19,10 @@ public class CompleteJobCommand extends Command {
     public static final String COMMAND_WORD = "completeJob";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + "Marks the job identified by the index number in the displayed job list as complete.\n"
-        + "Parameters: INDEX (must be a positive integer) "
-        + "[COMPLETION DATE (in dd/MM/YYYY)]\n"
-        + "Example: " + COMMAND_WORD + " 1";
+            + "Marks the job identified by the index number in the displayed job list as complete.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[COMPLETION DATE (in dd/MM/YYYY)]\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Repair job marked as complete: %1$s";
 

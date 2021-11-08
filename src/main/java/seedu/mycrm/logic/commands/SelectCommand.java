@@ -11,11 +11,11 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Only used in conjunction with addJob or editJob.\n"
-        + "Will select an item from a displayed list.\n"
-        + "depending on whether a contact or product is currently being assigned to the job\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+            + ": Only used in conjunction with addJob or editJob.\n"
+            + "Will select an item from a displayed list.\n"
+            + "depending on whether a contact or product is currently being assigned to the job\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     private static final CommandType COMMAND_TYPE = CommandType.JOBS;
 

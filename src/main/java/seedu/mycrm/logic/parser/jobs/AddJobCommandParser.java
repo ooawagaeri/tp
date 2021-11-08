@@ -53,8 +53,7 @@ public class AddJobCommandParser implements Parser<AddJobCommand> {
             Prefix[] mandatoryPrefixes) throws ParseException {
 
         if (!arePrefixesPresent(argMultimap, mandatoryPrefixes) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddJobCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddJobCommand.MESSAGE_USAGE));
         }
     }
 
