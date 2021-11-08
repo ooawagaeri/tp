@@ -759,7 +759,7 @@ without their index, e.g `editJob INDEX c/ p/`
 
 The below sequence diagram shows an example usage scenario where both the contact and product indexes are present.
 
-[![Sequence diagram of edit job](images/job/EditJobSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/product/EditJobSequenceDiagram.png)
+[![Sequence diagram of edit job](images/job/EditJobSequenceDiagram.png)](https://ay2122s1-cs2103-t14-3.github.io/tp/images/job/EditJobSequenceDiagram.png)
 
 The parsing for `editJob` is similar to `addJob` where methods from `ParserUtil` are used to create the sub-components,
 before creating the edited version of the job.

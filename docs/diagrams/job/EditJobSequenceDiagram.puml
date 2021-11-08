@@ -5,8 +5,6 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "jobToEdit:EditJobCommand" as EditJobCommand LOGIC_COLOR
 participant "lastShownJobList: List<Job>" as ListJob LOGIC_COLOR
-participant "lastShownProductList: List<Product>" as ListProduct LOGIC_COLOR
-participant "lastShownContactList: List<Contact>" as ListContact LOGIC_COLOR
 participant "**<<class>>**\nJob" as Job LOGIC_COLOR
 participant ":StateManager" as StateManager LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -78,3 +76,4 @@ destroy EditJobCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
+
